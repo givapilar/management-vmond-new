@@ -72,7 +72,7 @@
                                     Edit
                                 </a>
 
-                                <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Departement', '{{ $departement->name }}', '/management-vmond/public/departement/' + {{ $departement->id }}, '/management-vmond/public/departement/')">
+                                <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Departement', '{{ $departement->name }}', '/departement/' + {{ $departement->id }}, '/departement/')">
                                     <i class="far fa-trash-alt"></i>
                                     Delete
                                 </a>

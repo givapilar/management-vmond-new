@@ -72,7 +72,7 @@
                         <i class="far fa-edit"></i>
                         Edit
                       </a> --}}
-                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('material', '{{ $material->nams }}', '/management-vmond/public/material/' + {{ $material->id }}, '/management-vmond/public/material/')">
+                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('material', '{{ $material->nams }}', '/material/' + {{ $material->id }}, '/material/')">
                         <i class="far fa-trash-alt"></i>
                         Hapus
                       </a>

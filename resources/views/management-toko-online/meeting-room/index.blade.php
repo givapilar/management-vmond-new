@@ -72,7 +72,7 @@
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Meeting Room', '{{ $meeting_room->nama }}', '/management-vmond/public/meeting-room/' + {{ $meeting_room->id }}, '/management-vmond/public/meeting-room/')">
+                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Meeting Room', '{{ $meeting_room->nama }}', '/meeting-room/' + {{ $meeting_room->id }}, '/meeting-room/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>

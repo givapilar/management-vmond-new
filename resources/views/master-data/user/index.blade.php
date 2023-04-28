@@ -72,7 +72,7 @@
                         Edit User
                       </button>
                       {{-- @if(auth()->user()->can('user-delete') && Auth::user()->id != $user->id) --}}
-                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('User', '{{ $user->name }}', '/management-vmond/public/users/' + {{ $user->id }}, '/management-vmond/public/users/')">
+                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('User', '{{ $user->name }}', ' /users/' + {{ $user->id }}, '  /users/')">
                         <i class="far fa-trash-alt"></i>
                         Delete
                       </a>

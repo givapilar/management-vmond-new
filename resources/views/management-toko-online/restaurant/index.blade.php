@@ -74,7 +74,7 @@
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Restaurant', '{{ $restaurant->nama }}', '/management-vmond/public/restaurant/' + {{ $restaurant->id }}, '/management-vmond/public/restaurant/')">
+                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Restaurant', '{{ $restaurant->nama }}', '/restaurant/' + {{ $restaurant->id }}, '/restaurant/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>

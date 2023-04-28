@@ -72,7 +72,7 @@
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/management-vmond/public/biliard/' + {{ $biliard->id }}, '/management-vmond/public/biliard/')">
+                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/biliard/' + {{ $biliard->id }}, '/biliard/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>
