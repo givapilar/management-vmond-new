@@ -35,15 +35,17 @@
               </span>
             </div>
   
+            @can('restaurant-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu">
                 <i class="fa fa-plus"></i> 
                 Tambah Menu
               </button>
             </div>
+            @endcan
           </div>
 
-        <table id="dtBasicExample" class="table" width="100%">
+        <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
             <th class="th-sm">No</th>
@@ -58,28 +60,32 @@
             <tbody>
                 @foreach ($restaurants as $restaurant)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $restaurant->nama }}</td>
-                        <td>{{ $restaurant->category }}</td>
-                        <td>{{ $restaurant->harga }}</td>
-                        <td>{{ $restaurant->status }}</td>
-                        <td>{{ $restaurant->description }}</td>
+                        <td class="table-head">{{ $loop->iteration }}</td>
+                        <td class="table-head">{{ $restaurant->nama }}</td>
+                        <td class="table-head">{{ $restaurant->category }}</td>
+                        <td class="table-head">{{ $restaurant->harga }}</td>
+                        <td class="table-head">{{ $restaurant->status }}</td>
+                        <td class="table-head">{{ $restaurant->description }}</td>
+                        @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
                         <td>
                             <div class="btn-group-sm">
-                              {{-- <a href="{{ route('material.edit', $restaurant->id) }}" class="btn btn-warning text-white">
-                                <i class="far fa-edit"></i>
-                                Edit
-                              </a> --}}
+                              @can('restaurant-edit')
                               <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-restaurant{{ $restaurant->id }}">
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </button>
+                              @endcan
+
+                              @can('restaurant-delete')
                               <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Restaurant', '{{ $restaurant->nama }}', '/restaurant/' + {{ $restaurant->id }}, '/restaurant/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>
+                              @endcan
+                              
                             </div>
                           </td>
+                          @endif
                         </tr>
                         @include('management-toko-online.restaurant.edit')
                 @endforeach

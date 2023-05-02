@@ -41,6 +41,11 @@
                 Tambah Stok Keluar
               </button>
             </div>
+            <div class="row">
+              <div class="col-6">
+                  @include('components.flash-message')
+              </div>
+          </div>
           </div>
 
         <table id="dtBasicExample" class="table" width="100%">

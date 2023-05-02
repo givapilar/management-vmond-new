@@ -12,6 +12,8 @@ class Material extends Model
 
     protected $table = 'material';
 
+    protected $fillable = ['code', 'nama', 'unit','description'];
+
     public function stokMasuk()
     {
         return $this->hasMany(StokMasuk::class, 'material_id', 'id');

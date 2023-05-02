@@ -70,7 +70,7 @@
                                 <i class="fa fa-edit"></i> 
                                 Edit Stok Masuk
                               </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/management-vmond/public/stok-masuk/' + {{ $stok_masuk->id }}, '/management-vmond/public/stok-masuk/')">
+                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/stok-masuk/' + {{ $stok_masuk->id }}, '/stok-masuk/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>

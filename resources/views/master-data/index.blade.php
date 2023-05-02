@@ -146,7 +146,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-md-6" onclick="location.href=''">
+                        <div class="col-lg-3 col-md-6" onclick="location.href='{{ route('material.index') }}'">
                             <div class="box card-master">
                                 <div class="box-body p-10">
                                     <div class="d-flex align-items-center">

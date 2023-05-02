@@ -35,15 +35,26 @@
               </span>
             </div>
   
+            @can('material-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl">
                 <i class="fa fa-plus"></i> 
-                Tambah Material
+                Tambah
               </button>
+              <form action="{{ route('import-excel') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="import_file" class="form-control">
+                  @error('import_file')
+                  <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                <button type="submit" class="btn btn-primary mt-2">Import</button>
+              </form>
+            
             </div>
+            @endcan
 
-          <div class="table-responsive">
-            <table class="table">
+          <div>
+            <table id="example" class="table table-striped" style="width:100%">
               <thead>
                 <tr>
                   <th>No</th>
@@ -57,27 +68,29 @@
               <tbody>
                 @foreach ($materials as $material)
                 <tr>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $material->code }}</td>
-                  <td>{{ $material->nama }}</td>
-                  <td>{{ $material->unit }}</td>
-                  <td>{{ $material->description ?? 'N/A' }}</td>
+                  <td class="table-head">{{ $loop->iteration }}</td>
+                  <td class="table-head">{{ $material->code }}</td>
+                  <td class="table-head">{{ $material->nama }}</td>
+                  <td class="table-head">{{ $material->unit }}</td>
+                  <td class="table-head">{{ $material->description ?? 'N/A' }}</td>
+                  @if(auth()->user()->can('material-delete') || auth()->user()->can('material-edit'))
                   <td>
                     <div class="btn-group-sm">
+                      @can('material-edit')
                       <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl-edit{{ $material->id }}">
                         <i class="fa fa-edit"></i> 
-                        Edit Material
-                      </button>
-                      {{-- <a href="{{ route('material.edit', $material->id) }}" class="btn btn-warning text-white">
-                        <i class="far fa-edit"></i>
                         Edit
-                      </a> --}}
+                      </button>
+                      @endcan
+                      @can('material-edit')
                       <a href="#" class="btn btn-danger f-12" onclick="modalDelete('material', '{{ $material->nams }}', '/material/' + {{ $material->id }}, '/material/')">
                         <i class="far fa-trash-alt"></i>
                         Hapus
                       </a>
+                      @endcan
                     </div>
                   </td>
+                  @endif
                 </tr>
                 @include('master-data.material.edit')
                 @endforeach

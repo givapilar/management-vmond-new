@@ -83,8 +83,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="forms-sample" action="{{ route('stok-masuk.store') }}" method="POST">
+            <form class="forms-sample" action="{{ route('stok-keluar.store') }}" method="POST">
                 @csrf
+
+                @include('components.form-message')
 
                 <div class="form-group mb-3">
                     <label>Material</label>
@@ -105,16 +107,15 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="material_masuk">Stok Masuk</label>
-                    <input type="number" class="form-control @error('material_masuk') is-invalid @enderror" id="material_masuk" name="material_masuk" value="{{ old('material_masuk') }}"  placeholder="Stok Masuk">
+                    <label for="material_keluar">Stok Keluar</label>
+                    <input type="number" class="form-control @error('material_keluar') is-invalid @enderror" id="material_keluar" name="material_keluar" value="{{ old('material_keluar') }}"  placeholder="Stok Keluar">
 
-                    @error('material_masuk')
+                    @error('material_keluar')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
-
 
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -127,10 +128,8 @@
                     @enderror
                 </div>
 
-                
-                
                 <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('stok-masuk.index') }}">
+                <a href="{{ route('stok-keluar.index') }}">
                     <button class="btn btn-dark">Cancel</button>
                 </a>
             </form>

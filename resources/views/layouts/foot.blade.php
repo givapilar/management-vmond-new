@@ -29,35 +29,41 @@
 <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
 {{-- <script src="{{ asset('assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script> --}}
 
-{{-- data tables --}}
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+{{-- Chart Js --}}
+{{-- <script src="{{ asset('assets/vendors/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/js/chart.js') }}"></script> --}}
+{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- End Chart --}}
 
+{{-- data tables --}}
+{{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
 {{-- Cdn Autonumeric --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
 {{-- Toastify --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
+    // $(document).ready(function () {
+    //     $('#dtBasicExample').DataTable();
+    //     $('.dataTables_length').addClass('bs-select');
+    // });
+
     $(document).ready(function () {
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
+        // $('#example').DataTable(
+        //     responsive: true
+        // );
+        var table = $('#example').DataTable( {
+        responsive: true
+    } );
+        
     });
-
-    // Toastify({
-    //     text: "This is a toast",
-    //     duration: 3000,
-    //     destination: "https://github.com/apvarun/toastify-js",
-    //     newWindow: true,
-    //     close: true,
-    //     gravity: "top", // `top` or `bottom`
-    //     position: "left", // `left`, `center` or `right`
-    //     stopOnFocus: true, // Prevents dismissing of toast on hover
-    //     style: {
-    //         background: "linear-gradient(to right, #00b09b, #96c93d)",
-    //     },
-    //     onClick: function(){} // Callback after click
-    // }).showToast();
-
+ 
     function detailModal(title, url, width) {
         $.confirm({
             title: title,
@@ -162,6 +168,47 @@
     }
 </script>
 
+<script>
+    function logout() {
+        $.confirm({
+            icon: 'fas fa-sign-out-alt',
+            title: 'Logout',
+            theme: 'supervan',
+            content: 'Are you sure want to logout?',
+            autoClose: 'cancel|800000',
+            buttons: {
+                logout: {
+                    text: 'logout',
+                    btnClass: 'btn-danger',
+                    
+                    action: function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('logout') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function (data) {
+                                location.reload();
+                            },
+                            error: function (data) {
+                                $.alert('Failed!');
+                                console.log(data);
+                            }
+                        });
+                    }
+                },
+                cancel: function () {
+                    
+                }
+            }
+        });
+    }
+</script>
+
 @if(session()->has('success'))
     <script>
             Toastify({
@@ -213,6 +260,30 @@
     }).showToast();
 </script>
 @endif
+
+<script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>
+  
 
 
 

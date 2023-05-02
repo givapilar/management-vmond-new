@@ -35,16 +35,18 @@
               </span>
             </div>
   
+            @can('departement-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-departement">
                 <i class="fa fa-plus"></i> 
                 Tambah Departement
               </button>
             </div>
+            @endcan
           </div>
 
-          <div class="table-responsive">
-            <table class="table">
+          <div>
+            <table id="example" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -57,27 +59,34 @@
                 <tbody>
                     @foreach ($departements as $departement)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $departement->name }}</td>
+                        <td class="table-head">{{ $loop->iteration }}</td>
+                        <td class="table-head">{{ $departement->name }}</td>
                         <td>
                             <button onclick="detailModal('Permission User', 'departement/' + {{ $departement->id }}, 'small')" class="btn btn-sm btn-primary">
                                 <i class="fa fa-info-circle"></i>Show Permissions
                             </button>
                         </td>
+
+                        @if(auth()->user()->can('departement-delete') || auth()->user()->can('departement-edit'))
                         <td>
                             <div class="btn-group-sm">
+                                @can('departement-edit')
                                 <a href="{{ route('departement.edit', $departement->id) }}"
                                     class="btn btn-warning text-white">
                                     <i class="far fa-edit"></i>
                                     Edit
                                 </a>
+                                @endcan
 
+                                @can('departement-delete')
                                 <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Departement', '{{ $departement->name }}', '/departement/' + {{ $departement->id }}, '/departement/')">
                                     <i class="far fa-trash-alt"></i>
                                     Delete
                                 </a>
+                                @endcan
                             </div>
                         </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>

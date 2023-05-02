@@ -35,15 +35,17 @@
               </span>
             </div>
   
+            @can('meeting-room-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-meeting-room">
                 <i class="fa fa-plus"></i> 
                 Tambah Menu
               </button>
             </div>
+            @endcan
           </div>
 
-        <table id="dtBasicExample" class="table" width="100%">
+        <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
             <th class="th-sm">No</th>
@@ -59,25 +61,32 @@
             <tbody>
                 @foreach ($meeting_rooms as $meeting_room)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $meeting_room->nama }}</td>
-                        <td>{{ $meeting_room->no_meja }}</td>
-                        <td>{{ $meeting_room->harga }}</td>
-                        <td>{{ $meeting_room->status }}</td>
-                        <td>{{ $meeting_room->image }}</td>
-                        <td>{{ $meeting_room->description }}</td>
+                        <td class="table-head">{{ $loop->iteration }}</td>
+                        <td class="table-head">{{ $meeting_room->nama }}</td>
+                        <td class="table-head">{{ $meeting_room->no_meja }}</td>
+                        <td class="table-head">{{ $meeting_room->harga }}</td>
+                        <td class="table-head">{{ $meeting_room->status }}</td>
+                        <td class="table-head">{{ $meeting_room->image }}</td>
+                        <td class="table-head">{{ $meeting_room->description }}</td>
+                        @if(auth()->user()->can('meeting-room-delete') || auth()->user()->can('meeting-room-edit'))
                         <td>
                             <div class="btn-group-sm">
+                              @can('meeting-room-edit')
                               <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-meeting_room{{ $meeting_room->id }}">
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </button>
+                              @endcan
+                              
+                              @can('meeting-room-delete')
                               <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Meeting Room', '{{ $meeting_room->nama }}', '/meeting-room/' + {{ $meeting_room->id }}, '/meeting-room/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>
+                              @endcan
                             </div>
                           </td>
+                          @endif
                         </tr>
                         @include('management-toko-online.meeting-room.edit')
                 @endforeach

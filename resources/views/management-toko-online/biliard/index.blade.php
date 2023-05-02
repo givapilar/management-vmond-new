@@ -35,56 +35,63 @@
               </span>
             </div>
   
+            @can('biliard-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-biliard">
                 <i class="fa fa-plus"></i> 
                 Tambah Menu
               </button>
             </div>
+            @endcan
           </div>
 
-        <table id="dtBasicExample" class="table" width="100%">
-        <thead>
+        <table id="example" class="table table-striped" style="width:100%">
+          <thead>
             <tr>
-            <th class="th-sm">No</th>
-            <th class="th-sm">Nama</th>
-            <th class="th-sm">No Meja</th>
-            <th class="th-sm">Harga</th>
-            <th class="th-sm">Status</th>
-            <th class="th-sm">image</th>
-            <th class="th-sm">Description</th>
-            <th class="th-sm">Action</th>
-            </tr>
-        </thead>
-            <tbody>
-                @foreach ($biliards as $biliard)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $biliard->nama }}</td>
-                        <td>{{ $biliard->no_meja }}</td>
-                        <td>{{ $biliard->harga }}</td>
-                        <td>{{ $biliard->status }}</td>
-                        <td>{{ $biliard->image }}</td>
-                        <td>{{ $biliard->description }}</td>
-                        <td>
-                            <div class="btn-group-sm">
-                              <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-biliard{{ $biliard->id }}">
-                                <i class="fa fa-edit"></i> 
-                                Edit
-                              </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/biliard/' + {{ $biliard->id }}, '/biliard/')">
-                                <i class="far fa-trash-alt"></i>
-                                Delete
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        @include('management-toko-online.biliard.edit')
-                @endforeach
-            
-            </tbody>
-        
-        </table>
+              <th class="th-sm">No</th>
+              <th class="th-sm">Nama</th>
+              <th class="th-sm">No Meja</th>
+              <th class="th-sm">Harga</th>
+              <th class="th-sm">Status</th>
+              <th class="th-sm">image</th>
+              <th class="th-sm">Description</th>
+              <th class="th-sm">Action</th>
+          </thead>
+          <tbody>
+            @foreach ($biliards as $biliard)
+            <tr>
+                <td class="table-head">{{ $loop->iteration }}</td>
+                <td class="table-head">{{ $biliard->nama }}</td>
+                <td class="table-head">{{ $biliard->no_meja }}</td>
+                <td class="table-head">{{ $biliard->harga }}</td>
+                <td class="table-head">{{ $biliard->status }}</td>
+                <td class="table-head">{{ $biliard->image }}</td>
+                <td class="table-head">{{ $biliard->description }}</td>
+                @if(auth()->user()->can('biliard-delete') || auth()->user()->can('biliard-edit'))
+                <td>
+                    <div class="btn-group-sm">
+                      @can('biliard-edit')
+                      <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-biliard{{ $biliard->id }}">
+                        <i class="fa fa-edit"></i> 
+                        Edit
+                      </button>
+                      @endcan
+                      @can('biliard-delete')
+                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/biliard/' + {{ $biliard->id }}, '/biliard/')">
+                        <i class="far fa-trash-alt"></i>
+                        Delete
+                      </a>
+                      @endcan
+                    </div>
+                  </td>
+                  @endif
+                </tr>
+                @include('management-toko-online.biliard.edit')
+        @endforeach
+              
+          </tbody>
+          
+      </table>
 
         </div>
       </div>
