@@ -10,8 +10,7 @@
         <h3 class="page-title"> </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Master Data</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User</li>
+                <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
             </ol>
         </nav>
     </div> --}}
@@ -73,7 +72,44 @@
     </div>
 
     <div class="content-wrapper">
-
+      {{-- <form action="" method="post">
+        @csrf
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input type="date" class="form-control" name="start_date">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-group-lg">
+                        <i class="fas fa-cog fa-lg"></i>
+                        Generate
+                    </button>
+                </div>
+            </div>
+        </div>
+      </form> --}}
+      <form action="" method="post">
+        @csrf
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input placeholder="Select Month"  class="form-control datepicker-here  digits @error('start_date') is-invalid @enderror"
+                    type="date" data-language="en" data-min-view="months" data-view="months"
+                    data-date-format="MM yyyy" name="start_date">
+                    {{-- <label for="month">Month: </label>
+                    <input type="text" id="month" name="month" class="monthPicker" /> --}}
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-group-lg">
+                        <i class="fas fa-cog fa-lg"></i>
+                        Generate
+                    </button>
+                </div>
+            </div>
+        </div>
+      </form>
         <div class="row">
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">

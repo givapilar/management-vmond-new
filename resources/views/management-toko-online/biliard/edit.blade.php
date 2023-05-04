@@ -47,7 +47,7 @@
                         <div class="col-lg-4">
                             <div class="form-group mb-3">
                                 <label for="harga">Harga</label>
-                                <input class="form-control @error('harga') is-invalid @enderror" id="name" type="text" name="harga" placeholder="Harga" required value="{{ old('harga') ?? $biliard->harga }}">
+                                <input class="form-control @error('harga') is-invalid @enderror" id="harga_edit" type="text" name="harga" placeholder="Harga" required value="{{ old('harga') ?? $biliard->harga }}">
                                 
                                 @error('harga')
                                 <span class="invalid-feedback" role="alert">
@@ -118,5 +118,14 @@
       </div>
     </div>
   </div>
+
+  <script>
+    new AutoNumeric('#harga_edit', {
+        currencySymbol : '',
+        decimalCharacter : ',',
+        digitGroupSeparator : '.',
+    });
+
+</script>
 
   

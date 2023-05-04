@@ -31,6 +31,11 @@
   </head>
   <body>
     <div class="container-scroller">
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+            </div>
         @include('layouts.sidebar')
 
         <div class="container-fluid page-body-wrapper">
