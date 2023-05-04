@@ -27,23 +27,23 @@
   <head>
     <!-- Required meta tags -->
     @include('layouts.head')
-   
+
   </head>
   <body>
     <div class="container-scroller">
         @include('layouts.sidebar')
-        
+
         <div class="container-fluid page-body-wrapper">
-            
+
         @include('layouts.navbar')
 
         <div class="main-panel">
-          
+
           @yield('content')
 
           <!-- content-wrapper ends -->
             @include('layouts.footer')
-            
+
         </div>
         <!-- main-panel ends -->
     </div>

@@ -21,7 +21,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          
+
           <div class="row">
             <div class="col-12">
                 @include('components.flash-message')
@@ -34,10 +34,10 @@
                 {{-- <h4 class="card-title">{{ $page_title }}</h4> --}}
               </span>
             </div>
-  
+
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-stok-keluar">
-                <i class="fa fa-plus"></i> 
+                <i class="fa fa-plus"></i>
                 Tambah Stok Keluar
               </button>
             </div>
@@ -68,10 +68,10 @@
                         <td>
                             <div class="btn-group-sm">
                               <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
-                                <i class="fa fa-edit"></i> 
+                                <i class="fa fa-edit"></i>
                                 Edit Stok Keluar
                               </button>
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Stok keluar', '{{ $stok_keluar->material->nama }}', '/management-vmond/public/stok-keluar/' + {{ $stok_keluar->id }}, '/management-vmond/public/stok-keluar/')">
+                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Stok keluar', '{{ $stok_keluar->material->nama }}', '/stok-keluar/' + {{ $stok_keluar->id }}, '/stok-keluar/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>
@@ -80,9 +80,9 @@
                     </tr>
                     @include('inventory.stok-keluar.edit')
                 @endforeach
-            
+
             </tbody>
-        
+
         </table>
 
         </div>

@@ -21,7 +21,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          
+
           <div class="row">
             <div class="col-12">
                 @include('components.flash-message')
@@ -34,22 +34,22 @@
                 <h4 class="card-title">{{ $page_title }}</h4>
               </span>
             </div>
-  
+
             @can('material-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl">
-                <i class="fa fa-plus"></i> 
+                <i class="fa fa-plus"></i>
                 Tambah
               </button>
-              <form action="{{ route('import-excel') }}" method="POST" enctype="multipart/form-data">
+              {{-- <form action="{{ route('import-excel') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="import_file" class="form-control">
                   @error('import_file')
                   <span class="text-danger">{{ $message }}</span>
                   @enderror
                 <button type="submit" class="btn btn-primary mt-2">Import</button>
-              </form>
-            
+              </form> --}}
+
             </div>
             @endcan
 
@@ -78,7 +78,7 @@
                     <div class="btn-group-sm">
                       @can('material-edit')
                       <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl-edit{{ $material->id }}">
-                        <i class="fa fa-edit"></i> 
+                        <i class="fa fa-edit"></i>
                         Edit
                       </button>
                       @endcan
