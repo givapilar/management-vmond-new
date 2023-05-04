@@ -89,9 +89,10 @@
                     </div>
 
                     
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Permission</label>
-                        <select name="permissions[]" id="e1" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                        <input type="checkbox" id="checkbox" >Select All
+                        <select name="permissions[]" id="e1" class="js-example-basic-multiple" multiple id="e1" style="width:100%">
                             @foreach ($permissions as $permission)
                             <option value="{{$permission->id}}" 
                                 @foreach (old('permissions') ?? [] as $id)
@@ -103,12 +104,23 @@
                             </option>
                             @endforeach
                         </select>
-                    </div>
+
                         @error('permissions')
-                            <span class="text-danger text-sm">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                              <span class="text-danger text-sm">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
+                    </div> --}}
+                    
+                    {{-- <select class="form-control" multiple id="e1" style="width:300px">
+                        <option value="AL">Alabama</option>
+                        <option value="Am">Amalapuram</option>
+                        <option value="An">Anakapalli</option>
+                        <option value="Ak">Akkayapalem</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                    <input type="checkbox" id="checkbox" >Select All --}}
+
                 </div>
                 
                 <div class="card-footer bg-gray1" style="border-radius:0px 0px 15px 15px;">
@@ -119,3 +131,21 @@
       </div>
     </div>
   </div>
+
+  <script>
+    $("#e1").select2();
+        $("#checkbox").click(function(){
+            if($("#checkbox").is(':checked') ){
+                $("#e1 > option").prop("selected","selected");
+                $("#e1").trigger("change");
+            }else{
+                $("#e1 > option").removeAttr("selected");
+                $("#e1").trigger("change");
+            }
+        });
+
+        $("#button").click(function(){
+            alert($("#e1").val());
+        });
+
+  </script>
