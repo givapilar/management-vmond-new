@@ -42,8 +42,10 @@ Route::get('/', function () {
     Route::middleware('auth:web')->group(function () {
 
         Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::get('/dahboardd', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        // Route::get('/dahboardd', [DashboardController::class, 'index'])->name('dashboard');
             // Master-data
             Route::get('/master-data', function () {
                 return view('master-data.index');
@@ -56,6 +58,7 @@ Route::get('/', function () {
     
             // User 
             Route::resource('/users', UserController::class);
+            Route::get('/profile', UserController::class, 'profile')->name('profile');
     
             // departement
             Route::resource('/departement', DepartementController::class);

@@ -131,6 +131,15 @@ class UserController extends Controller
         return response()->json(['status' => '200']);
     }
 
+    public function profile($id)
+    {
+        $data['page_title'] = 'Edit Profile';
+        $data['breadcumb'] = 'Edit';
+        $data['user'] = User::findOrFail($id);
+        $data['roles'] = Role::pluck('name')->all();
+
+        return view('master-data.user.profile', $data);
+    }
     public function changePassword(Request $request)
     {
         $validateData = $request->validate([

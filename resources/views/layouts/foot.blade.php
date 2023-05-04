@@ -39,7 +39,7 @@
 {{-- data tables --}}
 {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
@@ -52,6 +52,11 @@
 {{-- End Date Picker --}}
 {{-- Toastify --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+{{-- <script>
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    });
+</script> --}}
 <script>
 
     $(document).ready(function() {
@@ -270,28 +275,8 @@
 </script>
 @endif
 
-<script>
-    const ctx = document.getElementById('myChart');
-  
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-</script>
+@yield('javascript')
+
   
 
 

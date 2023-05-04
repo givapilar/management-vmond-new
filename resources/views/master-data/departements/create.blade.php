@@ -88,6 +88,32 @@
                         @enderror
                     </div>
 
+                    {{-- <div class="form-group mb-3">
+                        <label for="">Permissions</label> <br>
+                        <small>Select All</small>
+                        <input type="checkbox" id="checkbox">
+
+                        <div class="select2-purple">
+                            <select class="select2" name="permissions[]" id="e1" data-placeholder="Select The Permissions" multiple data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                @foreach ($permissions as $permission)
+                                    <option value="{{$permission->id}}" 
+                                        @foreach (old('permissions') ?? [] as $id)
+                                            @if ($id == $permission->id)
+                                                {{ ' selected' }}
+                                            @endif
+                                        @endforeach>
+                                        {{$permission->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        @error('permissions')
+                            <span class="text-danger text-sm">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div> --}}
                     
                     {{-- <div class="form-group">
                         <label>Permission</label>
