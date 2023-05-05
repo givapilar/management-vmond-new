@@ -68,7 +68,7 @@
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-icon">
-            <i class="mdi mdi-laptop"></i>
+            <i class="mdi mdi-archive"></i>
           </span>
           <span class="menu-title">Inventory</span>
           <i class="menu-arrow"></i>
@@ -85,7 +85,7 @@
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('master-data.index') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-playlist-play"></i>
+            <i class="mdi mdi-folder-outline"></i>
           </span>
           <span class="menu-title">Master Data</span>
         </a>
@@ -94,7 +94,7 @@
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('management-toko-online.index') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-playlist-play"></i>
+            <i class="mdi mdi-basket"></i>
           </span>
           <span class="menu-title">Toko Online</span>
         </a>

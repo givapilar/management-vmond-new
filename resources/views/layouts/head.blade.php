@@ -173,5 +173,8 @@ h1 {
         color: white !important;
     }
 
+    .close{
+      color: #fff;
+    }
 </style>
 @yield('style')

@@ -21,7 +21,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
-          
+
           <div class="row">
             <div class="col-12">
                 @include('components.flash-message')
@@ -34,11 +34,11 @@
                 <h4 class="card-title">{{ $page_title }}</h4>
               </span>
             </div>
-  
+
             @can('departement-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-departement">
-                <i class="fa fa-plus"></i> 
+                <i class="fa fa-plus"></i>
                 Tambah Departement
               </button>
             </div>

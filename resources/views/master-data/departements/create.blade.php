@@ -88,6 +88,8 @@
                         @enderror
                     </div>
 
+                   
+
                     {{-- <div class="form-group mb-3">
                         <label for="">Permissions</label> <br>
                         <small>Select All</small>
@@ -115,15 +117,16 @@
                         @enderror
                     </div> --}}
                     
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label>Permission</label>
-                        <input type="checkbox" id="checkbox" >Select All
-                        <select name="permissions[]" id="e1" class="js-example-basic-multiple" multiple id="e1" style="width:100%">
+                        <input type="checkbox" id="checkbox">
+                        {{-- <input type="checkbox" id="checkbox" >Select All --}}
+                        <select name="permissions[]" class="js-example-basic-multiple select2-department select2" id="e1" multiple ="multiple" style="width:100%">
                             @foreach ($permissions as $permission)
                             <option value="{{$permission->id}}" 
                                 @foreach (old('permissions') ?? [] as $id)
                                     @if ($id == $permission->id)
-                                        {{ ' selected' }}
+                                        {{ 'selected' }}
                                     @endif
                                 @endforeach>
                                 {{$permission->name}}
@@ -136,7 +139,7 @@
                                   <strong>{{ $message }}</strong>
                               </span>
                           @enderror
-                    </div> --}}
+                    </div>
                     
                     {{-- <select class="form-control" multiple id="e1" style="width:300px">
                         <option value="AL">Alabama</option>
@@ -157,21 +160,18 @@
       </div>
     </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
   <script>
-    $("#e1").select2();
-        $("#checkbox").click(function(){
-            if($("#checkbox").is(':checked') ){
-                $("#e1 > option").prop("selected","selected");
-                $("#e1").trigger("change");
-            }else{
-                $("#e1 > option").removeAttr("selected");
-                $("#e1").trigger("change");
-            }
-        });
 
-        $("#button").click(function(){
-            alert($("#e1").val());
-        });
+    $("#checkbox").click(function () {
+       if ($("#checkbox").is(':checked')) {
+           $("#e1 > option").prop("selected", "selected");
+           $("#e1").trigger("change");
+       } else {
+           $("#e1 > option").removeAttr("selected");
+           $("#e1").val("");
+           $("#e1").trigger("change");
+       }
+   });
 
   </script>

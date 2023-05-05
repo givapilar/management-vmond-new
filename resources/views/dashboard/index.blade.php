@@ -11,14 +11,14 @@
 @section('content')
 <div class="content-wrapper">
 
-    <div class="page-header">
+    {{-- <div class="page-header">
         <h3 class="page-title"> </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
             </ol>
         </nav>
-    </div>
+    </div> --}}
 
     <div class="content-wrapper">
         <form action="{{ route('dashboard') }}" method="post">
@@ -36,9 +36,9 @@
                     <div class="form-group ">
                               <label> period :</label>
                               <select class="form-control select2" data-placeholder="Choose one"
-                                  id="daterange">
-                                  <option value="day">Daily</option>
-                                  <option value="month">Monthly</option>
+                                  id="daterange" name="type">
+                                  <option value="day" {{ ($type == 'day') ? 'selected' : ''}}>Daily</option>
+                                  <option value="month" {{ ($type == 'month') ? 'selected' : '' }}>Monthly</option>
                               </select>
                       </div>
                 </div>
@@ -51,15 +51,15 @@
                             type="month" name="start_date">
                     </div> --}}
                     <div class="form-group" id="datepicker-date-area">
-                              <label> Date :</label>
-                              <input type="text" name="date" id="date" value="{{date('Y-m-d')}}"
-                                  autocomplete="off" class="datepicker form-control time" required>
-                          </div>
-                          <div class="form-group hilang" id="datepicker-month-area">
-                              <label> Month :</label>
-                              <input type="text" name="date" id="month" value="{{date('Y-m')}}"
-                                  autocomplete="off" class="datepicker-month form-control time" required>
-                          </div>
+                        <label> Date :</label>
+                        <input type="text" name="start_date" id="date" value="{{$start_date ?? date('Y-m-d')}}"
+                            autocomplete="off" class="datepicker form-control time" required>
+                    </div>
+                    <div class="form-group hilang" id="datepicker-month-area">
+                        <label> Month :</label>
+                        <input type="text" name="start_date" id="month" value="{{date('Y-m',strtotime($start_date)) ?? date('Y-m')}}"
+                            autocomplete="off" class="datepicker-month form-control time" required>
+                    </div>
                 </div>
 
                 {{-- <div class="card-body ">
@@ -90,20 +90,20 @@
                   </div>
               </div> --}}
 
-                <div class="col-lg-3">
-                    <div class="form-group mb-3">
-                        <label>Material</label>
-                        <select class="js-example-basic-single @error('material_id') is-invalid @enderror"
-                            id="material_id" name="material_id" style="width:100%">
-                            <option disabled selected>Choose Material</option>
-                            @foreach ($materials as $material)
-                            <option value="{{ $material->id }}"
-                                {{ old('material_id') == $material->id ? 'selected' : '' }}>
-                                {{ $material->nama }} </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+              <div class="col-lg-3">
+                  <div class="form-group mb-3">
+                      <label>Material</label>
+                      <select class="js-example-basic-single @error('material_id') is-invalid @enderror"
+                          id="material_id" name="material_id" style="width:100%">
+                          <option disabled selected>Choose Material</option>
+                          @foreach ($materials as $material)
+                          <option value="{{ $material->id }}"
+                              {{ old('material_id') == $material->id ? 'selected' : '' }}>
+                              {{ $material->nama }} </option>
+                          @endforeach
+                      </select>
+                  </div>
+              </div>
 
 
                 <div class="col-lg-3">
@@ -179,6 +179,8 @@
 
 
             </div>
+          </div>
+
         </div>
 </div>
 </div>
@@ -250,6 +252,22 @@
                 toggleActive: true,
                 container: '.datepicker-area'
             });
+
+            let rangeNow = $('#daterange').val();
+            if (rangeNow == 'day') {
+                $('#datepicker-date-area').removeClass('hilang');
+                const element = document.querySelector('#datepicker-date-area')
+                element.classList.add('animated', 'fadeIn')
+                // Hilangkan Month
+                $('#datepicker-month-area').addClass('hilang');
+
+            } else {
+                $('#datepicker-month-area').removeClass('hilang');
+                const element = document.querySelector('#datepicker-month-area')
+                element.classList.add('animated', 'fadeIn')
+                // Hilangkan Date
+                $('#datepicker-date-area').addClass('hilang');
+            }
 
             $('#daterange').on('change', function () {
                 val = $(this).val();

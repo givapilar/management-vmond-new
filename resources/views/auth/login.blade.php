@@ -27,11 +27,16 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/css/main.css') }}">
 <!--===============================================================================================-->
+<style>
+	.bg-loginn{
+		background-image: url('https://caterease.com/wp-content/uploads/2019/01/Final-Background-For-Login.png');
+	}
+</style>
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100">
+		<div class="container-login100 bg-loginn">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
                     @csrf
