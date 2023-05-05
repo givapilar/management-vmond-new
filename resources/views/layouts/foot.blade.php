@@ -277,35 +277,9 @@
 </script>
 @endif
 
-<<<<<<< HEAD
-<script>
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-</script>
-
-=======
 @yield('javascript')
 
-  
->>>>>>> 4561dbbaf1a5ebc15bf48e9c477f6f9a77d4ccd2
+
 
 
 

@@ -139,13 +139,8 @@
                                   <strong>{{ $message }}</strong>
                               </span>
                           @enderror
-<<<<<<< HEAD
-                    </div> --}}
-
-=======
                     </div>
 
->>>>>>> 4561dbbaf1a5ebc15bf48e9c477f6f9a77d4ccd2
                     {{-- <select class="form-control" multiple id="e1" style="width:300px">
                         <option value="AL">Alabama</option>
                         <option value="Am">Amalapuram</option>
