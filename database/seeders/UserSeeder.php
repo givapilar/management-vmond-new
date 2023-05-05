@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission; 
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -35,13 +35,13 @@ class UserSeeder extends Seeder
             $user->username = 'root';
             $user->email = 'root@root.com';
             $user->password = Hash::make('root');
-    
+
             $user->save();
-    
+
             $role = Role::create(['name' => 'Admin']);
         }
 
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id')->all();
         $role->syncPermissions($permissions);
         $user->assignRole([$role->id]);
     }

@@ -39,7 +39,7 @@
 {{-- data tables --}}
 {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
@@ -55,7 +55,7 @@
 <script>
 
     $(document).ready(function() {
-    
+
     // Fakes the loading setting a timeout
     setTimeout(function() {
         $('body').addClass('loaded');
@@ -70,9 +70,9 @@
         var table = $('#example').DataTable( {
         responsive: true
     } );
-        
+
     });
- 
+
     function detailModal(title, url, width) {
         $.confirm({
             title: title,
@@ -86,7 +86,7 @@
             columnClass: width,
             buttons: {
                 close: {
-                    btnClass: 'btn-dark font-bold',                    
+                    btnClass: 'btn-dark font-bold',
                 }
             },
         });
@@ -169,11 +169,11 @@
                     }
                 },
                 cancel: function () {
-                    
+
                 }
             }
-        }); 
-        
+        });
+
     }
 </script>
 
@@ -189,7 +189,7 @@
                 logout: {
                     text: 'logout',
                     btnClass: 'btn-danger',
-                    
+
                     action: function () {
                         $.ajax({
                             type: 'POST',
@@ -211,7 +211,7 @@
                     }
                 },
                 cancel: function () {
-                    
+
                 }
             }
         });
@@ -272,7 +272,7 @@
 
 <script>
     const ctx = document.getElementById('myChart');
-  
+
     new Chart(ctx, {
       type: 'line',
       data: {
@@ -292,7 +292,7 @@
       }
     });
 </script>
-  
+
 
 
 
