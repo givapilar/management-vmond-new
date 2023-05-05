@@ -40,7 +40,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 <style>
-    @import "bourbon";
+    /* @import "bourbon"; */
 
 /* Demo Styles */
 
@@ -173,5 +173,8 @@ h1 {
         color: white !important;
     }
 
+    .close{
+      color: #fff;
+    }
 </style>
 @yield('style')

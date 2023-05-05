@@ -26,7 +26,9 @@
 <script src="{{ asset('assets/js/file-upload.js') }}"></script>
 {{-- <script src="{{ asset('assets/js/typeahead.js') }}"></script> --}}
 <script src="{{ asset('assets/js/select2.js') }}"></script>
-<script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script> --}}
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+
 {{-- <script src="{{ asset('assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script> --}}
 
 {{-- Chart Js --}}
@@ -52,6 +54,11 @@
 {{-- End Date Picker --}}
 {{-- Toastify --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+{{-- <script>
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    });
+</script> --}}
 <script>
 
     $(document).ready(function() {
@@ -270,6 +277,7 @@
 </script>
 @endif
 
+<<<<<<< HEAD
 <script>
     const ctx = document.getElementById('myChart');
 
@@ -293,6 +301,11 @@
     });
 </script>
 
+=======
+@yield('javascript')
+
+  
+>>>>>>> 4561dbbaf1a5ebc15bf48e9c477f6f9a77d4ccd2
 
 
 

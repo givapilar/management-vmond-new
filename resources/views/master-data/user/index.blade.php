@@ -70,10 +70,10 @@
                   @if(auth()->user()->can('user-delete') || auth()->user()->can('user-edit'))
                   <td>
                     <div class="btn-group-sm">
-                      <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-user{{ $user->id }}">
+                      <a class="btn btn-warning f-12" href="{{ route('users.edit', $user->id) }}">
                         <i class="fa fa-edit"></i> 
                         Edit
-                      </button>
+                      </a>
                       @if(auth()->user()->can('user-delete') && Auth::user()->id != $user->id)
                       <a href="#" class="btn btn-danger f-12" onclick="modalDelete('User', '{{ $user->name }}', ' /users/' + {{ $user->id }}, '  /users/')">
                         <i class="far fa-trash-alt"></i>
