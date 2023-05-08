@@ -32,7 +32,7 @@ class BiliardController extends Controller
         $data['page_title'] = 'Tambah Meja Biliard';
         $data['biliard'] = Biliard::get();
 
-        return view('management-vmond.restaurant.create',$data);
+        return view('management-toko-online.biliard.create',$data);
     }
 
     public function store(Request $request)

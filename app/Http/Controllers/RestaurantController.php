@@ -123,4 +123,10 @@ class RestaurantController extends Controller
         Session::flash('success', 'Restaurant deleted successfully!');
         return response()->json(['status' => '200']);
     }
+
+    public function getApiResto(){
+        $dataResto = Restaurant::get();
+
+        return $dataResto;
+    }
 }

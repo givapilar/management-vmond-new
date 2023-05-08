@@ -43,6 +43,10 @@ class PermissionTableSeeder extends Seeder
             'biliard-create',
             'biliard-edit',
             'biliard-delete',
+            'banner-index',
+            'banner-create',
+            'banner-edit',
+            'banner-delete',
         ];
 
         foreach ($permissions as $permission) {

@@ -13,6 +13,7 @@ use App\Http\Controllers\BiliardController;
 use App\Http\Controllers\MeetingRoomController;
 use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BannerController;
 
 
 
@@ -41,8 +42,8 @@ Route::get('/', function () {
 
     Route::middleware('auth:web')->group(function () {
 
-        Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
-        Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        // Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // Route::get('/dahboardd', [DashboardController::class, 'index'])->name('dashboard');
@@ -93,6 +94,10 @@ Route::get('/', function () {
 
             // Management Meeting Room
             Route::resource('/meeting-room', MeetingRoomController::class);
+            
+            // Management Banner
+            Route::resource('/banner', BannerController::class);
+
     });
 
     Route::prefix('kitchen')->name('kitchen.')->group(function () {

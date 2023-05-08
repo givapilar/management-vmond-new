@@ -21,8 +21,7 @@
     </div> --}}
 
     <div class="content-wrapper">
-        <form action="{{ route('dashboard') }}" method="post">
-            @csrf
+        <form action="" method="get">
             <div class="row">
                 <div class="col-lg-3">
                     {{-- <div class="form-group mb-3">
@@ -35,10 +34,11 @@
                     </div> --}}
                     <div class="form-group ">
                               <label> period :</label>
-                              <select class="form-control select2" data-placeholder="Choose one"
+                              <select class="form-control select2 text-light" data-placeholder="Choose one"
                                   id="daterange" name="type">
-                                  <option value="day" {{ ($type == 'day') ? 'selected' : ''}}>Daily</option>
-                                  <option value="month" {{ ($type == 'month') ? 'selected' : '' }}>Monthly</option>
+                                  <option value="day" {{ (Request::get('type') == 'day') ? 'selected' : ''}}>Daily</option>
+                                  <option value="monthly" {{ (Request::get('type') == 'monthly') ? 'selected' : '' }}>Monthly</option>
+                                  <option value="yearly" {{ (Request::get('type') == 'yearly') ? 'selected' : '' }}>Yearly</option>
                               </select>
                       </div>
                 </div>
@@ -52,13 +52,18 @@
                     </div> --}}
                     <div class="form-group" id="datepicker-date-area">
                         <label> Date :</label>
-                        <input type="text" name="start_date" id="date" value="{{$start_date ?? date('Y-m-d')}}"
+                        <input type="text" name="start_date" id="date" value="{{Request::get('start_date') ?? date('Y-m-d')}}"
                             autocomplete="off" class="datepicker form-control time" required>
                     </div>
                     <div class="form-group hilang" id="datepicker-month-area">
                         <label> Month :</label>
-                        <input type="text" name="start_date" id="month" value="{{date('Y-m',strtotime($start_date)) ?? date('Y-m')}}"
+                        <input type="text" name="month" id="month" value="{{ Request::get('month') ?? date('Y-m') }}"
                             autocomplete="off" class="datepicker-month form-control time" required>
+                    </div>
+                    <div class="form-group" id="datepicker-year-area">
+                        <label> Year :</label>
+                        <input type="text" name="year" id="month" value="{{ Request::get('year') ?? date('Y') }}"
+                            autocomplete="off" class="datepicker-year form-control text-light" required>
                     </div>
                 </div>
 
@@ -204,7 +209,13 @@
                     label: '# Stok Masuk',
                     data: stok_masuk,
                     borderWidth: 1
-                }]
+                },{
+                    label: '# Stok Keluar',
+                    data: stok_keluar,
+                    borderWidth: 1
+                }
+            ]
+
             },
             options: {
                 scales: {
