@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 Use File;
-
+use Illuminate\Support\Str;
 
 class RestaurantController extends Controller
 {
@@ -22,6 +22,10 @@ class RestaurantController extends Controller
     public function index()
     {
         $data['page_title'] = 'Restaurant';
+        $title = "Ini adalah judul artikel yang akan dijadikan slug";
+        // $slug = Str::slug($title);
+
+        // dd($slug);
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
         
         return view('management-toko-online.restaurant.index', $data);
@@ -47,8 +51,10 @@ class RestaurantController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','',strtolower($validateData['nama']));
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
+            $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $validateData['harga'];
             $restaurant->status = $validateData['status'];
@@ -90,8 +96,10 @@ class RestaurantController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','',strtolower($validateData['nama']));
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->nama = $validateData['nama'];
+            $restaurant->nama = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $validateData['harga'];
             $restaurant->status = $validateData['status'];
