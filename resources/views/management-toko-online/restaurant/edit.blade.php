@@ -82,6 +82,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Image</label>
+                                <input type="file" class="form-control file-upload-default">
                                 <div class="input-group col-xs-12">
                                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                     <span class="input-group-append">
