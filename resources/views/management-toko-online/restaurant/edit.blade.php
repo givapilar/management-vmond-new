@@ -66,7 +66,6 @@
                                 <label class="">Status</label>
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option disabled selected>Choose Status</option>
-                                    <option value="">Select Category</option>
                                     <option value="Tersedia" {{ $restaurant->category == 'Tersedia' ? 'selected' : '' }}>Makanan</option>
                                     <option value="Tidak Tersedia" {{ $restaurant->category == 'Tidak Tersedia' ? 'selected' : '' }}>Minuman</option>
                                 </select>
