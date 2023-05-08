@@ -62,7 +62,7 @@
 <script>
 
     $(document).ready(function() {
-    
+
     // Fakes the loading setting a timeout
     setTimeout(function() {
         $('body').addClass('loaded');
@@ -77,9 +77,9 @@
         var table = $('#example').DataTable( {
         responsive: true
     } );
-        
+
     });
- 
+
     function detailModal(title, url, width) {
         $.confirm({
             title: title,
@@ -93,7 +93,7 @@
             columnClass: width,
             buttons: {
                 close: {
-                    btnClass: 'btn-dark font-bold',                    
+                    btnClass: 'btn-dark font-bold',
                 }
             },
         });
@@ -176,11 +176,11 @@
                     }
                 },
                 cancel: function () {
-                    
+
                 }
             }
-        }); 
-        
+        });
+
     }
 </script>
 
@@ -196,7 +196,7 @@
                 logout: {
                     text: 'logout',
                     btnClass: 'btn-danger',
-                    
+
                     action: function () {
                         $.ajax({
                             type: 'POST',
@@ -218,7 +218,7 @@
                     }
                 },
                 cancel: function () {
-                    
+
                 }
             }
         });
@@ -279,7 +279,7 @@
 
 @yield('javascript')
 
-  
+
 
 
 

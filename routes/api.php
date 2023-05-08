@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\ApiController;
 
 
 /*
@@ -22,4 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1/vmond/')->group(function () {
     Route::get('tokoonline/resto', [RestaurantController::class, 'getApiResto']);
+    Route::get('tokoonline/biliard', [ApiController::class, 'getApiBiliard']);
+    Route::get('tokoonline/meetingroom', [ApiController::class, 'getApiMeetingRoom']);
 });

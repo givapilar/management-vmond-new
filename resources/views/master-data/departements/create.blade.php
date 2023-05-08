@@ -9,7 +9,7 @@
         </nav>
     </div>
     <div class="row">
-        
+
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -20,20 +20,20 @@
                             <div class="form-group mb-3">
                                 <label for="name">Name</label>
                                 <input class="form-control @error('name') is-invalid @enderror" id="name" type="text" name="name" placeholder="name" required value="{{ old('name') }}">
-        
+
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-        
-                            
+
+
                             <div class="form-group">
                                 <label>Permission</label>
                                 <select name="permissions[]" id="e1" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
                                     @foreach ($permissions as $permission)
-                                    <option value="{{$permission->id}}" 
+                                    <option value="{{$permission->id}}"
                                         @foreach (old('permissions') ?? [] as $id)
                                             @if ($id == $permission->id)
                                                 {{ ' selected' }}
@@ -50,7 +50,7 @@
                                     </span>
                                 @enderror
                         </div>
-                        
+
                         <div class="card-footer bg-gray1" style="border-radius:0px 0px 15px 15px;">
                             <button type="submit" class="btn btn-success btn-footer">Add</button>
                             <a href="{{ route('departement.index') }}" class="btn btn-danger btn-footer">Back</a>
@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
  --}}
@@ -88,7 +88,7 @@
                         @enderror
                     </div>
 
-                   
+
 
                     {{-- <div class="form-group mb-3">
                         <label for="">Permissions</label> <br>
@@ -98,7 +98,7 @@
                         <div class="select2-purple">
                             <select class="select2" name="permissions[]" id="e1" data-placeholder="Select The Permissions" multiple data-dropdown-css-class="select2-purple" style="width: 100%;">
                                 @foreach ($permissions as $permission)
-                                    <option value="{{$permission->id}}" 
+                                    <option value="{{$permission->id}}"
                                         @foreach (old('permissions') ?? [] as $id)
                                             @if ($id == $permission->id)
                                                 {{ ' selected' }}
@@ -116,14 +116,14 @@
                             </span>
                         @enderror
                     </div> --}}
-                    
+
                     <div class="form-group">
                         <label>Permission</label>
                         <input type="checkbox" id="checkbox">
                         {{-- <input type="checkbox" id="checkbox" >Select All --}}
                         <select name="permissions[]" class="js-example-basic-multiple select2-department select2" id="e1" multiple ="multiple" style="width:100%">
                             @foreach ($permissions as $permission)
-                            <option value="{{$permission->id}}" 
+                            <option value="{{$permission->id}}"
                                 @foreach (old('permissions') ?? [] as $id)
                                     @if ($id == $permission->id)
                                         {{ 'selected' }}
@@ -140,7 +140,7 @@
                               </span>
                           @enderror
                     </div>
-                    
+
                     {{-- <select class="form-control" multiple id="e1" style="width:300px">
                         <option value="AL">Alabama</option>
                         <option value="Am">Amalapuram</option>
@@ -151,7 +151,7 @@
                     <input type="checkbox" id="checkbox" >Select All --}}
 
                 </div>
-                
+
                 <div class="card-footer bg-gray1" style="border-radius:0px 0px 15px 15px;">
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button class="btn btn-dark">Cancel</button>
