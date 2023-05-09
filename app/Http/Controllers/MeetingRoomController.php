@@ -22,7 +22,7 @@ class MeetingRoomController extends Controller
     {
         $data['page_title'] = 'Meeting Room';
         $data['meeting_rooms'] = MeetingRoom::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.meeting-room.index', $data);
     }
 
@@ -46,7 +46,7 @@ class MeetingRoomController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $meeting_room = new MeetingRoom();
             $meeting_room->nama = $validateData['nama'];
             $meeting_room->nama = $slug;
@@ -54,7 +54,7 @@ class MeetingRoomController extends Controller
             $meeting_room->harga = $validateData['harga'];
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -91,7 +91,7 @@ class MeetingRoomController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->nama = $validateData['nama'];
             $meeting_room->nama = $slug;
@@ -99,8 +99,7 @@ class MeetingRoomController extends Controller
             $meeting_room->harga = $validateData['harga'];
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
-            
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -123,7 +122,7 @@ class MeetingRoomController extends Controller
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->delete();
         });
-        
+
         Session::flash('success', 'Meeting Room deleted successfully!');
         return response()->json(['status' => '200']);
     }

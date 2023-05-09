@@ -23,7 +23,7 @@ class BiliardController extends Controller
     {
         $data['page_title'] = 'Biliard';
         $data['biliards'] = Biliard::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.biliard.index', $data);
     }
 
@@ -47,7 +47,7 @@ class BiliardController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $biliard = new Biliard();
             $biliard->nama = $validateData['nama'];
             $biliard->nama = $slug;
@@ -55,7 +55,7 @@ class BiliardController extends Controller
             $biliard->harga = $validateData['harga'];
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -92,7 +92,7 @@ class BiliardController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $biliard = Biliard::findOrFail($id);
             $biliard->nama = $validateData['nama'];
             $biliard->nama = $slug;
@@ -100,7 +100,7 @@ class BiliardController extends Controller
             $biliard->harga = $validateData['harga'];
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -123,8 +123,8 @@ class BiliardController extends Controller
             $Biliard = Biliard::findOrFail($id);
             $Biliard->delete();
         });
-        
+
         Session::flash('success', 'Biliard deleted successfully!');
         return response()->json(['status' => '200']);
-    }   
+    }
 }
