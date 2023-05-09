@@ -5,19 +5,6 @@
   .hilang{
     display: none;
   }
-  .rounded-20{
-    border-radius: 20px !important;
-  }
-  .rounded-t-20{
-    border-radius: 20px 20px 0 0 !important;
-  }
-  .rounded-b-20{
-    border-radius:0 0 20px 20px !important;
-  }
-
-  .bg-gray-800{
-    background: #0d0f14 !important;
-  }
 </style>
 @endsection
 

@@ -49,15 +49,15 @@
           </div>
 
         <table id="dtBasicExample" class="table" width="100%">
-        <thead>
-            <tr>
-            <th class="th-sm">No</th>
-            <th class="th-sm">Nama</th>
-            <th class="th-sm">Stok keluar</th>
-            <th class="th-sm">Description</th>
-            <th class="th-sm">Action</th>
-            </tr>
-        </thead>
+            <thead>
+                <tr>
+                <th class="th-sm">No</th>
+                <th class="th-sm">Nama</th>
+                <th class="th-sm">Stok keluar</th>
+                <th class="th-sm">Description</th>
+                <th class="th-sm">Action</th>
+                </tr>
+            </thead>
             <tbody>
                 @foreach ($stok_keluars as $stok_keluar)
                     <tr>
@@ -80,11 +80,8 @@
                     </tr>
                     @include('inventory.stok-keluar.edit')
                 @endforeach
-
             </tbody>
-
         </table>
-
         </div>
       </div>
     </div>

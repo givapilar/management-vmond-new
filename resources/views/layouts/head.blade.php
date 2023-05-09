@@ -55,6 +55,18 @@ h1 {
   font-size: 40px;
 }
 
+.rounded-20{
+    border-radius: 20px !important;
+}
+.rounded-t-20{
+    border-radius: 20px 20px 0 0 !important;
+}
+.rounded-b-20{
+    border-radius:0 0 20px 20px !important;
+}
+.bg-gray-800{
+    background: #0d0f14 !important;
+  }
 /* The Loader */
 
 #loader-wrapper {
@@ -65,7 +77,7 @@ h1 {
   height: 100%;
   z-index: 10;
   overflow: hidden;
-  
+
   // Modernizr no-js fallback
   .no-js & {
     display: none;
@@ -86,7 +98,7 @@ h1 {
   border-top-color: #16a085;
   animation: spin 1.7s linear infinite;
   z-index: 11;
-  
+
   &:before {
     content: "";
     position: absolute;
@@ -99,7 +111,7 @@ h1 {
     border-top-color: #e74c3c;
     animation: spin-reverse .6s linear infinite;
   }
-  
+
   &:after {
     content: "";
     position: absolute;
