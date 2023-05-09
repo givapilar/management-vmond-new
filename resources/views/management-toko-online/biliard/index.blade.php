@@ -65,7 +65,9 @@
                 <td class="table-head">{{ $biliard->no_meja }}</td>
                 <td class="table-head">{{ $biliard->harga }}</td>
                 <td class="table-head">{{ $biliard->status }}</td>
-                <td class="table-head">{{ $biliard->image }}</td>
+                <td class="table-head">
+                  <img src="{{ asset('assets/images/biliard/'.($biliard->image ?? 'user.png')) }}" width="110px" class="image img" />
+                </td>
                 <td class="table-head">{{ $biliard->description }}</td>
                 @if(auth()->user()->can('biliard-delete') || auth()->user()->can('biliard-edit'))
                 <td>

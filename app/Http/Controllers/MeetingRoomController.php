@@ -100,10 +100,11 @@ class MeetingRoomController extends Controller
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
             
+            
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/meeting_room/');
+                $destinationPath = public_path('assets/images/meeting-room/');
                 $image->move($destinationPath, $name);
                 $meeting_room->image = $name;
             }

@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="forms-sample" method="POST" action="{{ route('restaurant.update', $restaurant->id) }}" novalidate>
+            <form class="forms-sample" method="POST" action="{{ route('restaurant.update', $restaurant->id) }}" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
 
@@ -80,15 +80,17 @@
 
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label>Image</label>
-                                <input type="file" class="form-control file-upload-default">
+                                <label>File upload</label>
+                                <input type="file" name="image" class="file-upload-default">
                                 <div class="input-group col-xs-12">
-                                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                    <input type="text" class="form-control file-upload-info" disabled
+                                    placeholder="Upload Image">
                                     <span class="input-group-append">
-                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                        <button class="file-upload-browse btn btn-primary"
+                                        type="button">Upload</button>
                                     </span>
                                 </div>
-                                <div class="small text-danger">*Kosongkan jika tidak mau diisi</div>
+                                <div class="small text-danger">*Kosongkan jika tidak mau diisi</div> 
                             </div>
                         </div>
                         <div class="col-lg-3">

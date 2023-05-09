@@ -39,7 +39,7 @@
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu">
                 <i class="fa fa-plus"></i> 
-                Tambah Menu
+                Tambah
               </button>
             </div>
             @endcan
@@ -53,6 +53,7 @@
             <th class="th-sm">Category</th>
             <th class="th-sm">Harga</th>
             <th class="th-sm">Status</th>
+            <th class="th-sm">Image</th>
             <th class="th-sm">Description</th>
             <th class="th-sm">Action</th>
             </tr>
@@ -65,6 +66,9 @@
                         <td class="table-head">{{ $restaurant->category }}</td>
                         <td class="table-head">{{ $restaurant->harga }}</td>
                         <td class="table-head">{{ $restaurant->status }}</td>
+                        <td class="table-head">
+                          <img src="{{ asset('assets/images/restaurant/'.($restaurant->image ?? 'user.png')) }}" width="110px" class="image img" />
+                        </td>
                         <td class="table-head">{{ $restaurant->description }}</td>
                         @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
                         <td>

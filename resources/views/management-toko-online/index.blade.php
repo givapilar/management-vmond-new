@@ -37,7 +37,7 @@
         </div>
        </div>
        <div class="col-12 col-lg-4 mt-lg-3 mt-3 cursor" onclick="location.href='{{ route('biliard.index') }}'">
-         <div class="card" style="background:linear-gradient(rgba(50,50,50,0.5), rgba(50,50,50,0.5)), url({{ asset('assets/images/biliard/biliard.jpg') }});object-fit: cover;object-position: center;">
+         <div class="card" style="background:linear-gradient(rgba(50,50,50,0.5), rgba(50,50,50,0.5)), url({{ asset('assets/images/biliard/biliard.jpg') }});">
             <h1>Billiard</h1>
         </div>
        </div>
