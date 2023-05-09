@@ -39,7 +39,7 @@
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-meeting-room">
                 <i class="fa fa-plus"></i> 
-                Tambah Menu
+                Tambah
               </button>
             </div>
             @endcan
@@ -66,7 +66,9 @@
                         <td class="table-head">{{ $meeting_room->no_meja }}</td>
                         <td class="table-head">{{ $meeting_room->harga }}</td>
                         <td class="table-head">{{ $meeting_room->status }}</td>
-                        <td class="table-head">{{ $meeting_room->image }}</td>
+                        <td class="table-head">
+                          <img src="{{ asset('assets/images/meeting-room/'.($meeting_room->image ?? 'user.png')) }}" width="110px" class="image img" />
+                        </td>
                         <td class="table-head">{{ $meeting_room->description }}</td>
                         @if(auth()->user()->can('meeting-room-delete') || auth()->user()->can('meeting-room-edit'))
                         <td>

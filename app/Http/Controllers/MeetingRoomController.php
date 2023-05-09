@@ -103,7 +103,7 @@ class MeetingRoomController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/meeting_room/');
+                $destinationPath = public_path('assets/images/meeting-room/');
                 $image->move($destinationPath, $name);
                 $meeting_room->image = $name;
             }
