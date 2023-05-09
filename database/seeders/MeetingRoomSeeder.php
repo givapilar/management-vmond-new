@@ -20,6 +20,8 @@ class MeetingRoomSeeder extends Seeder
         $user->harga = '250.000,00';
         $user->status = 'Tersedia';
         $user->description = 'billiards, any of various games played on a rectangular table with a designated number of small balls and a long stick called a cue. The table and the cushioned rail bordering the table are topped with a feltlike tight-fitting cloth. Carom, or French,';
+        $slug = str_replace(' ','&',strtolower($user->nama));
+        $user->slug = $slug;
 
         $user->save();
 
@@ -29,6 +31,8 @@ class MeetingRoomSeeder extends Seeder
         $user->harga = '250.000,00';
         $user->status = 'Tersedia';
         $user->description = 'billiards, any of various games played on a rectangular table with a designated number of small balls and a long stick called a cue. The table and the cushioned rail bordering the table are topped with a feltlike tight-fitting cloth. Carom, or French,';
+        $slug = str_replace(' ','&',strtolower($user->nama));
+        $user->slug = $slug;
 
         $user->save();
 
@@ -38,6 +42,8 @@ class MeetingRoomSeeder extends Seeder
         $user->harga = '250.000,00';
         $user->status = 'Tersedia';
         $user->description = 'billiards, any of various games played on a rectangular table with a designated number of small balls and a long stick called a cue. The table and the cushioned rail bordering the table are topped with a feltlike tight-fitting cloth. Carom, or French,,';
+        $slug = str_replace(' ','&',strtolower($user->nama));
+        $user->slug = $slug;
 
         $user->save();
     }

@@ -27,7 +27,7 @@ class RestaurantController extends Controller
 
         // dd($slug);
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.restaurant.index', $data);
     }
 
@@ -51,7 +51,7 @@ class RestaurantController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
@@ -59,7 +59,7 @@ class RestaurantController extends Controller
             $restaurant->harga = $validateData['harga'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -96,7 +96,7 @@ class RestaurantController extends Controller
         ]);
 
         try {
-            $slug = str_replace(' ','',strtolower($validateData['nama']));
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->nama = $validateData['nama'];
             $restaurant->nama = $slug;
@@ -104,7 +104,7 @@ class RestaurantController extends Controller
             $restaurant->harga = $validateData['harga'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -127,7 +127,7 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->delete();
         });
-        
+
         Session::flash('success', 'Restaurant deleted successfully!');
         return response()->json(['status' => '200']);
     }
