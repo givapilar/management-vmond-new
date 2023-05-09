@@ -125,7 +125,7 @@
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
-                        <img src="{{ asset('assets/images/icon/user-management.png') }}" alt="">
+                        <img src="{{ asset('assets/images/icon/raw-materials.png') }}" alt="">
                     </div>
                     <div class="flex-grow-1 ml-3">
                         <h3 class="m-0 p-0">Material</h3>

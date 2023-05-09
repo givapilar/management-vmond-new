@@ -37,7 +37,11 @@
   
             @can('meeting-room-create')
             <div class="col-6 text-right">
-              <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-meeting-room">
+              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('management-toko-online.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Kembali
+              </a>
+              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-meeting-room">
                 <i class="fa fa-plus"></i> 
                 Tambah
               </button>
@@ -54,7 +58,6 @@
             <th class="th-sm">Harga</th>
             <th class="th-sm">Status</th>
             <th class="th-sm">image</th>
-            <th class="th-sm">Description</th>
             <th class="th-sm">Action</th>
             </tr>
         </thead>
@@ -69,15 +72,14 @@
                         <td class="table-head">
                           <img src="{{ asset('assets/images/meeting-room/'.($meeting_room->image ?? 'user.png')) }}" width="110px" class="image img" />
                         </td>
-                        <td class="table-head">{{ $meeting_room->description }}</td>
                         @if(auth()->user()->can('meeting-room-delete') || auth()->user()->can('meeting-room-edit'))
                         <td>
                             <div class="btn-group-sm">
                               @can('meeting-room-edit')
-                              <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-meeting_room{{ $meeting_room->id }}">
+                              <a class="btn btn-warning f-12" href="{{ route('meeting-room.edit', $meeting_room->id) }}">
                                 <i class="fa fa-edit"></i> 
                                 Edit
-                              </button>
+                              </a>
                               @endcan
                               
                               @can('meeting-room-delete')
@@ -90,7 +92,6 @@
                           </td>
                           @endif
                         </tr>
-                        @include('management-toko-online.meeting-room.edit')
                 @endforeach
             
             </tbody>

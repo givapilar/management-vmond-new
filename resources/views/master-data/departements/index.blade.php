@@ -37,7 +37,11 @@
 
             @can('departement-create')
             <div class="col-6 text-right">
-              <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-departement">
+              <a class="btn btn-sm btn-success btn-lg" href="{{ route('master-data.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Kembali
+              </a>
+              <button class="btn btn-sm btn-danger btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-departement">
                 <i class="fa fa-plus"></i>
                 Tambah Departement
               </button>

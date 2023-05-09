@@ -22,10 +22,6 @@ class RestaurantController extends Controller
     public function index()
     {
         $data['page_title'] = 'Restaurant';
-        $title = "Ini adalah judul artikel yang akan dijadikan slug";
-        // $slug = Str::slug($title);
-
-        // dd($slug);
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
         
         return view('management-toko-online.restaurant.index', $data);
@@ -79,7 +75,7 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $data['page_title'] = 'Edit Menu';
-        $data['Restaurant'] = Restaurant::find($id);
+        $data['restaurant'] = Restaurant::findorFail($id);
 
         return view('management-toko-online.restaurant.edit',$data);
     }

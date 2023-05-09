@@ -11,7 +11,7 @@
     <h3 class="page-title">  </h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Master Data</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('management-toko-online.index') }}">Management Toko Online</a></li>
         <li class="breadcrumb-item active" aria-current="page">banner</li>
       </ol>
     </nav>
@@ -37,7 +37,11 @@
   
             @can('banner-create')
             <div class="col-6 text-right">
-              <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-banner">
+              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('management-toko-online.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Kembali
+              </a>
+              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-banner">
                 <i class="fa fa-plus"></i> 
                 Tambah
               </button>
