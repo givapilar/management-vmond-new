@@ -49,7 +49,7 @@ class MeetingRoomController extends Controller
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $meeting_room = new MeetingRoom();
             $meeting_room->nama = $validateData['nama'];
-            $meeting_room->nama = $slug;
+            $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
             $meeting_room->harga = $validateData['harga'];
             $meeting_room->status = $validateData['status'];
@@ -94,7 +94,7 @@ class MeetingRoomController extends Controller
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->nama = $validateData['nama'];
-            $meeting_room->nama = $slug;
+            $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
             $meeting_room->harga = $validateData['harga'];
             $meeting_room->status = $validateData['status'];

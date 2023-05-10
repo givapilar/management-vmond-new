@@ -95,7 +95,7 @@ class RestaurantController extends Controller
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->nama = $validateData['nama'];
-            $restaurant->nama = $slug;
+            $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $validateData['harga'];
             $restaurant->status = $validateData['status'];
