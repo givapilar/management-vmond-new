@@ -11,7 +11,7 @@
     <h3 class="page-title">  </h3>
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Master Data</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('management-toko-online.index') }}">Master Data</a></li>
         <li class="breadcrumb-item active" aria-current="page">restaurant</li>
       </ol>
     </nav>
@@ -37,7 +37,11 @@
   
             @can('restaurant-create')
             <div class="col-6 text-right">
-              <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu">
+              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('management-toko-online.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Kembali
+              </a>
+              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu">
                 <i class="fa fa-plus"></i> 
                 Tambah
               </button>
@@ -54,7 +58,6 @@
             <th class="th-sm">Harga</th>
             <th class="th-sm">Status</th>
             <th class="th-sm">Image</th>
-            <th class="th-sm">Description</th>
             <th class="th-sm">Action</th>
             </tr>
         </thead>
@@ -69,15 +72,14 @@
                         <td class="table-head">
                           <img src="{{ asset('assets/images/restaurant/'.($restaurant->image ?? 'user.png')) }}" width="110px" class="image img" />
                         </td>
-                        <td class="table-head">{{ $restaurant->description }}</td>
                         @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
                         <td>
                             <div class="btn-group-sm">
                               @can('restaurant-edit')
-                              <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-restaurant{{ $restaurant->id }}">
+                              <a class="btn btn-warning f-12" href="{{ route('restaurant.edit', $restaurant->id) }}">
                                 <i class="fa fa-edit"></i> 
                                 Edit
-                              </button>
+                              </a>
                               @endcan
 
                               @can('restaurant-delete')
@@ -91,7 +93,6 @@
                           </td>
                           @endif
                         </tr>
-                        @include('management-toko-online.restaurant.edit')
                 @endforeach
             
             </tbody>

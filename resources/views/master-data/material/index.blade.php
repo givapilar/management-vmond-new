@@ -37,7 +37,11 @@
 
             @can('material-create')
             <div class="col-6 text-right">
-              <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl">
+              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('master-data.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Kembali
+              </a>
+              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl">
                 <i class="fa fa-plus"></i>
                 Tambah
               </button>
