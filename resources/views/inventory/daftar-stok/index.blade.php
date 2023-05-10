@@ -34,6 +34,17 @@
                 <h4 class="card-title">{{ $page_title }}</h4>
               </span>
             </div>
+
+            <div class="col-6 text-right">
+              <a class="btn btn-sm btn-info btn-lg" href="{{ route('management-toko-online.index') }}">
+                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+                Stok Masuk
+              </a>
+              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-banner">
+                <i class="fa fa-plus"></i> 
+                Stok Keluar
+              </button>
+            </div>
            
           </div>
 
