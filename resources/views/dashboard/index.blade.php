@@ -176,9 +176,7 @@
                     label: '# Stok Keluar',
                     data: stok_keluar,
                     borderWidth: 1
-                }
-            ]
-
+                }]
             },
             options: {
                 scales: {
@@ -188,7 +186,6 @@
                 }
             }
         });
-
     }
 
     $('.datepicker').datepicker({
