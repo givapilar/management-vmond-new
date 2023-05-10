@@ -19,7 +19,7 @@ class ApiController extends Controller
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/biliard/' . $item->image);
+            $data['image'] = asset('assets/images/biliard/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
@@ -36,7 +36,7 @@ class ApiController extends Controller
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/meeting-room/' . $item->image);
+            $data['image'] = asset('assets/images/meeting-room/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
@@ -103,7 +103,7 @@ class ApiController extends Controller
         // $image = Storage::get($path);
         $banner = Banner::get()->map(function($item){
             $data['id'] = $item->id;
-            $data['image'] = asset('assets/images/banner/' . $item->image);
+            $data['image'] = asset('assets/images/banner/' . ($item->image ?? 'no-pictures.png'));
             return $data;
         });
 
@@ -119,7 +119,7 @@ class ApiController extends Controller
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/restaurant/' . $item->image);
+            $data['image'] = asset('assets/images/restaurant/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
