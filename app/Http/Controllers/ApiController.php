@@ -51,9 +51,10 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/restaurant/'.$item->image);
+                $data['image'] = asset('assets/images/restaurant/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = strtoupper('MENU '. $item->category);
                 return $data;
             });
 
@@ -61,9 +62,10 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/biliard/'.$item->image);
+                $data['image'] = asset('assets/images/biliard/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = 'MEJA BILLIARD';
                 return $data;
             });
 
@@ -71,9 +73,10 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/meeting-room/'.$item->image);
+                $data['image'] = asset('assets/images/meeting-room/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = 'MEETING ROOM';
                 return $data;
             });
 
