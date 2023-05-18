@@ -51,6 +51,18 @@ class RestaurantController extends Controller
             $replaceTitik = str_replace('.', '',$request->harga);
             $replaceComma = substr($replaceTitik, 0 , -3);
 
+            // $characters = '1';
+            // $charactersNumber = strlen($characters);
+            // $codeLength = 1;
+
+            // $code = '';
+
+            // while (strlen($code) < 6) {
+            //     $position = rand(0, $charactersNumber - 1);
+            //     $character = $characters[$position];
+            //     $code = $code.$character;
+            // }
+
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
@@ -58,7 +70,8 @@ class RestaurantController extends Controller
             $restaurant->harga = $replaceComma;
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
-
+            $restaurant->code = 0;
+            
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -66,9 +79,14 @@ class RestaurantController extends Controller
                 $image->move($destinationPath, $name);
                 $restaurant->image = $name;
             }
-
+            
             $restaurant->save();
-
+            
+            if ($restaurant->category == 'Makanan') {
+                $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
+            }else{
+                $restaurant->code = $this->getNextId('MNM', $restaurant->id);
+            }
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('restaurant.index')->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
@@ -100,13 +118,15 @@ class RestaurantController extends Controller
             $replaceComma = substr($replaceTitik, 0 , -3);
 
             $restaurant = Restaurant::findOrFail($id);
+            
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $replaceComma;
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
-
+            $restaurant->code = 0;
+            
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -114,8 +134,15 @@ class RestaurantController extends Controller
                 $image->move($destinationPath, $name);
                 $restaurant->image = $name;
             }
-
+            
             $restaurant->save();
+            
+            if ($restaurant->category == 'Makanan') {
+                $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
+            }else{
+                $restaurant->code = $this->getNextId('MNM', $restaurant->id);
+            }
+            
 
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant edited successfully!']);
         } catch (\Throwable $th) {
@@ -133,6 +160,11 @@ class RestaurantController extends Controller
         Session::flash('success', 'Restaurant deleted successfully!');
         return response()->json(['status' => '200']);
     }
+
+    public function getNextId($category, $id){
+        DB::table('restaurants')->where('id', $id)->update(['code' => $category.$id]);
+        return 0;
+    }   
 
     public function getApiResto(){
         $dataResto = Restaurant::get();
