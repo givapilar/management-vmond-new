@@ -13,13 +13,13 @@ class ApiController extends Controller
 {
     public function getApiBiliard()
     {
-        $meeting_room = Biliard::get()->map(function($item){
+        $meeting_room = Biliard::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
             $data['nama'] = $item->nama;
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/biliard/' . $item->image);
+            $data['image'] = asset('assets/images/biliard/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
@@ -30,13 +30,13 @@ class ApiController extends Controller
 
     public function getApiMeetingRoom()
     {
-        $meeting_room = MeetingRoom::get()->map(function($item){
+        $meeting_room = MeetingRoom::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
             $data['nama'] = $item->nama;
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/meeting-room/' . $item->image);
+            $data['image'] = asset('assets/images/meeting-room/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
@@ -47,33 +47,36 @@ class ApiController extends Controller
 
     public function getApiDetail($type, $slug){
         try {
-            if ($type == 'resto') $getData = Restaurant::where('slug', $slug)->limit(1)->get()->map(function($item){
+            if ($type == 'resto') $getData = Restaurant::where('slug', $slug)->orderBy('id', 'ASC')->limit(1)->get()->map(function($item){
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/restaurant/'.$item->image);
+                $data['image'] = asset('assets/images/restaurant/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = strtoupper('MENU '. $item->category);
                 return $data;
             });
 
-            if ($type == 'billiard') $getData = Biliard::where('slug', $slug)->limit(1)->get()->map(function($item){
+            if ($type == 'billiard') $getData = Biliard::where('slug', $slug)->orderBy('id', 'ASC')->limit(1)->get()->map(function($item){
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/biliard/'.$item->image);
+                $data['image'] = asset('assets/images/biliard/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = 'MEJA BILLIARD';
                 return $data;
             });
 
-            if ($type == 'meetingroom') $getData = MeetingRoom::where('slug', $slug)->limit(1)->get()->map(function($item){
+            if ($type == 'meetingroom') $getData = MeetingRoom::where('slug', $slug)->orderBy('id', 'ASC')->limit(1)->get()->map(function($item){
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
-                $data['image'] = asset('assets/images/meeting-room/'.$item->image);
+                $data['image'] = asset('assets/images/meeting-room/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['type'] = 'MEETING ROOM';
                 return $data;
             });
 
@@ -98,9 +101,9 @@ class ApiController extends Controller
     public function getApiBanner()
     {
         // $image = Storage::get($path);
-        $banner = Banner::get()->map(function($item){
+        $banner = Banner::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
-            $data['image'] = asset('assets/images/banner/' . $item->image);
+            $data['image'] = asset('assets/images/banner/' . ($item->image ?? 'no-pictures.png'));
             return $data;
         });
 
@@ -110,13 +113,13 @@ class ApiController extends Controller
     public function getApiResto()
     {
         // $image = Storage::get($path);
-        $banner = Restaurant::get()->map(function($item){
+        $banner = Restaurant::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
             $data['nama'] = $item->nama;
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
-            $data['image'] = asset('assets/images/restaurant/' . $item->image);
+            $data['image'] = asset('assets/images/restaurant/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
             return $data;
