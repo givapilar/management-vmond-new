@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-3">
-                                        Ayam Teriyaki
+                                        Es Teh Manis
                                     </h5>
                                     <small class="text-wrap">
                                         Note: -
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-4">
-                                        French Fries
+                                        Es Jeruk
                                     </h5>
                                     <small class="text-wrap">
                                         Note: -

@@ -38,10 +38,10 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-1">
-                                        Nasi Goreng Modern
+                                        Jus Jeruk
                                     </h5>
                                     <small class="text-wrap">
-                                        Note: Pedas, No Acar.
+                                        Note: Less Sugar.
                                     </small>
                                 </div>
                             </li>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-2">
-                                        Mie Goreng Modern
+                                        Jus Apel More Sugar
                                     </h5>
                                     <small class="text-wrap">
                                         Note: Sedang
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-3">
-                                        Ayam Teriyaki
+                                        Es teh Manis
                                     </h5>
                                     <small class="text-wrap">
                                         Note: -
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-4">
-                                        French Fries
+                                        Vanilla Latte
                                     </h5>
                                     <small class="text-wrap">
                                         Note: -

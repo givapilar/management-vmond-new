@@ -48,11 +48,14 @@ class RestaurantController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->harga = $validateData['harga'];
+            $restaurant->harga = $replaceComma;
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
 
@@ -93,11 +96,14 @@ class RestaurantController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->harga = $validateData['harga'];
+            $restaurant->harga = $replaceComma;
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
 

@@ -21,10 +21,10 @@
                         </div>
                         <div class="d-flex flex-column bd-highlight">
                             <h3 class="p-0 m-0 fw-semi-bold menu-1">
-                                Nasi Goreng Modern
+                                Jus Jeruk
                             </h3>
                             <span class="text-wrap fs-5">
-                                Note: Pedas, No Acar.
+                                Note: Less sugar.
                             </span>
                         </div>
                     </li>
@@ -37,10 +37,10 @@
                         </div>
                         <div class="d-flex flex-column bd-highlight">
                             <h3 class="p-0 m-0 fw-semi-bold menu-2">
-                                Mie Goreng Modern
+                                Jus Apel
                             </h3>
                             <span class="text-wrap fs-5">
-                                Note: Sedang
+                                Note: More Sugar
                             </span>
                         </div>
                     </li>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="d-flex flex-column bd-highlight">
                             <h3 class="p-0 m-0 fw-semi-bold menu-3">
-                                Ayam Teriyaki
+                                Es Teh Manis
                             </h3>
                             <span class="text-wrap fs-5">
                                 Note: -
@@ -69,7 +69,7 @@
                         </div>
                         <div class="d-flex flex-column bd-highlight">
                             <h3 class="p-0 m-0 fw-semi-bold menu-4">
-                                French Fries
+                                Vanilla latte
                             </h3>
                             <span class="text-wrap fs-5">
                                 Note: -

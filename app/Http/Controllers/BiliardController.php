@@ -48,11 +48,14 @@ class BiliardController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $biliard = new Biliard();
             $biliard->nama = $validateData['nama'];
             $biliard->slug = $slug;
             $biliard->no_meja = $validateData['no_meja'];
-            $biliard->harga = $validateData['harga'];
+            $biliard->harga = $replaceComma;
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
 
@@ -93,11 +96,14 @@ class BiliardController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $biliard = Biliard::findOrFail($id);
             $biliard->nama = $validateData['nama'];
             $biliard->slug = $slug;
             $biliard->no_meja = $validateData['no_meja'];
-            $biliard->harga = $validateData['harga'];
+            $biliard->harga = $replaceComma;
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
 

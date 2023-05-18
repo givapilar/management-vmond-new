@@ -36,14 +36,12 @@
             </div>
 
             <div class="col-6 text-right">
-              <a class="btn btn-sm btn-info btn-lg" href="{{ route('management-toko-online.index') }}">
-                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
+              <a class="btn btn-sm btn-success btn-lg" href="{{ route('stok-masuk.index') }}">
                 Stok Masuk
               </a>
-              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-banner">
-                <i class="fa fa-plus"></i> 
+              <a class="btn btn-sm btn-danger                                                                                                                                                                                                                                                 btn-lg" href="{{ route('stok-keluar.index') }}">
                 Stok Keluar
-              </button>
+              </a>
             </div>
            
           </div>

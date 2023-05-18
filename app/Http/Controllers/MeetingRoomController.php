@@ -47,11 +47,14 @@ class MeetingRoomController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $meeting_room = new MeetingRoom();
             $meeting_room->nama = $validateData['nama'];
             $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
-            $meeting_room->harga = $validateData['harga'];
+            $meeting_room->harga = $replaceComma ;
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
 
@@ -92,11 +95,15 @@ class MeetingRoomController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+            // dd($replaceComma);
+
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->nama = $validateData['nama'];
             $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
-            $meeting_room->harga = $validateData['harga'];
+            $meeting_room->harga = $replaceComma;
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
 
