@@ -39,6 +39,9 @@
 {{-- Toastify --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
+{{-- cdn summer note --}}
+{{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet"> --}}
+
 <style>
     /* @import "bourbon"; */
 

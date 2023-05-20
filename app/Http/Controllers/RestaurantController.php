@@ -51,18 +51,6 @@ class RestaurantController extends Controller
             $replaceTitik = str_replace('.', '',$request->harga);
             $replaceComma = substr($replaceTitik, 0 , -3);
 
-            // $characters = '1';
-            // $charactersNumber = strlen($characters);
-            // $codeLength = 1;
-
-            // $code = '';
-
-            // while (strlen($code) < 6) {
-            //     $position = rand(0, $charactersNumber - 1);
-            //     $character = $characters[$position];
-            //     $code = $code.$character;
-            // }
-
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
