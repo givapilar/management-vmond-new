@@ -19,7 +19,7 @@
                         <div class="form-group mb-3">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}"  placeholder="Nama">
-                            
+
                             @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                         <div class="form-group mb-3">
                             <label for="no_meja">No Meja</label>
                             <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" value="{{ old('no_meja') }}"  placeholder="No Meja">
-                            
+
                             @error('no_meja')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
                         <div class="form-group mb-3">
                             <label for="harga">Harga</label>
                             <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
-                            
+
                             @error('harga')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                 <option value="Tersedia">Tersedia</option>
                                 <option value="Tidak Tersedia">Tidak Tersedia</option>
                             </select>
-    
+
                             @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -88,11 +88,11 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        
+
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea name="description" class="form-control" id="description" rows="4"></textarea>
-                            
+
                             @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -112,7 +112,7 @@
   </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  
+
   <script>
     new AutoNumeric('#harga', {
         currencySymbol : '',
@@ -121,4 +121,4 @@
     });
 
 </script>
-               
+
