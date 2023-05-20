@@ -69,7 +69,7 @@
                     <img src="{{ asset('assets/images/user/'.($user->avatar ?? 'user.png')) }}" width="40px" class="img-circle">
                   </td>
                   <td class="table-head">{{ $user->name }}</td>
-                  <td class="table-head">{{ $user->username.'('. $user->getRoleNames()[0] .')'}}</td>
+                  <td class="table-head">{{ $user->getRoleNames()[0]}}</td>
                   <td class="table-head">{{ $user->email }}</td>
                   @if(auth()->user()->can('user-delete') || auth()->user()->can('user-edit'))
                   <td>

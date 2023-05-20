@@ -1,124 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-	<title>Management Vmond</title>
-    <link rel="shortcut icon" href="{{ asset('assets/images/icon/logo-v.png') }}" />
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/bootstrap/css/bootstrap.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/fonts/iconic/css/material-design-iconic-font.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/animate/animate.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/css-hamburgers/hamburgers.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/animsition/css/animsition.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/select2/select2.min.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/daterangepicker/daterangepicker.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/css/util.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/css/main.css') }}">
-<!--===============================================================================================-->
-<style>
-	.bg-loginn{
-		background-image: url('https://caterease.com/wp-content/uploads/2019/01/Final-Background-For-Login.png');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+	document.documentElement.classList.add('dark')
+	tailwind.config = {
+ 			 darkMode: 'class',
+		theme: {
+			extend: {
+			colors: {
+				primary: {"50":"#ecfeff","100":"#cffafe","200":"#a5f3fc","300":"#67e8f9","400":"#22d3ee","500":"#06b6d4","600":"#0891b2","700":"#0e7490","800":"#155e75","900":"#164e63"}
+			}
+		},
+		fontFamily: {
+			'body': [
+			'Inter', 
+			'ui-sans-serif', 
+			'system-ui', 
+			'-apple-system', 
+			'system-ui', 
+			'Segoe UI', 
+			'Roboto', 
+			'Helvetica Neue', 
+			'Arial', 
+			'Noto Sans', 
+			'sans-serif', 
+			'Apple Color Emoji', 
+			'Segoe UI Emoji', 
+			'Segoe UI Symbol', 
+			'Noto Color Emoji'
+			],
+			'sans': [
+			'Inter', 
+			'ui-sans-serif', 
+			'system-ui', 
+			'-apple-system', 
+			'system-ui', 
+			'Segoe UI', 
+			'Roboto', 
+			'Helvetica Neue', 
+			'Arial', 
+			'Noto Sans', 
+			'sans-serif', 
+			'Apple Color Emoji', 
+			'Segoe UI Emoji', 
+			'Segoe UI Symbol', 
+			'Noto Color Emoji'
+			]
+		}
+		}
 	}
-</style>
+  </script>
 </head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100 bg-loginn">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
-                    @csrf
-					<span class="login100-form-title p-b-26">
-						Welcome
-					</span>
-					<span class="login100-form-title p-b-48">
-						{{-- <i class="zmdi zmdi-font"></i> --}}
-                        {{-- <img src="{{ asset('assets/images/icon/vmond.png') }}" alt=""> --}}
-					</span>
-
-                        {{-- <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label> --}}
-
-                        <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-                            <input id="email" type="email" class="input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                            @error('email')
+<body class="dark:bg-gray-900">
+	<section class="bg-gray-50 dark:bg-gray-900">
+		<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<h1 class="text-[40px] mt-2 font-bold leading-tight tracking-[0.7rem] text-center text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                VMOND
+            </h1>
+            <span class="text-[40px] font-light leading-tight tracking-[0.7rem] text-center text-gray-900 dark:text-white">
+                CAFE
+            </span>
+			
+			<div class="w-full bg-white rounded-lg shadow dark:border mt-4 md:mt-2 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+				<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+					<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+						Sign in to your account
+					</h1>
+					<form class="space-y-4 md:space-y-6" method="POST" action="{{ route('login') }}">
+						@csrf
+						<div>
+							<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+							<input type="email" name="email" id="email" class="focus-input100 bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="name@company.com" required="">
+							@error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            {{-- <input class="input100" type="text" name="email"> --}}
                             <span class="focus-input100" data-placeholder="Email"></span>
-					    </div>
-
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-                            <input id="password" type="password" class="input100 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-						{{-- <input class="input100" type="password" name="pass"> --}}
-						<span class="focus-input100" data-placeholder="Password"></span>
-					</div>
-
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" type="submit">
-								Login
-							</button>
 						</div>
-					</div>
-
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
-
-						<a class="txt2" href="#">
-							Sign Up
-						</a>
-					</div>
-				</form>
+						<div>
+							<label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+							<input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+								@error('password')
+									<span class="invalid-feedback" role="alert">
+										<strong>{{ $message }}</strong>
+									</span>
+								@enderror
+							<span class="focus-input100" data-placeholder="Password"></span>
+						</div>
+						<button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+						<p class="text-sm font-light text-gray-500 dark:text-gray-400">
+							Don’t have an account yet? <a href="{{ route('register') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+						</p>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/animsition/js/animsition.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/bootstrap/js/popper.js') }}"></script>
-	<script src="{{ asset('assets/login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/select2/select2.min.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/daterangepicker/moment.min.js') }}"></script>
-	<script src="{{ asset('assets/login/vendor/daterangepicker/daterangepicker.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/vendor/countdowntime/countdowntime.js') }}"></script>
-<!--===============================================================================================-->
-	<script src="{{ asset('assets/login/js/main.js') }}"></script>
-
+	  </section>
 </body>
 </html>

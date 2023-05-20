@@ -116,8 +116,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea>
-                                        
+                                        {{-- <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea> --}}
+                                        <textarea name="description" id="mytextarea">{!! $restaurant->description !!}</textarea>
                                         @error('content')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -140,13 +140,18 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js"integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.tiny.cloud/1/6vch58fk4gud1ywlf06b61zgh32srvlfldxj53oxqnt7fpxt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    new AutoNumeric('#harga', {
+        currencySymbol: '',
+        decimalCharacter: ',',
+        digitGroupSeparator: '.',
+    });
 
-    <script>
-        new AutoNumeric('#harga', {
-            currencySymbol: '',
-            decimalCharacter: ',',
-            digitGroupSeparator: '.',
-        });
-
-    </script>
+    tinymce.init({
+        selector: '#mytextarea',
+        skin: "oxide-dark",
+        content_css: "dark"
+    });
+</script>
 @endsection

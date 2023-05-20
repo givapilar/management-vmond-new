@@ -155,3 +155,19 @@
       </div>
     </div>
   </div>
+
+  <script src="https://cdn.tiny.cloud/1/6vch58fk4gud1ywlf06b61zgh32srvlfldxj53oxqnt7fpxt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+                                                                                                                                                                                                                     
+  <script>
+    new AutoNumeric('#harga', {
+        currencySymbol : '',
+        decimalCharacter : ',',
+        digitGroupSeparator : '.',
+    });                   
+   
+    tinymce.init({
+        selector: '#mytextarea',
+        skin: "oxide-dark",
+        content_css: "dark"
+    });
+</script>
