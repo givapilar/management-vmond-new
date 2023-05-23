@@ -22,7 +22,7 @@
 
 <div class="content-wrapper">
     <div class="row">
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('restaurant.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('restaurant.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('biliard.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('biliard.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('meeting-room.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('meeting-room.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('banner.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('banner.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">

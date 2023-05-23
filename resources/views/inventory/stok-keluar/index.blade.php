@@ -126,12 +126,12 @@
                                 <td class="table-head text-white">{{ $stok_keluar->description }}</td>
                                 <td class="table-head text-white">
                                     <div class="btn-group-sm">
-                                        <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal"
+                                        <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal"
                                             data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
                                             <i class="fa fa-edit"></i>
                                             Edit
                                         </button>
-                                        <a href="#" class="btn btn-danger f-12"
+                                        <a href="#" class="btn btn-danger f-12 p-2"
                                             onclick="modalDelete('Stok keluar', '{{ $stok_keluar->material->nama }}', '/stok-keluar/' + {{ $stok_keluar->id }}, '/stok-keluar/')">
                                             <i class="far fa-trash-alt"></i>
                                             Delete

@@ -24,9 +24,8 @@
           @yield('content')
 
           <!-- content-wrapper ends -->
-            @include('layouts.footer')
-
         </div>
+        @include('layouts.footer')
         <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
