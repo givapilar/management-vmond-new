@@ -107,13 +107,15 @@
                             </span>
                         </div>
 
+                        @can('stok-keluar-create')
                         <div class="col-6 text-right">
                             <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal"
                                 data-target="#tambah-stok-keluar">
                                 <i class="fa fa-plus"></i>
-                                Tambah Stok Keluar
+                                Tambah
                             </button>
                         </div>
+                        @endcan
                         <div class="row">
                             <div class="col-6">
                                 @include('components.flash-message')
@@ -128,7 +130,9 @@
                                 <th class="th-sm">Nama</th>
                                 <th class="th-sm">Stok keluar</th>
                                 <th class="th-sm">Description</th>
+                                @if(auth()->user()->can('stok-keluar-edit'))
                                 <th class="th-sm">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -138,20 +142,26 @@
                                 <td class="table-head">{{ $stok_keluar->material->nama }}</td>
                                 <td class="table-head">{{ $stok_keluar->material_keluar }}</td>
                                 <td class="table-head">{{ $stok_keluar->description }}</td>
+                                @if(auth()->user()->can('stok-keluar-delete') || auth()->user()->can('stok-keluar-edit'))
                                 <td class="table-head">
                                     <div class="btn-group-sm">
+                                        @can('stok-keluar-edit')
                                         <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal"
-                                            data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
-                                            <i class="fa fa-edit"></i>
-                                            Edit Stok Keluar
-                                        </button>
+                                        data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
+                                        <i class="fa fa-edit"></i>
+                                        Edit Stok Keluar
+                                    </button>
+                                    @endcan
+                                    @can('stok-keluar-delete')
                                         <a href="#" class="btn btn-danger f-12"
                                             onclick="modalDelete('Stok keluar', '{{ $stok_keluar->material->nama }}', '/stok-keluar/' + {{ $stok_keluar->id }}, '/stok-keluar/')">
                                             <i class="far fa-trash-alt"></i>
                                             Delete
                                         </a>
+                                    @endcan
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                             @include('inventory.stok-keluar.edit')
                             @endforeach

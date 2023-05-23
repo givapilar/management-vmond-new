@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\RestaurantPivots;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -23,6 +25,8 @@ class RestaurantController extends Controller
     {
         $data['page_title'] = 'Restaurant';
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
+        $data['restaurant_pivots'] = RestaurantPivots::get();
+        $data['tags'] = Tags::get();
 
         return view('management-toko-online.restaurant.index', $data);
     }
@@ -69,6 +73,16 @@ class RestaurantController extends Controller
             }
             
             $restaurant->save();
+
+            $restaurantTags = [];
+            foreach ($request->tag_id as $key => $value) {
+
+                $restaurantTags[] = [
+                    'restaurant_id' => $restaurant->id,
+                    'tag_id' => $request->tag_id[$key],
+                ];
+            }
+            RestaurantPivots::insert($restaurantTags);
             
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;

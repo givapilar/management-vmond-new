@@ -47,6 +47,14 @@ class PermissionTableSeeder extends Seeder
             'banner-create',
             'banner-edit',
             'banner-delete',
+            'stok-masuk-index',
+            'stok-masuk-create',
+            'stok-masuk-edit',
+            'stok-masuk-delete',
+            'stok-keluar-index',
+            'stok-keluar-create',
+            'stok-keluar-edit',
+            'stok-keluar-delete',
         ];
 
         foreach ($permissions as $permission) {

@@ -104,13 +104,15 @@
                 <h4 class="card-title">{{ $page_title }}</h4>
               </span>
             </div>
-  
+
+            @can('stok-masuk-create')
             <div class="col-6 text-right">
               <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-stok-masuk">
                 <i class="fa fa-plus"></i> 
                 Tambah Stok Masuk
               </button>
             </div>
+            @endcan
           </div>
 
         <table id="example" class="table table-striped" style="width:100%" width="100%">
@@ -120,7 +122,9 @@
             <th class="th-sm">Nama</th>
             <th class="th-sm">Stok Masuk</th>
             <th class="th-sm">Description</th>
+            @if(auth()->user()->can('stok-masuk-edit'))
             <th class="th-sm">Action</th>
+            @endif
             </tr>
         </thead>
             <tbody>
@@ -131,22 +135,28 @@
                         <td class="table-head">{{ $stok_masuk->material->nama }}</td>
                         <td class="table-head">{{ $stok_masuk->material_masuk }}</td>
                         <td class="table-head">{{ $stok_masuk->description }}</td>
+                        @if(auth()->user()->can('stok-masuk-delete') || auth()->user()->can('stok-masuk-edit'))
                         <td>
                             <div class="btn-group-sm">
                               {{-- <a href="{{ route('material.edit', $stok_masuk->id) }}" class="btn btn-warning text-white">
                                 <i class="far fa-edit"></i>
                                 Edit
                               </a> --}}
+                              @can('stok-masuk-edit')
                               <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-stok-masuk{{ $stok_masuk->id }}">
                                 <i class="fa fa-edit"></i> 
-                                Edit Stok Masuk
+                                Edit
                               </button>
+                              @endcan
+                              @can('stok-masuk-delete')
                               <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/stok-masuk/' + {{ $stok_masuk->id }}, '/stok-masuk/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete
                               </a>
+                              @endcan
                             </div>
-                          </td>
+                        </td>
+                        @endif
                         </tr>
                         @include('inventory.stok-masuk.edit')
                 @endforeach

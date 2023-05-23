@@ -53,7 +53,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Master Data</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User</li>
+                {{-- <li class="breadcrumb-item active" aria-current="page">User</li> --}}
             </ol>
         </nav>
     </div>
@@ -128,8 +128,36 @@
                         <img src="{{ asset('assets/images/icon/raw-materials.png') }}" alt="">
                     </div>
                     <div class="flex-grow-1 ml-3">
-                        <h3 class="m-0 p-0">Material</h3>
+                        <h3 class="m-0 p-0">Makanan & Minuman</h3>
                         <p class="m-0 p-0 text-muted">Create, Update, and Delete data material</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4" onclick="location.href='{{ route('asset-management.index') }}'">
+            <div class="card rounded-20 p-2 bg-gray-800">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
+                        <img src="{{ asset('assets/images/icon/assets.png') }}" alt="">
+                    </div>
+                    <div class="flex-grow-1 ml-3">
+                        <h3 class="m-0 p-0">Asset Management</h3>
+                        <p class="m-0 p-0 text-muted">Create, Update, and Delete data asset management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4" onclick="location.href='{{ route('tag.index') }}'">
+            <div class="card rounded-20 p-2 bg-gray-800">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
+                        <img src="{{ asset('assets/images/icon/assets.png') }}" alt="">
+                    </div>
+                    <div class="flex-grow-1 ml-3">
+                        <h3 class="m-0 p-0">Tag</h3>
+                        <p class="m-0 p-0 text-muted">Create, Update, and Delete data tag</p>
                     </div>
                 </div>
             </div>
