@@ -24,15 +24,15 @@ class BannerController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Banner';
+        $data['page_title'] = 'Media Advertising';
         $data['banners'] = Banner::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.banner.index', $data);
     }
 
     public function create()
     {
-        $data['page_title'] = 'Tambah Banner';
+        $data['page_title'] = 'Tambah Media Advertising';
         $data['banner'] = Banner::get();
 
         return view('management-toko-online.banner.create',$data);
@@ -48,7 +48,7 @@ class BannerController extends Controller
         try {
             $banner = new Banner();
             $banner->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -67,7 +67,7 @@ class BannerController extends Controller
 
     public function edit($id)
     {
-        $data['page_title'] = 'Edit Banner';
+        $data['page_title'] = 'Edit Media Advertising';
         $data['banner'] = Banner::find($id);
 
         return view('management-toko-online.banner.edit',$data);
@@ -83,7 +83,7 @@ class BannerController extends Controller
         try {
             $banner = Banner::findOrFail($id);
             $banner->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -107,8 +107,8 @@ class BannerController extends Controller
             $banner = Banner::findOrFail($id);
             $banner->delete();
         });
-        
+
         Session::flash('success', 'Banner deleted successfully!');
         return response()->json(['status' => '200']);
-    }   
+    }
 }

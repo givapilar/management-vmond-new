@@ -60,7 +60,7 @@ Route::get('/', function () {
             // User
             Route::resource('/users', UserController::class);
             Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-            
+
             // departement
             Route::resource('/departement', DepartementController::class);
 
@@ -94,10 +94,9 @@ Route::get('/', function () {
 
             // Management Meeting Room
             Route::resource('/meeting-room', MeetingRoomController::class);
-            
+
             // Management Banner
             Route::resource('/banner', BannerController::class);
-
     });
 
     Route::prefix('kitchen')->name('kitchen.')->group(function () {

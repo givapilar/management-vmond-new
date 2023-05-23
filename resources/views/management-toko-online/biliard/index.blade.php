@@ -6,100 +6,86 @@
 
 @section('content')
 <div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card card rounded-20 p-2">
+                <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                    <div class="row">
+                        <div class="col-6 mt-1 px-4">
+                            <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                <i class="fa-solid fa-lines-leaning" style="font-size: 20px;"></i>
+                                <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                            </span>
+                        </div>
 
-  <div class="page-header">
-    <h3 class="page-title">  </h3>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('management-toko-online.index') }}">Management Toko Online</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Biliard</li>
-      </ol>
-    </nav>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          
-          <div class="row">
-            <div class="col-12">
-                @include('components.flash-message')
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6 mt-1">
-              <span class="tx-bold text-lg text-white" style="font-size:16px;">
-                <h4 class="card-title">{{ $page_title }}</h4>
-              </span>
-            </div>
-  
-            @can('biliard-create')
-            <div class="col-6 text-right">
-              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('management-toko-online.index') }}">
-                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
-                Kembali
-              </a>
-              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-biliard">
-                <i class="fa fa-plus"></i> 
-                Tambah
-              </button>
-            </div>
-            @endcan
-          </div>
-
-        <table id="example" class="table table-striped" style="width:100%">
-          <thead>
-            <tr>
-              <th class="th-sm">No</th>
-              <th class="th-sm">Nama</th>
-              <th class="th-sm">No Meja</th>
-              <th class="th-sm">Harga</th>
-              <th class="th-sm">Status</th>
-              <th class="th-sm">image</th>
-              <th class="th-sm">Action</th>
-          </thead>
-          <tbody>
-            @foreach ($biliards as $biliard)
-            <tr>
-                <td class="table-head">{{ $loop->iteration }}</td>
-                <td class="table-head">{{ $biliard->nama }}</td>
-                <td class="table-head">{{ $biliard->no_meja }}</td>
-                <td class="table-head">{{ $biliard->harga }}</td>
-                <td class="table-head">{{ $biliard->status }}</td>
-                <td class="table-head">
-                  <img src="{{ asset('assets/images/biliard/'.($biliard->image ?? 'user.png')) }}" width="110px" class="image img" />
-                </td>
-                @if(auth()->user()->can('biliard-delete') || auth()->user()->can('biliard-edit'))
-                <td>
-                    <div class="btn-group-sm">
-                      @can('biliard-edit')
-                      <a class="btn btn-warning f-12" href="{{ route('biliard.edit', $biliard->id) }}">
-                        <i class="fa fa-edit"></i> 
-                        Edit
-                      </a>
-                      @endcan
-                      @can('biliard-delete')
-                      <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/biliard/' + {{ $biliard->id }}, '/biliard/')">
-                        <i class="far fa-trash-alt"></i>
-                        Delete
-                      </a>
-                      @endcan
+                        <div class="col-6 text-right px-4">
+                            <a class="btn btn-sm btn-danger p-2" href="{{ route('management-toko-online.index') }}">
+                                Kembali
+                            </a>
+                            @can('biliard-create')
+                            <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-biliard">
+                                Tambah Meja
+                            </button>
+                            @endcan
+                        </div>
                     </div>
-                  </td>
-                  @endif
-                </tr>
-        @endforeach
-              
-          </tbody>
-          
-      </table>
+                </div>
 
+                <div class="card-body bg-gray-800 rounded-20 p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            @include('components.flash-message')
+                        </div>
+                    </div>
+
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="th-sm text-white">No</th>
+                                <th class="th-sm text-white">Nama</th>
+                                <th class="th-sm text-white">No Meja</th>
+                                <th class="th-sm text-white">Harga</th>
+                                <th class="th-sm text-white">Status</th>
+                                <th class="th-sm text-white">image</th>
+                                <th class="th-sm text-white" width="15%">Action</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($biliards as $biliard)
+                            <tr>
+                                <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                <td class="table-head text-white">{{ $biliard->nama }}</td>
+                                <td class="table-head text-white">{{ $biliard->no_meja }}</td>
+                                <td class="table-head text-white">{{ $biliard->harga }}</td>
+                                <td class="table-head text-white">{{ $biliard->status }}</td>
+                                <td class="table-head text-white">
+                                <img src="{{ asset('assets/images/biliard/'.($biliard->image ?? 'user.png')) }}" width="110px" class="image img" />
+                                </td>
+                                @if(auth()->user()->can('biliard-delete') || auth()->user()->can('biliard-edit'))
+                                <td>
+                                    <div class="btn-group-sm">
+                                    @can('biliard-edit')
+                                    <a class="btn btn-warning f-12 p-2" href="{{ route('biliard.edit', $biliard->id) }}">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    @endcan
+                                    @can('biliard-delete')
+                                    <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('Biliard', '{{ $biliard->nama }}', '/biliard/' + {{ $biliard->id }}, '/biliard/')">
+                                        <i class="far fa-trash-alt"></i>
+                                        Delete
+                                    </a>
+                                    @endcan
+                                    </div>
+                                </td>
+                                @endif
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 @include('management-toko-online.biliard.create')
 @endsection
