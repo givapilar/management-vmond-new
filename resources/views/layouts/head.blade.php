@@ -181,7 +181,7 @@ h1 {
     }
 
     .table-head{
-        color: #6c7293 !important;
+        color: #ffffff !important;
     }
 
     .jconfirm-title-c.supervan {

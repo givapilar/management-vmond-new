@@ -79,7 +79,7 @@
         // $('#example').DataTable(
         //     responsive: true
         // );
-        var table = $('#example').DataTable( {
+        var table = $('#mytable').DataTable( {
         responsive: true
     } );
 

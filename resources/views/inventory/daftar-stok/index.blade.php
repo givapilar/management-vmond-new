@@ -10,20 +10,9 @@
 
 @section('content')
 <div class="content-wrapper">
-
-  <div class="page-header">
-    <h3 class="page-title">  </h3>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Inventory</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Daftar Stok</li>
-      </ol>
-    </nav>
-  </div>
-
   <form action="" method="get" class="p-2">
     <div class="card rounded-20 p-2">
-        <div class="card-header rounded-t-20 pt-1 pl-2 pb-0 pr-2">
+        <div class="card-header rounded-t-20 pt-1 pl-2 pb-1 pr-2">
             <h4 class="text-center text-uppercase">Filter Stok</h4>
         </div>
         <div class="card-body bg-gray-800 rounded-20 p-3">
@@ -57,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <div class="form-group mb-3">
                         <label>Material :</label>
                         <select class="js-example-basic-single @error('material_id') is-invalid @enderror"
@@ -72,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-1">
                     <div class="form-group mt-4 ">
                         <button type="submit" class="btn btn-primary btn-group-lg p-2 ">
                             {{-- <i class="fas fa-cog fa-lg"></i> --}}
@@ -85,58 +74,59 @@
     </div>
   </form>
 
-  <div class="row mt-2">
+  <div class="row mt-2 p-2">
     <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card bg-gray-800 rounded-20 p-3">
-        <div class="card-body">
-          
+      <div class="card rounded-20 p-2">
+        <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+            <div class="row">
+                <div class="col-6 mt-1 px-4">
+                    <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                        <i class="fa-sharp fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
+                        <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                    </span>
+                </div>
+
+                <div class="col-6 text-right px-4">
+                  <a class="btn btn-sm btn-success p-2" href="{{ route('stok-masuk.index') }}">
+                    Stok Masuk
+                  </a>
+                  <a class="btn btn-sm btn-danger p-2"                                                                                                                                                                                                                                                btn-lg" href="{{ route('stok-keluar.index') }}">
+                    Stok Keluar
+                  </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body bg-gray-800 rounded-20 p-3">
           <div class="row">
             <div class="col-12">
                 @include('components.flash-message')
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-6 mt-1">
-              <span class="tx-bold text-lg text-white" style="font-size:16px;">
-                <h4 class="card-title">{{ $page_title }}</h4>
-              </span>
-            </div>
-
-            <div class="col-6 text-right">
-              <a class="btn btn-sm btn-success btn-lg" href="{{ route('stok-masuk.index') }}">
-                Stok Masuk
-              </a>
-              <a class="btn btn-sm btn-danger                                                                                                                                                                                                                                                 btn-lg" href="{{ route('stok-keluar.index') }}">
-                Stok Keluar
-              </a>
-            </div>
-          </div>
-
-          <table id="example" class="table table-striped" style="width:100%">
+          <table id="mytable" class="table table-striped" style="width:100%">
           <thead>
               <tr>
-              <th class="th-sm">No</th>
-              <th class="th-sm">Nama</th>
-              <th class="th-sm">Total Stok</th>
-              <th class="th-sm">Stok Masuk</th>
-              <th class="th-sm">Stok Keluar</th>
+                <th class="th-sm text-white">No</th>
+                <th class="th-sm text-white">Nama</th>
+                <th class="th-sm text-white">Total Stok</th>
+                <th class="th-sm text-white">Stok Masuk</th>
+                <th class="th-sm text-white">Stok Keluar</th>
               </tr>
           </thead>
               <tbody>
                   @foreach ($materials as $material)
                       <tr>
-                          <td class="table-head">{{ $loop->iteration }}</td>
-                          <td class="table-head">{{ $material->nama }}</td>
-                          <td class="table-head">{{ $material->stokMasuk->sum('material_masuk') - $material->stokKeluar->sum('material_keluar') }}</td>
-                          <td class="table-head">{{ $material->stokMasuk->sum('material_masuk') }}</td>
-                          <td class="table-head">{{ $material->stokKeluar->sum('material_keluar') }}</td>
-                          
+                          <td class="table-head text-white">{{ $loop->iteration }}</td>
+                          <td class="table-head text-white">{{ $material->nama }}</td>
+                          <td class="table-head text-white">{{ $material->stokMasuk->sum('material_masuk') - $material->stokKeluar->sum('material_keluar') }}</td>
+                          <td class="table-head text-white">{{ $material->stokMasuk->sum('material_masuk') }}</td>
+                          <td class="table-head text-white">{{ $material->stokKeluar->sum('material_keluar') }}</td>
                       </tr>
                   @endforeach
-              
+
               </tbody>
-          
+
           </table>
         </div>
       </div>
@@ -146,7 +136,7 @@
 @endsection
 
 @section('javascript')
-    
+
 <script>
   $('.datepicker').datepicker({
     format: "yyyy-mm-dd",

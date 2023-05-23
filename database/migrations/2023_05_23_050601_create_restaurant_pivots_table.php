@@ -18,8 +18,8 @@ class CreateRestaurantPivotsTable extends Migration
             $table->unsignedBigInteger("restaurant_id")->nullable();
             $table->unsignedBigInteger("tag_id")->nullable();
 
-            $table->foreign("restaurant_id")->references("id")->on("restaurants");
-            $table->foreign("tag_id")->references("id")->on("tags");
+            $table->foreign("restaurant_id")->references("id")->on("restaurants")->onDelete('cascade');
+            $table->foreign("tag_id")->references("id")->on("tags")->onDelete('cascade');
             $table->timestamps();
         });
     }

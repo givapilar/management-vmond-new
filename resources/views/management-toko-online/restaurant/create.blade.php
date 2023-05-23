@@ -1,4 +1,10 @@
-s<div class="modal modal-fullscreen" id="tambah-menu" tabindex="-1" role="dialog" aria-hidden="true">
+    <style>
+        .current-stok{
+            background-color: #2A3038 !important;
+        }
+        
+    </style>
+<div class="modal modal-fullscreen" id="tambah-menu" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -75,7 +81,7 @@ s<div class="modal modal-fullscreen" id="tambah-menu" tabindex="-1" role="dialog
                     <div class="col-lg-3">
                         <div class="form-group mb-3">
                             <label for="stok_perhari">Stok Perhari</label>
-                            <input type="text" class="form-control @error('stok_perhari') is-invalid @enderror" id="stok_perhari" name="stok_perhari" value="{{ old('stok_perhari') }}"  placeholder="Stok Perhari">
+                            <input type="number" class="form-control @error('stok_perhari') is-invalid @enderror" id="stok_perhari" name="stok_perhari" value="{{ old('stok_perhari') }}"  placeholder="Stok Perhari">
                             
                             @error('stok_perhari')
                             <span class="invalid-feedback" role="alert">
@@ -123,6 +129,19 @@ s<div class="modal modal-fullscreen" id="tambah-menu" tabindex="-1" role="dialog
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label for="current_stok">Current Stok</label>
+                            <input type="number" class="form-control current-stok @error('current_stok') is-invalid @enderror" id="current_stok" name="current_stok" value="0"  placeholder="Current Stok">
+                            
+                            @error('current_stok')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                     </div>

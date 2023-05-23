@@ -22,26 +22,26 @@ class StokMasukController extends Controller
 
     public function index(Request $request)
     {
-        $data['page_title'] = 'Dashboard';
+        $data['page_title'] = 'Stok Masuk';
         $data['materials'] = Material::orderby('id', 'asc')->get();
-        
+
         $type = $request->has('type') ? $request->type : 'day';
 
         if ($type == 'day') {
-            $stok = StokMasuk::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{ 
+            $stok = StokMasuk::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
              }})->get();
         } elseif ($type == 'monthly') {
-            $stok = StokMasuk::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{ 
+            $stok = StokMasuk::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
              }})->get();
         } elseif ($type == 'yearly'){
-            $stok = StokMasuk::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{ 
+            $stok = StokMasuk::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
              }})->get();
         }
         $data['stock_masuks'] = $stok;
-        
+
 
 
 
@@ -71,7 +71,7 @@ class StokMasukController extends Controller
             $material->material_id = $validateData['material_id'];
             $material->material_masuk = $validateData['material_masuk'];
             $material->description = $validateData['description'];
-            
+
             $material->save();
 
             return redirect()->route('stok-masuk.index')->with(['success' => 'Stok Masuk added successfully!']);
@@ -101,7 +101,7 @@ class StokMasukController extends Controller
             $material->material_id = $validateData['material_id'];
             $material->material_masuk = $validateData['material_masuk'];
             $material->description = $validateData['description'];
-            
+
 
             $material->save();
 
@@ -117,7 +117,7 @@ class StokMasukController extends Controller
             $stok_masuk = StokMasuk::findOrFail($id);
             $stok_masuk->delete();
         });
-        
+
         Session::flash('success', 'Stok Masuk deleted successfully!');
         return response()->json(['status' => '200']);
     }

@@ -19,7 +19,7 @@
                         <div class="form-group mb-3">
                             <label for="nama">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}"  placeholder="Nama">
-                            
+
                             @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                         <div class="form-group mb-3">
                             <label for="no_meja">No Meja</label>
                             <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" value="{{ old('no_meja') }}"  placeholder="No Meja">
-                            
+
                             @error('no_meja')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -45,7 +45,7 @@
                         <div class="form-group mb-3">
                             <label for="harga">Harga</label>
                             <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
-                            
+
                             @error('harga')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                 <option value="Tersedia">Tersedia</option>
                                 <option value="Tidak Tersedia">Tidak Tersedia</option>
                             </select>
-    
+
                             @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -126,4 +126,4 @@
         content_css: "dark"
     });
 </script>
-               
+

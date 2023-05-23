@@ -11,16 +11,6 @@
 
 @section('content')
 <div class="content-wrapper">
-    <div class="page-header">
-        <h3 class="page-title"> </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Inventory</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Stok Keluar</li>
-            </ol>
-        </nav>
-    </div>
-
     <form action="" method="get" class="p-2">
         <div class="card rounded-20 p-2">
             <div class="card-header rounded-t-20 pt-1 pl-2 pb-0 pr-2">
@@ -63,7 +53,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="form-group mb-3">
                             <label>Material :</label>
                             <select class="js-example-basic-single @error('material_id') is-invalid @enderror"
@@ -78,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <div class="form-group mt-4 ">
                             <button type="submit" class="btn btn-primary btn-group-lg p-2 ">
                                 Generate
@@ -90,69 +80,58 @@
         </div>
     </form>
 
-    <div class="row">
+    <div class="row mt-2 p-2">
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card card rounded-20 p-2">
-                <div class="card-body">
+                <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                    <div class="row">
+                        <div class="col-6 mt-1 px-4">
+                            <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                <i class="fa-sharp fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
+                                <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                            </span>
+                        </div>
+
+                        <div class="col-6 text-right px-4">
+                            <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-stok-keluar">
+                                Tambah Stok Keluar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body bg-gray-800 rounded-20 p-3">
                     <div class="row">
                         <div class="col-12">
                             @include('components.flash-message')
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-6 mt-1">
-                            <span class="tx-bold text-lg text-white" style="font-size:16px;">
-                                <h4 class="card-title">{{ $page_title }}</h4>
-                            </span>
-                        </div>
-
-                        @can('stok-keluar-create')
-                        <div class="col-6 text-right">
-                            <button class="btn btn-sm btn-info btn-lg btn-open-modal" data-toggle="modal"
-                                data-target="#tambah-stok-keluar">
-                                <i class="fa fa-plus"></i>
-                                Tambah
-                            </button>
-                        </div>
-                        @endcan
-                        <div class="row">
-                            <div class="col-6">
-                                @include('components.flash-message')
-                            </div>
-                        </div>
-                    </div>
-
-                    <table id="example" class="table table-striped" style="width:100%">
+                    <table id="mytable" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
-                                <th class="th-sm">No</th>
-                                <th class="th-sm">Nama</th>
-                                <th class="th-sm">Stok keluar</th>
-                                <th class="th-sm">Description</th>
-                                @if(auth()->user()->can('stok-keluar-edit'))
-                                <th class="th-sm">Action</th>
-                                @endif
+                                <th class="th-sm text-white">No</th>
+                                <th class="th-sm text-white">Nama</th>
+                                <th class="th-sm text-white">Stok keluar</th>
+                                <th class="th-sm text-white">Description</th>
+                                <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($stok_keluars as $stok_keluar)
                             <tr>
-                                <td class="table-head">{{ $loop->iteration }}</td>
-                                <td class="table-head">{{ $stok_keluar->material->nama }}</td>
-                                <td class="table-head">{{ $stok_keluar->material_keluar }}</td>
-                                <td class="table-head">{{ $stok_keluar->description }}</td>
-                                @if(auth()->user()->can('stok-keluar-delete') || auth()->user()->can('stok-keluar-edit'))
-                                <td class="table-head">
+                                <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                <td class="table-head text-white">{{ $stok_keluar->material->nama }}</td>
+                                <td class="table-head text-white">{{ $stok_keluar->material_keluar }}</td>
+                                <td class="table-head text-white">{{ $stok_keluar->description }}</td>
+                                <td class="table-head text-white">
                                     <div class="btn-group-sm">
                                         @can('stok-keluar-edit')
                                         <button class="btn btn-sm btn-warning btn-lg btn-open-modal" data-toggle="modal"
-                                        data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
-                                        <i class="fa fa-edit"></i>
-                                        Edit Stok Keluar
-                                    </button>
-                                    @endcan
-                                    @can('stok-keluar-delete')
+                                            data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </button>
                                         <a href="#" class="btn btn-danger f-12"
                                             onclick="modalDelete('Stok keluar', '{{ $stok_keluar->material->nama }}', '/stok-keluar/' + {{ $stok_keluar->id }}, '/stok-keluar/')">
                                             <i class="far fa-trash-alt"></i>
@@ -161,7 +140,6 @@
                                     @endcan
                                     </div>
                                 </td>
-                                @endif
                             </tr>
                             @include('inventory.stok-keluar.edit')
                             @endforeach
