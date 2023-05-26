@@ -49,7 +49,7 @@
 <div class="content-wrapper">
     <div class="row">
         @can('user-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('users.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('users.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -65,7 +65,7 @@
         @endcan
 
         @can('departement-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('departement.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('departement.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -81,7 +81,7 @@
         @endcan
 
         @can('material-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('bahan-baku.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('bahan-baku.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -97,7 +97,7 @@
         @endcan
 
         @can('asset-management-list')
-        <div class="col-12 col-lg-4" onclick="location.href='{{ route('asset-management.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('asset-management.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -113,7 +113,7 @@
         @endcan
 
         @can('tag-list')
-        <div class="col-12 col-lg-4" onclick="location.href='{{ route('tag.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('tag.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -129,7 +129,7 @@
         @endcan
 
         @can('meja-restaurant-list')
-        <div class="col-12 col-lg-4" onclick="location.href='{{ route('meja-restaurant.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('meja-restaurant.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">

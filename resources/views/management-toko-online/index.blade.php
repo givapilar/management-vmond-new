@@ -22,21 +22,9 @@
 
 @section('content')
 <div class="content-wrapper">
-
-    <div class="page-header">
-        <h3 class="page-title"> </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Toko Online</a></li>
-                {{-- <li class="breadcrumb-item active" aria-current="page">User</li> --}}
-            </ol>
-        </nav>
-    </div>
-
-<div class="content-wrapper">
     <div class="row">
         @can('restaurant-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('restaurant.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('restaurant.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -52,7 +40,7 @@
         @endcan
 
         @can('biliard-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('biliard.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('biliard.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -68,7 +56,7 @@
         @endcan
 
         @can('meeting-room-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('meeting-room.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('meeting-room.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -84,7 +72,7 @@
         @endcan
 
         @can('media-advertising-list')
-        <div class="col-12 col-lg-4 mb-4" onclick="location.href='{{ route('banner.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('banner.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
