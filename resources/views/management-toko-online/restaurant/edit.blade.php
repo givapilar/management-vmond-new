@@ -113,7 +113,7 @@
                                         <select name="tag_id[]" id="e1" class="js-example-basic-multiple select2-department select2" id="e1" multiple="multiple" style="width:100%">
                                             @foreach ($tags as $tag)
                                                 <option value="{{$tag->id}}" 
-                                                    @foreach (old('tag_id') ?? $tag as $id)
+                                                    @foreach (old('tag_id') ?? $restaurant_tags as $id)
                                                         @if ($id == $tag->id)
                                                             {{ 'selected' }}
                                                         @endif

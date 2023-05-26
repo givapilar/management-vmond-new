@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -58,6 +59,13 @@ class BannerController extends Controller
             }
 
             $banner->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Media Advertising '.$banner->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('banner.index')->with(['success' => 'Banner added successfully!']);
         } catch (\Throwable $th) {

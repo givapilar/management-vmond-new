@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\MeetingRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +69,13 @@ class MeetingRoomController extends Controller
 
             $meeting_room->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Meeting Room'.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('meeting-room.index')->with(['success' => 'Meeting Room added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('meeting-room.index')->with(['failed' => 'Meeting Room added failed! '.$th->getMessage()]);
@@ -117,6 +125,13 @@ class MeetingRoomController extends Controller
 
             $meeting_room->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Meeting Room'.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('meeting-room.index')->with(['success' => 'Meeting Room edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('meeting-room.index')->with(['failed' => 'Meeting Room edited Failed! '. $th->getMessage()]);
@@ -128,6 +143,13 @@ class MeetingRoomController extends Controller
         DB::transaction(function () use ($id) {
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Meeting Room '.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
 
         Session::flash('success', 'Meeting Room deleted successfully!');

@@ -48,6 +48,7 @@
 @section('content')
 <div class="content-wrapper">
     <div class="row">
+        @can('user-list')
         <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('users.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
@@ -61,6 +62,9 @@
                 </div>
             </div>
         </div>
+        @endcan
+
+        @can('departement-list')
         <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('departement.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
@@ -74,21 +78,26 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('material.index') }}'">
+        @endcan
+
+        @can('material-list')
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('bahan-baku.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
                         <img src="{{ asset('assets/images/icon/raw-materials.png') }}" alt="">
                     </div>
                     <div class="flex-grow-1 ml-3">
-                        <h3 class="m-0 p-0">Makanan & Minuman</h3>
-                        <p class="m-0 p-0 text-muted">Create, Update, and Delete data material</p>
+                        <h3 class="m-0 p-0">Bahan Baku</h3>
+                        <p class="m-0 p-0 text-muted">Create, Update, and Delete data bahan baku</p>
                     </div>
                 </div>
             </div>
         </div>
+        @endcan
 
-        <div class="col-12 col-lg-4" onclick="location.href='{{ route('asset-management.index') }}'">
+        @can('asset-management-list')
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('asset-management.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -101,8 +110,10 @@
                 </div>
             </div>
         </div>
+        @endcan
 
-        <div class="col-12 col-lg-4" onclick="location.href='{{ route('tag.index') }}'">
+        @can('tag-list')
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('tag.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -115,6 +126,23 @@
                 </div>
             </div>
         </div>
+        @endcan
+
+        @can('meja-restaurant-list')
+        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('meja-restaurant.index') }}'">
+            <div class="card rounded-20 p-2 bg-gray-800">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
+                        <img src="{{ asset('assets/images/icon/meja-restaurant.png') }}" alt="">
+                    </div>
+                    <div class="flex-grow-1 ml-3">
+                        <h3 class="m-0 p-0">Meja Restaurant</h3>
+                        <p class="m-0 p-0 text-muted">Create, Update, and Delete data meja restaurant</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcan
     </div>
 </div>
 @endsection

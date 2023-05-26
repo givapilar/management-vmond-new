@@ -48,6 +48,8 @@
           <span class="menu-title">Dashboard</span>
         </a>
       </li>
+
+      @can('inventory')
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-icon">
@@ -64,7 +66,9 @@
           </ul>
         </div>
       </li>
+      @endcan
 
+      @can('master-data')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('master-data.index') }}">
           <span class="menu-icon">
@@ -73,7 +77,9 @@
           <span class="menu-title">Master Data</span>
         </a>
       </li>
+      @endcan
 
+      @can('toko-online')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('management-toko-online.index') }}">
           <span class="menu-icon">
@@ -82,6 +88,18 @@
           <span class="menu-title">Toko Online</span>
         </a>
       </li>
+      @endcan
+
+      @can('history-log-list')
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ route('history-log.index') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-basket"></i>
+          </span>
+          <span class="menu-title">History Log</span>
+        </a>
+      </li>
+      @endcan
 
     </ul>
   </nav>

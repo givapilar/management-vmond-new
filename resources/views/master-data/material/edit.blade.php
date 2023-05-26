@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('material.update', $material->id) }}" novalidate>
+            <form method="POST" action="{{ route('bahan-baku.update', $material->id) }}" novalidate>
                 @method('patch')
                 @csrf
 

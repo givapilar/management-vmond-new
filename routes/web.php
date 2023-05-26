@@ -16,6 +16,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AssetManagementsController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\MejaRestaurantsController;
+use App\Http\Controllers\HistoryLogsController;
 
 
 
@@ -67,7 +69,7 @@ Route::get('/', function () {
             Route::resource('/departement', DepartementController::class);
 
             // Material
-            Route::resource('/material', MaterialController::class);
+            Route::resource('/bahan-baku', MaterialController::class);
 
             // Asset Management
             Route::resource('/asset-management', AssetManagementsController::class);
@@ -75,9 +77,15 @@ Route::get('/', function () {
             // Tag
             Route::resource('/tag', TagsController::class);
 
-
+            // Tag
+            Route::resource('/meja-restaurant', MejaRestaurantsController::class);
+            
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');
+            
+            
+            // History Logs
+            Route::resource('/history-log', HistoryLogsController::class);
 
             // Inventory
             Route::get('/daftar-stok', [DaftarStokController::class, 'index'])->name('inventory.daftar-stok.index');

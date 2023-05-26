@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biliard;
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -69,6 +70,13 @@ class BiliardController extends Controller
 
             $biliard->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Biliard '.$biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('biliard.index')->with(['success' => 'Biliard added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('biliard.index')->with(['failed' => 'Biliard added failed! '.$th->getMessage()]);
@@ -117,6 +125,13 @@ class BiliardController extends Controller
 
             $biliard->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Delete Biliard '.$biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('biliard.index')->with(['success' => 'Biliard edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('biliard.index')->with(['failed' => 'Biliard edited Failed! '. $th->getMessage()]);
@@ -128,6 +143,13 @@ class BiliardController extends Controller
         DB::transaction(function () use ($id) {
             $Biliard = Biliard::findOrFail($id);
             $Biliard->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Biliard '.$Biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
 
         Session::flash('success', 'Biliard deleted successfully!');

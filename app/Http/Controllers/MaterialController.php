@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\Material;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,7 @@ class MaterialController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Material';
+        $data['page_title'] = 'Bahan Baku';
         $data['materials'] = Material::orderby('id', 'asc')->get();
         
         return view('master-data.material.index', $data);
@@ -52,18 +53,29 @@ class MaterialController extends Controller
             
             $material->save();
 
-            return redirect()->route('material.index')->with(['success' => 'Material added successfully!']);
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Bahan Baku '.$request->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
+            return redirect()->route('bahan-baku.index')->with(['success' => 'Bahan Baku added successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('material.index')->with(['failed' => 'Material added failed! '.$th->getMessage()]);
+            return redirect()->route('bahan-baku.index')->with(['failed' => 'Bahan Baku added failed! '.$th->getMessage()]);
         }
     }
 
     public function edit($id)
     {
-        $data['page_title'] = 'Edit Material';
+        $data['page_title'] = 'Edit Bahan Baku';
         $data['materials'] = Material::find($id);
 
         return view('master-data.material.edit',$data);
+    }
+
+    public function show(){
+        
     }
 
     public function update(Request $request, $id)
@@ -85,9 +97,16 @@ class MaterialController extends Controller
 
             $material->save();
 
-            return redirect()->route('material.index')->with(['success' => 'Material edited successfully!']);
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Bahan Baku '.$request->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
+            return redirect()->route('bahan-baku.index')->with(['success' => 'Bahan Baku edited successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('material.index')->with(['failed' => 'Material edited Failed! '. $th->getMessage()]);
+            return redirect()->route('bahan-baku.index')->with(['failed' => 'Bahan Baku edited Failed! '. $th->getMessage()]);
         }
     }
 
@@ -96,9 +115,16 @@ class MaterialController extends Controller
         DB::transaction(function () use ($id) {
             $role = Material::findOrFail($id);
             $role->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Bahan Baku '.$role->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
         
-        Session::flash('success', 'Material deleted successfully!');
+        Session::flash('success', 'Bahan Baku deleted successfully!');
         return response()->json(['status' => '200']);
     }
 }
