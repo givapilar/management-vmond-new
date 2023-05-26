@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\StokMasuk;
 use App\Models\Material;
@@ -74,6 +75,13 @@ class StokMasukController extends Controller
 
             $material->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Stok Masuk '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('stok-masuk.index')->with(['success' => 'Stok Masuk added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('stok-masuk.index')->with(['failed' => 'Stok Masuk added failed! '.$th->getMessage()]);
@@ -105,6 +113,13 @@ class StokMasukController extends Controller
 
             $material->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Stok Masuk '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('stok-masuk.index')->with(['success' => 'Stok Masuk Berhasil Diedit!']);
         } catch (\Throwable $th) {
             return redirect()->route('stok-masuk.index')->with(['failed' => 'Stok Masuk Gagal edited! '. $th->getMessage()]);
@@ -116,6 +131,13 @@ class StokMasukController extends Controller
         DB::transaction(function () use ($id) {
             $stok_masuk = StokMasuk::findOrFail($id);
             $stok_masuk->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Stok Masuk '.$stok_masuk->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
 
         Session::flash('success', 'Stok Masuk deleted successfully!');

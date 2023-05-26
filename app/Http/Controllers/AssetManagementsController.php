@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssetManagements;
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -46,6 +47,13 @@ class AssetManagementsController extends Controller
             
             $asset_management->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Asset '.$request->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('asset-management.index')->with(['success' => 'Asset Management added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('asset-management.index')->with(['failed' => 'Asset Management added failed! '.$th->getMessage()]);
@@ -77,6 +85,13 @@ class AssetManagementsController extends Controller
 
             $asset_management->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Asset '.$request->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('asset-management.index')->with(['success' => 'Asset Management edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('asset-management.index')->with(['failed' => 'Asset Management edited Failed! '. $th->getMessage()]);
@@ -88,6 +103,13 @@ class AssetManagementsController extends Controller
         DB::transaction(function () use ($id) {
             $asset_management = AssetManagements::findOrFail($id);
             $asset_management->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Asset '.$asset_management->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
         
         Session::flash('success', 'Asset Management deleted successfully!');

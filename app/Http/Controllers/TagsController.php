@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,6 +43,13 @@ class TagsController extends Controller
             
             $tag->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Tag '.$tag->tag_nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('tag.index')->with(['success' => 'Tag added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('tag.index')->with(['failed' => 'Tag added failed! '.$th->getMessage()]);
@@ -68,6 +76,13 @@ class TagsController extends Controller
 
             $tag->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Tag '.$tag->tag_name;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('tag.index')->with(['success' => 'Tag edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('tag.index')->with(['failed' => 'Tag edited Failed! '. $th->getMessage()]);
@@ -79,6 +94,13 @@ class TagsController extends Controller
         DB::transaction(function () use ($id) {
             $tag = Tags::findOrFail($id);
             $tag->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Tag '.$tag->tag_nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
         
         Session::flash('success', 'Tag deleted successfully!');

@@ -24,8 +24,8 @@
                             </a>
 
                             @can('material-create')
-                            <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#modal-fullscreen-xl">
-                                Tambah Material
+                            <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-meja-restaurant">
+                                Tambah
                             </button>
                             @endcan
                         </div>
@@ -43,32 +43,36 @@
                         <thead>
                             <tr>
                                 <th class="th-sm text-white">No</th>
-                                <th class="th-sm text-white">Code</th>
                                 <th class="th-sm text-white">Nama</th>
-                                <th class="th-sm text-white">Unit</th>
-                                <th class="th-sm text-white">Description</th>
+                                <th class="th-sm text-white">Category</th>
+                                <th class="th-sm text-white">Status</th>
                                 <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($materials as $material)
+                            @foreach ($meja_restaurants as $meja_restaurant)
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
-                                <td class="table-head text-white">{{ $material->code }}</td>
-                                <td class="table-head text-white">{{ $material->nama }}</td>
-                                <td class="table-head text-white">{{ $material->unit }}</td>
-                                <td class="table-head text-white">{{ $material->description ?? 'N/A' }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->nama }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->category }}</td>
+                                {{-- <td class="table-head text-white">{{ $meja_restaurant->status }}</td> --}}
+                                @if ($meja_restaurant->status == 'Tersedia')
+                                    <td class="table-head text-white"><span class="badge bg-success">{{$meja_restaurant->status }}</span></td>
+                                @else
+                                    <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
+                                @endif
+
                                 @if(auth()->user()->can('material-delete') || auth()->user()->can('material-edit'))
                                 <td>
                                     <div class="btn-group-sm">
                                     @can('material-edit')
-                                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl-edit{{ $material->id }}">
+                                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-meja-restaurant{{ $meja_restaurant->id }}">
                                         <i class="fa fa-edit"></i>
                                         Edit
                                     </button>
                                     @endcan
                                     @can('material-edit')
-                                    <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Bahan Baku', '{{ $material->nama }}', '/bahan-baku/' + {{ $material->id }}, '/bahan-baku/')">
+                                    <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Meja Restaurant', '{{ $meja_restaurant->nams }}', '/meja-restaurant/' + {{ $meja_restaurant->id }}, '/meja-restaurant/')">
                                         <i class="far fa-trash-alt"></i>
                                         Hapus
                                     </a>
@@ -77,7 +81,7 @@
                                 </td>
                                 @endif
                             </tr>
-                            @include('master-data.material.edit')
+                            @include('master-data.meja-restaurant.edit')
                             @endforeach
                         </tbody>
                     </table>
@@ -86,5 +90,5 @@
         </div>
     </div>
 </div>
-@include('master-data.material.create')
+@include('master-data.meja-restaurant.create')
 @endsection

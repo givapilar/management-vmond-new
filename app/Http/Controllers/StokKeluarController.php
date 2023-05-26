@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\StokKeluar;
 use App\Models\Material;
@@ -52,6 +53,13 @@ class StokKeluarController extends Controller
             
             $material->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Stok Keluar '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('stok-keluar.index')->with(['success' => 'Stok Keluar added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('stok-keluar.index')->with(['failed' => 'Stok Keluar added failed! '.$th->getMessage()]);
@@ -83,6 +91,13 @@ class StokKeluarController extends Controller
 
             $material->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Stok Keluar '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('stok-keluar.index')->with(['success' => 'Stok Material edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('stok-keluar.index')->with(['failed' => 'Stok Material edited Failed! '. $th->getMessage()]);
@@ -94,6 +109,13 @@ class StokKeluarController extends Controller
         DB::transaction(function () use ($id) {
             $stok_keluar = StokKeluar::findOrFail($id);
             $stok_keluar->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Stok Keluar '.$stok_keluar->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
         
         Session::flash('failed', 'Stok Keluar deleted successfully!');

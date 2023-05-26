@@ -133,8 +133,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            @include('inventory.stok-masuk.edit')
                             @endforeach
+                            @include('inventory.stok-masuk.edit')
                         </tbody>
                     </table>
                 </div>

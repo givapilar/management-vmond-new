@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\Restaurant;
 use App\Models\RestaurantPivots;
 use App\Models\Tags;
@@ -15,10 +16,10 @@ class RestaurantController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:departement-list', ['only' => 'index']);
-        // $this->middleware('permission:departement-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:departement-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:restaurant-list', ['only' => 'index']);
+        $this->middleware('permission:restaurant-create', ['only' => ['create','store']]);
+        $this->middleware('permission:restaurant-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:restaurant-delete', ['only' => ['destroy']]);
     }
 
     public function index()
@@ -48,6 +49,7 @@ class RestaurantController extends Controller
             'harga_diskon' => 'required',
             'stok_perhari' => 'required',
             'current_stok' => 'nullable',
+            'tag_id' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
@@ -82,13 +84,14 @@ class RestaurantController extends Controller
             }
             
             $restaurant->save();
-            
-            if ($restaurant->category == 'Makanan') {
-                $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
-            }else{
-                $restaurant->code = $this->getNextId('MNM', $restaurant->id);
-            }
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Restaurant '.$restaurant->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+            
             $restaurantTags = [];
             foreach ($request->tag_id as $key => $value) {
 
@@ -98,6 +101,14 @@ class RestaurantController extends Controller
                 ];
             }
             RestaurantPivots::insert($restaurantTags);
+            
+            
+            if ($restaurant->category == 'Makanan') {
+                $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
+            }else{
+                $restaurant->code = $this->getNextId('MNM', $restaurant->id);
+            }
+
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('restaurant.index')->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
@@ -109,6 +120,9 @@ class RestaurantController extends Controller
         $data['page_title'] = 'Edit Menu';
         $data['restaurant'] = Restaurant::findorFail($id);
         $data['tags'] = Tags::get();
+        $data['restaurant_tags'] = RestaurantPivots::where("restaurant_id",$id)
+        ->pluck('tag_id')
+        ->all();
 
         return view('management-toko-online.restaurant.edit',$data);
     }
@@ -162,6 +176,13 @@ class RestaurantController extends Controller
             
             $restaurant->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Restaurant '.$restaurant->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             $restaurant->restaurantTag()->delete();
 
             $restaurantTags = [];
@@ -192,6 +213,13 @@ class RestaurantController extends Controller
         DB::transaction(function () use ($id) {
             $restaurant = Restaurant::findOrFail($id);
             $restaurant->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Restaurant '.$restaurant->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
 
         Session::flash('success', 'Restaurant deleted successfully!');
