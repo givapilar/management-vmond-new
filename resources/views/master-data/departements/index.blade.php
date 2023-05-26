@@ -1,7 +1,42 @@
 @extends('home')
 
 @section('style')
-
+<style>
+    .jconfirm.jconfirm-material .jconfirm-box{
+        background-color: #040507 !important;
+        border: 1px solid #464646 !important;
+        border-radius: 20px !important;
+        box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
+    }
+    .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title{
+        color: white !important;
+    }
+    .jconfirm.jconfirm-material .jconfirm-box{
+        padding: 15px 25px 10px 25px !important;
+    }
+    .jconfirm.jconfirm-material .jconfirm-box div.jconfirm-title-c{
+        margin-bottom: 10px !important;
+    }
+    .jconfirm .jconfirm-box div.jconfirm-closeIcon{
+        width: fit-content !important;
+        height: fit-content !important;
+        background: gray !important;
+        padding: 5px !important;
+        border-radius: 5px !important;
+        top:15px !important;
+        right:15px !important;
+    }
+    .jconfirm.jconfirm-material .jconfirm-box div.jconfirm-closeIcon{
+        color: rgb(255 255 255) !important;
+    }
+    .custom-hr{
+        margin-top: 2px !important;
+        margin-bottom: 2px !important;
+        background: #d4d4d4 !important;
+    }
+</style>
 @endsection
 
 @section('content')

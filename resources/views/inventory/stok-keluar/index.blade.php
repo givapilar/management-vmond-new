@@ -126,6 +126,7 @@
                                 <td class="table-head text-white">{{ $stok_keluar->description }}</td>
                                 <td class="table-head text-white">
                                     <div class="btn-group-sm">
+                                    @can('stok-keluar-edit')
                                         <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal"
                                             data-target="#edit-stok-keluar{{ $stok_keluar->id }}">
                                             <i class="fa fa-edit"></i>
@@ -136,6 +137,7 @@
                                             <i class="far fa-trash-alt"></i>
                                             Delete
                                         </a>
+                                    @endcan
                                     </div>
                                 </td>
                             </tr>

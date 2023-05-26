@@ -35,7 +35,7 @@
 <!-- End layout styles -->
 
 {{-- Logo Head --}}
-<link rel="shortcut icon" href="{{ asset('assets/images/icon/logo-v.png') }}" />
+<link rel="shortcut icon" href="{{ asset('assets/images/logo/vmond-logo-head.png') }}" />
 {{-- Toastify --}}
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
@@ -89,6 +89,7 @@ h1 {
 
 
 #loader {
+z-index: 50;
   display: block;
   position: relative;
   left: 50%;
@@ -100,7 +101,6 @@ h1 {
   border: 3px solid transparent;
   border-top-color: #16a085;
   animation: spin 1.7s linear infinite;
-  z-index: 11;
 
   &:before {
     content: "";
@@ -169,6 +169,22 @@ h1 {
   transition: all 0.3s 1s ease-out;
 }
 
+/* .custom-loader {
+    z-index: 50;
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+    z-index: 999999;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:8px solid;
+  border-color:#766DF4 #0000;
+  animation:s1 1s infinite;
+}
+@keyframes s1 {to{transform: rotate(.5turn)}} */
+
     .jconfirm-title{
         color: #333;
     }
@@ -190,6 +206,9 @@ h1 {
 
     .close{
       color: #fff;
+    }
+    tbody, td, tfoot, th, thead, tr{
+        border-color: #2b2b2b !important;
     }
 </style>
 @yield('style')

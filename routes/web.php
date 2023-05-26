@@ -14,6 +14,8 @@ use App\Http\Controllers\MeetingRoomController;
 use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\AssetManagementsController;
+use App\Http\Controllers\TagsController;
 
 
 
@@ -66,6 +68,12 @@ Route::get('/', function () {
 
             // Material
             Route::resource('/material', MaterialController::class);
+
+            // Asset Management
+            Route::resource('/asset-management', AssetManagementsController::class);
+
+            // Tag
+            Route::resource('/tag', TagsController::class);
 
 
             // Material Import

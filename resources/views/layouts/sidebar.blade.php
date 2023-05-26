@@ -1,59 +1,42 @@
 <!-- partial:partials/_sidebar.html -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-      <a class="sidebar-brand brand-logo" href="index.html"><img src="{{ asset('assets/images/icon/vmond.png') }}" style="height: auto;" alt="logo" /></a>
-      <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top p-2">
+      <a class="sidebar-brand brand-logo" href="{{ route('dashboard') }}"><img src="{{ asset('assets/images/logo/logo-vmond.png') }}" class="d-block mx-auto h-auto" alt="logo" /></a>
+      <a class="sidebar-brand brand-logo-mini" href="{{ route('dashboard') }}"><img src="{{ asset('assets/images/icon/logo-v.png') }}" alt="logo" /></a>
     </div>
     <ul class="nav">
+    <hr class="mt-2 mb-2" style="background: #cdcdcd !important;">
+    <li class="nav-item profile">
+        <div class="profile-desc justify-content-center">
+          <div class="profile-name">
+                <h6 class="text-center" style="color:#6c7293 !important;">INFORMATION</h6>
+          </div>
+        </div>
+    </li>
+    <hr class="mt-1 mb-1" style="background: #cdcdcd !important;">
       <li class="nav-item profile">
         <div class="profile-desc">
           <div class="profile-pic">
-            <div class="count-indicator">
-              <img class="img-xs rounded-circle " src="{{ asset('assets/images/user/'.(Auth::user()->avatar ?? 'user.png')) }}" alt="">
-              <span class="count bg-success"></span>
+            <div class="count-indicator text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="12" class="h-auto"  fill="currentColor" aria-hidden="true" style="color:#838383 !important;"><path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"/></svg>
             </div>
             <div class="profile-name">
-              <h5 class="mb-0 font-weight-normal">{{ Auth::user()->name }}</h5>
-              <span>Gold Member</span>
+              <span class="mb-0 font-weight-normal" style="font-size: 14px;">VMOND Cafe</span>
             </div>
           </div>
-          <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
-          <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-            <a href="#" class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-dark rounded-circle">
-                  <i class="mdi mdi-settings text-primary"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-dark rounded-circle">
-                  <i class="mdi mdi-onepassword  text-info"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
-              </div>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item preview-item">
-              <div class="preview-thumbnail">
-                <div class="preview-icon bg-dark rounded-circle">
-                  <i class="mdi mdi-calendar-today text-success"></i>
-                </div>
-              </div>
-              <div class="preview-item-content">
-                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
-              </div>
-            </a>
+        </div>
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"  width="12" class="h-auto"  fill="currentColor" aria-hidden="true" style="color:#838383 !important;"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+            </div>
+            <div class="profile-name">
+              <span class="mb-0 font-weight-normal" style="font-size: 14px;">Tanggerang Selatan</span>
+            </div>
           </div>
         </div>
       </li>
+      <hr class="mt-2 mb-1" style="background: #cdcdcd !important;">
       <li class="nav-item nav-category">
         <span class="nav-link">Navigation</span>
       </li>
@@ -99,7 +82,7 @@
           <span class="menu-title">Toko Online</span>
         </a>
       </li>
-      
+
     </ul>
   </nav>
 <!-- partial -->

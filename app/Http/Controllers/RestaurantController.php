@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\RestaurantPivots;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -23,6 +25,8 @@ class RestaurantController extends Controller
     {
         $data['page_title'] = 'Restaurant';
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
+        $data['restaurant_pivots'] = RestaurantPivots::get();
+        $data['tags'] = Tags::get();
 
         return view('management-toko-online.restaurant.index', $data);
     }
@@ -41,6 +45,9 @@ class RestaurantController extends Controller
             'nama' => 'required',
             'category' => 'required',
             'harga' => 'required',
+            'harga_diskon' => 'required',
+            'stok_perhari' => 'required',
+            'current_stok' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
@@ -51,11 +58,17 @@ class RestaurantController extends Controller
             $replaceTitik = str_replace('.', '',$request->harga);
             $replaceComma = substr($replaceTitik, 0 , -3);
 
+            $replaceTitikHarga = str_replace('.', '',$request->harga_diskon);
+            $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
+
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $replaceComma;
+            $restaurant->harga_diskon = $replaceCommaHarga;
+            $restaurant->stok_perhari = $validateData['stok_perhari'];
+            $restaurant->current_stok = $validateData['current_stok'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
@@ -75,6 +88,16 @@ class RestaurantController extends Controller
             }else{
                 $restaurant->code = $this->getNextId('MNM', $restaurant->id);
             }
+
+            $restaurantTags = [];
+            foreach ($request->tag_id as $key => $value) {
+
+                $restaurantTags[] = [
+                    'restaurant_id' => $restaurant->id,
+                    'tag_id' => $request->tag_id[$key],
+                ];
+            }
+            RestaurantPivots::insert($restaurantTags);
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant added successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('restaurant.index')->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
@@ -85,8 +108,13 @@ class RestaurantController extends Controller
     {
         $data['page_title'] = 'Edit Menu';
         $data['restaurant'] = Restaurant::findorFail($id);
+        $data['tags'] = Tags::get();
 
         return view('management-toko-online.restaurant.edit',$data);
+    }
+
+    public function show($id)
+    {
     }
 
     public function update(Request $request, $id)
@@ -95,6 +123,9 @@ class RestaurantController extends Controller
             'nama' => 'required',
             'category' => 'required',
             'harga' => 'required',
+            'harga_diskon' => 'required',
+            'stok_perhari' => 'required',
+            'current_stok' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
@@ -105,12 +136,18 @@ class RestaurantController extends Controller
             $replaceTitik = str_replace('.', '',$request->harga);
             $replaceComma = substr($replaceTitik, 0 , -3);
 
+            $replaceTitikHarga = str_replace('.', '',$request->harga_diskon);
+            $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
+
             $restaurant = Restaurant::findOrFail($id);
             
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
             $restaurant->harga = $replaceComma;
+            $restaurant->harga_diskon = $replaceCommaHarga;
+            $restaurant->stok_perhari = $validateData['stok_perhari'];
+            $restaurant->current_stok = $validateData['current_stok'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
@@ -124,6 +161,18 @@ class RestaurantController extends Controller
             }
             
             $restaurant->save();
+
+            $restaurant->restaurantTag()->delete();
+
+            $restaurantTags = [];
+            foreach ($request->tag_id as $key => $value) {
+
+                $restaurantTags[] = [
+                    'restaurant_id' => $restaurant->id,
+                    'tag_id' => $request->tag_id[$key],
+                ];
+            }
+            RestaurantPivots::insert($restaurantTags);
             
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;

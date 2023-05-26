@@ -1,5 +1,7 @@
 @extends('home')
+
 @section('style')
+@endsection
 <style>
   .radius-r-20{
         border-radius: 20px 50% 50% 20px !important;
@@ -17,9 +19,8 @@
         background: #191c24;
     }
 </style>
-@endsection
-@section('content')
 
+@section('content')
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('restaurant.index') }}'">
