@@ -12,7 +12,7 @@
                 @csrf
                 <div class="form-group mb-3">
                     <label for="code">Code</label>
-                    <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}"  placeholder="Enter Code">
+                    <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}"  placeholder="Massukan Code">
 
                     @error('code')
                         <span class="invalid-feedback" role="alert">
@@ -23,9 +23,9 @@
 
                 <div class="form-group mb-3">
                     <label for="name">Nama</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="nama" value="{{ old('name') }}"  placeholder="Enter name">
+                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="name" name="nama" value="{{ old('nama') }}"  placeholder="Massukan Nama">
 
-                    @error('name')
+                    @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -34,7 +34,7 @@
 
                 <div class="form-group mb-3">
                     <label for="unit">Unit</label>
-                    <input type="unit" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Enter Unit">
+                    <input type="unit" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Massukan Unit">
                     @error('unit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -60,8 +60,8 @@
                 </a> --}}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
             </div>
         </form>
       </div>

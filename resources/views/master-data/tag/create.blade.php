@@ -1,4 +1,4 @@
-<div class="modal modal-fullscreen" id="tambah-menu-tag" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-fullscreen" id="tambah-tag" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -10,30 +10,26 @@
         <div class="modal-body">
             <form class="forms-sample" action="{{ route('tag.store') }}" enctype="multipart/form-data" method="POST">
                 @csrf
-
                 @include('components.form-message')
-
                 <div class="row">
-
-                    <div class="col-lg-12">
-                        <div class="form-group mb-3">
-                            <label for="tag_name">Tag Name</label>
-                            <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tag_name" name="tag_name" value="{{ old('tag_name') }}"  placeholder="tag_name">
-                            
-                            @error('tag_name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-
+                  <div class="col-lg-12">
+                      <div class="form-group mb-3">
+                          <label for="tag_name">Tag Name</label>
+                          <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tag_name" name="tag_name" value="{{ old('tag_name') }}"  placeholder="Tag Name">
+                          
+                          @error('tag_name')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
+                      </div>
+                  </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('tag.index') }}">
-                    <button class="btn btn-dark">Cancel</button>
-                </a>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
+                </div>  
             </form>
       </div>
     </div>

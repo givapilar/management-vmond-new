@@ -24,7 +24,7 @@
                             </a>
                             @can('biliard-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-biliard">
-                                Tambah Meja
+                                Tambah
                             </button>
                             @endcan
                         </div>

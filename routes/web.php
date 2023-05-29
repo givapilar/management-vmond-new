@@ -18,6 +18,7 @@ use App\Http\Controllers\AssetManagementsController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\MejaRestaurantsController;
 use App\Http\Controllers\HistoryLogsController;
+use App\Http\Controllers\PermitController;
 
 
 
@@ -93,6 +94,9 @@ Route::get('/', function () {
 
             // inventory Stok masuk
             Route::resource('/stok-masuk', StokMasukController::class);
+
+            // Permit 
+            Route::resource('/permit', PermitController::class);
 
             // inventory Stok Keluar
             Route::resource('/stok-keluar', StokKeluarController::class);

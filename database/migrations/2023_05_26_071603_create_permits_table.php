@@ -17,6 +17,10 @@ class CreatePermitsTable extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id")->nullable();
             $table->enum('action', ['edit', 'delete']);
+            $table->string("page");
+            $table->dateTime("datetime");
+            $table->string("status");
+            $table->text("description")->nullable();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();

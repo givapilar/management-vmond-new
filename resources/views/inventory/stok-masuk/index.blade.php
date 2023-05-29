@@ -90,7 +90,7 @@
 
                         <div class="col-6 text-right px-4">
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-stok-masuk">
-                                Tambah Stok Masuk
+                                Tambah
                             </button>
                         </div>
                     </div>
@@ -120,21 +120,39 @@
                                 <td class="table-head text-white">{{ $stok_masuk->material->nama }}</td>
                                 <td class="table-head text-white">{{ $stok_masuk->material_masuk }}</td>
                                 <td class="table-head text-white">{{ $stok_masuk->description }}</td>
+                                {{-- @if(auth()->user()->can('stok-masuk-delete') || auth()->user()->can('stok-masuk-edit')) --}}
                                 <td>
                                     <div class="btn-group-sm">
+                                    @can('stok-masuk-edit')
                                     <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#edit-stok-masuk{{ $stok_masuk->id }}">
                                         <i class="fa fa-edit"></i>
                                         Edit
                                     </button>
+                                    @endcan
+                                    @can('stok-masuk-delete')
                                     <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/stok-masuk/' + {{ $stok_masuk->id }}, '/stok-masuk/')">
                                         <i class="far fa-trash-alt"></i>
                                         Delete
                                     </a>
+                                    @endcan
                                     </div>
                                 </td>
+                                {{-- @else --}}
+                                <td>
+                                    <div class="btn-group-sm">
+                                        {{-- @can('stok-masuk-edit') --}}
+                                        <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit">
+                                            <i class="fa fa-edit"></i>
+                                            Permit
+                                        </button>
+                                        {{-- @endcan --}}
+                                    </div>
+                                </td>
+                                {{-- @endif --}}
                             </tr>
-                            @endforeach
                             @include('inventory.stok-masuk.edit')
+                            @include('inventory.stok-masuk.permit')
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

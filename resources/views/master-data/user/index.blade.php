@@ -24,7 +24,7 @@
                             </a>
                             @can('user-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-user">
-                                Tambah User
+                                Tambah
                             </button>
                             @endcan
                         </div>

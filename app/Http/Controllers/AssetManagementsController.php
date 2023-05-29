@@ -17,7 +17,7 @@ class AssetManagementsController extends Controller
      */
     public function index()
     {
-        $data['page_title'] = 'Asset Management';
+        $data['page_title'] = 'Asset Management List';
         $data['asset_managements'] = AssetManagements::orderby('id', 'asc')->get();
         
         return view('master-data.asset-management.index', $data);

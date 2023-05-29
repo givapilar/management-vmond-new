@@ -59,13 +59,5 @@
     </div>
 </div>
 
-  {{-- <script>
-    (function($) {
-  'use strict';
-  if ($("#js-example-basic-single-material").length) {
-    $("#js-example-basic-single-material").select2();
-  }
-  
-});
-  </script> --}}
+
 

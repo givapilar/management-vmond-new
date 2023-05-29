@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-6 mt-1 px-4">
                             <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
-                                <i class="fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
+                                <i class="fa-solid fa-couch" style="font-size: 20px;"></i>
                                 <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
                             </span>
                         </div>

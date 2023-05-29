@@ -54,6 +54,7 @@ class ApiController extends Controller
                 $data['image'] = asset('assets/images/restaurant/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
+                $data['stok_perhari'] = $item->stok_perhari;
                 $data['type'] = strtoupper('MENU '. $item->category);
                 return $data;
             });

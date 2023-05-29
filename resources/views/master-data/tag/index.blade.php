@@ -6,90 +6,74 @@
 
 @section('content')
 <div class="content-wrapper">
-
-  <div class="page-header">
-    <h3 class="page-title">  </h3>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tag</li>
-      </ol>
-    </nav>
-  </div>
-
   <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          
+      <div class="card card rounded-20 p-2">
+        <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
           <div class="row">
-            <div class="col-12">
-                @include('components.flash-message')
-                @include('components.form-message')
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6 mt-1">
-              <span class="tx-bold text-lg text-white" style="font-size:16px;">
-                <h4 class="card-title">{{ $page_title }}</h4>
+            <div class="col-6 mt-1 px-4">
+              <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                  <i class="fa-solid fa-tags" style="font-size: 20px;"></i>
+                  <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
               </span>
             </div>
-  
-            @can('restaurant-create')
-            <div class="col-6 text-right">
-              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('master-data.index') }}">
-                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
-                Kembali
+
+            <div class="col-6 text-right px-4">
+              <a class="btn btn-sm btn-danger p-2" href="{{ route('master-data.index') }}">
+                  Kembali
               </a>
-              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu-tag">
-                <i class="fa fa-plus"></i> 
-                Tambah
+              @can('tag-create')
+              <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-tag">
+                  Tambah
               </button>
+              @endcan
             </div>
-            @endcan
+          </div>
+        </div>
+        <div class="card-body bg-gray-800 rounded-20 p-3">
+          <div class="row">
+              <div class="col-12">
+                  @include('components.flash-message')
+              </div>
           </div>
 
-        <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-            <th class="th-sm">No</th>
-            <th class="th-sm">Tag Name</th>
-            <th class="th-sm">Action</th>
-            </tr>
-        </thead>
+          <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+              <tr>
+                <th class="th-sm text-white">No</th>
+                <th class="th-sm text-white">Tag Name</th>
+                <th class="th-sm text-white">Action</th>
+              </tr>
+            </thead>
             <tbody>
-                @foreach ($tags as $tag)
-                    <tr>
-                        <td class="table-head">{{ $loop->iteration }}</td>
-                        <td class="table-head">{{ $tag->tag_name }}</td>
-                        @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
-                        <td>
-                            <div class="btn-group-sm">
-                              @can('restaurant-edit')
-                              <a class="btn btn-warning f-12" href="{{ route('tag.edit', $tag->id) }}">
-                                <i class="fa fa-edit"></i> 
-                                Edit
-                              </a>
-                              @endcan
+              @foreach ($tags as $tag)
+              <tr>
+                <td class="table-head text-white">{{ $loop->iteration }}</td>
+                <td class="table-head text-white">{{ $tag->tag_name }}</td>
+                @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
+                <td>
+                  <div class="btn-group-sm">
+                    @can('restaurant-edit')
+                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-tag{{ $tag->id }}">
+                      <i class="fa fa-edit"></i>
+                      Edit
+                    </button>
+                    @endcan
 
-                              @can('restaurant-delete')
-                              <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Tag', '{{ $tag->nama }}', '/tag/' + {{ $tag->id }}, '/tag/')">
-                                <i class="far fa-trash-alt"></i>
-                                Delete
-                              </a>
-                              @endcan
-                              
-                            </div>
-                          </td>
-                          @endif
-                        </tr>
-                @endforeach
-            
+                    @can('restaurant-delete')
+                    <a href="#" class="btn btn-danger p-2 btn-lg btn-open-modal" onclick="modalDelete('Tag', '{{ $tag->nama }}', '/tag/' + {{ $tag->id }}, '/tag/')">
+                      <i class="far fa-trash-alt"></i>
+                      Delete
+                    </a>
+                    @endcan
+                  </div>
+                </td>
+                @endif
+              </tr>
+              @include('master-data.tag.edit')
+              @endforeach
             </tbody>
-        
-        </table>
-
+          </table>
         </div>
       </div>
     </div>

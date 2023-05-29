@@ -185,15 +185,17 @@ class RestaurantController extends Controller
 
             $restaurant->restaurantTag()->delete();
 
-            $restaurantTags = [];
-            foreach ($request->tag_id as $key => $value) {
-
-                $restaurantTags[] = [
-                    'restaurant_id' => $restaurant->id,
-                    'tag_id' => $request->tag_id[$key],
-                ];
+            if ($request->tag_id) {
+                $restaurantTags = [];
+                foreach ($request->tag_id as $key => $value) {
+    
+                    $restaurantTags[] = [
+                        'restaurant_id' => $restaurant->id,
+                        'tag_id' => $request->tag_id[$key],
+                    ];
+                }
+                RestaurantPivots::insert($restaurantTags);
             }
-            RestaurantPivots::insert($restaurantTags);
             
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;

@@ -20,7 +20,7 @@ class DepartementController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Departements';
+        $data['page_title'] = 'Departements List';
         $data['breadcumb'] = 'Departements';
         $data['departements'] = Role::orderby('id', 'asc')->get();
         $data['permissions'] = Permission::all();
@@ -83,7 +83,7 @@ class DepartementController extends Controller
         $role->name = $validateData['name'];
 
         $role->save();
-        $role->syncPermissions($validateData['permissions']);
+        $role->syncPermissions($validateData['permissions']);   
 
         return redirect()->route('departement.index')->with('success','Departement updated successfully');
     }

@@ -71,11 +71,11 @@
                         </div>
                         <div class="small text-danger">*Kosongkan jika tidak mau diisi</div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
             </div>
         </div>
     </div>
