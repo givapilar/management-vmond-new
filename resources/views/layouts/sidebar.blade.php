@@ -110,6 +110,15 @@
         </a>
       </li>
 
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ route('report-penjualan.index') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-history"></i>
+          </span>
+          <span class="menu-title">Report Penjualan</span>
+        </a>
+      </li>
+
     </ul>
   </nav>
 <!-- partial -->

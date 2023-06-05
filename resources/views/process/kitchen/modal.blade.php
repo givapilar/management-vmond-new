@@ -1,17 +1,19 @@
 {{-- Modal --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-{{ $item->code }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="flex-grow-1 text-center">
-                    <h2 class="modal-title" id="exampleModalLabel">Detail Order <span class="text-danger">#ORDER123</span></h2>
+                    <h2 class="modal-title" id="modalLabel">Detail Order <span class="text-danger">#{{ $item->code }}</span></h2>
                 </div>
                 <div class="flex-shrink-1">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             </div>
             <div class="modal-body">
+                
                 <ul class="list-group list-group-flush pe-3">
+                    @foreach ($item->orderPivot as $order_pivot)
                     <li class="list-group-item d-flex justify-content-start align-items-start">
                         <div class="flex-shrink-1">
                             <input class="form-check-input me-2 checkbox-1 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
@@ -21,14 +23,15 @@
                         </div>
                         <div class="d-flex flex-column bd-highlight">
                             <h3 class="p-0 m-0 fw-semi-bold menu-1">
-                                Nasi Goreng Modern
+                                {{ $order_pivot->restaurant->nama }}
                             </h3>
                             <span class="text-wrap fs-5">
                                 Note: Pedas, No Acar.
                             </span>
                         </div>
                     </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                    @endforeach
+                    {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
                         <div class="flex-shrink-1">
                             <input class="form-check-input me-2 checkbox-2 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
                         </div>
@@ -91,7 +94,7 @@
                                 Note: Tidak pakai sambal Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id tenetur nam, modi totam natus ratione, vitae eaque praesentium reprehenderit, voluptatem quas. Eos minima, atque earum distinctio incidunt hic natus quos?
                             </span>
                         </div>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
             <div class="modal-footer">
