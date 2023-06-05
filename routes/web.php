@@ -18,6 +18,9 @@ use App\Http\Controllers\AssetManagementsController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\MejaRestaurantsController;
 use App\Http\Controllers\HistoryLogsController;
+use App\Http\Controllers\PermitController;
+use App\Http\Controllers\DashboardKitchenController;
+use App\Http\Controllers\ReportPenjualanController;
 
 
 
@@ -94,6 +97,9 @@ Route::get('/', function () {
             // inventory Stok masuk
             Route::resource('/stok-masuk', StokMasukController::class);
 
+            // Permit 
+            Route::resource('/permit', PermitController::class);
+
             // inventory Stok Keluar
             Route::resource('/stok-keluar', StokKeluarController::class);
 
@@ -113,13 +119,20 @@ Route::get('/', function () {
 
             // Management Banner
             Route::resource('/banner', BannerController::class);
+
+            // Report Penjualan
+            Route::resource('/report-penjualan', ReportPenjualanController::class);
+            // Route::get('/report-penjualan', [ReportPenjualanController::class, 'index'])->name('report-penjualan.index');
     });
 
     Route::prefix('kitchen')->name('kitchen.')->group(function () {
-        Route::get('/dashboard', function(){
-            $data['page_title'] = 'dashboard';
-            return view('process.kitchen.dashboard', $data);
-        })->name('dashboard');
+        // Route::get('/dashboard', function(){
+        //     $data['page_title'] = 'dashboard';
+        //     return view('process.kitchen.dashboard', $data);
+        // })->name('dashboard');
+
+        Route::get('/dashboard', [DashboardKitchenController::class, 'index'])->name('dashboard.kitchen');
+        Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });
 
     Route::prefix('bartender')->name('bartender.')->group(function () {

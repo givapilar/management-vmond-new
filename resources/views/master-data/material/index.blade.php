@@ -23,9 +23,9 @@
                                 Kembali
                             </a>
 
-                            @can('material-create')
+                            @can('bahan-baku-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#modal-fullscreen-xl">
-                                Tambah Material
+                                Tambah
                             </button>
                             @endcan
                         </div>
@@ -58,16 +58,16 @@
                                 <td class="table-head text-white">{{ $material->nama }}</td>
                                 <td class="table-head text-white">{{ $material->unit }}</td>
                                 <td class="table-head text-white">{{ $material->description ?? 'N/A' }}</td>
-                                @if(auth()->user()->can('material-delete') || auth()->user()->can('material-edit'))
+                                @if(auth()->user()->can('bahan-baku-delete') || auth()->user()->can('bahan-baku-edit'))
                                 <td>
                                     <div class="btn-group-sm">
-                                    @can('material-edit')
+                                    @can('bahan-baku-edit')
                                     <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#modal-fullscreen-xl-edit{{ $material->id }}">
                                         <i class="fa fa-edit"></i>
                                         Edit
                                     </button>
                                     @endcan
-                                    @can('material-edit')
+                                    @can('bahan-baku-delete')
                                     <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Bahan Baku', '{{ $material->nama }}', '/bahan-baku/' + {{ $material->id }}, '/bahan-baku/')">
                                         <i class="far fa-trash-alt"></i>
                                         Hapus

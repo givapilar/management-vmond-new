@@ -24,7 +24,7 @@
                             </a>
                             @can('meeting-room-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-meeting-room">
-                                Tambah Room
+                                Tambah
                             </button>
                             @endcan
                         </div>

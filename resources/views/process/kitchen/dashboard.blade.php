@@ -20,10 +20,12 @@
 <section class="p-3">
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         <div class="col">
+            @foreach ($order_table as $item)
+            @if ($item->status == 'Paid')
             <div class="card h-100 border-r-20">
                 <div class="card-header border-rt-20">
-                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#" class="text-decoration-none text-dark">
-                        <h5 class="card-title text-center pt-1 fw-bolder">#ORDER123</h5>
+                    <a data-bs-toggle="modal" data-bs-target="#modal-{{ $item->code }}" href="{{ route('kitchen.dashboard.detail',$item->id) }}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-center pt-1 fw-bolder">#{{ $item->invoice_no }}</h5>
                     </a>
                 </div>
                 <div class="card-body py-1">
@@ -33,19 +35,19 @@
                                 <div class="flex-shrink-1">
                                     <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" aria-label="..." id="">
                                 </div>
-                                <div class="flex-shrink-1">
+                                {{-- <div class="flex-shrink-1">
                                     <h5 class="me-2 mb-0">1.</h5>
-                                </div>
+                                </div> --}}
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-1">
-                                        Nasi Goreng Modern
+                                        {{ $item->name }}
                                     </h5>
-                                    <small class="text-wrap">
+                                    {{-- <small class="text-wrap">
                                         Note: Pedas, No Acar.
-                                    </small>
+                                    </small> --}}
                                 </div>
                             </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                            {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div class="flex-shrink-1">
                                     <input class="form-check-input me-2 p-2 mt-1 checkbox-2" type="checkbox" value="" aria-label="..." id="">
                                 </div>
@@ -108,20 +110,23 @@
                                         Note: Tidak pakai sambal Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id tenetur nam, modi totam natus ratione, vitae eaque praesentium reprehenderit, voluptatem quas. Eos minima, atque earum distinctio incidunt hic natus quos?
                                     </small>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
-
+                
                 <div class="card-footer border-rb-20">
                     <span class="badge bg-success">Success</span>
                     <small class="text-muted">Last updated <span class="text-danger">3 mins ago</span></small>
                 </div>
             </div>
+            @include('process.kitchen.modal')
+
+            @endif
+            @endforeach
         </div>
     </div>
 </section>
-@include('process.kitchen.modal')
 @endsection
 
 @push('script-top')

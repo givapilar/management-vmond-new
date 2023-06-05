@@ -19,12 +19,35 @@ class StokKeluarController extends Controller
         // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['page_title'] = 'Stok Keluar';
-        $data['stok_keluars'] = StokKeluar::orderby('id', 'asc')->get();
+        // $data['stok_keluars'] = StokKeluar::orderby('id', 'asc')->get();
         $data['materials'] = Material::get();
-        
+
+        $type = $request->has('type') ? $request->type : 'day';
+        $material = $request->has('material_id') ? $request->material_id : 'All';
+        if ($type == 'day') {
+            if ($material == 'All') {
+                $stok = StokKeluar::whereDate('created_at', date('Y-m-d'))->get();
+                // dd($stok);
+            }else{
+                $stok = StokKeluar::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
+                    return $q->where('material_id', $request->material_id);
+                 }})->get();
+            }
+        } elseif ($type == 'monthly') {
+            $stok = StokKeluar::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+             }})->get();
+        } elseif ($type == 'yearly'){
+            $stok = StokKeluar::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+            }})->get();
+        }
+   
+        $data['stok_keluars'] = $stok;
+
         return view('inventory.stok-keluar.index', $data);
     }
 

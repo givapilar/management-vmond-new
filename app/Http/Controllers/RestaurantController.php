@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 Use File;
+// Use Image;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 
 class RestaurantController extends Controller
@@ -75,22 +78,41 @@ class RestaurantController extends Controller
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
             
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $name = time() . '.' . $image->getClientOriginalExtension();
+            //     $destinationPath = public_path('assets/images/restaurant/');
+            //     $image->move($destinationPath, $name);
+            //     $restaurant->image = $name;
+            // }
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/restaurant/');
-                $image->move($destinationPath, $name);
-                $restaurant->image = $name;
+                
+                // Generate a unique filename
+                $filename = time().'.'.$image->getClientOriginalExtension();
+                
+                // Store the original image
+                $originalImagePath = 'assets/images/restaurant/'.$filename;
+                Storage::disk('public')->put($originalImagePath, file_get_contents($image));
+                
+                // Resize the image
+                $thumbnailImagePath = 'assets/images/restaurant/resize/'.$filename;
+                $img = Image::make(public_path($originalImagePath))->resize(100, 100);
+                Storage::disk('public')->put($thumbnailImagePath, $img->encode());
+                
+                // Store the image file path in the restaurant model
+                $restaurant->image = $originalImagePath;
             }
             
             $restaurant->save();
+            
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
             $newHistoryLog->type = 'Add';
             $newHistoryLog->menu = 'Add Restaurant '.$restaurant->nama;
             $newHistoryLog->user_id = auth()->user()->id;
-            $newHistoryLog->save();
+            $newHistoryLog->save(); 
             
             $restaurantTags = [];
             foreach ($request->tag_id as $key => $value) {
@@ -166,12 +188,36 @@ class RestaurantController extends Controller
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
             
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/restaurant/');
-                $image->move($destinationPath, $name);
-                $restaurant->image = $name;
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $name = time() . '.' . $image->getClientOriginalExtension();
+            //     $destinationPath = public_path('assets/images/restaurant/');
+            //     $image->move($destinationPath, $name);
+            //     $restaurant->image = $name;
+            // }
+
+            if($request->hasFile('image')) {
+                //get filename with extension
+                $filenamewithextension = $request->file('image')->getClientOriginalName();
+         
+                //get filename without extension
+                $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+         
+                //get file extension
+                $extension = $request->file('image')->getClientOriginalExtension();
+         
+                //filename to store
+                $filenametostore = $filename.'_'.time().'.'.$extension;
+         
+                //Upload File
+                $request->file('image')->storeAs('assets/images/restaurant/', $filenametostore);
+                $request->file('image')->storeAs('assets/images/restaurant/resize', $filenametostore);
+         
+                //Resize image here
+                $thumbnailpath = public_path('assets/images/restaurant/'.$filenametostore);
+                	
+                $img = Image::make($thumbnailpath)->resize(100, 100)->save($thumbnailpath);
+                $img->save($thumbnailpath);
             }
             
             $restaurant->save();
@@ -185,15 +231,17 @@ class RestaurantController extends Controller
 
             $restaurant->restaurantTag()->delete();
 
-            $restaurantTags = [];
-            foreach ($request->tag_id as $key => $value) {
-
-                $restaurantTags[] = [
-                    'restaurant_id' => $restaurant->id,
-                    'tag_id' => $request->tag_id[$key],
-                ];
+            if ($request->tag_id) {
+                $restaurantTags = [];
+                foreach ($request->tag_id as $key => $value) {
+    
+                    $restaurantTags[] = [
+                        'restaurant_id' => $restaurant->id,
+                        'tag_id' => $request->tag_id[$key],
+                    ];
+                }
+                RestaurantPivots::insert($restaurantTags);
             }
-            RestaurantPivots::insert($restaurantTags);
             
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;

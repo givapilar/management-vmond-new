@@ -27,11 +27,16 @@ class StokMasukController extends Controller
         $data['materials'] = Material::orderby('id', 'asc')->get();
 
         $type = $request->has('type') ? $request->type : 'day';
-
+        $material = $request->has('material_id') ? $request->material_id : 'All';
         if ($type == 'day') {
-            $stok = StokMasuk::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
-                return $q->where('material_id', $request->material_id);
-             }})->get();
+            if ($material == 'All') {
+                $stok = StokMasuk::whereDate('created_at', date('Y-m-d'))->get();
+                // dd($stok);
+            }else{
+                $stok = StokMasuk::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
+                    return $q->where('material_id', $request->material_id);
+                 }})->get();
+            }
         } elseif ($type == 'monthly') {
             $stok = StokMasuk::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
@@ -39,12 +44,10 @@ class StokMasukController extends Controller
         } elseif ($type == 'yearly'){
             $stok = StokMasuk::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
-             }})->get();
+            }})->get();
         }
+   
         $data['stock_masuks'] = $stok;
-
-
-
 
         return view('inventory.stok-masuk.index', $data);
     }

@@ -98,11 +98,11 @@
                                 <td>
                                     <div class="btn-group-sm">
                                         @can('departement-edit')
-                                        <a href="{{ route('departement.edit', $departement->id) }}"
-                                            class="btn btn-warning p-2 text-white">
-                                            <i class="far fa-edit"></i>
-                                            Edit
-                                        </a>
+                                            <a href="{{ route('departement.edit', $departement->id) }}"
+                                                class="btn btn-warning p-2 text-white">
+                                                <i class="far fa-edit"></i>
+                                                Edit
+                                            </a>
                                         @endcan
 
                                         @can('departement-delete')

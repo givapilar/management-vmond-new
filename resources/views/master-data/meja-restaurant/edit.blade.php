@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('material.update', $meja_restaurant->id) }}" novalidate>
+            <form method="POST" action="{{ route('meja-restaurant.update', $meja_restaurant->id) }}" novalidate>
                 @method('patch')
                 @csrf
 

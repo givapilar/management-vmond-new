@@ -6,65 +6,53 @@
 
 @section('content')
 <div class="content-wrapper">
-
-  <div class="page-header">
-    <h3 class="page-title">  </h3>
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('master-data.index') }}">Master Data</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Asset Management</li>
-      </ol>
-    </nav>
-  </div>
-
   <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          
+      <div class="card card rounded-20 p-2">
+        <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
           <div class="row">
-            <div class="col-12">
-                @include('components.flash-message')
-                @include('components.form-message')
-            </div>
-          </div>
+              <div class="col-6 mt-1 px-4">
+                  <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                      <i class="fa-solid fa-clipboard-list" style="font-size: 20px;"></i>
+                      {{-- <i class="fa-regular fa-clipboard-list"></i> --}}
+                      <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                  </span>
+              </div>
 
-          <div class="row">
-            <div class="col-6 mt-1">
-              <span class="tx-bold text-lg text-white" style="font-size:16px;">
-                <h4 class="card-title">{{ $page_title }}</h4>
-              </span>
-            </div>
-  
-            @can('restaurant-create')
-            <div class="col-6 text-right">
-              <a class="btn btn-sm btn-danger btn-lg" href="{{ route('master-data.index') }}">
-                <i class="fa-solid fa-arrow-left fa-beat-fade"></i>
-                Kembali
-              </a>
-              <button class="btn btn-sm btn-success btn-lg btn-open-modal" data-toggle="modal" data-target="#tambah-menu-asset">
-                <i class="fa fa-plus"></i> 
-                Tambah
-              </button>
-            </div>
-            @endcan
+              <div class="col-6 text-right px-4">
+                  <a class="btn btn-sm btn-danger p-2" href="{{ route('master-data.index') }}">
+                      Kembali
+                  </a>
+                  @can('user-create')
+                  <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-asset">
+                      Tambah
+                  </button>
+                  @endcan
+              </div>
           </div>
+      </div>
+          <div class="card-body bg-gray-800 rounded-20 p-3">
+            <div class="row">
+                <div class="col-12">
+                    @include('components.flash-message')
+                </div>
+            </div>
 
-        <table id="example" class="table table-striped" style="width:100%">
-        <thead>
-            <tr>
-            <th class="th-sm">No</th>
-            <th class="th-sm">Nama</th>
-            <th class="th-sm">Quantity</th>
-            <th class="th-sm">Action</th>
-            </tr>
-        </thead>
-            <tbody>
+            <table id="mytable" class="table table-striped" style="width:100%">
+              <thead>
+                  <tr>
+                    <th class="th-sm text-white">No</th>
+                    <th class="th-sm text-white">Nama</th>
+                    <th class="th-sm text-white">Quantity</th>
+                    <th class="th-sm text-white" width="15%">Action</th>
+                  </tr>
+              </thead>
+              <tbody>
                 @foreach ($asset_managements as $asset_management)
                     <tr>
-                        <td class="table-head">{{ $loop->iteration }}</td>
-                        <td class="table-head">{{ $asset_management->nama }}</td>
-                        <td class="table-head">{{ $asset_management->quantity }}</td>
+                        <td class="table-head text-white">{{ $loop->iteration }}</td>
+                        <td class="table-head text-white">{{ $asset_management->nama }}</td>
+                        <td class="table-head text-white">{{ $asset_management->quantity }}</td>
                         @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
                         <td>
                             <div class="btn-group-sm">
@@ -87,12 +75,9 @@
                           @endif
                         </tr>
                 @endforeach
-            
-            </tbody>
-        
-        </table>
-
-        </div>
+              </tbody>
+            </table>
+          </div>
       </div>
     </div>
   </div>

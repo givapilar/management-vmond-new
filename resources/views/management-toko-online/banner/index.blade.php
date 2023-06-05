@@ -24,7 +24,7 @@
                             </a>
                             @can('banner-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-banner">
-                                Tambah media
+                                Tambah
                             </button>
                             @endcan
                         </div>

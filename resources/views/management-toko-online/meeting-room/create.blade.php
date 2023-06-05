@@ -101,10 +101,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                <a href="{{ route('meeting-room.index') }}">
-                    <button class="btn btn-dark">Cancel</button>
-                </a>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
+                </div>
             </form>
       </div>
     </div>

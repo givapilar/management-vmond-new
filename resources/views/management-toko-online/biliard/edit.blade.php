@@ -126,8 +126,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary mr-2">Update</button>
-                            <a href="{{ route('biliard.index') }}" class="btn btn-secondary btn-footer">Kembali</a>
+                            <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary mr-2 p-2">Update</button>
                         </div>
                     </form>
                 </div>
