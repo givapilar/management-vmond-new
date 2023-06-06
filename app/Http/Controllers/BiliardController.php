@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Biliard;
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -23,7 +24,7 @@ class BiliardController extends Controller
     {
         $data['page_title'] = 'Biliard';
         $data['biliards'] = Biliard::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.biliard.index', $data);
     }
 
@@ -32,7 +33,7 @@ class BiliardController extends Controller
         $data['page_title'] = 'Tambah Meja Biliard';
         $data['biliard'] = Biliard::get();
 
-        return view('management-vmond.restaurant.create',$data);
+        return view('management-toko-online.biliard.create',$data);
     }
 
     public function store(Request $request)
@@ -47,13 +48,18 @@ class BiliardController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $biliard = new Biliard();
             $biliard->nama = $validateData['nama'];
+            $biliard->slug = $slug;
             $biliard->no_meja = $validateData['no_meja'];
-            $biliard->harga = $validateData['harga'];
+            $biliard->harga = $replaceComma;
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -63,6 +69,13 @@ class BiliardController extends Controller
             }
 
             $biliard->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Biliard '.$biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('biliard.index')->with(['success' => 'Biliard added successfully!']);
         } catch (\Throwable $th) {
@@ -90,13 +103,18 @@ class BiliardController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $biliard = Biliard::findOrFail($id);
             $biliard->nama = $validateData['nama'];
+            $biliard->slug = $slug;
             $biliard->no_meja = $validateData['no_meja'];
-            $biliard->harga = $validateData['harga'];
+            $biliard->harga = $replaceComma;
             $biliard->status = $validateData['status'];
             $biliard->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -106,6 +124,13 @@ class BiliardController extends Controller
             }
 
             $biliard->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Delete Biliard '.$biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('biliard.index')->with(['success' => 'Biliard edited successfully!']);
         } catch (\Throwable $th) {
@@ -118,9 +143,16 @@ class BiliardController extends Controller
         DB::transaction(function () use ($id) {
             $Biliard = Biliard::findOrFail($id);
             $Biliard->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Biliard '.$Biliard->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
-        
+
         Session::flash('success', 'Biliard deleted successfully!');
         return response()->json(['status' => '200']);
-    }   
+    }
 }

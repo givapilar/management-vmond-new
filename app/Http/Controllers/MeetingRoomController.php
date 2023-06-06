@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use App\Models\MeetingRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +23,7 @@ class MeetingRoomController extends Controller
     {
         $data['page_title'] = 'Meeting Room';
         $data['meeting_rooms'] = MeetingRoom::orderby('id', 'asc')->get();
-        
+
         return view('management-toko-online.meeting-room.index', $data);
     }
 
@@ -46,13 +47,18 @@ class MeetingRoomController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+
             $meeting_room = new MeetingRoom();
             $meeting_room->nama = $validateData['nama'];
+            $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
-            $meeting_room->harga = $validateData['harga'];
+            $meeting_room->harga = $replaceComma ;
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
@@ -62,6 +68,13 @@ class MeetingRoomController extends Controller
             }
 
             $meeting_room->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Meeting Room'.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('meeting-room.index')->with(['success' => 'Meeting Room added successfully!']);
         } catch (\Throwable $th) {
@@ -89,22 +102,35 @@ class MeetingRoomController extends Controller
         ]);
 
         try {
+            $slug = str_replace(' ','&',strtolower($validateData['nama']));
+            $replaceTitik = str_replace('.', '',$request->harga);
+            $replaceComma = substr($replaceTitik, 0 , -3);
+            // dd($replaceComma);
+
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->nama = $validateData['nama'];
+            $meeting_room->slug = $slug;
             $meeting_room->no_meja = $validateData['no_meja'];
-            $meeting_room->harga = $validateData['harga'];
+            $meeting_room->harga = $replaceComma;
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
-            
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/meeting_room/');
+                $destinationPath = public_path('assets/images/meeting-room/');
                 $image->move($destinationPath, $name);
                 $meeting_room->image = $name;
             }
 
             $meeting_room->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Meeting Room'.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('meeting-room.index')->with(['success' => 'Meeting Room edited successfully!']);
         } catch (\Throwable $th) {
@@ -117,8 +143,15 @@ class MeetingRoomController extends Controller
         DB::transaction(function () use ($id) {
             $meeting_room = MeetingRoom::findOrFail($id);
             $meeting_room->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Meeting Room '.$meeting_room->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
-        
+
         Session::flash('success', 'Meeting Room deleted successfully!');
         return response()->json(['status' => '200']);
     }

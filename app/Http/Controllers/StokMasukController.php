@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\StokMasuk;
 use App\Models\Material;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -18,14 +21,37 @@ class StokMasukController extends Controller
         // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['page_title'] = 'Stok Masuk';
-        $data['stok_masuks'] = StokMasuk::orderby('id', 'asc')->get();
-        $data['materials'] = Material::get();
-        
+        $data['materials'] = Material::orderby('id', 'asc')->get();
+
+        $type = $request->has('type') ? $request->type : 'day';
+        $material = $request->has('material_id') ? $request->material_id : 'All';
+        if ($type == 'day') {
+            if ($material == 'All') {
+                $stok = StokMasuk::whereDate('created_at', date('Y-m-d'))->get();
+                // dd($stok);
+            }else{
+                $stok = StokMasuk::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
+                    return $q->where('material_id', $request->material_id);
+                 }})->get();
+            }
+        } elseif ($type == 'monthly') {
+            $stok = StokMasuk::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+             }})->get();
+        } elseif ($type == 'yearly'){
+            $stok = StokMasuk::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+            }})->get();
+        }
+   
+        $data['stock_masuks'] = $stok;
+
         return view('inventory.stok-masuk.index', $data);
     }
+
 
     public function create()
     {
@@ -49,8 +75,15 @@ class StokMasukController extends Controller
             $material->material_id = $validateData['material_id'];
             $material->material_masuk = $validateData['material_masuk'];
             $material->description = $validateData['description'];
-            
+
             $material->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Stok Masuk '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('stok-masuk.index')->with(['success' => 'Stok Masuk added successfully!']);
         } catch (\Throwable $th) {
@@ -79,9 +112,16 @@ class StokMasukController extends Controller
             $material->material_id = $validateData['material_id'];
             $material->material_masuk = $validateData['material_masuk'];
             $material->description = $validateData['description'];
-            
+
 
             $material->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Stok Masuk '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('stok-masuk.index')->with(['success' => 'Stok Masuk Berhasil Diedit!']);
         } catch (\Throwable $th) {
@@ -94,8 +134,15 @@ class StokMasukController extends Controller
         DB::transaction(function () use ($id) {
             $stok_masuk = StokMasuk::findOrFail($id);
             $stok_masuk->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Stok Masuk '.$stok_masuk->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
-        
+
         Session::flash('success', 'Stok Masuk deleted successfully!');
         return response()->json(['status' => '200']);
     }

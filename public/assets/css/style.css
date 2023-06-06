@@ -10095,7 +10095,7 @@ input[type="button"].btn-block {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  
+
   .btn-group-vertical > .btn,
   .fc .btn-group-vertical > button,
   .ajax-upload-dragdrop .btn-group-vertical > .ajax-file-upload,
@@ -10442,7 +10442,7 @@ input[type="button"].btn-block {
   .asColorPicker-wrap > .custom-select:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
-  
+
   .input-group > .custom-file,
   .asColorPicker-wrap > .custom-file {
     display: flex;
@@ -11640,17 +11640,19 @@ input[type="button"].btn-block {
 .jsgrid .jsgrid-pager .active.jsgrid-pager-page a {
   z-index: 3;
   color: #fff;
+  margin-top:5px;
   background-color: #007bff;
   border-color: #007bff; }
 
 .page-item.disabled .page-link, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-nav-button .page-link, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-page .page-link, .page-item.disabled .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item.disabled a, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-nav-button a,
 .page-item.disabled .jsgrid .jsgrid-pager .jsgrid-pager-page a, .jsgrid .jsgrid-pager .jsgrid-pager-page .page-item.disabled a,
 .jsgrid .jsgrid-pager .disabled.jsgrid-pager-page a {
-  color: #6c757d;
+  color: #ffffff;
   pointer-events: none;
   cursor: auto;
-  background-color: #fff;
-  border-color: #dee2e6; }
+  margin-top:5px;
+  background-color: #181b23;
+  border-color: #2c313d; }
 
 .pagination-lg .page-link, .pagination-lg .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button .pagination-lg a,
 .pagination-lg .jsgrid .jsgrid-pager .jsgrid-pager-page a, .jsgrid .jsgrid-pager .jsgrid-pager-page .pagination-lg a {
@@ -12307,10 +12309,13 @@ a.close.disabled {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #000000;
+  background-color: #030309;
   background-clip: padding-box;
   border: 1px solid #2c2e33;
-  border-radius: 0.3rem;
+  border-radius: 20px !important;
+  box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.50);
   outline: 0; }
 
 .modal-backdrop {
@@ -12335,8 +12340,14 @@ a.close.disabled {
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px); }
   .modal-header .close {
-    padding: 1rem 1rem;
-    margin: -25px -26px -25px auto; }
+    font-size: 1.6rem;
+    padding: 3px 8px;
+    margin: -4px 5px -25px auto; }
+  .modal-header .close:hover {
+    background: gray;
+    color: black;
+    border-radius: 5px;
+  }
 
 .modal-title {
   margin-bottom: 0;
@@ -15282,7 +15293,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #000; }
   .table, .jsgrid .jsgrid-table {
     border-collapse: collapse !important; }
-    
+
     .table td,
     .jsgrid .jsgrid-table td, .table th, .jsgrid .jsgrid-table th {
       background-color: #ffffff !important; }
@@ -15761,7 +15772,7 @@ code {
 
 /* Footer */
 .footer {
-  background: #000000;
+  background: #191c24;
   padding: 20px 1rem;
   position: fixed;
   bottom: 0;
@@ -15779,6 +15790,35 @@ code {
     .footer {
       margin-left: 0;
       width: 100%; } }
+
+    .form-control {
+    border: 1px solid #2c2e33;
+    height: calc(2.25rem + 2px);
+    font-weight: normal;
+    font-size:  0.875rem;
+    padding: 0.625rem 0.6875rem;
+    background-color: #2A3038;
+    border-radius: 2px;
+    color: #ffffff;
+    &:focus {
+        border: 1px solid rgba(20, 20, 20, 0.5);
+        background-color: #2A3038;
+        color: #ffffff !important;
+    }
+    &.form-control-lg {
+        padding: 0.94rem .75rem;
+        height: calc(2.875rem + 2px);
+    }
+
+    &.form-control-sm {
+        padding: 0.5rem .75rem;
+        height: calc(1.8125rem + 2px);
+    }
+    &::placeholder {
+        color: gray !important;
+        font-size: lighten(#2A3038, 15%);
+    }
+    }
 
 /* Utilities */
 .grid-margin {
@@ -16977,7 +17017,7 @@ select.tt-query,
 select.tt-hint {
   padding: .4375rem .75rem;
   border: 0;
-  color: #4b5564; }
+  color: #fff; }
   select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus,
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .select2-container--default select.select2-selection--single:focus, .select2-container--default .select2-selection--single select.select2-search__field:focus, select.typeahead:focus,
   select.tt-query:focus,
@@ -20795,7 +20835,7 @@ div.tagsinput {
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
-          padding: 0.6rem 1.17rem;
+          padding: 0.2rem 1.8rem;
           line-height: 1.25; }
           .sidebar .nav .nav-item.profile .profile-desc .profile-name {
             margin-left: 1rem; }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\StokKeluar;
 use App\Models\Material;
@@ -18,12 +19,35 @@ class StokKeluarController extends Controller
         // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['page_title'] = 'Stok Keluar';
-        $data['stok_keluars'] = StokKeluar::orderby('id', 'asc')->get();
+        // $data['stok_keluars'] = StokKeluar::orderby('id', 'asc')->get();
         $data['materials'] = Material::get();
-        
+
+        $type = $request->has('type') ? $request->type : 'day';
+        $material = $request->has('material_id') ? $request->material_id : 'All';
+        if ($type == 'day') {
+            if ($material == 'All') {
+                $stok = StokKeluar::whereDate('created_at', date('Y-m-d'))->get();
+                // dd($stok);
+            }else{
+                $stok = StokKeluar::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
+                    return $q->where('material_id', $request->material_id);
+                 }})->get();
+            }
+        } elseif ($type == 'monthly') {
+            $stok = StokKeluar::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+             }})->get();
+        } elseif ($type == 'yearly'){
+            $stok = StokKeluar::whereYear('created_at', $request->year)->when($request->material_id, function($q) use($request){{
+                return $q->where('material_id', $request->material_id);
+            }})->get();
+        }
+   
+        $data['stok_keluars'] = $stok;
+
         return view('inventory.stok-keluar.index', $data);
     }
 
@@ -51,6 +75,13 @@ class StokKeluarController extends Controller
             $material->description = $validateData['description'];
             
             $material->save();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Stok Keluar '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
 
             return redirect()->route('stok-keluar.index')->with(['success' => 'Stok Keluar added successfully!']);
         } catch (\Throwable $th) {
@@ -83,6 +114,13 @@ class StokKeluarController extends Controller
 
             $material->save();
 
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Stok Keluar '.$material->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
             return redirect()->route('stok-keluar.index')->with(['success' => 'Stok Material edited successfully!']);
         } catch (\Throwable $th) {
             return redirect()->route('stok-keluar.index')->with(['failed' => 'Stok Material edited Failed! '. $th->getMessage()]);
@@ -94,6 +132,13 @@ class StokKeluarController extends Controller
         DB::transaction(function () use ($id) {
             $stok_keluar = StokKeluar::findOrFail($id);
             $stok_keluar->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Stok Keluar '.$stok_keluar->material->nama;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
         });
         
         Session::flash('failed', 'Stok Keluar deleted successfully!');

@@ -26,37 +26,64 @@
 <script src="{{ asset('assets/js/file-upload.js') }}"></script>
 {{-- <script src="{{ asset('assets/js/typeahead.js') }}"></script> --}}
 <script src="{{ asset('assets/js/select2.js') }}"></script>
-<script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script> --}}
+<script src="{{ asset('assets/js/select2.min.js') }}"></script>
+
 {{-- <script src="{{ asset('assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script> --}}
 
-{{-- data tables --}}
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+{{-- Chart Js --}}
+{{-- <script src="{{ asset('assets/vendors/chart.js/Chart.min.js') }}"></script>
+<script src="{{ asset('assets/js/chart.js') }}"></script> --}}
+{{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{-- End Chart --}}
 
+{{-- data tables --}}
+{{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap.min.js"></script>
 {{-- Cdn Autonumeric --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
+{{-- Date Picker --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- End Date Picker --}}
 {{-- Toastify --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+{{-- Cdn ummer Note --}}
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script> --}}
+{{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> --}}
+
+{{-- <script>
+    $(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+    });
+</script> --}}
 <script>
-    $(document).ready(function () {
-        $('#dtBasicExample').DataTable();
-        $('.dataTables_length').addClass('bs-select');
+
+    $(document).ready(function() {
+
+    // Fakes the loading setting a timeout
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 1000);
+
     });
 
-    // Toastify({
-    //     text: "This is a toast",
-    //     duration: 3000,
-    //     destination: "https://github.com/apvarun/toastify-js",
-    //     newWindow: true,
-    //     close: true,
-    //     gravity: "top", // `top` or `bottom`
-    //     position: "left", // `left`, `center` or `right`
-    //     stopOnFocus: true, // Prevents dismissing of toast on hover
-    //     style: {
-    //         background: "linear-gradient(to right, #00b09b, #96c93d)",
-    //     },
-    //     onClick: function(){} // Callback after click
-    // }).showToast();
+    $(document).ready(function () {
+        // $('#example').DataTable(
+        //     responsive: true
+        // );
+        var table = $('#mytable').DataTable( {
+        responsive: true
+    } );
+
+    });
 
     function detailModal(title, url, width) {
         $.confirm({
@@ -71,7 +98,7 @@
             columnClass: width,
             buttons: {
                 close: {
-                    btnClass: 'btn-dark font-bold',                    
+                    btnClass: 'btn-dark font-bold',
                 }
             },
         });
@@ -154,11 +181,52 @@
                     }
                 },
                 cancel: function () {
-                    
+
                 }
             }
-        }); 
-        
+        });
+
+    }
+</script>
+
+<script>
+    function logout() {
+        $.confirm({
+            icon: 'fas fa-sign-out-alt',
+            title: 'Logout',
+            theme: 'supervan',
+            content: 'Are you sure want to logout?',
+            autoClose: 'cancel|800000',
+            buttons: {
+                logout: {
+                    text: 'logout',
+                    btnClass: 'btn-danger',
+
+                    action: function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('logout') }}",
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                "_token": "{{ csrf_token() }}"
+                            },
+                            success: function (data) {
+                                location.reload();
+                            },
+                            error: function (data) {
+                                $.alert('Failed!');
+                                console.log(data);
+                            }
+                        });
+                    }
+                },
+                cancel: function () {
+
+                }
+            }
+        });
     }
 </script>
 
@@ -213,6 +281,10 @@
     }).showToast();
 </script>
 @endif
+
+@yield('javascript')
+
+
 
 
 

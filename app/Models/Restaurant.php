@@ -11,4 +11,8 @@ class Restaurant extends Model
 
     protected $table = 'restaurants';
 
+    public function restaurantTag()
+    {
+        return $this->hasMany(RestaurantPivots::class);
+    }
 }

@@ -76,7 +76,7 @@ class UserController extends Controller
         $data['user'] = User::findOrFail($id);
         $data['roles'] = Role::pluck('name')->all();
 
-        return view('master-data.user.edit', $data);
+        return view('master-data.user.profile', $data);
     }
 
     public function update(Request $request, $id)
@@ -99,6 +99,16 @@ class UserController extends Controller
         $user->name = $validateData['name'];
         $user->email = $validateData['email'];
         
+
+        if ($request->hasFile('avatar')) {
+            $image = $request->file('avatar');
+            $name = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('assets/images/user/');
+            $image->move($destinationPath, $name);
+            $user->avatar = $name;
+        }
+
+        $user->save();
 
         $user->save();
         DB::table('model_has_roles')->where('model_id',$id)->delete();
@@ -131,6 +141,15 @@ class UserController extends Controller
         return response()->json(['status' => '200']);
     }
 
+    public function profile($id)
+    {
+        $data['page_title'] = 'Edit Profile';
+        $data['breadcumb'] = 'Edit';
+        $data['user'] = User::findOrFail($id);
+        $data['roles'] = Role::pluck('name')->all();
+
+        return view('master-data.user.profile', $data);
+    }
     public function changePassword(Request $request)
     {
         $validateData = $request->validate([

@@ -44,7 +44,8 @@
 
                             <div class="form-group">
                                 <label>Permission</label>
-                                <select name="permissions[]" id="e1" class="js-example-basic-multiple" multiple="multiple" style="width:100%">
+                                <input type="checkbox" id="checkbox">
+                                <select name="permissions[]" id="e1" class="js-example-basic-multiple select2-department select2" id="e1" multiple="multiple" style="width:100%">
                                     @foreach ($permissions as $permission)
                                         <option value="{{$permission->id}}" 
                                             @foreach (old('permissions') ?? $rolePermissions as $id)
@@ -62,6 +63,29 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+
+                                {{-- <div class="form-group">
+                                    <label>Permission</label>
+                                    <input type="checkbox" id="checkbox">
+                                    <select name="permissions[]" class="js-example-basic-multiple select2-department select2" id="e1" multiple ="multiple" style="width:100%">
+                                        @foreach ($permissions as $permission)
+                                        <option value="{{$permission->id}}" 
+                                            @foreach (old('permissions') ?? [] as $id)
+                                                @if ($id == $permission->id)
+                                                    {{ 'selected' }}
+                                                @endif
+                                            @endforeach>
+                                            {{$permission->name}}
+                                        </option>
+                                        @endforeach
+                                    </select>
+            
+                                    @error('permissions')
+                                          <span class="text-danger text-sm">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                </div> --}}
                         </div>
 
                         <div class="card-footer bg-gray1" style="border-radius:0px 0px 15px 15px;">
@@ -79,4 +103,18 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script>
+     $("#checkbox").click(function () {
+       if ($("#checkbox").is(':checked')) {
+           $("#e1 > option").prop("selected", "selected");
+           $("#e1").trigger("change");
+       } else {
+           $("#e1 > option").removeAttr("selected");
+           $("#e1").val("");
+           $("#e1").trigger("change");
+       }
+   });
+</script>
 @endsection
+

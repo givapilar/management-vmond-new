@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Order;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
@@ -32,5 +34,14 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['request']->server->set('HTTPS', true);
         URL::forceScheme('https');
+        
+        view()->composer('*', function (){
+            // $orderTable = Order::where('user_id', Auth::user()->id)->where('status', 'Paid')->get();
+            // $orderPivot = Order::finorFail();
+            $orderTable = Order::get();
+            // $orderTable = OrderPivot::get();
+            // dd($orderPivot);
+            View::share('order_table',$orderTable);
+        });
     }
 }

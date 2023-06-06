@@ -11,6 +11,16 @@ use App\Http\Controllers\StokKeluarController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\BiliardController;
 use App\Http\Controllers\MeetingRoomController;
+use App\Http\Controllers\ImportExcelController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\AssetManagementsController;
+use App\Http\Controllers\TagsController;
+use App\Http\Controllers\MejaRestaurantsController;
+use App\Http\Controllers\HistoryLogsController;
+use App\Http\Controllers\PermitController;
+use App\Http\Controllers\DashboardKitchenController;
+use App\Http\Controllers\ReportPenjualanController;
 
 
 
@@ -39,46 +49,106 @@ Route::get('/testpage', function () {
 // Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
-Auth::routes();
+    Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::middleware('auth:web')->group(function () {
 
-// Master-data
-Route::get('/master-data', function () {
-    return view('master-data.index');
-})->name('master-data.index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        // Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// User 
-Route::resource('/users', UserController::class);
+        // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        // Route::get('/dahboardd', [DashboardController::class, 'index'])->name('dashboard');
+            // Master-data
+            Route::get('/master-data', function () {
+                return view('master-data.index');
+            })->name('master-data.index');
 
-// departement
-Route::resource('/departement', DepartementController::class);
+            // tes
+            Route::get('/tes', function () {
+                return view('layouts.tes');
+            })->name('tes.index');
 
-// Material
-Route::resource('/material', MaterialController::class)->except([
-    'show'
-]);
+            // User
+            Route::resource('/users', UserController::class);
+            Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
-// Inventory
-Route::get('/daftar-stok', [DaftarStokController::class, 'index'])->name('inventory.daftar-stok.index');
+            // departement
+            Route::resource('/departement', DepartementController::class);
+
+            // Material
+            Route::resource('/bahan-baku', MaterialController::class);
+
+            // Asset Management
+            Route::resource('/asset-management', AssetManagementsController::class);
+
+            // Tag
+            Route::resource('/tag', TagsController::class);
+
+            // Tag
+            Route::resource('/meja-restaurant', MejaRestaurantsController::class);
+            
+            // Material Import
+            Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');
+            
+            
+            // History Logs
+            Route::resource('/history-log', HistoryLogsController::class);
+
+            // Inventory
+            Route::get('/daftar-stok', [DaftarStokController::class, 'index'])->name('inventory.daftar-stok.index');
 
 
-// inventory Stok masuk
-Route::resource('/stok-masuk', StokMasukController::class);
+            // inventory Stok masuk
+            Route::resource('/stok-masuk', StokMasukController::class);
 
-// inventory Stok Keluar
-Route::resource('/stok-keluar', StokKeluarController::class);
+            // Permit 
+            Route::resource('/permit', PermitController::class);
 
-// Management Toko Online
-Route::get('/management-toko-online', function () {
-    return view('management-toko-online.index');
-})->name('management-toko-online.index');
+            // inventory Stok Keluar
+            Route::resource('/stok-keluar', StokKeluarController::class);
 
-// Management Restaurant
-Route::resource('/restaurant', RestaurantController::class);
+            // Management Toko Online
+            Route::get('/management-toko-online', function () {
+                return view('management-toko-online.index');
+            })->name('management-toko-online.index');
 
-// Management Biliard
-Route::resource('/biliard', BiliardController::class);
+            // Management Restaurant
+            Route::resource('/restaurant', RestaurantController::class);
 
-// Management Meeting Room
-Route::resource('/meeting-room', MeetingRoomController::class);
+            // Management Biliard
+            Route::resource('/biliard', BiliardController::class);
+
+            // Management Meeting Room
+            Route::resource('/meeting-room', MeetingRoomController::class);
+
+            // Management Banner
+            Route::resource('/banner', BannerController::class);
+
+            // Report Penjualan
+            Route::resource('/report-penjualan', ReportPenjualanController::class);
+            // Route::get('/report-penjualan', [ReportPenjualanController::class, 'index'])->name('report-penjualan.index');
+    });
+
+    Route::prefix('kitchen')->name('kitchen.')->group(function () {
+        // Route::get('/dashboard', function(){
+        //     $data['page_title'] = 'dashboard';
+        //     return view('process.kitchen.dashboard', $data);
+        // })->name('dashboard');
+
+        Route::get('/dashboard', [DashboardKitchenController::class, 'index'])->name('dashboard.kitchen');
+        Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
+    });
+
+    Route::prefix('bartender')->name('bartender.')->group(function () {
+        Route::get('/dashboard', function(){
+            $data['page_title'] = 'dashboard';
+            return view('process.bartender.dashboard', $data);
+        })->name('dashboard');
+    });
+
+    Route::prefix('waiters')->name('waiters.')->group(function () {
+        Route::get('/dashboard', function(){
+            $data['page_title'] = 'dashboard';
+            return view('process.waiters.dashboard', $data);
+        })->name('dashboard');
+    });
