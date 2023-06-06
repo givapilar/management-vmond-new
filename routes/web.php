@@ -30,6 +30,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/testpage', function () {
+    return "testtt";
+});
+
 // Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // Route::post('/login', [LoginController::class, 'login'])->name('login');
