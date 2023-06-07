@@ -68,14 +68,14 @@
 <script>
 
     $(document).ready(function() {
-        var socket = io('http://localhost:3000',{ transports: ["websocket"] });
+        // var socket = io('http://localhost:3000',{ transports: ["websocket"] });
 
-        socket.on('message_client', (msg) => {
-            console.log('DATA::',msg);
-        })
-        setInterval(() => {
-            socket.emit('message', 'datas');
-        }, 1000);
+        // socket.on('notif-order', (msg) => {
+        //     console.log('DATA::',msg);
+        // })
+        // setInterval(() => {
+        //     socket.emit('message', 'datas');
+        // }, 1000);
     // Fakes the loading setting a timeout
     setTimeout(function() {
         $('body').addClass('loaded');

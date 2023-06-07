@@ -20,6 +20,7 @@ use App\Http\Controllers\MejaRestaurantsController;
 use App\Http\Controllers\HistoryLogsController;
 use App\Http\Controllers\PermitController;
 use App\Http\Controllers\DashboardKitchenController;
+use App\Http\Controllers\MenuPackagesController;
 use App\Http\Controllers\ReportPenjualanController;
 
 
@@ -82,11 +83,11 @@ Route::get('/', function () {
 
             // Tag
             Route::resource('/meja-restaurant', MejaRestaurantsController::class);
-            
+
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');
-            
-            
+
+
             // History Logs
             Route::resource('/history-log', HistoryLogsController::class);
 
@@ -97,7 +98,7 @@ Route::get('/', function () {
             // inventory Stok masuk
             Route::resource('/stok-masuk', StokMasukController::class);
 
-            // Permit 
+            // Permit
             Route::resource('/permit', PermitController::class);
 
             // inventory Stok Keluar
@@ -110,6 +111,9 @@ Route::get('/', function () {
 
             // Management Restaurant
             Route::resource('/restaurant', RestaurantController::class);
+
+            // Management Paket Menu
+            Route::resource('/paket-menu', MenuPackagesController::class);
 
             // Management Biliard
             Route::resource('/biliard', BiliardController::class);
