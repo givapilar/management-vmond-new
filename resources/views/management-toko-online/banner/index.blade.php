@@ -22,7 +22,7 @@
                             <a class="btn btn-sm btn-danger p-2" href="{{ route('management-toko-online.index') }}">
                                 Kembali
                             </a>
-                            @can('banner-create')
+                            @can('media-advertising-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-banner">
                                 Tambah
                             </button>
@@ -54,16 +54,16 @@
                                     <img src="{{ asset('assets/images/banner/'.($banner->image ?? 'user.png')) }}" width="110px" class="image img" />
                                 </td>
                                 <td class="table-head text-white">{{ $banner->description }}</td>
-                                @if(auth()->user()->can('banner-delete') || auth()->user()->can('banner-edit'))
+                                @if(auth()->user()->can('media-advertising-delete') || auth()->user()->can('media-advertising-edit'))
                                 <td>
                                     <div class="btn-group-sm">
-                                    @can('banner-edit')
+                                    @can('media-advertising-edit')
                                     <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#edit-banner{{ $banner->id }}">
                                         <i class="fa fa-edit"></i>
                                         Edit
                                     </button>
                                     @endcan
-                                    @can('banner-delete')
+                                    @can('media-advertising-delete')
                                     <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('banner', '{{ $banner->nama }}', '/banner/' + {{ $banner->id }}, '/banner/')">
                                         <i class="far fa-trash-alt"></i>
                                         Delete

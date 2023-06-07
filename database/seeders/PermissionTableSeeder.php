@@ -19,6 +19,8 @@ class PermissionTableSeeder extends Seeder
             'master-data',
             'toko-online',
             'inventory',
+            'permit-admin',
+            'report-penjualan',
             'departement-list',
             'departement-create',
             'departement-edit',
@@ -69,6 +71,10 @@ class PermissionTableSeeder extends Seeder
             'meja-restaurant-create',
             'meja-restaurant-edit',
             'meja-restaurant-delete',
+            'paket-menu-list',
+            'paket-menu-create',
+            'paket-menu-edit',
+            'paket-menu-delete',
         ];
 
         foreach ($permissions as $permission) {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 Use File;
+use Intervention\Image\Facades\Image;
 
 class MeetingRoomController extends Controller
 {
@@ -59,12 +60,35 @@ class MeetingRoomController extends Controller
             $meeting_room->status = $validateData['status'];
             $meeting_room->description = $validateData['description'];
 
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $name = time() . '.' . $image->getClientOriginalExtension();
+            //     $destinationPath = public_path('assets/images/meeting-room/');
+            //     $image->move($destinationPath, $name);
+            //     $meeting_room->image = $name;
+            // }
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/meeting-room/');
-                $image->move($destinationPath, $name);
-                $meeting_room->image = $name;
+                $filename = time().'.'.$image->getClientOriginalExtension();
+                $filePath = 'assets/images/meeting-room/'.$filename;
+                
+                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+                    return redirect()->route('meeting-room.index')->with(['failed' => 'Image Size 200 x 200!']);
+
+                } else {
+                    // Resize the image
+                    $img = Image::make($image)->resize(200, 200);
+                    
+                    // Save the resized image
+                    $img->save(public_path($filePath));
+                    
+                    // Store the image filename in the restaurant model
+                    $meeting_room->image = basename($filePath);
+                    // If the image dimensions or weight do not meet the requirements, store the original image path
+                }
             }
 
             $meeting_room->save();
@@ -117,10 +141,25 @@ class MeetingRoomController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/meeting-room/');
-                $image->move($destinationPath, $name);
-                $meeting_room->image = $name;
+                $filename = time().'.'.$image->getClientOriginalExtension();
+                $filePath = 'assets/images/meeting-room/'.$filename;
+                
+                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+                    return redirect()->route('meeting-room.index')->with(['failed' => 'Image Size 200 x 200!']);
+
+                } else {
+                    // Resize the image
+                    $img = Image::make($image)->resize(200, 200);
+                    
+                    // Save the resized image
+                    $img->save(public_path($filePath));
+                    
+                    // Store the image filename in the restaurant model
+                    $meeting_room->image = basename($filePath);
+                    // If the image dimensions or weight do not meet the requirements, store the original image path
+                }
             }
 
             $meeting_room->save();

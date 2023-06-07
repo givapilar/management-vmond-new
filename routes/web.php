@@ -20,6 +20,7 @@ use App\Http\Controllers\MejaRestaurantsController;
 use App\Http\Controllers\HistoryLogsController;
 use App\Http\Controllers\PermitController;
 use App\Http\Controllers\DashboardKitchenController;
+use App\Http\Controllers\MenuPackagesController;
 use App\Http\Controllers\ReportPenjualanController;
 
 
@@ -86,11 +87,11 @@ Route::get('/testpage', function () {
 
             // Tag
             Route::resource('/meja-restaurant', MejaRestaurantsController::class);
-            
+
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');
-            
-            
+
+
             // History Logs
             Route::resource('/history-log', HistoryLogsController::class);
 
@@ -101,7 +102,7 @@ Route::get('/testpage', function () {
             // inventory Stok masuk
             Route::resource('/stok-masuk', StokMasukController::class);
 
-            // Permit 
+            // Permit
             Route::resource('/permit', PermitController::class);
 
             // inventory Stok Keluar
@@ -115,6 +116,9 @@ Route::get('/testpage', function () {
             // Management Restaurant
             Route::resource('/restaurant', RestaurantController::class);
 
+            // Management Paket Menu
+            Route::resource('/paket-menu', MenuPackagesController::class);
+
             // Management Biliard
             Route::resource('/biliard', BiliardController::class);
 
@@ -122,7 +126,7 @@ Route::get('/testpage', function () {
             Route::resource('/meeting-room', MeetingRoomController::class);
 
             // Management Banner
-            Route::resource('/banner', BannerController::class);
+            Route::resource('/media-advertising', BannerController::class);
 
             // Report Penjualan
             Route::resource('/report-penjualan', ReportPenjualanController::class);
@@ -136,6 +140,8 @@ Route::get('/testpage', function () {
         // })->name('dashboard');
 
         Route::get('/dashboard', [DashboardKitchenController::class, 'index'])->name('dashboard.kitchen');
+        Route::post('/dashboard-status', [DashboardKitchenController::class, 'statusDashboard'])->name('status-dashboard');
+        Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });
 

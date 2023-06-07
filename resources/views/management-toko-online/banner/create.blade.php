@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="forms-sample" action="{{ route('banner.store') }}" enctype="multipart/form-data" method="POST">
+            <form class="forms-sample" action="{{ route('media-advertising.store') }}" enctype="multipart/form-data" method="POST">
                 @csrf
 
                 @include('components.form-message')

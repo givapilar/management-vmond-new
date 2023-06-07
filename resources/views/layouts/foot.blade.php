@@ -64,10 +64,18 @@
     $('.js-example-basic-multiple').select2();
     });
 </script> --}}
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
 
     $(document).ready(function() {
+        // var socket = io('http://localhost:3000',{ transports: ["websocket"] });
 
+        // socket.on('notif-order', (msg) => {
+        //     console.log('DATA::',msg);
+        // })
+        // setInterval(() => {
+        //     socket.emit('message', 'datas');
+        // }, 1000);
     // Fakes the loading setting a timeout
     setTimeout(function() {
         $('body').addClass('loaded');

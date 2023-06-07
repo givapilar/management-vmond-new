@@ -3,72 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-	document.documentElement.classList.add('dark')
-	tailwind.config = {
- 			 darkMode: 'class',
-		theme: {
-			extend: {
-			colors: {
-				primary: {"50":"#ecfeff","100":"#cffafe","200":"#a5f3fc","300":"#67e8f9","400":"#22d3ee","500":"#06b6d4","600":"#0891b2","700":"#0e7490","800":"#155e75","900":"#164e63"}
-			}
-		},
-		fontFamily: {
-			'body': [
-			'Inter', 
-			'ui-sans-serif', 
-			'system-ui', 
-			'-apple-system', 
-			'system-ui', 
-			'Segoe UI', 
-			'Roboto', 
-			'Helvetica Neue', 
-			'Arial', 
-			'Noto Sans', 
-			'sans-serif', 
-			'Apple Color Emoji', 
-			'Segoe UI Emoji', 
-			'Segoe UI Symbol', 
-			'Noto Color Emoji'
-			],
-			'sans': [
-			'Inter', 
-			'ui-sans-serif', 
-			'system-ui', 
-			'-apple-system', 
-			'system-ui', 
-			'Segoe UI', 
-			'Roboto', 
-			'Helvetica Neue', 
-			'Arial', 
-			'Noto Sans', 
-			'sans-serif', 
-			'Apple Color Emoji', 
-			'Segoe UI Emoji', 
-			'Segoe UI Symbol', 
-			'Noto Color Emoji'
-			]
-		}
-		}
-	}
-  </script>
 </head>
 <body class="dark:bg-gray-900">
 	<section class="bg-gray-50 dark:bg-gray-900">
 		<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-			<h1 class="text-[40px] mt-2 font-bold leading-tight tracking-[0.7rem] text-center text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+            {{-- <h1 class="text-[40px] mt-2 font-bold leading-tight tracking-[0.7rem] text-center text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
                 VMOND
             </h1>
             <span class="text-[40px] font-light leading-tight tracking-[0.7rem] text-center text-gray-900 dark:text-white">
                 CAFE
-            </span>
-			
-			<div class="w-full bg-white rounded-lg shadow dark:border mt-4 md:mt-2 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-				<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-					<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-						Sign in to your account
-					</h1>
+            </span> --}}
+
+			<div class="w-full bg-white rounded-[20px] shadow dark:border mt-4 md:mt-2 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 sm:p-8">
+                    <div class="w-full h-auto ">
+                        <img src="{{ asset('assets/images/logo/logo-vmond.png') }}" alt="" class="block mx-auto">
+                    </div>
+					{{-- <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 text-center md:text-2xl dark:text-white">
+						SIGN IN PAGE
+					</h1> --}}
 					<form class="space-y-4 md:space-y-6" method="POST" action="{{ route('login') }}">
 						@csrf
 						<div>
@@ -101,4 +54,7 @@
 		</div>
 	  </section>
 </body>
+{{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+<script src="{{ asset('assets/vendors/tailwind/tailwind.js') }}"></script>
+<script src="{{ asset('assets/js/auth.js') }}"></script>
 </html>

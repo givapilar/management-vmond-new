@@ -38,10 +38,10 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function (){
             // $orderTable = Order::where('user_id', Auth::user()->id)->where('status', 'Paid')->get();
             // $orderPivot = Order::finorFail();
-            $orderTable = Order::get();
-            // $orderTable = OrderPivot::get();
-            // dd($orderPivot);
-            View::share('order_table',$orderTable);
+            // $orderTable = Order::get();
+            // // $orderTable = OrderPivot::get();
+            // // dd($orderPivot);
+            // View::share('order_table',$orderTable);
         });
     }
 }
