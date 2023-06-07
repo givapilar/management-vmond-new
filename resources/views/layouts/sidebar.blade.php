@@ -105,7 +105,7 @@
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('permit.index') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-history"></i>
+            <i class="mdi mdi-account-key"></i>
           </span>
           <span class="menu-title">Permit Admin</span>
         </a>
@@ -116,7 +116,7 @@
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('report-penjualan.index') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-history"></i>
+            <i class="mdi mdi-file"></i>
           </span>
           <span class="menu-title">Report Penjualan</span>
         </a>

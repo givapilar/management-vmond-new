@@ -47,6 +47,9 @@
 
 /* Demo Styles */
 
+.paginate_button{
+  margin-top: -5px !important;
+}
 #content {
   margin: 0 auto;
   padding-bottom: 50px;
