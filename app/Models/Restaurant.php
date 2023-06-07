@@ -15,4 +15,9 @@ class Restaurant extends Model
     {
         return $this->hasMany(RestaurantPivots::class);
     }
+
+    public function restaurantPackage()
+    {
+        return $this->hasMany(MenuPackagePivots::class);
+    }
 }

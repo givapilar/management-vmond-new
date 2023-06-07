@@ -8,7 +8,7 @@
     <hr class="mt-2 mb-2" style="background: #cdcdcd !important;">
     <li class="nav-item profile">
         <div class="profile-desc justify-content-center">
-          <div class="profile-name">
+          <div class="profile-name ml-0 mt-1" >
                 <h6 class="text-center" style="color:#6c7293 !important;">INFORMATION</h6>
           </div>
         </div>

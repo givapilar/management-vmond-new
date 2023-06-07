@@ -117,6 +117,7 @@ class ApiController extends Controller
         $banner = Restaurant::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
             $data['nama'] = $item->nama;
+            $data['category'] = $item->category;
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
             $data['status'] = $item->status;
