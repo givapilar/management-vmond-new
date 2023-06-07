@@ -16,6 +16,7 @@ class CreateMenuPackagesTable extends Migration
         Schema::create('menu_packages', function (Blueprint $table) {
             $table->id();
             $table->string('nama_paket');
+            $table->text('description')->nullable();
             $table->enum('category', ['billiard', 'meeting_room']);
             $table->timestamps();
         });
