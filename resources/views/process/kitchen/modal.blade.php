@@ -16,7 +16,7 @@
                     @foreach ($item->orderPivot as $order_pivot)
                     <li class="list-group-item d-flex justify-content-start align-items-start">
                         <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 checkbox-1 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
+                            <input class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}')" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked disabled' : '' }}>
                         </div>
                         <div class="flex-shrink-1">
                             <h3 class="me-2 mb-0">1.</h3>

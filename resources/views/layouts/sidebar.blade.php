@@ -101,6 +101,7 @@
       </li>
       @endcan
 
+      @can('permit-admin')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('permit.index') }}">
           <span class="menu-icon">
@@ -109,7 +110,9 @@
           <span class="menu-title">Permit Admin</span>
         </a>
       </li>
+      @endcan
 
+      @can('report-penjualan')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('report-penjualan.index') }}">
           <span class="menu-icon">
@@ -118,6 +121,7 @@
           <span class="menu-title">Report Penjualan</span>
         </a>
       </li>
+      @endcan
 
     </ul>
   </nav>
