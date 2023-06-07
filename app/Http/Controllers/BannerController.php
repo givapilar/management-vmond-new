@@ -7,6 +7,8 @@ use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
+
 
 class BannerController extends Controller
 {
@@ -52,10 +54,25 @@ class BannerController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/banner/');
-                $image->move($destinationPath, $name);
-                $banner->image = $name;
+                $filename = time().'.'.$image->getClientOriginalExtension();
+                $filePath = 'assets/images/banner/'.$filename;
+                
+                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+                    return redirect()->route('media-advertising.index')->with(['failed' => 'Image Size 200 x 200!']);
+
+                } else {
+                    // Resize the image
+                    $img = Image::make($image)->resize(200, 200);
+                    
+                    // Save the resized image
+                    $img->save(public_path($filePath));
+                    
+                    // Store the image filename in the restaurant model
+                    $banner->image = basename($filePath);
+                    // If the image dimensions or weight do not meet the requirements, store the original image path
+                }
             }
 
             $banner->save();
@@ -67,9 +84,9 @@ class BannerController extends Controller
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 
-            return redirect()->route('banner.index')->with(['success' => 'Banner added successfully!']);
+            return redirect()->route('media-advertising.index')->with(['success' => 'Banner added successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('banner.index')->with(['failed' => 'Banner added failed! '.$th->getMessage()]);
+            return redirect()->route('media-advertising.index')->with(['failed' => 'Banner added failed! '.$th->getMessage()]);
         }
     }
 
@@ -94,18 +111,32 @@ class BannerController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/banner/');
-                $image->move($destinationPath, $name);
-                $banner->image = $name;
-                // dd($banner->image = $name);
+                $filename = time().'.'.$image->getClientOriginalExtension();
+                $filePath = 'assets/images/banner/'.$filename;
+                
+                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+                    return redirect()->route('media-advertising.index')->with(['failed' => 'Image Size 200 x 200!']);
+
+                } else {
+                    // Resize the image
+                    $img = Image::make($image)->resize(200, 200);
+                    
+                    // Save the resized image
+                    $img->save(public_path($filePath));
+                    
+                    // Store the image filename in the restaurant model
+                    $banner->image = basename($filePath);
+                    // If the image dimensions or weight do not meet the requirements, store the original image path
+                }
             }
 
             $banner->save();
 
-            return redirect()->route('banner.index')->with(['success' => 'Banner edited successfully!']);
+            return redirect()->route('media-advertising.index')->with(['success' => 'Banner edited successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('banner.index')->with(['failed' => 'Banner edited Failed! '. $th->getMessage()]);
+            return redirect()->route('media-advertising.index')->with(['failed' => 'Banner edited Failed! '. $th->getMessage()]);
         }
     }
 

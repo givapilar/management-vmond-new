@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form class="forms-sample" method="POST" enctype="multipart/form-data" action="{{ route('banner.update', $banner->id) }}">
+            <form class="forms-sample" method="POST" enctype="multipart/form-data" action="{{ route('media-advertising.update', $banner->id) }}">
                 @method('patch')
                 @csrf
 

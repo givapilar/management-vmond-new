@@ -118,7 +118,7 @@ Route::get('/', function () {
             Route::resource('/meeting-room', MeetingRoomController::class);
 
             // Management Banner
-            Route::resource('/banner', BannerController::class);
+            Route::resource('/media-advertising', BannerController::class);
 
             // Report Penjualan
             Route::resource('/report-penjualan', ReportPenjualanController::class);
@@ -132,6 +132,8 @@ Route::get('/', function () {
         // })->name('dashboard');
 
         Route::get('/dashboard', [DashboardKitchenController::class, 'index'])->name('dashboard.kitchen');
+        Route::post('/dashboard-status', [DashboardKitchenController::class, 'statusDashboard'])->name('status-dashboard');
+        Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });
 
