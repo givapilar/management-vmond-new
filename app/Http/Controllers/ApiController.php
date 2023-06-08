@@ -51,6 +51,7 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
+                $data['_diskonharga'] = $item->harga_diskon;
                 $data['image'] = asset('assets/images/restaurant/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
@@ -63,6 +64,7 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
+                $data['har_diskonga'] = $item->harga_diskon;
                 $data['image'] = asset('assets/images/biliard/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
@@ -74,6 +76,7 @@ class ApiController extends Controller
                 $data['id'] = $item->id;
                 $data['nama'] = $item->nama;
                 $data['harga'] = $item->harga;
+                $data['harga_diskon'] = $item->harga_diskon;
                 $data['image'] = asset('assets/images/meeting-room/'.($item->image ?? 'no-pictures.png'));
                 $data['description'] = $item->description;
                 $data['slug'] = $item->slug;
@@ -120,6 +123,7 @@ class ApiController extends Controller
             $data['category'] = $item->category;
             $data['no_meja'] = $item->no_meja;
             $data['harga'] = $item->harga;
+            $data['harga_diskon'] = $item->harga_diskon;
             $data['status'] = $item->status;
             $data['image'] = asset('assets/images/restaurant/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;

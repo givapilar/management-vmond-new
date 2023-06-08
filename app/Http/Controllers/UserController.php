@@ -92,7 +92,7 @@ class UserController extends Controller
         $newHistoryLog = new HistoryLog();
         $newHistoryLog->datetime = date('Y-m-d H:i:s');
         $newHistoryLog->type = 'Update User';
-        // $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->user_id = auth()->user()->id;
         $newHistoryLog->save();
 
         $user = User::findOrFail($id);
@@ -131,7 +131,7 @@ class UserController extends Controller
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
             $newHistoryLog->type = 'Delete User';
-            // $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 
             $user->delete();
