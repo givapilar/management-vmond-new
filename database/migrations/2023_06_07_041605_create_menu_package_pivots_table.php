@@ -17,13 +17,9 @@ class CreateMenuPackagePivotsTable extends Migration
             $table->id();
             $table->unsignedBigInteger("menu_packages_id")->nullable();
             $table->unsignedBigInteger("restaurant_id")->nullable();
-            $table->unsignedBigInteger("billiard_id")->nullable();
-            $table->unsignedBigInteger("room_meeting_id")->nullable();
 
             $table->foreign("menu_packages_id")->references("id")->on("menu_packages")->onDelete('cascade');
             $table->foreign("restaurant_id")->references("id")->on("restaurants")->onDelete('cascade');
-            $table->foreign("billiard_id")->references("id")->on("biliards")->onDelete('cascade');
-            $table->foreign("room_meeting_id")->references("id")->on("meeting_rooms")->onDelete('cascade');
             $table->timestamps();
         });
     }

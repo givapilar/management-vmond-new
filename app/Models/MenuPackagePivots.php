@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MenuPackagePivots extends Model
 {
     use HasFactory;
+
 }
