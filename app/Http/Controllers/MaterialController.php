@@ -13,10 +13,10 @@ class MaterialController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:departement-list', ['only' => 'index']);
-        // $this->middleware('permission:departement-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:departement-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:bahan-baku-list', ['only' => 'index']);
+        $this->middleware('permission:bahan-baku-create', ['only' => ['create','store']]);
+        $this->middleware('permission:bahan-baku-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:bahan-baku-delete', ['only' => ['destroy']]);
     }
 
     public function index()
