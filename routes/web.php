@@ -22,6 +22,7 @@ use App\Http\Controllers\PermitController;
 use App\Http\Controllers\DashboardKitchenController;
 use App\Http\Controllers\MenuPackagesController;
 use App\Http\Controllers\ReportPenjualanController;
+use App\Http\Controllers\MembershipController;
 
 
 
@@ -64,10 +65,10 @@ Route::get('/testpage', function () {
                 return view('master-data.index');
             })->name('master-data.index');
 
-            // tes
-            Route::get('/tes', function () {
-                return view('layouts.tes');
-            })->name('tes.index');
+            // // tes
+            // Route::get('/tes', function () {
+            //     return view('layouts.tes');
+            // })->name('tes.index');
 
             // User
             Route::resource('/users', UserController::class);
@@ -85,8 +86,11 @@ Route::get('/testpage', function () {
             // Tag
             Route::resource('/tag', TagsController::class);
 
-            // Tag
+            // Meja Restaurant
             Route::resource('/meja-restaurant', MejaRestaurantsController::class);
+
+            // Membership
+            Route::resource('/membership', MembershipController::class);
 
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');

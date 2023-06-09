@@ -23,7 +23,7 @@
                   Kembali
               </a>
               @can('tag-create')
-              <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-tag">
+              <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-membership">
                   Tambah
               </button>
               @endcan
@@ -41,27 +41,29 @@
             <thead>
               <tr>
                 <th class="th-sm text-white">No</th>
-                <th class="th-sm text-white">Tag Name</th>
+                <th class="th-sm text-white">Level</th>
+                <th class="th-sm text-white">Minimum Transaction</th>
                 <th class="th-sm text-white">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($tags as $tag)
+              @foreach ($memberships as $membership)
               <tr>
                 <td class="table-head text-white">{{ $loop->iteration }}</td>
-                <td class="table-head text-white">{{ $tag->tag_name }}</td>
-                @if(auth()->user()->can('tag-delete') || auth()->user()->can('tag-edit'))
+                <td class="table-head text-white">{{ $membership->level }}</td>
+                <td class="table-head text-white">{{ $membership->minimum_transaksi }}</td>
+                @if(auth()->user()->can('membership-delete') || auth()->user()->can('membership-edit'))
                 <td>
                   <div class="btn-group-sm">
-                    @can('tag-edit')
-                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-tag{{ $tag->id }}">
+                    @can('membership-edit')
+                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-membership{{ $membership->id }}">
                       <i class="fa fa-edit"></i>
                       Edit
                     </button>
                     @endcan
 
-                    @can('tag-delete')
-                    <a href="#" class="btn btn-danger p-2 btn-lg btn-open-modal" onclick="modalDelete('Tag', '{{ $tag->nama }}', '/tag/' + {{ $tag->id }}, '/tag/')">
+                    @can('membership-delete')
+                    <a href="#" class="btn btn-danger p-2 btn-lg btn-open-modal" onclick="modalDelete('Membership', '{{ $membership->nama }}', '/membership/' + {{ $membership->id }}, '/membership/')">
                       <i class="far fa-trash-alt"></i>
                       Delete
                     </a>
@@ -70,7 +72,7 @@
                 </td>
                 @endif
               </tr>
-              @include('master-data.tag.edit')
+              @include('master-data.membership.edit')
               @endforeach
             </tbody>
           </table>
@@ -79,5 +81,5 @@
     </div>
   </div>
 </div>
-@include('master-data.tag.create')
+@include('master-data.membership.create')
 @endsection
