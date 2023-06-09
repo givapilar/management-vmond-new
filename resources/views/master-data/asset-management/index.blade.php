@@ -44,6 +44,8 @@
                     <th class="th-sm text-white">No</th>
                     <th class="th-sm text-white">Nama</th>
                     <th class="th-sm text-white">Quantity</th>
+                    <th class="th-sm text-white">Harga</th>
+                    <th class="th-sm text-white">Image</th>
                     <th class="th-sm text-white" width="15%">Action</th>
                   </tr>
               </thead>
@@ -53,17 +55,21 @@
                         <td class="table-head text-white">{{ $loop->iteration }}</td>
                         <td class="table-head text-white">{{ $asset_management->nama }}</td>
                         <td class="table-head text-white">{{ $asset_management->quantity }}</td>
-                        @if(auth()->user()->can('restaurant-delete') || auth()->user()->can('restaurant-edit'))
+                        <td class="table-head text-white">{{ $asset_management->harga }}</td>
+                        <td class="table-head text-white">
+                          <img src="{{ asset('assets/images/asset-management/'.($asset_management->image ?? 'user.png')) }}" width="110px" class="image img" />
+                        </td>
+                        @if(auth()->user()->can('asset-management-delete') || auth()->user()->can('asset-management-edit'))
                         <td>
                             <div class="btn-group-sm">
-                              @can('restaurant-edit')
+                              @can('asset-management-edit')
                               <a class="btn btn-warning f-12" href="{{ route('asset-management.edit', $asset_management->id) }}">
                                 <i class="fa fa-edit"></i> 
                                 Edit
                               </a>
                               @endcan
 
-                              @can('restaurant-delete')
+                              @can('asset-management-delete')
                               <a href="#" class="btn btn-danger f-12" onclick="modalDelete('Asset Management', '{{ $asset_management->nama }}', '/asset-management/' + {{ $asset_management->id }}, '/asset-management/')">
                                 <i class="far fa-trash-alt"></i>
                                 Delete

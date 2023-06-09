@@ -29,7 +29,10 @@ class AddColumnStokPerhariToRestaurantsTable extends Migration
     public function down()
     {
         Schema::table('restaurants', function (Blueprint $table) {
-            //
+            $table->dropColumn('harga_diskon');
+            $table->dropColumn('stok_perhari');
+            $table->dropColumn('current_stok');
+
         });
     }
 }

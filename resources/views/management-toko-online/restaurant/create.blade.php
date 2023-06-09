@@ -52,10 +52,10 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3">
+                    {{-- <div class="col-lg-3">
                         <div class="form-group mb-3">
-                            <label for="harga">Harga</label>
-                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
+                            <label for="harga">Harga <small>%</small></label>
+                            <input type="number" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}"  placeholder="harga">
                             
                             @error('harga')
                             <span class="invalid-feedback" role="alert">
@@ -67,8 +67,8 @@
 
                     <div class="col-lg-3">
                         <div class="form-group mb-3">
-                            <label for="harga_diskon">Harga Diskon</label>
-                            <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" name="harga_diskon" value="{{ old('harga_diskon') }}" id="harga_diskon"  placeholder="Harga_diskon">
+                            <label for="harga_diskon">Harga diskon <small>%</small></label>
+                            <input type="number" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" name="harga_diskon" value="{{ old('harga_diskon') }}"  placeholder="harga_diskon">
                             
                             @error('harga_diskon')
                             <span class="invalid-feedback" role="alert">
@@ -76,7 +76,9 @@
                             </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
+
+                    
 
                     <div class="col-lg-3">
                         <div class="form-group mb-3">
@@ -113,6 +115,45 @@
                                       <strong>{{ $message }}</strong>
                                   </span>
                               @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label for="harga">Harga</label>
+                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
+                            
+                            @error('harga')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label for="harga_diskon">Harga Diskon</label>
+                            <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" name="harga_diskon" value="{{ old('harga_diskon') }}" id="harga_diskon"  placeholder="Harga_diskon">
+                            
+                            @error('harga_diskon')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label for="persentase">Persentase <small>%</small></label>
+                            <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" name="persentase" value="{{ old('persentase') }}"  placeholder="Persentase">
+                            
+                            @error('persentase')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -165,8 +206,8 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="description">Description</label>
-                            {{-- <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea> --}}
-                            <textarea name="description" id="mytextarea"></textarea>
+                            <textarea name="description" class="form-control" id="description" rows="4"></textarea>
+                            {{-- <textarea name="description" id="mytextarea"></textarea> --}}
                             @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -185,20 +226,20 @@
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.tiny.cloud/1/6vch58fk4gud1ywlf06b61zgh32srvlfldxj53oxqnt7fpxt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
                                                                                                                                                                                                                      
   <script>
     new AutoNumeric('#harga', {
         currencySymbol : '',
-        decimalCharacter : ',',
-        digitGroupSeparator : '.',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
     });                   
     new AutoNumeric('#harga_diskon', {
         currencySymbol : '',
-        decimalCharacter : ',',
-        digitGroupSeparator : '.',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
     });                   
    
     tinymce.init({
@@ -220,5 +261,128 @@
            $("#e1").trigger("change");
        }
    });
+</script>
+
+<script>
+    $(document).ready(function() {
+    var hargaInput = $('#harga');
+    var persentaseInput = $('#persentase');
+    var hargaDiskonInput = $('#harga_diskon');
+
+    hargaInput.on('keyup', calculateDiscountedPrice);
+    persentaseInput.on('keyup', calculateDiscountedPrice);
+
+    hargaInput.on('keyup', calculatePersentase);
+    hargaDiskonInput.on('keyup', calculatePersentase);
+
+    function calculateDiscountedPrice() {
+        var originalHarga = hargaInput.val();
+        var hargaVal = originalHarga.replace(/,/g, "");
+
+        // Harga Diskon
+        var originalDiskon = hargaDiskonInput.val();
+        var hargaDiskonVal = originalDiskon.replace(/,/g, "");
+
+        var harga = parseFloat(hargaVal);
+        var hargaDiskon = parseFloat(hargaDiskonInput.val());
+        // var hargaDiskon = parseFloat(hargaDiskonVal);
+        var persentase = parseFloat(persentaseInput.val());
+
+        if (!isNaN(harga) && !isNaN(persentase)) {
+            var diskon = (harga * persentase) / 100;
+            var hargaDiskon = harga - diskon;
+
+            hargaDiskonInput.val(hargaDiskon);
+        }
+
+    }
+    function calculatePersentase() {
+        var harga = parseFloat(hargaInput.val());
+        var hargaDiskon = parseFloat(hargaDiskonInput.val());
+
+        if (!isNaN(harga) && !isNaN(hargaDiskon) && harga > 0) {
+            var persentase = ((harga - hargaDiskon) / harga) * 100;
+            persentaseInput.val(persentase);
+        } else {
+            persentaseInput.val('');
+        }
+    }
+});
+
+    // $(document).ready(function() {
+    //     // const hargaInput = $('#harga');
+    //     var hargaInput = $('#harga');
+    //     var originalHarga = hargaInput.val();
+    //     var hargaVal = originalHarga.replace(/,00/g, "");
+    //     var hargaNew = hargaVal.replace(/\./g, "");
+    //     // console.log(hargaNew);
+        
+    //     var persentaseInput = $('#persentase');
+    //     var originalPersentase = persentaseInput.val();
+    //     var persentaseVal = originalPersentase.replace(/,00/g, "");
+    //     var persentaseNew = persentaseVal.replace(/\./g, "");
+        
+    //     var hargaDiskonInput = $('#harga_diskon');
+    //     var originalHargaDiskon = hargaDiskonInput.val();
+    //     var hargaDiskonVal = originalHargaDiskon.replace(/,00/g, "");
+    //     var hargaDiskonNew = hargaDiskonVal.replace(/\./g, "");
+
+    //     // const persentaseInput = $('#persentase');
+    //     // const hargaDiskonInput = $('#harga_diskon');
+
+    //     hargaNew.on('keyup', calculateDiscountedPrice);
+    //     persentaseNew.on('keyup', calculateDiscountedPrice);
+        
+    //     hargaNew.on('keyup', calculatePersentase);
+    //     hargaDiskonNew.on('keyup', calculatePersentase);
+
+    //     function calculateDiscountedPrice() {
+    //         const harga = parseFloat(hargaNew.val());
+    //         const hargaDiskon = parseFloat(hargaDiskonNew.val());
+    //         const persentase = parseFloat(persentaseNew.val());
+
+    //         if (!isNaN(harga) && !isNaN(persentase)) {
+    //             const diskon = (harga * persentase) / 100;
+    //             const hargaDiskon = harga - diskon;
+    //             // const persentase = ((harga - hargaDiskon) / harga) * 100;
+
+    //             hargaDiskonNew.val(hargaDiskon);
+                
+    //             // persentaseNew.value = persentase.toFixed(2);
+    //         }
+    //     }
+
+    //     function calculatePersentase() {
+    //         const harga = parseFloat(hargaNew.val());
+    //         const hargaDiskon = parseFloat(hargaDiskonNew.val());
+
+    //         if (!isNaN(harga) && !isNaN(hargaDiskon) && harga > 0) {
+    //             const persentase = ((harga - hargaDiskon) / harga) * 100;
+    //             persentaseNew.val(persentase);
+    //         } else {
+    //             persentaseNew.val('');
+    //         }
+    //     }
+    // });
+    // $(document).ready(function() {
+    //     const hargaInput = $('#harga');
+    //     const hargaDiskonInput = $('#harga_diskon');
+    //     const persentaseInput = $('#persentase');
+
+    //     hargaInput.on('keyup', calculatePersentase);
+    //     hargaDiskonInput.on('keyup', calculatePersentase);
+
+    //     function calculatePersentase() {
+    //         const harga = parseFloat(hargaInput.val());
+    //         const hargaDiskon = parseFloat(hargaDiskonInput.val());
+
+    //         if (!isNaN(harga) && !isNaN(hargaDiskon) && harga > 0) {
+    //             const persentase = ((harga - hargaDiskon) / harga) * 100;
+    //             persentaseInput.val(persentase);
+    //         } else {
+    //             persentaseInput.val('');
+    //         }
+    //     }
+    // });
 </script>
                

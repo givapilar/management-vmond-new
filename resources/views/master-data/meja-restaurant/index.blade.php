@@ -23,9 +23,11 @@
                                 Kembali
                             </a>
 
+                            @can('meja-restaurant-create')
                             <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-meja-restaurant">
                                 Tambah
                             </button>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -60,18 +62,24 @@
                                     <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
                                 @endif
 
+                                @if(auth()->user()->can('meja-restaurant-delete') || auth()->user()->can('meja-restaurant-edit'))
                                 <td>
                                     <div class="btn-group-sm">
+                                    @can('meja-restaurant-edit')
                                     <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-meja-restaurant{{ $meja_restaurant->id }}">
                                         <i class="fa fa-edit"></i>
                                         Edit
                                     </button>
+                                    @endcan
+                                    @can('meja-restaurant-delete')
                                     <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Meja Restaurant', '{{ $meja_restaurant->nams }}', '/meja-restaurant/' + {{ $meja_restaurant->id }}, '/meja-restaurant/')">
                                         <i class="far fa-trash-alt"></i>
                                         Hapus
                                     </a>
+                                    @endcan
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                             @include('master-data.meja-restaurant.edit')
                             @endforeach

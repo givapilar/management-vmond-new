@@ -14,10 +14,10 @@ class MeetingRoomController extends Controller
 {
     function __construct()
     {
-        // $this->middleware('permission:departement-list', ['only' => 'index']);
-        // $this->middleware('permission:departement-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:departement-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:meeting-room-list', ['only' => 'index']);
+        $this->middleware('permission:meeting-room-create', ['only' => ['create','store']]);
+        $this->middleware('permission:meeting-room-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:meeting-room-delete', ['only' => ['destroy']]);
     }
 
     public function index()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumCodeToRestaurantsTable extends Migration
+class AddColumnHargaToAssetManagementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddColumCodeToRestaurantsTable extends Migration
      */
     public function up()
     {
-        Schema::table('restaurants', function (Blueprint $table) {
-            $table->string('code')->unique()->after('id');
+        Schema::table('asset_managements', function (Blueprint $table) {
+            $table->bigInteger("harga")->nullable();
+            $table->string("image")->nullable();
         });
     }
 
@@ -25,8 +26,8 @@ class AddColumCodeToRestaurantsTable extends Migration
      */
     public function down()
     {
-        Schema::table('restaurants', function (Blueprint $table) {
-            $table->dropColumn('code');
+        Schema::table('asset_managements', function (Blueprint $table) {
+            //
         });
     }
 }

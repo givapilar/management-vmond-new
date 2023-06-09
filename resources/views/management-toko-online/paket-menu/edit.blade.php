@@ -180,8 +180,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        {{-- <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea> --}}
-                                        <textarea name="description" id="mytextarea">{!! $restaurant->description !!}</textarea>
+                                        <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea>
+                                        {{-- <textarea name="description" id="mytextarea">{!! $restaurant->description !!}</textarea> --}}
                                         @error('content')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

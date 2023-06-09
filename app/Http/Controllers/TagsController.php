@@ -15,6 +15,13 @@ class TagsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:tag-list', ['only' => 'index']);
+        $this->middleware('permission:tag-create', ['only' => ['create','store']]);
+        $this->middleware('permission:tag-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:tag-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $data['page_title'] = 'Tags';
