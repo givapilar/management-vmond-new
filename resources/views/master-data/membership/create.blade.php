@@ -21,6 +21,7 @@
                                 <option value="Silver">Silver</option>
                                 <option value="Gold">Gold</option>
                                 <option value="Platinum">Platinum</option>
+                                <option value="Super Platinum">Super Platinum</option>
                             </select>
                             
                             @error('level')
@@ -34,7 +35,7 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="minimum_transaksi">Minimun Transaction</label>
-                            <input type="number" class="form-control @error('minimum_transaksi') is-invalid @enderror" id="minimum_transaksi" name="minimum_transaksi" value="{{ old('minimum_transaksi') }}"  placeholder="Minimum Transaction">
+                            <input type="text" class="form-control @error('minimum_transaksi') is-invalid @enderror" id="minimum_transaksi" name="minimum_transaksi" value="{{ old('minimum_transaksi') }}"  placeholder="Minimum Transaction">
                             
                             @error('minimum_transaksi')
                             <span class="invalid-feedback" role="alert">
@@ -53,4 +54,13 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // new AutoNumeric('#minimum_transaksi', {
+    //     currencySymbol : '',
+    //     decimalPlaces : 0,
+    //     // digitGroupSeparator : '.',
+    // });                   
+   
+</script>
                

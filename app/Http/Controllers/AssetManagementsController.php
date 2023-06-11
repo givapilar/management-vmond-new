@@ -15,6 +15,14 @@ class AssetManagementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+        $this->middleware('permission:asset-management-list', ['only' => 'list']);
+        $this->middleware('permission:asset-management-create', ['only' => ['create','store']]);
+        $this->middleware('permission:asset-management-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:asset-management-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $data['page_title'] = 'Asset Management List';
@@ -36,14 +44,27 @@ class AssetManagementsController extends Controller
         $validateData = $request->validate([
             'nama' => 'required',
             'quantity' => 'required',
+            'harga' => 'required',
+            'image' => 'required',
             'description' => 'nullable',
         ]);
 
         try {
+            $replaceComma = str_replace(',', '',$request->harga);
+
             $asset_management = new AssetManagements();
             $asset_management->nama = $validateData['nama'];
             $asset_management->quantity = $validateData['quantity'];
+            $asset_management->harga = $replaceComma;
             $asset_management->description = $validateData['description'];
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/asset-management/');
+                $image->move($destinationPath, $name);
+                $asset_management->image = $name;
+            }
             
             $asset_management->save();
 
@@ -73,16 +94,29 @@ class AssetManagementsController extends Controller
         $validateData = $request->validate([
             'nama' => 'required',
             'quantity' => 'required',
+            'harga' => 'required',
+            'image' => 'required',
             'description' => 'nullable',
         ]);
 
         try {
+            $replaceComma = str_replace(',', '',$request->harga);
+
             $asset_management = AssetManagements::findOrFail($id);
             $asset_management->nama = $validateData['nama'];
             $asset_management->quantity = $validateData['quantity'];
+            $asset_management->harga = $replaceComma;
             $asset_management->description = $validateData['description'];
             
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/asset-management/');
+                $image->move($destinationPath, $name);
+                $asset_management->image = $name;
+            }
 
+            
             $asset_management->save();
 
             $newHistoryLog = new HistoryLog();

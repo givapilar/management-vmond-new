@@ -67,8 +67,8 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label for="description">Description</label>
-                            {{-- <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea> --}}
-                            <textarea name="description" id="mytextarea">{!! $meja_restaurant->description !!}</textarea>
+                            <textarea name="description" class="form-control" id="description" rows="4">{{ $meja_restaurant->description }}</textarea>
+                            {{-- <textarea name="description" id="mytextarea">{!! $meja_restaurant->description !!}</textarea> --}}
                             @error('content')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -79,8 +79,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                    <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary mr-2 p-2">Update</button>
                 </div>
             </form>
       </div>

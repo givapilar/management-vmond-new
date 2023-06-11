@@ -26,7 +26,7 @@ class AddColumnMenuToHistoryLogsTable extends Migration
     public function down()
     {
         Schema::table('history_logs', function (Blueprint $table) {
-            //
+            $table->dropColumn('menu');
         });
     }
 }

@@ -19,10 +19,10 @@ class BannerController extends Controller
      */
     function __construct()
     {
-        // $this->middleware('permission:banner-index', ['only' => 'index']);
-        // $this->middleware('permission:banner-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:banner-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:banner-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:media-advertising-list', ['only' => 'index']);
+        $this->middleware('permission:media-advertising-create', ['only' => ['create','store']]);
+        $this->middleware('permission:media-advertising-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:media-advertising-delete', ['only' => ['destroy']]);
     }
 
     public function index()

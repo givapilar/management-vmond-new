@@ -144,7 +144,7 @@
         </div>
         @endcan
 
-        @can('paket-menu-list')
+        @can('membership-list')
         <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('membership.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">

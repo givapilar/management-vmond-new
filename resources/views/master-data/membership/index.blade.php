@@ -51,7 +51,7 @@
               <tr>
                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                 <td class="table-head text-white">{{ $membership->level }}</td>
-                <td class="table-head text-white">{{ $membership->minimum_transaksi }}</td>
+                <td class="table-head text-white">{{ number_format($membership->minimum_transaksi,2) }}</td>
                 @if(auth()->user()->can('membership-delete') || auth()->user()->can('membership-edit'))
                 <td>
                   <div class="btn-group-sm">
@@ -82,4 +82,20 @@
   </div>
 </div>
 @include('master-data.membership.create')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js"integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    new AutoNumeric('#minimum_transaksi', {
+        currencySymbol : '',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
+    });                   
+
+    new AutoNumeric('#harga', {
+        currencySymbol : '',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
+    });                   
+   
+</script>
 @endsection

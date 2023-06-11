@@ -20,7 +20,7 @@ class MembershipController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Bahan Baku';
+        $data['page_title'] = 'Membership';
         $data['memberships'] = Membership::orderby('id', 'asc')->get();
         
         return view('master-data.membership.index', $data);
@@ -41,11 +41,11 @@ class MembershipController extends Controller
             'minimum_transaksi' => 'required',
         ]);
 
-        // dd($request->all());
+        $replaceTitik = str_replace(',', '',$request->minimum_transaksi);
         try {
             $membership = new Membership();
             $membership->level = $validateData['level'];
-            $membership->minimum_transaksi = $validateData['minimum_transaksi'];
+            $membership->minimum_transaksi = $replaceTitik;
             
             $membership->save();
 
@@ -81,10 +81,12 @@ class MembershipController extends Controller
             'minimum_transaksi' => 'required',
         ]);
 
+        $replaceTitik = str_replace(',', '',$request->minimum_transaksi);
+
         try {
             $membership = Membership::findOrFail($id);
             $membership->level = $validateData['level'];
-            $membership->minimum_transaksi = $validateData['minimum_transaksi'];
+            $membership->minimum_transaksi = $replaceTitik;
             
 
             $membership->save();
@@ -111,7 +113,7 @@ class MembershipController extends Controller
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
             $newHistoryLog->type = 'Delete';
-            $newHistoryLog->menu = 'Delete Bahan Baku '.$membership->level;
+            $newHistoryLog->menu = 'Delete Membership '.$membership->level;
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
         });

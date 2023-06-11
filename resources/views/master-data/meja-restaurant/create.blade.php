@@ -63,7 +63,8 @@
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea name="description" id="mytextarea"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="4"></textarea>
+                        {{-- <textarea name="description" id="mytextarea"></textarea> --}}
                         @error('content')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -73,8 +74,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary mr-2">Simpan</button>
+                    <button type="button" class="btn btn-danger p-2" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary mr-2 p-2">Submit</button>
                 </div>
             </form>
         </div>

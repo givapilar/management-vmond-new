@@ -10,43 +10,49 @@
         <div class="modal-body">
             <form class="forms-sample" action="{{ route('bahan-baku.store') }}" method="POST">
                 @csrf
-                <div class="form-group mb-3">
-                    <label for="code">Code</label>
-                    <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}"  placeholder="Massukan Code">
-
-                    @error('code')
+                <div class="col-lg-12">
+                    <div class="form-group mb-3">
+                        <label for="code">Code</label>
+                        <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" name="code" value="{{ old('code') }}"  placeholder="Massukan Code">
+                        
+                        @error('code')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="name">Nama</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="name" name="nama" value="{{ old('nama') }}"  placeholder="Massukan Nama">
+                <div class="col-lg-12">
+                    <div class="form-group mb-3">
+                        <label for="name">Nama</label>
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="name" name="nama" value="{{ old('nama') }}"  placeholder="Massukan Nama">
 
-                    @error('nama')
+                        @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="unit">Unit</label>
-                    <input type="unit" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Massukan Unit">
-                    @error('unit')
+                <div class="col-lg-12">
+                    <div class="form-group mb-3">
+                        <label for="unit">Unit</label>
+                        <input type="unit" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Massukan Unit">
+                        @error('unit')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="col-lg-12">
                     <div class="form-group">
                         <label for="description">Description</label>
-                        {{-- <textarea name="description" class="form-control" id="description" rows="4">{{ $restaurant->description }}</textarea> --}}
-                        <textarea name="description" id="mytextarea"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="4"></textarea>
+                        {{-- <textarea name="description" id="mytextarea"></textarea> --}}
                         @error('content')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -17,10 +17,10 @@ class MejaRestaurantsController extends Controller
      */
     function __construct()
     {
-        // $this->middleware('permission:restaurant-list', ['only' => 'index']);
-        // $this->middleware('permission:restaurant-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:restaurant-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:restaurant-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:meja-restaurant-list', ['only' => 'index']);
+        $this->middleware('permission:meja-restaurant-create', ['only' => ['create','store']]);
+        $this->middleware('permission:meja-restaurant-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:meja-restaurant-delete', ['only' => ['destroy']]);
     }
 
     public function index()

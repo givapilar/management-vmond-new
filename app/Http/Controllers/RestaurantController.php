@@ -50,6 +50,7 @@ class RestaurantController extends Controller
             'category' => 'required',
             'harga' => 'required',
             'harga_diskon' => 'required',
+            'persentase' => 'required',
             'stok_perhari' => 'required',
             'current_stok' => 'nullable',
             'tag_id' => 'nullable',
@@ -60,18 +61,20 @@ class RestaurantController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
-            $replaceTitik = str_replace('.', '',$request->harga);
-            $replaceComma = substr($replaceTitik, 0 , -3);
+            $replaceTitik = str_replace(',', '',$request->harga);
+            // $replaceComma = substr($replaceTitik, 0 , -3);
+            // dd($request->all());
 
-            $replaceTitikHarga = str_replace('.', '',$request->harga_diskon);
-            $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
+            $replaceTitikHarga = str_replace(',', '',$request->harga_diskon);
+            // $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
 
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->harga = $replaceComma;
-            $restaurant->harga_diskon = $replaceCommaHarga;
+            $restaurant->harga = $replaceTitik;
+            $restaurant->harga_diskon = $replaceTitikHarga;
+            $restaurant->persentase = $validateData['persentase'];
             $restaurant->stok_perhari = $validateData['stok_perhari'];
             $restaurant->current_stok = $validateData['current_stok'];
             $restaurant->status = $validateData['status'];
@@ -165,6 +168,7 @@ class RestaurantController extends Controller
             'category' => 'required',
             'harga' => 'required',
             'harga_diskon' => 'required',
+            'persentase' => 'required',
             'stok_perhari' => 'required',
             'current_stok' => 'nullable',
             'status' => 'required',
@@ -174,19 +178,20 @@ class RestaurantController extends Controller
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
-            $replaceTitik = str_replace('.', '',$request->harga);
-            $replaceComma = substr($replaceTitik, 0 , -3);
+            $replaceTitik = str_replace(',', '',$request->harga);
+            // $replaceComma = substr($replaceTitik, 0 , -3);
 
-            $replaceTitikHarga = str_replace('.', '',$request->harga_diskon);
-            $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
+            $replaceTitikHarga = str_replace(',', '',$request->harga_diskon);
+            // $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
 
             $restaurant = Restaurant::findOrFail($id);
             
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->harga = $replaceComma;
-            $restaurant->harga_diskon = $replaceCommaHarga;
+            $restaurant->harga = $replaceTitik;
+            $restaurant->harga_diskon = $replaceTitikHarga;
+            $restaurant->persentase = $validateData['persentase'];
             $restaurant->stok_perhari = $validateData['stok_perhari'];
             $restaurant->current_stok = $validateData['current_stok'];
             $restaurant->status = $validateData['status'];
