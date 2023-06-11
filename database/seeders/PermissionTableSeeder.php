@@ -79,6 +79,7 @@ class PermissionTableSeeder extends Seeder
             'paket-menu-create',
             'paket-menu-edit',
             'paket-menu-delete',
+            'other-settings',
         ];
 
         foreach ($permissions as $permission) {

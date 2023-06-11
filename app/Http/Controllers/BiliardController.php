@@ -24,7 +24,7 @@ class BiliardController extends Controller
 
     public function index()
     {
-        $data['page_title'] = 'Biliard';
+        $data['page_title'] = 'Sport';
         $data['biliards'] = Biliard::orderby('id', 'asc')->get();
 
         return view('management-toko-online.biliard.index', $data);
@@ -32,7 +32,7 @@ class BiliardController extends Controller
 
     public function create()
     {
-        $data['page_title'] = 'Tambah Meja Biliard';
+        $data['page_title'] = 'Tambah Meja Sport';
         $data['biliard'] = Biliard::get();
 
         return view('management-toko-online.biliard.create',$data);
@@ -66,7 +66,7 @@ class BiliardController extends Controller
                 $image = $request->file('image');
                 $filename = time().'.'.$image->getClientOriginalExtension();
                 $filePath = 'assets/images/biliard/'.$filename;
-                
+
                 // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
                 if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
                     // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
@@ -75,10 +75,10 @@ class BiliardController extends Controller
                 } else {
                     // Resize the image
                     $img = Image::make($image)->resize(200, 200);
-                    
+
                     // Save the resized image
                     $img->save(public_path($filePath));
-                    
+
                     // Store the image filename in the restaurant model
                     $biliard->image = basename($filePath);
                     // If the image dimensions or weight do not meet the requirements, store the original image path
@@ -102,7 +102,7 @@ class BiliardController extends Controller
 
     public function edit($id)
     {
-        $data['page_title'] = 'Edit Meja Biliard';
+        $data['page_title'] = 'Edit Meja Sport';
         $data['biliard'] = Biliard::find($id);
 
         return view('management-toko-online.biliard.edit',$data);
@@ -136,7 +136,7 @@ class BiliardController extends Controller
                 $image = $request->file('image');
                 $filename = time().'.'.$image->getClientOriginalExtension();
                 $filePath = 'assets/images/biliard/'.$filename;
-                
+
                 // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
                 if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
                     // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
@@ -145,10 +145,10 @@ class BiliardController extends Controller
                 } else {
                     // Resize the image
                     $img = Image::make($image)->resize(200, 200);
-                    
+
                     // Save the resized image
                     $img->save(public_path($filePath));
-                    
+
                     // Store the image filename in the restaurant model
                     $biliard->image = basename($filePath);
                     // If the image dimensions or weight do not meet the requirements, store the original image path

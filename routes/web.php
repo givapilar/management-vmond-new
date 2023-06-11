@@ -23,9 +23,7 @@ use App\Http\Controllers\DashboardKitchenController;
 use App\Http\Controllers\MenuPackagesController;
 use App\Http\Controllers\ReportPenjualanController;
 use App\Http\Controllers\MembershipController;
-
-
-
+use App\Http\Controllers\OtherSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +71,10 @@ Route::get('/testpage', function () {
             // User
             Route::resource('/users', UserController::class);
             Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+            // Other Settings
+            Route::get('/other-settings', [OtherSettingsController::class, 'index'])->name('other.index');
+            Route::post('/other-settings/{id}', [OtherSettingsController::class, 'update'])->name('other.update');
 
             // departement
             Route::resource('/departement', DepartementController::class);

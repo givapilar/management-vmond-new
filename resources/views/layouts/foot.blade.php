@@ -291,6 +291,7 @@
 @endif
 
 @yield('javascript')
+@stack('script_bot')
 
 
 

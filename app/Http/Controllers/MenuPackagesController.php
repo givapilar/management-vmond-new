@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MenuPackagePivots;
 use App\Models\MenuPackages;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class MenuPackagesController extends Controller
@@ -34,8 +36,9 @@ class MenuPackagesController extends Controller
      */
     public function create()
     {
-        $data['page_title'] = 'Tambah Paket';
-
+        $data['page_title'] = 'Tambah Paket Menu';
+        $data['menu_package_pivots'] = MenuPackagePivots::get();
+        $data['restaurants'] = Restaurant::get();
         $data['menu_package'] = MenuPackages::get();
     }
 
