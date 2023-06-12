@@ -16,6 +16,10 @@ class AddColumnImageToMenuPackagesTable extends Migration
         Schema::table('menu_packages', function (Blueprint $table) {
             $table->text('image')->nullable();
             $table->integer('harga')->nullable();
+            $table->integer('harga_diskon')->nullable();
+            $table->bigInteger("persentase")->nullable();
+            $table->string("slug")->nullable();
+            $table->enum('status', ['Tersedia', 'Tidak Tersedia']);
         });
     }
 

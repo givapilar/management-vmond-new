@@ -27,7 +27,8 @@ class AddColumnHargaToAssetManagementsTable extends Migration
     public function down()
     {
         Schema::table('asset_managements', function (Blueprint $table) {
-            //
+            $table->dropColumn('harga');
+            $table->dropColumn('image');
         });
     }
 }

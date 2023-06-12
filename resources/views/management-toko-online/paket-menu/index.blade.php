@@ -1,7 +1,13 @@
 @extends('home')
 
 @section('style')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<style>
+    .current-stok{
+        background-color: #2A3038 !important;
+    }
 
+</style>
 @endsection
 
 @section('content')

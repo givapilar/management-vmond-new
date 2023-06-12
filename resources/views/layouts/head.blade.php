@@ -213,5 +213,8 @@ z-index: 50;
     tbody, td, tfoot, th, thead, tr{
         border-color: #2b2b2b !important;
     }
+    .select2-container--default .select2-search--inline .select2-search__field{
+        color: white !important;
+    }
 </style>
 @yield('style')

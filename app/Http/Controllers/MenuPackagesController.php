@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Biliard;
+use App\Models\MeetingRoom;
 use App\Models\MenuPackagePivots;
 use App\Models\MenuPackages;
 use App\Models\Restaurant;
@@ -26,20 +28,11 @@ class MenuPackagesController extends Controller
     {
         $data['page_title'] = 'Paket Menu';
         $data['menu_packages'] = MenuPackages::orderBy('id', 'ASC')->get();
-        return view('management-toko-online.paket-menu.index', $data);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['page_title'] = 'Tambah Paket Menu';
         $data['menu_package_pivots'] = MenuPackagePivots::get();
         $data['restaurants'] = Restaurant::get();
-        $data['menu_package'] = MenuPackages::get();
+        $data['billiards'] = Biliard::get();
+        $data['meeting_rooms'] = MeetingRoom::get();
+        return view('management-toko-online.paket-menu.index', $data);
     }
 
     /**
@@ -50,7 +43,7 @@ class MenuPackagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
