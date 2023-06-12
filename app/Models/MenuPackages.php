@@ -18,4 +18,9 @@ class MenuPackages extends Model
     {
         return $this->belongsTo(MeetingRoom::class, 'room_meeting_id', 'id');
     }
+
+    public function MenuPackagePivots()
+    {
+        return $this->hasMany(MenuPackagePivots::class);
+    }
 }

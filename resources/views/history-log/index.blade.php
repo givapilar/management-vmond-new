@@ -42,7 +42,8 @@
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                                 <td class="table-head text-white">{{ $log->datetime }}</td>
-                                <td class="table-head text-white">{{ $log->user->name .' ('. $log->user->getRoleNames()[0].')' }}</td>
+                                <td class="table-head text-white">{{ ($log->user->name ?? '') .' ('. ($log->user->getRoleNames()[0] ?? '').')' }}</td>
+                                {{-- <td class="table-head text-white">{{ ($log->user->name ?? '')}}</td> --}}
                                 <td class="table-head text-white">{{ $log->type }}</td>
                                 <td class="table-head text-white">{{ $log->menu }}</td>
                             </tr>

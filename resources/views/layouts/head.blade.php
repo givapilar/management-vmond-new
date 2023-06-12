@@ -216,5 +216,9 @@ z-index: 50;
     .select2-container--default .select2-search--inline .select2-search__field{
         color: white !important;
     }
+    .select2-container--default .select2-results__option[aria-selected=true]{
+        background-color: #2a2a2a !important;
+        color: gray !important;
+    }
 </style>
 @yield('style')

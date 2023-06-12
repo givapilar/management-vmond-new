@@ -9,4 +9,5 @@ class MenuPackagePivots extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['menu_packages_id', 'restaurant_id'];
 }

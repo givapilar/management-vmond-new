@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ $page_title }}</h5>
+                <h5 class="modal-title">Tambah {{ $page_title }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -208,22 +208,22 @@
     </div>
 </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/6vch58fk4gud1ywlf06b61zgh32srvlfldxj53oxqnt7fpxt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> --}}
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <script>
-    new AutoNumeric('#harga', {
+     new AutoNumeric('#harga', {
         currencySymbol : '',
-        decimalCharacter : ',',
-        digitGroupSeparator : '.',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
     });
     new AutoNumeric('#harga_diskon', {
         currencySymbol : '',
-        decimalCharacter : ',',
-        digitGroupSeparator : '.',
+        decimalPlaces : 0,
+        // digitGroupSeparator : '.',
     });
 
     tinymce.init({
