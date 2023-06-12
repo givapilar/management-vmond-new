@@ -14,6 +14,8 @@
                 
                 <ul class="list-group list-group-flush pe-3">
                     @foreach ($item->orderPivot as $order_pivot)
+                    @if ($order_pivot->restaurant->category == 'Makanan')
+                        
                     <li class="list-group-item d-flex justify-content-start align-items-start">
                         <div class="flex-shrink-1">
                             <input class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}')" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked disabled' : '' }}>
@@ -30,6 +32,7 @@
                             </span>
                         </div>
                     </li>
+                    @endif
                     @endforeach
                     {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
                         <div class="flex-shrink-1">

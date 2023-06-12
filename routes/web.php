@@ -23,6 +23,8 @@ use App\Http\Controllers\DashboardKitchenController;
 use App\Http\Controllers\MenuPackagesController;
 use App\Http\Controllers\ReportPenjualanController;
 use App\Http\Controllers\MembershipController;
+use App\Http\Controllers\DashboardBartenderController;
+use App\Http\Controllers\DashboardWaiterController;
 
 
 
@@ -137,6 +139,7 @@ Route::get('/testpage', function () {
             // Route::get('/report-penjualan', [ReportPenjualanController::class, 'index'])->name('report-penjualan.index');
     });
 
+    // Route Dashboard Kitchen
     Route::prefix('kitchen')->name('kitchen.')->group(function () {
         // Route::get('/dashboard', function(){
         //     $data['page_title'] = 'dashboard';
@@ -148,17 +151,27 @@ Route::get('/testpage', function () {
         Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });
-
+    
+    // Route Dashboard bartender
     Route::prefix('bartender')->name('bartender.')->group(function () {
-        Route::get('/dashboard', function(){
-            $data['page_title'] = 'dashboard';
-            return view('process.bartender.dashboard', $data);
-        })->name('dashboard');
+        // Route::get('/dashboard', function(){
+            //     $data['page_title'] = 'dashboard';
+            //     return view('process.bartender.dashboard', $data);
+            // })->name('dashboard');
+            Route::get('/dashboard', [DashboardBartenderController::class, 'index'])->name('dashboard.bartender');
+            Route::post('/dashboard-status', [DashboardBartenderController::class, 'statusDashboard'])->name('status-dashboard');
+            Route::post('/dashboard-status-all', [DashboardBartenderController::class, 'statusDashboardAll'])->name('status-bartender-dashboard-all');
+            Route::get('/dashboard-detail/{id}', [DashboardBartenderController::class, 'detail'])->name('dashboard.detail');
     });
 
     Route::prefix('waiters')->name('waiters.')->group(function () {
-        Route::get('/dashboard', function(){
-            $data['page_title'] = 'dashboard';
-            return view('process.waiters.dashboard', $data);
-        })->name('dashboard');
+        // Route::get('/dashboard', function(){
+        //     $data['page_title'] = 'dashboard';
+        //     return view('process.waiters.dashboard', $data);
+        // })->name('dashboard');
+        Route::get('/dashboard', [DashboardWaiterController::class, 'index'])->name('dashboard.waiters');
+        Route::post('/dashboard-status', [DashboardWaiterController::class, 'statusDashboard'])->name('status-dashboard');
+        Route::post('/dashboard-status-all', [DashboardWaiterController::class, 'statusDashboardAll'])->name('status-waiters-dashboard-all');
+        Route::get('/dashboard-detail/{id}', [DashboardWaiterController::class, 'detail'])->name('dashboard.detail');
+        Route::post('/status-update', [DashboardWaiterController::class, 'statusUpdate'])->name('status-update');
     });

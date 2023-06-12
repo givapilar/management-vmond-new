@@ -19,11 +19,20 @@
 @section('content')
 <section class="p-3">
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach ($order_table as $item)
+        {{-- {{ dd($item->orderPivot->restaurant) }} --}}
+        @if ($item->status_pembayaran =='Paid')
+        @php
+            // $pivotCount = $item->orderPivot->count();
+            // $pivotChecked = $item->orderPivot->where('status_pemesanan', 'Selesai')->count();
+            $pivotCount = $item->count();
+            $pivotChecked = $item->where('status_pemesanan', 'Selesai')->count();
+        @endphp
         <div class="col">
             <div class="card h-100 border-r-20">
                 <div class="card-header border-rt-20">
-                    <a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#" class="text-decoration-none text-dark">
-                        <h5 class="card-title text-center pt-1 fw-bolder">#ORDER123</h5>
+                    <a data-bs-toggle="modal" data-bs-target="#bartender-modal{{ $item->code }}" href="{{ route('bartender.dashboard.detail',$item->id) }}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-center pt-1 fw-bolder">#Ord{{ $item->invoice_no }}</h5>
                     </a>
                 </div>
                 <div class="card-body py-1">
@@ -31,82 +40,18 @@
                         <ul class="list-group list-group-flush pe-3">
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div class="flex-shrink-1">
-                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" aria-label="..." id="">
+                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmDataAll('{{ $item->id }}')" aria-label="..." id="">
                                 </div>
                                 <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">1.</h5>
+                                    <h5 class="me-2 mb-0"></h5>
                                 </div>
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-1">
-                                        Jus Jeruk
+                                        {{ $item->name }}
                                     </h5>
-                                    <small class="text-wrap">
+                                    {{-- <small class="text-wrap">
                                         Note: Less Sugar.
-                                    </small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div class="flex-shrink-1">
-                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-2" type="checkbox" value="" aria-label="..." id="">
-                                </div>
-                                <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">2.</h5>
-                                </div>
-                                <div class="d-flex flex-column bd-highlight">
-                                    <h5 class="p-0 m-0 menu-2">
-                                        Jus Apel More Sugar
-                                    </h5>
-                                    <small class="text-wrap">
-                                        Note: Sedang
-                                    </small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div class="flex-shrink-1">
-                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-3" type="checkbox" value="" aria-label="..." id="">
-                                </div>
-                                <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">3.</h5>
-                                </div>
-                                <div class="d-flex flex-column bd-highlight">
-                                    <h5 class="p-0 m-0 menu-3">
-                                        Es teh Manis
-                                    </h5>
-                                    <small class="text-wrap">
-                                        Note: -
-                                    </small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div class="flex-shrink-1">
-                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-4" type="checkbox" value="" aria-label="..." id="">
-                                </div>
-                                <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">4.</h5>
-                                </div>
-                                <div class="d-flex flex-column bd-highlight">
-                                    <h5 class="p-0 m-0 menu-4">
-                                        Vanilla Latte
-                                    </h5>
-                                    <small class="text-wrap">
-                                        Note: -
-                                    </small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div class="flex-shrink-1">
-                                    <input class="form-check-input me-2 p-2 mt-1 checkbox-5" type="checkbox" value="" aria-label="..." id="">
-                                </div>
-                               <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">5.</h5>
-                                </div>
-                                <div class="d-flex flex-column bd-highlight">
-                                    <h5 class="p-0 m-0 menu-5">
-                                        Nasi Cup #1
-                                    </h5>
-                                    <small class="text-wrap">
-                                        Note: Tidak pakai sambal Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id tenetur nam, modi totam natus ratione, vitae eaque praesentium reprehenderit, voluptatem quas. Eos minima, atque earum distinctio incidunt hic natus quos?
-                                    </small>
+                                    </small> --}}
                                 </div>
                             </li>
                         </ul>
@@ -119,9 +64,12 @@
                 </div>
             </div>
         </div>
+        @endif
+        @include('process.bartender.modal')
+        @endforeach
     </div>
 </section>
-@include('process.kitchen.modal')
+@include('process.bartender.modal')
 @endsection
 
 @push('script-top')
@@ -129,50 +77,115 @@
 @endpush
 
 @push('script-bot')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
-    function checkedModal(id, data) {
+    function confirmDataAll(id) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
             title: 'Warning!',
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {
+            buttons: {  
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',
                     action: function(){
-                        $('.checkbox-'+id).prop("checked", data);
-
-                        // Is True
-                        if (data) return $('.menu-'+id).addClass('text-decoration-line-through');
-                        // Is False
-                        $('.menu-'+id).removeClass('text-decoration-line-through');
+                        axios.post('{{ route("bartender.status-bartender-dashboard-all") }}', {
+                            id
+                        })
+                        .then(response => {
+                            alert('Berhasil Diupdate');
+                            location.reload();
+                        })
+                        .catch(error => {
+                            alert(error.response.data);
+                        });
                     }
                 },
                 close: function () {
-                    $('.checkbox-'+id).prop("checked", !data);
+                    $('#checkDetail'+id).prop("checked", false);
                     event.preventDefault(); // prevent the checkbox from being checked
                 }
             }
         });
     }
-
-
-    for (let i = 1; i <= 5; i++) {
-        $('.checkbox-'+i).click( function() {
-            // Condition is false
-            if (!$(this).is(':checked')) return checkedModal(i,false);
-
-            // Condition is true
-            checkedModal(i,true);
-
-            // if ($(this).is(':checked')) {
-            //     checkedModal(i,true);
-            // }else{
-            //     checkedModal(i,false);
-            // }
+    
+    function confirmData(id) {
+        $.confirm({
+            icon: 'glyphicon glyphicon-heart',
+            title: 'Warning!',
+            content: 'Apakah anda yakin?',
+            type: 'red',
+            typeAnimated: true,
+            buttons: {  
+                yes: {
+                    text: 'Yes',
+                    btnClass: 'btn-red',
+                    action: function(){
+                        axios.post('{{ route("bartender.status-dashboard") }}', {
+                            id
+                        })
+                        .then(response => {
+                            alert('Berhasil Diupdate');
+                            location.reload();
+                        })
+                        .catch(error => {
+                            alert(error.response.data);
+                        });
+                    }
+                },
+                close: function () {
+                    $('#checkDetail'+id).prop("checked", false);
+                    event.preventDefault(); // prevent the checkbox from being checked
+                }
+            }
         });
     }
+    // function checkedModal(id, data) {
+    //     $.confirm({
+    //         icon: 'glyphicon glyphicon-heart',
+    //         title: 'Warning!',
+    //         content: 'Apakah anda yakin?',
+    //         type: 'red',
+    //         typeAnimated: true,
+    //         buttons: {
+    //             yes: {
+    //                 text: 'Yes',
+    //                 btnClass: 'btn-red',
+    //                 action: function(){
+    //                     $('.checkbox-'+id).prop("checked", data);
+
+    //                     // Is True
+    //                     if (data) return $('.menu-'+id).addClass('text-decoration-line-through');
+    //                     // Is False
+    //                     $('.menu-'+id).removeClass('text-decoration-line-through');
+    //                 }
+    //             },
+    //             close: function () {
+    //                 $('.checkbox-'+id).prop("checked", !data);
+    //                 event.preventDefault(); // prevent the checkbox from being checked
+    //             }
+    //         }
+    //     });
+    // }
+
+
+    // for (let i = 1; i <= 5; i++) {
+    //     $('.checkbox-'+i).click( function() {
+    //         // Condition is false
+    //         if (!$(this).is(':checked')) return checkedModal(i,false);
+
+    //         // Condition is true
+    //         checkedModal(i,true);
+
+    //         // if ($(this).is(':checked')) {
+    //         //     checkedModal(i,true);
+    //         // }else{
+    //         //     checkedModal(i,false);
+    //         // }
+    //     });
+    // }
 </script>
 @endpush

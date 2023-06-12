@@ -20,4 +20,9 @@ class Restaurant extends Model
     {
         return $this->hasMany(MenuPackagePivots::class);
     }
+
+    public function orderPivot()
+    {
+        return $this->hasMany(OrderPivots::class);
+    }
 }
