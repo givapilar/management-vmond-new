@@ -35,14 +35,16 @@
                     <table id="mytable" class="table table-striped" style="width:100%" width="100%">
                         <thead>
                             <tr>
-                            <th class="th-sm text-white">No</th>
-                            <th class="th-sm text-white">Nama</th>
-                            <th class="th-sm text-white">Action</th>
-                            <th class="th-sm text-white">Page</th>
-                            <th class="th-sm text-white">Datetime</th>
-                            <th class="th-sm text-white">Status</th>
-                            <th class="th-sm text-white">Description</th>
-                            <th class="th-sm text-white"  width="15%">Action</th>
+                                <th class="th-sm text-white">No</th>
+                                <th class="th-sm text-white">Nama</th>
+                                <th class="th-sm text-white">Action</th>
+                                <th class="th-sm text-white">Page</th>
+                                <th class="th-sm text-white">Datetime</th>
+                                <th class="th-sm text-white">Link</th>
+                                <th class="th-sm text-white">Status</th>
+                                @if (auth()->user()->can('permit-edit'))
+                                <th class="th-sm text-white"  width="15%">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -53,19 +55,55 @@
                                 <td class="table-head text-white">{{ $permit->action }}</td>
                                 <td class="table-head text-white">{{ $permit->page }}</td>
                                 <td class="table-head text-white">{{ $permit->datetime }}</td>
-                                <td class="table-head text-white">{{ $permit->status }}</td>
-                                <td class="table-head text-white">{{ $permit->description }}</td>
+                                <td class="table-head text-white">
+                                    @if($permit->action == 'edit' && $permit->status == 'Disetujui' && $permit->linkPermit->status == true)
+                                        <a href="{{ $permit->linkPermit->link }}"
+                                            class="btn btn-success p-2 text-white">
+                                            Action
+                                        </a>
+                                    @elseif($permit->action == 'delete' && $permit->status == 'Disetujui' && $permit->linkPermit->status == true)
+                                        <a href="{{ $permit->linkPermit->link }}"
+                                            class="btn btn-success p-2 text-white">
+                                            Action
+                                        </a>
+                                    @else
+                                        <a href="#" class="btn btn-success p-2 text-white position-relative disabled" title="Status permit belum disetujui">
+                                            Action
+                                            @if(($permit->linkPermit->status ?? true) == false)
+                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+                                                <span class="visually-hidden">Alerts</span>
+                                            </span>
+                                            @else
+                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                                <span class="visually-hidden">Alerts</span>
+                                            </span>
+                                            @endif
+                                        </a>
+                                    @endif
+                                </td>
+                                <td class="table-head text-white">
+                                    @if ($permit->status == 'Dalam Proses')
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $permit->status }}</span>
+                                    @elseif($permit->status == 'Disetujui')
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $permit->status }}</span>
+                                    @else
+                                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ $permit->status }}</span>
+                                    @endif
+                                </td>
+                                {{-- <td class="table-head text-white">{{ $permit->description }}</td> --}}
+                                @if (auth()->user()->can('permit-edit'))
                                 <td>
                                     <div class="btn-group-sm">
-                                        {{-- @can('stok-masuk-edit') --}}
+                                        @can('permit-edit')
                                         <a href="{{ route('permit.edit', $permit->id) }}"
                                             class="btn btn-warning p-2 text-white">
                                             <i class="far fa-edit"></i>
                                             Edit
                                         </a>
-                                        {{-- @endcan --}}
+                                        @endcan
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>

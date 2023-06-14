@@ -13,5 +13,9 @@ class Permit extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
+    public function linkPermit()
+    {
+        return $this->belongsTo(linkPermit::class, 'link_id', 'id');
+    }
 }

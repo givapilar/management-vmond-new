@@ -22,7 +22,7 @@
                             <div class="form-group ">
                                 <label> period :</label>
                                 <select class="form-control select2 text-light" data-placeholder="Choose one" id="daterange" name="type">
-                                    <option value="day" {{ (Request::get('type') == 'day') ? 'selected' : ''}}>Daily</option>
+                                    {{-- <option value="day" {{ (Request::get('type') == 'day') ? 'selected' : ''}}>Daily</option> --}}
                                     <option value="monthly" {{ (Request::get('type') == 'monthly') ? 'selected' : '' }}>Monthly</option>
                                     <option value="yearly" {{ (Request::get('type') == 'yearly') ? 'selected' : '' }}>Yearly</option>
                                 </select>

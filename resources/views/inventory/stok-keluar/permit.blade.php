@@ -1,4 +1,4 @@
-<div class="modal modal-fullscreen" id="permit{{ $stok_masuk->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-fullscreen" id="permit{{ $stok_keluar->id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,7 +14,7 @@
                         <div class="col-lg-4">
                             <div class="form-group mb-3">
                                 <label class="">Action</label>
-                                <input type="hidden" name="id_stock" id="id_stock" value="{{ $stok_masuk->id }}" />
+                                <input type="hidden" name="id_stock" id="id_stock" value="{{ $stok_keluar->id }}" />
                                 <select class="form-control @error('action') is-invalid @enderror" name="action">
                                     <option disabled selected>Choose Action</option>
                                     <option value="edit">Edit</option>
@@ -33,7 +33,7 @@
                             <div class="form-group mb-3">
                                 <label class="">Page</label>
                                 <select class="form-control @error('page') is-invalid @enderror" name="page">
-                                    <option selected value="Stok Masuk">Stok Masuk</option>
+                                    <option selected value="Stok Keluar">Stok Keluar</option>
                                 </select>
 
                                 @error('page')

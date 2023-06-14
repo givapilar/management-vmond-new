@@ -120,35 +120,39 @@
                                 <td class="table-head text-white">{{ $stok_masuk->material->nama }}</td>
                                 <td class="table-head text-white">{{ $stok_masuk->material_masuk }}</td>
                                 <td class="table-head text-white">{{ $stok_masuk->description }}</td>
-                                {{-- @if(auth()->user()->can('stok-masuk-delete') || auth()->user()->can('stok-masuk-edit')) --}}
+                                @if(auth()->user()->can('stok-masuk-delete') || auth()->user()->can('stok-masuk-edit'))
                                 <td>
                                     <div class="btn-group-sm">
-                                    @can('stok-masuk-edit')
-                                    <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#edit-stok-masuk{{ $stok_masuk->id }}">
+                                        @if(auth()->user()->can('stok-masuk-edit'))
+                                            @can('stok-masuk-edit')
+                                            <button class="btn btn-sm btn-warning btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#edit-stok-masuk{{ $stok_masuk->id }}">
+                                                <i class="fa fa-edit"></i>
+                                                Edit
+                                            </button>
+                                            @endcan
+                                        @else
+                                            <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit">
+                                                <i class="fa fa-edit"></i>
+                                                Permit
+                                            </button>
+                                        @endif
+
+                                        @can('stok-masuk-delete')
+                                        <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/stok-masuk/' + {{ $stok_masuk->id }}, '/stok-masuk/')">
+                                            <i class="far fa-trash-alt"></i>
+                                            Delete
+                                        </a>
+                                        @endcan
+                                    </div>
+                                </td>
+                                @else
+                                <td>
+                                    <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit{{ $stok_masuk->id }}">
                                         <i class="fa fa-edit"></i>
-                                        Edit
+                                        Permit
                                     </button>
-                                    @endcan
-                                    @can('stok-masuk-delete')
-                                    <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('Stok Masuk', '{{ $stok_masuk->material->nama }}', '/stok-masuk/' + {{ $stok_masuk->id }}, '/stok-masuk/')">
-                                        <i class="far fa-trash-alt"></i>
-                                        Delete
-                                    </a>
-                                    @endcan
-                                    </div>
                                 </td>
-                                {{-- @else --}}
-                                <td>
-                                    <div class="btn-group-sm">
-                                        {{-- @can('stok-masuk-edit') --}}
-                                        <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit">
-                                            <i class="fa fa-edit"></i>
-                                            Permit
-                                        </button>
-                                        {{-- @endcan --}}
-                                    </div>
-                                </td>
-                                {{-- @endif --}}
+                                @endif
                             </tr>
                             @include('inventory.stok-masuk.edit')
                             @include('inventory.stok-masuk.permit')

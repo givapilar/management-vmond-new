@@ -124,6 +124,7 @@
                                 <td class="table-head text-white">{{ $stok_keluar->material->nama }}</td>
                                 <td class="table-head text-white">{{ $stok_keluar->material_keluar }}</td>
                                 <td class="table-head text-white">{{ $stok_keluar->description }}</td>
+                                @if(auth()->user()->can('stok-keluar-delete') || auth()->user()->can('stok-keluar-edit'))
                                 <td class="table-head text-white">
                                     <div class="btn-group-sm">
                                     @can('stok-keluar-edit')
@@ -140,8 +141,17 @@
                                     @endcan
                                     </div>
                                 </td>
+                                @else
+                                <td>
+                                    <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit{{ $stok_keluar->id }}">
+                                        <i class="fa fa-edit"></i>
+                                        Permit
+                                    </button>
+                                </td>
+                                @endif
                             </tr>
                             @include('inventory.stok-keluar.edit')
+                            @include('inventory.stok-keluar.permit')
                             @endforeach
                         </tbody>
                     </table>
