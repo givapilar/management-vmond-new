@@ -59,6 +59,7 @@ class MenuPackagesController extends Controller
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
+            'minimal' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
         ]);
@@ -77,6 +78,7 @@ class MenuPackagesController extends Controller
             $paket_menu->harga_diskon = $harga_diskon;
             $paket_menu->persentase = $validateData['persentase'];
             $paket_menu->status = $validateData['status'];
+            $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->description = $validateData['description'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;
@@ -178,6 +180,7 @@ class MenuPackagesController extends Controller
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
+            'minimal' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
         ]);
@@ -195,6 +198,7 @@ class MenuPackagesController extends Controller
             $paket_menu->harga_diskon = $harga_diskon;
             $paket_menu->persentase = $validateData['persentase'];
             $paket_menu->status = $validateData['status'];
+            $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->description = $validateData['description'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;

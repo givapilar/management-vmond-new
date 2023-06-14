@@ -146,7 +146,23 @@
                                 <div class="small text-danger">*Kosongkan jika tidak mau diisi</div>
                             </div>
                         </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="minimal">Minimal</label>
+                                <input type="number" class="form-control @error('minimal') is-invalid @enderror" id="minimal" name="minimal" value="{{ old('minimal') }}"  placeholder="minimal">
+
+                                @error('minimal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
+
+                    
 
                     <div class="row">
                         <div class="col-12">
