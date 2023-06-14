@@ -21,4 +21,9 @@ class OrderPivot extends Model
     {
         return $this->belongsTo(Restaurant::class);
     }
+
+    public function paketMenu()
+    {
+        return $this->belongsTo(MenuPackages::class);
+    }
 }

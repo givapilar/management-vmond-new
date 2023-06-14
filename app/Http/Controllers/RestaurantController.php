@@ -49,9 +49,9 @@ class RestaurantController extends Controller
             'nama' => 'required',
             'category' => 'required',
             'harga' => 'required',
-            'harga_diskon' => 'required',
-            'persentase' => 'required',
-            'stok_perhari' => 'required',
+            'harga_diskon' => 'nullable',
+            'persentase' => 'nullable',
+            'stok_perhari' => 'nullable',
             'current_stok' => 'nullable',
             'tag_id' => 'nullable',
             'status' => 'required',
@@ -62,11 +62,7 @@ class RestaurantController extends Controller
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $replaceTitik = str_replace(',', '',$request->harga);
-            // $replaceComma = substr($replaceTitik, 0 , -3);
-            // dd($request->all());
-
             $replaceTitikHarga = str_replace(',', '',$request->harga_diskon);
-            // $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
 
             $restaurant = new Restaurant();
             $restaurant->nama = $validateData['nama'];
@@ -80,7 +76,7 @@ class RestaurantController extends Controller
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
-            
+
             // if ($request->hasFile('image')) {
             //     $image = $request->file('image');
             //     $name = time() . '.' . $image->getClientOriginalExtension();
@@ -92,7 +88,7 @@ class RestaurantController extends Controller
                 $image = $request->file('image');
                 $filename = time().'.'.$image->getClientOriginalExtension();
                 $filePath = 'assets/images/restaurant/'.$filename;
-                
+
                 // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
                 if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
                     // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
@@ -101,16 +97,16 @@ class RestaurantController extends Controller
                 } else {
                     // Resize the image
                     $img = Image::make($image)->resize(200, 200);
-                    
+
                     // Save the resized image
                     $img->save(public_path($filePath));
-                    
+
                     // Store the image filename in the restaurant model
                     $restaurant->image = basename($filePath);
                     // If the image dimensions or weight do not meet the requirements, store the original image path
                 }
             }
-            
+
             $restaurant->save();
 
             $newHistoryLog = new HistoryLog();
@@ -118,13 +114,13 @@ class RestaurantController extends Controller
             $newHistoryLog->type = 'Add';
             $newHistoryLog->menu = 'Add Restaurant '.$restaurant->nama;
             $newHistoryLog->user_id = auth()->user()->id;
-            $newHistoryLog->save(); 
-            
+            $newHistoryLog->save();
+
             $restaurantTags = [];
             if ($request->tag_id) {
                 $restaurantTags = [];
                 foreach ($request->tag_id as $key => $value) {
-    
+
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
@@ -132,7 +128,7 @@ class RestaurantController extends Controller
                 }
                 RestaurantPivots::insert($restaurantTags);
             }
-            
+
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
             }else{
@@ -167,9 +163,9 @@ class RestaurantController extends Controller
             'nama' => 'required',
             'category' => 'required',
             'harga' => 'required',
-            'harga_diskon' => 'required',
-            'persentase' => 'required',
-            'stok_perhari' => 'required',
+            'harga_diskon' => 'nullable',
+            'persentase' => 'nullable',
+            'stok_perhari' => 'nullable',
             'current_stok' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
@@ -185,7 +181,7 @@ class RestaurantController extends Controller
             // $replaceCommaHarga = substr($replaceTitikHarga, 0 , -3);
 
             $restaurant = Restaurant::findOrFail($id);
-            
+
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
@@ -197,7 +193,7 @@ class RestaurantController extends Controller
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
-            
+
             // if ($request->hasFile('image')) {
             //     $image = $request->file('image');
             //     $name = time() . '.' . $image->getClientOriginalExtension();
@@ -210,7 +206,7 @@ class RestaurantController extends Controller
                 $image = $request->file('image');
                 $filename = time().'.'.$image->getClientOriginalExtension();
                 $filePath = 'assets/images/restaurant/'.$filename;
-                
+
                 // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
                 if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
                     // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
@@ -220,16 +216,16 @@ class RestaurantController extends Controller
                 } else {
                     // Resize the image
                     $img = Image::make($image)->resize(200, 200);
-                    
+
                     // Save the resized image
                     $img->save(public_path($filePath));
-                    
+
                     // Store the image filename in the restaurant model
                     $restaurant->image = basename($filePath);
                     // If the image dimensions or weight do not meet the requirements, store the original image path
                 }
             }
-            
+
             $restaurant->save();
 
             $newHistoryLog = new HistoryLog();
@@ -244,7 +240,7 @@ class RestaurantController extends Controller
             if ($request->tag_id) {
                 $restaurantTags = [];
                 foreach ($request->tag_id as $key => $value) {
-    
+
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
@@ -252,13 +248,13 @@ class RestaurantController extends Controller
                 }
                 RestaurantPivots::insert($restaurantTags);
             }
-            
+
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
             }else{
                 $restaurant->code = $this->getNextId('MNM', $restaurant->id);
             }
-            
+
 
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant edited successfully!']);
         } catch (\Throwable $th) {
@@ -287,7 +283,7 @@ class RestaurantController extends Controller
     public function getNextId($category, $id){
         DB::table('restaurants')->where('id', $id)->update(['code' => $category.$id]);
         return 0;
-    }   
+    }
 
     public function getApiResto(){
         $dataResto = Restaurant::get();

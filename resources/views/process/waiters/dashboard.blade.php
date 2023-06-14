@@ -57,16 +57,16 @@
                             <a href="{{ route('waiters.status-update',$item->id) }}" class="btn btn-success" style="font-size: .75em; border-radius: .25rem;">Selesaikan Pesanan</a>
                         </div> --}}
                         <div class="flex-shrink-1">
-                            <input class="btn btn-success form-check-input me-2 p-2 mt-1" type="checkbox" value="" onchange="successOrder('{{ $item->id }}')" aria-label="..." id="">
+                            <input class="form-check-input me-2 p-2 mt-1" type="checkbox" value="" onchange="successOrder('{{ $item->id }}')" aria-label="..." id=""> Success
+                            {{-- <button class="btn-success form-check-input me-2 p-2 mt-1" onchange="successOrder('{{ $item->id }}')"></button> --}}
                         </div>
                     </div>
                 </div>
-                {{-- <a href="" class="btn btn-success" style="font-size: .75em; border-radius: .25rem;">Sucess</a> --}}
                 
                 <div class="card-footer border-rb-20">
-                    @foreach ($item->orderPivot as $status)
-                        {{-- {{ dd($status->status_pemesanan) }} --}}
-                    @endforeach
+                    {{-- @foreach ($item->orderPivot as $status)
+                        @endforeach --}}
+                        {{-- <a href="{{ route('waiters.tes',$item->id) }}" class="btn btn-success" style="font-size: .75em; border-radius: .25rem;">Success</a> --}}
                     <span class="badge bg-success">Success</span>
                     <small class="text-muted">Last updated <span class="text-danger">3 mins ago</span></small>
                 </div>
@@ -126,7 +126,8 @@
                     text: 'Yes',
                     btnClass: 'btn-red',
                     action: function(){
-                        axios.post('{{ route("waiters.status-update") }}', {
+                        console.log(id);
+                        axios.post('{{ route("waiters.status-update", ' +id+ ') }}', {
                             id
                         })
                         // console.log(id)

@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Vmond</title>
+<title>Management Vmond</title>
 <!-- plugins:css -->
 <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
@@ -212,6 +212,13 @@ z-index: 50;
     }
     tbody, td, tfoot, th, thead, tr{
         border-color: #2b2b2b !important;
+    }
+    .select2-container--default .select2-search--inline .select2-search__field{
+        color: white !important;
+    }
+    .select2-container--default .select2-results__option[aria-selected=true]{
+        background-color: #2a2a2a !important;
+        color: gray !important;
     }
 </style>
 @yield('style')

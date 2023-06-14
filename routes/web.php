@@ -28,6 +28,7 @@ use App\Http\Controllers\DashboardWaiterController;
 
 
 
+use App\Http\Controllers\OtherSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,10 @@ Route::get('/testpage', function () {
             // User
             Route::resource('/users', UserController::class);
             Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+            // Other Settings
+            Route::get('/other-settings', [OtherSettingsController::class, 'index'])->name('other.index');
+            Route::post('/other-settings/{id}', [OtherSettingsController::class, 'update'])->name('other.update');
 
             // departement
             Route::resource('/departement', DepartementController::class);
@@ -173,5 +178,6 @@ Route::get('/testpage', function () {
         Route::post('/dashboard-status', [DashboardWaiterController::class, 'statusDashboard'])->name('status-dashboard');
         Route::post('/dashboard-status-all', [DashboardWaiterController::class, 'statusDashboardAll'])->name('status-waiters-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardWaiterController::class, 'detail'])->name('dashboard.detail');
-        Route::post('/status-update', [DashboardWaiterController::class, 'statusUpdate'])->name('status-update');
+        Route::post('/status-update/{id}', [DashboardWaiterController::class, 'statusUpdate'])->name('status-update');
+        Route::post('/tes', [DashboardWaiterController::class, 'tes'])->name('tes');
     });

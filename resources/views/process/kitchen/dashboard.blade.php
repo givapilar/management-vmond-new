@@ -116,7 +116,7 @@
                     btnClass: 'btn-red',
                     action: function(){
                         axios.post('{{ route("kitchen.status-dashboard-all") }}', {
-                            orderId : id
+                            id
                         })
                         .then(response => {
                             alert('Berhasil Diupdate');

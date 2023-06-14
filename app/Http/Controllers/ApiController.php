@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Models\Biliard;
 use App\Models\MeetingRoom;
+use App\Models\MenuPackages;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -134,4 +135,24 @@ class ApiController extends Controller
         return response()->json($banner);
     }
 
+    public function getApiPaketMenu()
+    {
+        // $image = Storage::get($path);
+        $banner = MenuPackages::orderBy('id', 'ASC')->get()->map(function($item){
+            $data['id'] = $item->id;
+            $data['nama_paket'] = $item->nama_paket;
+            $data['category'] = $item->category;
+            $data['billiard_id'] = $item->billiard_id;
+            $data['harga'] = $item->harga;
+            $data['harga_diskon'] = $item->harga_diskon;
+            $data['persentase'] = $item->persentase;
+            $data['status'] = $item->status;
+            $data['image'] = asset('assets/images/paket-menu/' . ($item->image ?? 'no-pictures.png'));
+            $data['description'] = $item->description;
+            $data['slug'] = $item->slug;
+            return $data;
+        });
+
+        return response()->json($banner);
+    }
 }

@@ -61,6 +61,18 @@ class DashboardWaiterController extends Controller
     public function statusUpdate(Request $request,$id)
     {
         try {
+            $order = Order::find($request->get('id'));
+            $order->status_pemesanan = 'Selesai';
+            $order->save();
+            // $order = Order::where('id', $request->id)->update(['status_pemesanan' => 'Selesai']);
+            return response()->json(['success' => true]);
+        } catch (\Throwable $th) {
+            return response()->json(['failed' => false, 'message' => $th->getMessage()]);
+        }
+    }
+    public function tes(Request $request,$id)
+    {
+        try {
             $order = Order::find($request->id);
             $order->status_pemesanan = 'Selesai';
             $order->save();
