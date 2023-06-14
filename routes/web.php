@@ -115,6 +115,10 @@ Route::get('/testpage', function () {
 
             // Permit
             Route::resource('/permit', PermitController::class);
+            Route::get('permit/edit/{token}', [PermitController::class, 'editDataByPermit'])->name('editByPermit');
+            Route::get('permit/delete/{token}', [PermitController::class, 'deleteViewDataByPermit'])->name('deleteByPermit');
+            Route::post('permit/update/{token}', [PermitController::class, 'updateDataByPermit'])->name('updateByPermit');
+            Route::delete('permit/delete/{token}', [PermitController::class, 'DeleteDataByPermit'])->name('actDeleteByPermit');
 
             // inventory Stok Keluar
             Route::resource('/stok-keluar', StokKeluarController::class);

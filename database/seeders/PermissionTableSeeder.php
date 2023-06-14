@@ -19,7 +19,7 @@ class PermissionTableSeeder extends Seeder
             'master-data',
             'toko-online',
             'inventory',
-            'permit-admin',
+            'permit-edit',
             'report-penjualan',
             'departement-list',
             'departement-create',

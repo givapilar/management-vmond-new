@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ApiController;
-
+use App\Http\Controllers\PermitController;
+use App\Models\Permit;
 
 /*
 |--------------------------------------------------------------------------
