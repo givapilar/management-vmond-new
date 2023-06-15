@@ -42,7 +42,7 @@
               <tr>
                 <th class="th-sm text-white">No</th>
                 <th class="th-sm text-white">Level</th>
-                <th class="th-sm text-white">Minimum Transaction</th>
+                {{-- <th class="th-sm text-white">Minimum Transaction</th> --}}
                 <th class="th-sm text-white">Action</th>
               </tr>
             </thead>
@@ -51,7 +51,7 @@
               <tr>
                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                 <td class="table-head text-white">{{ $membership->level }}</td>
-                <td class="table-head text-white">{{ number_format($membership->minimum_transaksi,2) }}</td>
+                {{-- <td class="table-head text-white">{{ number_format($membership->minimum_transaksi,2) }}</td> --}}
                 @if(auth()->user()->can('membership-delete') || auth()->user()->can('membership-edit'))
                 <td>
                   <div class="btn-group-sm">

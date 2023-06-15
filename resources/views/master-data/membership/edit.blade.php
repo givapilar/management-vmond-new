@@ -15,7 +15,7 @@
 
               <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group mb-3">
                             <label class="">Level</label>
                             <select class="form-control @error('level') is-invalid @enderror" name="level">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                      <div class="col-lg-6">
+                      {{-- <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="minimum_transaksi">Minimun Transaction</label>
                             <input class="form-control @error('minimum_transaksi') is-invalid @enderror" id="harga" type="text" name="minimum_transaksi" placeholder="minimum_transaksi" required value="{{ old('minimum_transaksi') ?? $membership->minimum_transaksi }}">
@@ -46,7 +46,7 @@
                             </span>
                             @enderror
                         </div>
-                      </div>
+                      </div> --}}
 
                 </div>
               </div>

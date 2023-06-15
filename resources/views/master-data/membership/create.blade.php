@@ -12,7 +12,7 @@
                 @csrf
                 @include('components.form-message')
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group mb-3">
                             <label class="">Level</label>
                             <select class="form-control @error('level') is-invalid @enderror" name="level">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    {{-- <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label for="minimum_transaksi">Minimun Transaction</label>
                             <input type="text" class="form-control @error('minimum_transaksi') is-invalid @enderror" id="minimum_transaksi" name="minimum_transaksi" value="{{ old('minimum_transaksi') }}"  placeholder="Minimum Transaction">
@@ -43,7 +43,7 @@
                             </span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="modal-footer">
