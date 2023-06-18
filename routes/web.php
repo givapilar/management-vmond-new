@@ -91,6 +91,9 @@ Route::get('/testpage', function () {
             // Asset Management
             Route::resource('/asset-management', AssetManagementsController::class);
 
+            // Asset Management Details
+            Route::resource('/asset-management-details', AssetManagementDetailController::class);
+
             // Tag
             Route::resource('/tag', TagsController::class);
 

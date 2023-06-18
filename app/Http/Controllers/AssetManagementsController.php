@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AssetManagementDetail;
 use App\Models\AssetManagements;
 use App\Models\HistoryLog;
 use Illuminate\Http\Request;
@@ -43,19 +44,19 @@ class AssetManagementsController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required',
-            'quantity' => 'required',
-            'harga' => 'required',
-            'image' => 'required',
+            // 'quantity' => 'required',
+            // 'harga' => 'required',
+            // 'image' => 'required',
             'description' => 'nullable',
         ]);
 
+        // dd($request->location);
         try {
-            $replaceComma = str_replace(',', '',$request->harga);
-
+            
             $asset_management = new AssetManagements();
             $asset_management->nama = $validateData['nama'];
-            $asset_management->quantity = $validateData['quantity'];
-            $asset_management->harga = $replaceComma;
+            // $asset_management->quantity = $validateData['quantity'];
+            // $asset_management->harga = $replaceComma;
             $asset_management->description = $validateData['description'];
 
             if ($request->hasFile('image')) {
@@ -67,6 +68,23 @@ class AssetManagementsController extends Controller
             }
             
             $asset_management->save();
+            
+            
+            $assetManagementDetail = [];
+            if ($request->location) {
+
+                $replaceComma = str_replace(',', '',$request->harga);
+
+                foreach ($request->location as $key => $value) {
+                    $assetManagementDetail[] = [
+                        'asset_management_id' => $asset_management->id,
+                        'location' => $request->location[$key],
+                        'qty' => $request->qty[$key],
+                        'harga' => $replaceComma[$key],
+                    ];
+                }
+                AssetManagementDetail::insert($assetManagementDetail);
+            }
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');

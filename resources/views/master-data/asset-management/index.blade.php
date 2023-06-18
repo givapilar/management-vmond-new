@@ -43,9 +43,9 @@
                   <tr>
                     <th class="th-sm text-white">No</th>
                     <th class="th-sm text-white">Nama</th>
-                    <th class="th-sm text-white">Quantity</th>
+                    {{-- <th class="th-sm text-white">Quantity</th>
                     <th class="th-sm text-white">Harga</th>
-                    <th class="th-sm text-white">Image</th>
+                    <th class="th-sm text-white">Image</th> --}}
                     <th class="th-sm text-white" width="15%">Action</th>
                   </tr>
               </thead>
@@ -54,11 +54,11 @@
                     <tr>
                         <td class="table-head text-white">{{ $loop->iteration }}</td>
                         <td class="table-head text-white">{{ $asset_management->nama }}</td>
-                        <td class="table-head text-white">{{ $asset_management->quantity }}</td>
+                        {{-- <td class="table-head text-white">{{ $asset_management->quantity }}</td>
                         <td class="table-head text-white">{{ $asset_management->harga }}</td>
                         <td class="table-head text-white">
                           <img src="{{ asset('assets/images/asset-management/'.($asset_management->image ?? 'user.png')) }}" width="110px" class="image img" />
-                        </td>
+                        </td> --}}
                         @if(auth()->user()->can('asset-management-delete') || auth()->user()->can('asset-management-edit'))
                         <td>
                             <div class="btn-group-sm">
