@@ -80,6 +80,10 @@ class PermissionTableSeeder extends Seeder
             'paket-menu-edit',
             'paket-menu-delete',
             'other-settings',
+            'supplier-list',
+            'supplier-create',
+            'supplier-edit',
+            'supplier-delete',
         ];
 
         foreach ($permissions as $permission) {

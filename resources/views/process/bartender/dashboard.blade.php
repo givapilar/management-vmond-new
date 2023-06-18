@@ -26,7 +26,7 @@
             // $pivotCount = $item->orderPivot->count();
             // $pivotChecked = $item->orderPivot->where('status_pemesanan', 'Selesai')->count();
             $pivotCount = $item->count();
-            $pivotChecked = $item->where('status_pemesanan', 'Selesai')->count();
+            $pivotChecked = $item->where('status_pembayaran', 'Paid')->count();
         @endphp
         <div class="col">
             <div class="card h-100 border-r-20">
@@ -35,10 +35,31 @@
                         <h5 class="card-title text-center pt-1 fw-bolder">#Ord{{ $item->invoice_no }}</h5>
                     </a>
                 </div>
-                <div class="card-body py-1">
+                <div class="card-body py-1 px-1">
                     <div class="scroll-style">
-                        <ul class="list-group list-group-flush pe-3">
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                        <ul class="list-group list-group-flush">
+                            @foreach ($item->orderPivot as $order_pivot)
+                            @if ($order_pivot->restaurant->category == 'Minuman')
+
+                            <li class="list-group-item d-flex justify-content-start align-items-center p-2">
+                                <div class="flex-shrink-1">
+                                    <input class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}')" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked' : '' }}>
+                                </div>
+                                <div class="flex-shrink-1">
+                                    <h5 class="me-2 mb-0">1.</h5>
+                                </div>
+                                <div class="d-flex flex-grow-1 bd-highlight">
+                                    <h5 class="p-0 m-0 fw-semi-bold menu-1">
+                                        {{ $order_pivot->restaurant->nama }}
+                                    </h5>
+                                    {{-- <span class="text-wrap fs-5">
+                                        Note: Pedas, No Acar.
+                                    </span> --}}
+                                </div>
+                            </li>
+                            @endif
+                            @endforeach
+                            {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div class="flex-shrink-1">
                                     <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmDataAll('{{ $item->id }}')" aria-label="..." id="">
                                 </div>
@@ -49,11 +70,11 @@
                                     <h5 class="p-0 m-0 menu-1">
                                         {{ $item->name }}
                                     </h5>
-                                    {{-- <small class="text-wrap">
+                                    <small class="text-wrap">
                                         Note: Less Sugar.
-                                    </small> --}}
+                                    </small>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -87,7 +108,7 @@
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {  
+            buttons: {
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',
@@ -111,7 +132,7 @@
             }
         });
     }
-    
+
     function confirmData(id) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
@@ -119,7 +140,7 @@
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {  
+            buttons: {
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',

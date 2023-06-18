@@ -1,0 +1,92 @@
+@extends('home')
+
+@section('style')
+
+@endsection
+
+@section('content')
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card card rounded-20 p-2">
+                <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                    <div class="row">
+                        <div class="col-6 mt-1 px-4">
+                            <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                <i class="fa-solid fa-address-card"  style="font-size: 20px;"></i>
+                                <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                            </span>
+                        </div>
+
+                        <div class="col-6 text-right px-4">
+                            <a class="btn btn-sm btn-danger p-2" href="{{ route('master-data.index') }}">
+                                Kembali
+                            </a>
+
+                            @can('supplier-create')
+                            <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-supplier">
+                                Tambah
+                            </button>
+                            @endcan
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body bg-gray-800 rounded-20 p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            @include('components.flash-message')
+                        </div>
+                    </div>
+
+                    <table id="mytable" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="th-sm text-white">No</th>
+                                <th class="th-sm text-white">Nama</th>
+                                <th class="th-sm text-white">Detail</th>
+                                <th class="th-sm text-white" width="15%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- @foreach ($meja_restaurants as $meja_restaurant)
+                            <tr>
+                                <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->nama }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->category }}</td>
+                                @if ($meja_restaurant->status == 'Tersedia')
+                                    <td class="table-head text-white"><span class="badge bg-success">{{$meja_restaurant->status }}</span></td>
+                                @else
+                                    <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
+                                @endif
+
+                                @if(auth()->user()->can('supplier-delete') || auth()->user()->can('supplier-edit'))
+                                <td>
+                                    <div class="btn-group-sm">
+                                    @can('supplier-edit')
+                                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-supplier{{ $meja_restaurant->id }}">
+                                        <i class="fa fa-edit"></i>
+                                        Edit
+                                    </button>
+                                    @endcan
+                                    @can('supplier-delete')
+                                    <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Meja Restaurant', '{{ $meja_restaurant->nams }}', '/meja-restaurant/' + {{ $meja_restaurant->id }}, '/meja-restaurant/')">
+                                        <i class="far fa-trash-alt"></i>
+                                        Hapus
+                                    </a>
+                                    @endcan
+                                    </div>
+                                </td>
+                                @endif
+                            </tr>
+                            @include('master-data.meja-restaurant.edit')
+                            @endforeach --}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@include('master-data.supplier.create')
+@endsection

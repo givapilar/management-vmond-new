@@ -29,6 +29,7 @@ use App\Http\Controllers\DashboardWaiterController;
 
 
 use App\Http\Controllers\OtherSettingsController;
+use App\Http\Controllers\SupplierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +135,9 @@ Route::get('/testpage', function () {
             // Management Paket Menu
             Route::resource('/paket-menu', MenuPackagesController::class);
 
+            // Management Supplier
+            Route::resource('/supplier', SupplierController::class);
+
             // Management Biliard
             Route::resource('/biliard', BiliardController::class);
 
@@ -160,7 +164,7 @@ Route::get('/testpage', function () {
         Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });
-    
+
     // Route Dashboard bartender
     Route::prefix('bartender')->name('bartender.')->group(function () {
         // Route::get('/dashboard', function(){

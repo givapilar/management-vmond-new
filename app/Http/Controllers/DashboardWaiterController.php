@@ -10,10 +10,10 @@ class DashboardWaiterController extends Controller
 {
     public function index(Request $request)
     {
-        $data['page_title'] = 'Dashboard Waiters';  
-        $data['order_pivots'] = OrderPivot::get();
+        $data['page_title'] = 'Dashboard Waiters';
+        $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
         // $data['orders'] = OrderPivot::get();
-        $data['order_table'] = Order::get();
+        $data['order_table'] = Order::orderBy('id', 'ASC')->get();
             // $orderTable = OrderPivot::get();
             // dd($orderPivot);
             // View::share('order_table',$orderTable);
@@ -26,7 +26,7 @@ class DashboardWaiterController extends Controller
     public function detail($id)
     {
         $data['orders'] = Order::findorFail($id);
-        $data['orders_pivots'] = OrderPivot::get();
+        $data['orders_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
 
         return view('process.waiters.index',$data);
     }
@@ -35,15 +35,18 @@ class DashboardWaiterController extends Controller
     {
         try {
             $order = OrderPivot::where('id', $request->id)->first();
-            
-            $order->status_pemesanan = 'Selesai';
-            $order->save();
+            if ($request->value == true) {
+                $order->status_pemesanan = 'Selesai';
+            }else{
+                $order->status_pemesanan = 'Belum Selesai';
+            }
+            $order->update();
             return response()->json(['success' => true]);
         } catch (\Throwable $th) {
             return response()->json(['success' => false, 'message' => $th->getMessage()]);
         }
     }
-   
+
     public function statusDashboardAll(Request $request)
     {
         try {

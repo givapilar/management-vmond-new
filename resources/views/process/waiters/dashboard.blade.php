@@ -23,7 +23,7 @@
         @if ($item->status_pembayaran == 'Paid')
         @php
             $pivotCount = $item->orderPivot->count();
-            $pivotChecked = $item->orderPivot->where('status_pemesanan', 'Selesai')->count();
+            $pivotChecked = $item->orderPivot->where('status_pembayaran', 'Paid')->count();
         @endphp
         <div class="col">
             <div class="card h-100 border-r-20">
@@ -32,37 +32,45 @@
                         <h5 class="card-title text-center pt-1 fw-bolder">#{{ $item->invoice_no }}</h5>
                     </a>
                 </div>
-                <div class="card-body py-1">
+                <div class="card-body py-0 px-0">
                     <div class="scroll-style">
-                        <ul class="list-group list-group-flush pe-3">
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                        <ul class="list-group list-group-flush">
+                            @foreach ($item->orderPivot as $order_pivot)
+                            <li class="list-group-item d-flex justify-content-start align-items-center p-2">
+                                <div class="flex-shrink-1">
+                                    <input class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}', this)" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked' : '' }}>
+                                </div>
+                                <div class="flex-shrink-1">
+                                    <h5 class="me-2 mb-0">{{ $loop->iteration }}.</h5>
+                                </div>
+                                <div class="d-flex flex-grow-1 bd-highlight">
+                                    <h5 class="p-0 m-0 fw-semi-bold menu-1">
+                                        {{ $order_pivot->restaurant->nama }}
+                                    </h5>
+                                </div>
+                            </li>
+                            @endforeach
+                            {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div class="flex-shrink-1">
                                     <input class="form-check-input me-" type="checkbox" value="" onchange="confirmDataAll('{{ $item->id }}')" aria-label="..." id="" {{ ($pivotCount == $pivotChecked) ? 'checked disabled' : '' }}>
                                 </div>
-                                {{-- <div class="flex-shrink-1">
-                                    <h5 class="me-2 mb-0">1.</h5>
-                                </div> --}}
                                 <div class="d-flex flex-column bd-highlight">
                                     <h5 class="p-0 m-0 menu-1 {{ ($pivotCount == $pivotChecked) ? 'text-decoration-line-through' : '' }}">
                                         {{ $item->name }}
                                     </h5>
-                                    {{-- <small class="text-wrap">
-                                        Note: Pedas, No Acar.
-                                    </small> --}}
                                 </div>
-
-                            </li>
+                            </li> --}}
                         </ul>
                         {{-- <div>
                             <a href="{{ route('waiters.status-update',$item->id) }}" class="btn btn-success" style="font-size: .75em; border-radius: .25rem;">Selesaikan Pesanan</a>
                         </div> --}}
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 p-2 mt-1" type="checkbox" value="" onchange="successOrder('{{ $item->id }}')" aria-label="..." id=""> Success
-                            {{-- <button class="btn-success form-check-input me-2 p-2 mt-1" onchange="successOrder('{{ $item->id }}')"></button> --}}
-                        </div>
+                    </div>
+                    <div class="px-2 py-2">
+                            {{-- <input class="form-check-input me-2 p-2 mt-1" type="checkbox" value="" onchange="successOrder('{{ $item->id }}')" aria-label="..." id=""> Success --}}
+                        <button class="btn btn-success rounded-lg p-2 mt-1 w-100" onchange="successOrder('{{ $item->id }}')">Selesaikan Pemesanan</button>
                     </div>
                 </div>
-                
+
                 <div class="card-footer border-rb-20">
                     {{-- @foreach ($item->orderPivot as $status)
                         @endforeach --}}
@@ -95,7 +103,7 @@
     //         content: 'Apakah anda yakin?',
     //         type: 'red',
     //         typeAnimated: true,
-    //         buttons: {  
+    //         buttons: {
     //             yes: {
     //                 text: 'Yes',
     //                 btnClass: 'btn-red',
@@ -114,14 +122,15 @@
     //     });
     // }
 
-    function successOrder(id) {
+    function successOrder(id, value) {
+        console.log(value);
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
             title: 'Warning!',
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {  
+            buttons: {
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',
@@ -155,7 +164,7 @@
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {  
+            buttons: {
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',
@@ -180,20 +189,21 @@
         });
     }
 
-    function confirmData(id) {
+    function confirmData(id, val) {
+        var value = val.checked;
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
             title: 'Warning!',
             content: 'Apakah anda yakin?',
             type: 'red',
             typeAnimated: true,
-            buttons: {  
+            buttons: {
                 yes: {
                     text: 'Yes',
                     btnClass: 'btn-red',
                     action: function(){
                         axios.post('{{ route("waiters.status-dashboard") }}', {
-                            id
+                            id,value
                         })
                         .then(response => {
                             alert('Berhasil Diupdate');
