@@ -52,14 +52,24 @@
                                     <th class="th-sm text-white text-center">Telephone</th>
                                     <th class="th-sm text-white text-center">Email</th>
                                     <th class="th-sm text-white text-center">Address</th>
+                                    <th class="th-sm text-white text-center" width="10%">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="add-detail-supplier">
                                 <tr>
+                                    <td>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name[]" value="{{ old('name') }}"  placeholder="Input name supplier...">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name[]" value="{{ old('name') }}"  placeholder="Input name supplier...">
+                                    </td>
                                     <td><input type="text" class="form-control"></td>
-                                    <td><input type="tel" class="form-control"></td>
                                     <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
+                                            <i class="fas fa-plus-square"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -81,25 +91,19 @@
 
 @push('script_bot')
 <script>
-    var tbody = document.getElementById("add-detail-supplier");
-    let countTbody = tbody.rows.length;
-    console.log(countTbody);
-
     function addField() {
-        var checkNewTbody = document.getElementById("add-detail-supplier");
-        let checkNewCount = checkNewTbody.rows.length;
-        console.log(checkNewCount);
-        if (countTbody < checkNewCount) {
-            $('#add-detail-supplier').append(
-                `<tr>`+
-                    `<td><input type="text" class="form-control" name="name[]" value="{{ old('name') }}"></td>`+
-                    `<td><input type="text" class="form-control" name="telephone[]" value="{{ old('telephone') }}"></td>`+
-                    `<td><input type="text" class="form-control" name="email[]" value="{{ old('email') }}"></td>`+
-                    `<td><input type="text" class="form-control" name="address[]" value="{{ old('address') }}"></td>`+
-                `</tr>`
-            );
-        }
-
+        var rowCount = $('#contactTable tr').length;
+        $("#contactTable").find('tbody')
+            .append(
+                $('<tr>' +
+                    '<td><input class="form-control" placeholder="Input Location" type="text" name="location[]" id="location'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Qty" type="text" name="qty[]" id="qty'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
+                    '</tr>'
+                )
+            )
+            changeOptionValue();
     }
 </script>
 @endpush
