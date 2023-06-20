@@ -112,7 +112,7 @@
                                             </td>
                                             
                                             <td>
-                                                <input type="text" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty[]" value="{{ old('qty') }}"  placeholder="qty">
+                                                <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty[]" value="{{ old('qty') }}"  placeholder="qty">
                                                 
                                                 @error('qty')
                                                 <span class="invalid-feedback" role="alert">
@@ -203,26 +203,6 @@
             changeOptionValue();
     }
   
-    function save()
-    {
-        val12.forEach(item => {
-            $(".select_part option[value='"+item+"']").removeAttr('disabled');
-        });
-  
-        $('#formPO').submit();
-    }
-  
   </script>
   
-  <script>
-    function calculatePrice(number)
-    {
-        var qty = $('#qty'+number).val();
-        var unitPrice = $('#unit_price'+number).val();
-        var total = parseInt(unitPrice * qty);
-  
-        $('#total_price'+number).val(total);
-    }
-  </script>
-
                

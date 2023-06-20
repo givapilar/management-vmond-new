@@ -8,14 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="forms-sample row p-3" action="{{ route('supplier.store') }}" method="POST">
+                <form class="forms-sample row p-3" action="{{ route('supplier.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-lg-12">
                         <div class="form-group mb-3">
-                            <label for="nama">Name</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}"  placeholder="Enter nama">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}"  placeholder="Enter name">
 
-                            @error('nama')
+                            @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <table id="mytable" class="table table-striped" style="width:100%">
+                        <table id="contactTable" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="th-sm text-white text-center">Name</th>
@@ -58,18 +58,21 @@
                             <tbody id="add-detail-supplier">
                                 <tr>
                                     <td>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name[]" value="{{ old('name') }}"  placeholder="Input name supplier...">
+                                        <input type="text" class="form-control @error('name_detail') is-invalid @enderror" id="name_detail" name="name_detail[]" value="{{ old('name_detail') }}"  placeholder="Input Name supplier...">
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name[]" value="{{ old('name') }}"  placeholder="Input name supplier...">
+                                        <input type="number" class="form-control @error('telephone') is-invalid @enderror" id="telephone" name="telephone[]" value="{{ old('telephone') }}"  placeholder="Input telephone supplier...">
                                     </td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email[]" value="{{ old('email') }}"  placeholder="Input email supplier...">
+                                    </td>
+                                    <td> <textarea name="address[]" placeholder="Address" class="form-control" id="address" rows="3"></textarea></td>
+                                  
+                                    <td>
+                                        <button type="button" disabled class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
                                             <i class="fas fa-plus-square"></i>
                                         </button>
-                                    </td>
+                                    <td> 
                                 </tr>
                             </tbody>
                         </table>
@@ -96,9 +99,10 @@
         $("#contactTable").find('tbody')
             .append(
                 $('<tr>' +
-                    '<td><input class="form-control" placeholder="Input Location" type="text" name="location[]" id="location'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    '<td><input class="form-control" placeholder="Input Qty" type="text" name="qty[]" id="qty'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Name Supplier" type="text" name="name_detail[]" id="name_detail'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Telephone" type="number" name="telephone[]" id="telephone'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Email" type="email" name="email[]" id="email'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><textarea name="address[]"  placeholder="Address" class="form-control" id="description" rows="3" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></textarea></td>' +
                     '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
                     '</tr>'
                 )

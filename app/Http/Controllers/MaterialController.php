@@ -41,6 +41,7 @@ class MaterialController extends Controller
             'code' => 'required',
             'nama' => 'required',
             'unit' => 'required',
+            'minimal_stok' => 'required',
             'description' => 'nullable',
         ]);
 
@@ -49,6 +50,7 @@ class MaterialController extends Controller
             $material->code = $validateData['code'];
             $material->nama = $validateData['nama'];
             $material->unit = $validateData['unit'];
+            $material->minimal_stok = $validateData['minimal_stok'];
             $material->description = $validateData['description'];
             
             $material->save();
@@ -84,6 +86,7 @@ class MaterialController extends Controller
             'code' => 'required',
             'nama' => 'required',
             'unit' => 'required',
+            'minimal_stok' => 'required',
             'description' => 'nullable',
         ]);
 
@@ -92,6 +95,7 @@ class MaterialController extends Controller
             $material->code = $validateData['code'];
             $material->nama = $validateData['nama'];
             $material->unit = $validateData['unit'];
+            $material->minimal_stok = $validateData['minimal_stok'];
             $material->description = $validateData['description'];
             
 

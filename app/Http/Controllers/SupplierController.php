@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailSupplier;
+use App\Models\HistoryLog;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class SupplierController extends Controller
 {
@@ -38,7 +42,48 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required',
+            // 'quantity' => 'required',
+            // 'harga' => 'required',
+            // 'image' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        // dd($request->all());
+        try {
+            
+            $supplier = new Supplier();
+            $supplier->name = $validateData['name'];
+            // $supplier->description = $validateData['description']; // Uncomment this line and ensure $validateData['description'] is a string
+            $supplier->save();
+            
+            $supplirDetail = [];
+            if ($request->name_detail) {
+
+                foreach ($request->name_detail as $key => $value) {
+                    $supplirDetail[] = [
+                        'supplier_id' => $supplier->id,
+                        'name' => $request->name_detail[$key],
+                        'telephone' => $request->telephone[$key],
+                        'email' => $request->email[$key],
+                        'address' => $request->address[$key],
+                    ];
+                }
+                DetailSupplier::insert($supplirDetail);
+            }
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Add';
+            $newHistoryLog->menu = 'Add Supplier '.$request->name;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
+            return redirect()->route('supplier.index')->with(['success' => 'Supplier added successfully!']);
+        } catch (\Throwable $th) {
+            return redirect()->route('supplier.index')->with(['failed' => 'Supplier added failed! '.$th->getMessage()]);
+        }
     }
 
     /**
@@ -58,9 +103,12 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit(Supplier $supplier)
+    public function edit($id)
     {
-        //
+        $data['page_title'] = 'Edit Detail Supplier';
+        $data['supplier'] = Supplier::find($id);
+
+        return view('master-data.supplier.edit',$data);
     }
 
     /**
@@ -70,9 +118,50 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        try {
+
+            $supplier = Supplier::findOrFail($id);
+            $supplier->name = $validateData['name'];
+            $supplier->description = $validateData['description'];
+            
+            $supplier->save();
+
+            $supplier->detailSupplier()->delete();
+
+
+            if ($request->name_detail) {
+                $supplierDetail = [];
+                foreach ($request->name_detail as $key => $value) {
+
+                    $supplierDetail[] = [
+                        'supplier_id' => $supplier->id,
+                        'name' => $request->name_detail[$key],
+                        'telephone' => $request->telephone[$key],
+                        'email' => $request->email[$key],
+                        'address' => $request->address[$key],
+                    ];
+                }
+                DetailSupplier::insert($supplierDetail);
+            }
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Edit';
+            $newHistoryLog->menu = 'Edit Supplier '.$request->name;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+
+            return redirect()->route('supplier.index')->with(['success' => 'Supplier edited successfully!']);
+        } catch (\Throwable $th) {
+            return redirect()->route('supplier.index')->with(['failed' => 'Supplier edited Failed! '. $th->getMessage()]);
+        }
     }
 
     /**
@@ -81,8 +170,21 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Supplier $supplier)
+    public function destroy($id)
     {
-        //
+        DB::transaction(function () use ($id) {
+            $supplier = Supplier::findOrFail($id);
+            $supplier->delete();
+
+            $newHistoryLog = new HistoryLog();
+            $newHistoryLog->datetime = date('Y-m-d H:i:s');
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete Supplier '.$supplier->name;
+            $newHistoryLog->user_id = auth()->user()->id;
+            $newHistoryLog->save();
+        });
+        
+        Session::flash('success', 'Asset Management deleted successfully!');
+        return response()->json(['status' => '200']);
     }
 }

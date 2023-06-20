@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PermitEmail;
 use App\Models\HistoryLog;
 use App\Models\LinkPermit;
 use App\Models\Material;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Mail;
+
 
 class PermitController extends Controller
 {
@@ -71,6 +74,9 @@ class PermitController extends Controller
             $permit->description = $validateData['description'];
 
             $permit->save();
+
+            // Untuk Kirim EMail
+            Mail::to('sahriramadan000@gmail.com')->send(new PermitEmail($permit));
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');

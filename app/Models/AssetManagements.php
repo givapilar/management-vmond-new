@@ -9,4 +9,8 @@ class AssetManagements extends Model
 {
     use HasFactory;
 
+    public function detailAsset()
+    {
+        return $this->hasMany(AssetManagementDetail::class ,'asset_management_id', 'id');
+    }
 }

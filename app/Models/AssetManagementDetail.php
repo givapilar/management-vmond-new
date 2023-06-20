@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AssetManagementDetail extends Model
 {
     use HasFactory;
+
+    public function Asset()
+    {
+        return $this->belongsTo(AssetManagement::class);
+    }
 }

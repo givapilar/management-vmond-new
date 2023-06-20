@@ -39,8 +39,20 @@
                 <div class="col-lg-12">
                     <div class="form-group mb-3">
                         <label for="unit">Unit</label>
-                        <input type="unit" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Massukan Unit">
+                        <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}"  placeholder="Massukan Unit">
                         @error('unit')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="form-group mb-3">
+                        <label for="minimal_stok">Minimal Stok</label>
+                        <input type="number" class="form-control @error('minimal_stok') is-invalid @enderror" id="minimal_stok" name="minimal_stok" value="{{ old('minimal_stok') }}"  placeholder="Massukan Minimal Stok">
+                        @error('minimal_stok')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

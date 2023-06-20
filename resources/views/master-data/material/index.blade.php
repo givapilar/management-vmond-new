@@ -46,6 +46,7 @@
                                 <th class="th-sm text-white">Code</th>
                                 <th class="th-sm text-white">Nama</th>
                                 <th class="th-sm text-white">Unit</th>
+                                <th class="th-sm text-white">Minimal Stok</th>
                                 <th class="th-sm text-white">Description</th>
                                 <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
@@ -57,6 +58,7 @@
                                 <td class="table-head text-white">{{ $material->code }}</td>
                                 <td class="table-head text-white">{{ $material->nama }}</td>
                                 <td class="table-head text-white">{{ $material->unit }}</td>
+                                <td class="table-head text-white">{{ $material->minimal_stok }}</td>
                                 <td class="table-head text-white">{{ $material->description ?? 'N/A' }}</td>
                                 @if(auth()->user()->can('bahan-baku-delete') || auth()->user()->can('bahan-baku-edit'))
                                 <td>

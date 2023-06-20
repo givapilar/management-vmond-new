@@ -59,13 +59,7 @@ class AssetManagementsController extends Controller
             // $asset_management->harga = $replaceComma;
             $asset_management->description = $validateData['description'];
 
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/asset-management/');
-                $image->move($destinationPath, $name);
-                $asset_management->image = $name;
-            }
+           
             
             $asset_management->save();
             
@@ -83,9 +77,20 @@ class AssetManagementsController extends Controller
                         'harga' => $replaceComma[$key],
                     ];
                 }
+                if ($request->hasFile('image')) {
+                    $image = $request->file('image');
+                    $name = time() . '.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('assets/images/asset-management/');
+                    $image->move($destinationPath, $name);
+            
+                    // Update the image value for each AssetManagementDetail entry
+                    foreach ($assetManagementDetail as &$detail) {
+                        $detail['image'] = $name;
+                    }
+                }
                 AssetManagementDetail::insert($assetManagementDetail);
             }
-
+            
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
             $newHistoryLog->type = 'Add';
@@ -111,9 +116,9 @@ class AssetManagementsController extends Controller
     {
         $validateData = $request->validate([
             'nama' => 'required',
-            'quantity' => 'required',
-            'harga' => 'required',
-            'image' => 'required',
+            // 'quantity' => 'required',
+            // 'harga' => 'required',
+            // 'image' => 'required',
             'description' => 'nullable',
         ]);
 
@@ -122,20 +127,47 @@ class AssetManagementsController extends Controller
 
             $asset_management = AssetManagements::findOrFail($id);
             $asset_management->nama = $validateData['nama'];
-            $asset_management->quantity = $validateData['quantity'];
-            $asset_management->harga = $replaceComma;
+            // $asset_management->quantity = $validateData['quantity'];
+            // $asset_management->harga = $replaceComma;
             $asset_management->description = $validateData['description'];
             
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/asset-management/');
-                $image->move($destinationPath, $name);
-                $asset_management->image = $name;
+            $asset_management->save();
+
+            $asset_management->detailAsset()->delete();
+
+
+            $assetManagementDetail = [];
+            if ($request->location) {
+
+                $replaceComma = str_replace(',', '',$request->harga);
+
+                foreach ($request->location as $key => $value) {
+                    $assetManagementDetail[] = [
+                        'asset_management_id' => $asset_management->id,
+                        'location' => $request->location[$key],
+                        'qty' => $request->qty[$key],
+                        'harga' => $replaceComma[$key],
+                        'image' => null,
+                    ];
+                }
+                if ($request->hasFile('image')) {
+                    $images = $request->file('image');
+            
+                    // Iterate over each uploaded image
+                    foreach ($images as $index => $image) {
+                        $name = time() . '.' . $image->getClientOriginalExtension();
+                        $destinationPath = public_path('assets/images/asset-management/');
+                        $image->move($destinationPath, $name);
+            
+                        // Update the image value for the corresponding AssetManagementDetail entry
+                        if (isset($assetManagementDetail[$index])) {
+                            $assetManagementDetail[$index]['image'] = $name;
+                        }
+                    }
+                }
+                AssetManagementDetail::insert($assetManagementDetail);
             }
 
-            
-            $asset_management->save();
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');

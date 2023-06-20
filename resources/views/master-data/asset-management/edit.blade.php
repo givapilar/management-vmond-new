@@ -42,51 +42,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-3">
-                                        <label for="quantity">Quantity</label>
-                                        <input class="form-control @error('quantity') is-invalid @enderror" id="name" type="number" name="quantity" placeholder="quantity" required value="{{ old('quantity') ?? $asset_managements->quantity }}">
-                                        
-                                        @error('quantity')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group mb-3">
-                                        <label for="harga">Harga</label>
-                                        <input class="form-control @error('harga') is-invalid @enderror" type="text" id="harga" name="harga" placeholder="harga" required value="{{ old('harga') ?? $asset_managements->harga }}">
-                                        
-                                        @error('harga')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label>File upload</label>
-                                        <input type="file" name="image" class="file-upload-default">
-                                        <div class="input-group col-xs-12">
-                                            <input type="text" class="form-control file-upload-info" disabled
-                                            placeholder="Upload Image">
-                                            <span class="input-group-append">
-                                                <button class="file-upload-browse btn btn-primary"
-                                                type="button">Upload</button>
-                                            </span>
-                                        </div>
-                                        <div class="small text-danger">*Kosongkan jika tidak mau diisi</div> 
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <img src="{{ asset('assets/images/asset-management/'.($asset_managements->image ?? 'user.png')) }}"
-                                        width="110px" class="image img" />
-                                </div>
-                                    
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
@@ -103,6 +58,89 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card-body">
+                            <h4>Asset Detail <small class="text-danger">*</small></h4>
+                            <hr>
+                            <div class="row mt-2">
+                                <div class="col-lg-12">
+                                    <table class="table table-striped" id="contactTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Location</th>
+                                                <th>Qty</th>
+                                                <th>Harga</th>
+                                                <th>Image</th>
+                                                <th></th>
+                                                <th>ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
+                                                <i class="fas fa-plus-square"></i>
+                                            </button>
+                                            @foreach ($asset_managements->detailAsset as $item)
+                                                
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control @error('location') is-invalid @enderror" id="location" name="location[]" value="{{ $item->location }}"  placeholder="Location">
+                                                    
+                                                    @error('location')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </td>
+                                                
+                                                <td>
+                                                    <input type="number" class="form-control @error('qty') is-invalid @enderror" id="qty" name="qty[]" value="{{ $item->qty }}"  placeholder="qty">
+                                                    
+                                                    @error('qty')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga[]" value="{{ $item->harga }}"  placeholder="harga">
+                                                    
+                                                    @error('harga')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </td>
+    
+                                                <td>
+                                                    <div class="form-group mt-3">
+                                                        <input type="file" name="image[]" class="file-upload-default">
+                                                        <div class="input-group col-xs-12">
+                                                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                                                            <span class="input-group-append">
+                                                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="">
+                                                        <img src="{{ asset('assets/images/asset-management/'.($item->image ?? 'user.png')) }}" width="110px" class="image img" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
+                                                        <i class="fas fa-plus-square"></i>
+                                                    </button>
+                                                <td> 
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="modal-footer">
                             <a href="{{ route('asset-management.index') }}" class="btn btn-danger p-2">
                                 Kembali
@@ -131,4 +169,35 @@
         content_css: "dark"
     });
 </script>
+
+<script>
+   
+    function addField() {
+        var rowCount = $('#contactTable tr').length;
+        $("#contactTable").find('tbody')
+            .append(
+                $('<tr>' +
+                    '<td><input class="form-control" placeholder="Input Location" type="text" name="location[]" id="location" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Qty" type="text" name="qty[]" id="qty" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input File" type="file" name="image[]" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td></td>' +
+                    // '<td><div class="form-group mt-3"><input type="file" name="image" class="file-upload-default" ><div '+rowCount+'" onkeyup="calculatePrice('+rowCount+')" class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div></td>' +
+                    '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
+                    '</tr>'
+                )
+            )
+            changeOptionValue();
+    }
+  
+    function save()
+    {
+        val12.forEach(item => {
+            $(".select_part option[value='"+item+"']").removeAttr('disabled');
+        });
+  
+        $('#formPO').submit();
+    }
+  
+  </script>
 @endsection

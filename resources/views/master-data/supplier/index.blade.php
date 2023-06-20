@@ -49,28 +49,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($meja_restaurants as $meja_restaurant)
+                            @foreach ($suppliers as $supplier)
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
-                                <td class="table-head text-white">{{ $meja_restaurant->nama }}</td>
-                                <td class="table-head text-white">{{ $meja_restaurant->category }}</td>
-                                @if ($meja_restaurant->status == 'Tersedia')
-                                    <td class="table-head text-white"><span class="badge bg-success">{{$meja_restaurant->status }}</span></td>
-                                @else
-                                    <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
-                                @endif
+                                <td class="table-head text-white">{{ $supplier->name }}</td>
+                                <td class="table-head text-white">{{ $supplier->name }}</td>
 
                                 @if(auth()->user()->can('supplier-delete') || auth()->user()->can('supplier-edit'))
                                 <td>
                                     <div class="btn-group-sm">
                                     @can('supplier-edit')
-                                    <button class="btn btn-sm btn-warning p-2 btn-lg btn-open-modal" data-toggle="modal" data-target="#edit-supplier{{ $meja_restaurant->id }}">
-                                        <i class="fa fa-edit"></i>
+                                    <a class="btn btn-warning f-12" href="{{ route('supplier.edit', $supplier->id) }}">
+                                        <i class="fa fa-edit"></i> 
                                         Edit
-                                    </button>
+                                    </a>
                                     @endcan
                                     @can('supplier-delete')
-                                    <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Meja Restaurant', '{{ $meja_restaurant->nams }}', '/meja-restaurant/' + {{ $meja_restaurant->id }}, '/meja-restaurant/')">
+                                    <a href="#" class="btn btn-danger p-2 f-12" onclick="modalDelete('Supplier', '{{ $supplier->nams }}', '/supplier/' + {{ $supplier->id }}, '/supplier/')">
                                         <i class="far fa-trash-alt"></i>
                                         Hapus
                                     </a>
@@ -79,8 +74,7 @@
                                 </td>
                                 @endif
                             </tr>
-                            @include('master-data.meja-restaurant.edit')
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

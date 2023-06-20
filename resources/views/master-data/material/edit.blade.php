@@ -54,6 +54,19 @@
                     </div>
 
                     <div class="col-lg-12">
+                        <div class="form-group mb-3">
+                            <label for="minimal_stok">Minimal Stok</label>
+                            <input class="form-control @error('minimal_stok') is-invalid @enderror" id="minimal_stok" type="text" name="minimal_stok" placeholder="minimal_stok" required value="{{ old('minimal_stok') ?? $material->minimal_stok }}">
+                            
+                            @error('minimal_stok')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea name="description" class="form-control" id="description" rows="4">{{ $material->description }}</textarea>
