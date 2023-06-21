@@ -92,8 +92,13 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(Supplier $supplier)
+    public function show($id)
     {
+        $data['page_title'] = 'Edit Detail Supplier';
+        $data['suppliers'] = Supplier::find($id);
+        $data['supplier_details'] = DetailSupplier::get();
+    
+        return view('master-data.supplier.detail',$data);
         //
     }
 
@@ -107,7 +112,7 @@ class SupplierController extends Controller
     {
         $data['page_title'] = 'Edit Detail Supplier';
         $data['supplier'] = Supplier::find($id);
-
+    
         return view('master-data.supplier.edit',$data);
     }
 

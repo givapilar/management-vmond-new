@@ -119,6 +119,7 @@ Route::get('/testpage', function () {
 
             // Permit
             Route::resource('/permit', PermitController::class);
+            Route::get('permit/view', [PermitController::class, 'permit'])->name('permit.view');
             Route::get('permit/edit/{token}', [PermitController::class, 'editDataByPermit'])->name('editByPermit');
             Route::get('permit/delete/{token}', [PermitController::class, 'deleteViewDataByPermit'])->name('deleteByPermit');
             Route::post('permit/update/{token}', [PermitController::class, 'updateDataByPermit'])->name('updateByPermit');

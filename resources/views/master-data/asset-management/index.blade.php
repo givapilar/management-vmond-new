@@ -43,6 +43,7 @@
                   <tr>
                     <th class="th-sm text-white">No</th>
                     <th class="th-sm text-white">Nama</th>
+                    <th class="th-sm text-white">Detail</th>
                     {{-- <th class="th-sm text-white">Quantity</th>
                     <th class="th-sm text-white">Harga</th>
                     <th class="th-sm text-white">Image</th> --}}
@@ -59,6 +60,17 @@
                         <td class="table-head text-white">
                           <img src="{{ asset('assets/images/asset-management/'.($asset_management->image ?? 'user.png')) }}" width="110px" class="image img" />
                         </td> --}}
+                        @can('asset-management-detail')
+                        <td>
+                            {{-- <button onclick="detailModal('Detail Asset Management', 'asset-management/' + {{ $asset_management->id }}, 'small')" class="btn btn-sm btn-primary p-2">
+                                <i class="fa fa-info-circle"></i>Detail Asset
+                            </button> --}}
+                            <a class="btn btn-sm btn-primary p-2" href="{{ route('asset-management.show', $asset_management->id) }}">
+                              <i class="fa fa-edit"></i> 
+                              Detail Asset
+                            </a>
+                        </td>
+                        @endcan
                         @if(auth()->user()->can('asset-management-delete') || auth()->user()->can('asset-management-edit'))
                         <td>
                             <div class="btn-group-sm">

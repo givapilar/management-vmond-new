@@ -50,11 +50,14 @@ class MejaRestaurantsController extends Controller
 
         try {
 
+            $barcode = 'https://managementvmond.controlindo.com/';
             $meja_restaurant = new MejaRestaurants();
             $meja_restaurant->nama = $validateData['nama'];
             $meja_restaurant->category = $validateData['category'];
             $meja_restaurant->status = $validateData['status'];
             $meja_restaurant->description = $validateData['description'];
+            $meja_restaurant->barcode = $barcode;
+
             
             $meja_restaurant->save();
 

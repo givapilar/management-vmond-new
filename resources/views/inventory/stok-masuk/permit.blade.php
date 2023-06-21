@@ -56,6 +56,34 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label>User</label>
+                                <input type="checkbox" id="checkbox">
+                                <select name="email" class="js-example-basic-multiple select2-department select2" id="e1{{ $stok_masuk->id }}" multiple ="multiple" style="width:100%">
+                                    @foreach ($users as $user)
+                                    @if ($user->getRoleNames()[0] == 'Admin')
+                                    <option value="{{$user->email}}"
+                                        @foreach (old('user_id') ?? [] as $id)
+                                        @if ($id == $user->id)
+                                        {{ 'selected' }}
+                                        @endif
+                                        @endforeach>
+                                        {{$user->name}}
+                                    </option>
+                                    @endif
+                                    @endforeach
+                                </select>
+        
+                                @error('tag_id')
+                                      <span class="text-danger text-sm">
+                                          <strong>{{ $message }}</strong>
+                                      </span>
+                                  @enderror
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">
@@ -77,6 +105,23 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+
+<script>
+    $("#checkbox").click(function () {
+        if ($("#checkbox").is(':checked')) {
+            $("#e1{{$stok_masuk->id}} > option").prop("selected", "selected");
+            $("#e1{{$stok_masuk->id}}").trigger("change");
+        } else {
+            $("#e1{{$stok_masuk->id}} > option").removeAttr("selected");
+            $("#e1{{$stok_masuk->id}}").val("");
+            $("#e1{{$stok_masuk->id}}").trigger("change");
+        }
+    });
+</script>
+
 
 
 

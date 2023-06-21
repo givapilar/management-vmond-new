@@ -130,11 +130,11 @@
                                                 Edit
                                             </button>
                                             @endcan
-                                        @else
+                                        {{-- @else
                                             <button class="btn btn-sm btn-primary btn-lg btn-open-modal p-2" data-toggle="modal" data-target="#permit">
                                                 <i class="fa fa-edit"></i>
                                                 Permit
-                                            </button>
+                                            </button> --}}
                                         @endif
 
                                         @can('stok-masuk-delete')
@@ -169,6 +169,21 @@
 @endsection
 
 @section('javascript')
+
+  <script>
+
+    $("#checkbox").click(function () {
+       if ($("#checkbox").is(':checked')) {
+           $("#e1 > option").prop("selected", "selected");
+           $("#e1").trigger("change");
+       } else {
+           $("#e1 > option").removeAttr("selected");
+           $("#e1").val("");
+           $("#e1").trigger("change");
+       }
+   });
+</script>
+
 <script>
   $('.datepicker').datepicker({
       format: "yyyy-mm-dd",

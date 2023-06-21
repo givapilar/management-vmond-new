@@ -53,7 +53,12 @@
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                                 <td class="table-head text-white">{{ $supplier->name }}</td>
-                                <td class="table-head text-white">{{ $supplier->name }}</td>
+                                <td class="table-head text-white">
+                                    <a class="btn btn-primary p-2" href="{{ route('supplier.show', $supplier->id) }}">
+                                        <i class="fa fa-edit"></i> 
+                                        Detail Supplier
+                                    </a>
+                                </td>
 
                                 @if(auth()->user()->can('supplier-delete') || auth()->user()->can('supplier-edit'))
                                 <td>

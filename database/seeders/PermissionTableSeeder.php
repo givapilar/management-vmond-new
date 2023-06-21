@@ -46,6 +46,7 @@ class PermissionTableSeeder extends Seeder
             'asset-management-list',
             'asset-management-create',
             'asset-management-edit',
+            'asset-management-detail',
             'asset-management-delete',
             'tag-list',
             'tag-create',

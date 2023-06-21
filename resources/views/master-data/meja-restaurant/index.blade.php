@@ -46,6 +46,7 @@
                                 <th class="th-sm text-white">Nama</th>
                                 <th class="th-sm text-white">Category</th>
                                 <th class="th-sm text-white">Status</th>
+                                <th class="th-sm text-white">Barcode</th>
                                 <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
                         </thead>
@@ -61,6 +62,8 @@
                                 @else
                                     <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
                                 @endif
+
+                                <td class="table-head text-white">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</td>
 
                                 @if(auth()->user()->can('meja-restaurant-delete') || auth()->user()->can('meja-restaurant-edit'))
                                 <td>
