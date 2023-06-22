@@ -150,6 +150,7 @@ class ApiController extends Controller
             $data['image'] = asset('assets/images/paket-menu/' . ($item->image ?? 'no-pictures.png'));
             $data['description'] = $item->description;
             $data['slug'] = $item->slug;
+            $data['status_konfirmasi'] = $item->status_konfirmasi;
             return $data;
         });
 

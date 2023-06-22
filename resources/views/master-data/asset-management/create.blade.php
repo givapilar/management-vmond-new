@@ -193,14 +193,14 @@ d<div class="modal modal-fullscreen" id="tambah-asset" tabindex="-1" role="dialo
                     '<td><input class="form-control" placeholder="Input Qty" type="text" name="qty[]" id="qty'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td><input class="form-control" placeholder="Input File" type="file" name="image[]" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    // '<td><div class="form-group mt-3"><input type="file" name="image[]" class="file-upload-default" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div></td>' +
+                    // '<td><div class="form-group mt-3"><input type="file" name="image[]" class="file-upload-default" id="image-'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div></td>' +
                     // '<td><div><input type="file" name="image[]" id="harga" class="file-upload-default"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary"  type="button">Upload</button></span></div></div></td>' +
                     // '<td><div><input type="file" name="image" class="file-upload-default"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div> "'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
                     '</tr>'
                 )
             )
-            changeOptionValue();
+            // changeOptionValue();
     }
   
   </script>
