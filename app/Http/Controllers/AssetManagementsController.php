@@ -111,6 +111,16 @@ class AssetManagementsController extends Controller
 
         return view('master-data.asset-management.edit',$data);
     }
+    
+    public function show($id)
+    {
+        $data['page_title'] = 'Detail Asset';
+        $data['asset_managements'] = AssetManagements::find($id);
+        $data['asset_details'] = AssetManagementDetail::get();
+    
+        return view('master-data.asset-management.detail',$data);
+        # code...
+    }
 
     public function update(Request $request, $id)
     {

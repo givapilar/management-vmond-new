@@ -3,7 +3,7 @@
         <div style="border-radius: 15px">
             <div class="card-body">
                 {{-- {{ dd($data['email'][0]) }} --}}
-                <img src="{{ asset('assets/images/logo/vmond-logo-head.png') }}" style="width: 200px; height:100px;" alt="">
+                {{-- <img src="{{ asset('assets/images/logo/vmond-logo-head.png') }}" style="width: 200px; height:100px;" alt=""> --}}
                 {{-- <h1>tes</h1> --}}
             </div>
 
@@ -14,7 +14,7 @@
                 </div>
 
                 <div>
-                    <p>Page : {{ $permit->action }}</p>
+                    <p>Page : {{ $permit->page }}</p>
                 </div>
 
                 <div>

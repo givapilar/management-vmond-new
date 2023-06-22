@@ -1,4 +1,4 @@
-<div class="modal modal-fullscreen" id="tambah-asset" tabindex="-1" role="dialog" aria-hidden="true">
+d<div class="modal modal-fullscreen" id="tambah-asset" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -192,10 +192,10 @@
                     '<td><input class="form-control" placeholder="Input Location" type="text" name="location[]" id="location'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td><input class="form-control" placeholder="Input Qty" type="text" name="qty[]" id="qty'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    // '<td><div><input type="file" name="image[]" id="harga'+rowCount+'" onkeyup="calculatePrice('+rowCount+')" class="file-upload-default"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div></td>' +
+                    '<td><input class="form-control" placeholder="Input File" type="file" name="image[]" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    // '<td><div class="form-group mt-3"><input type="file" name="image[]" class="file-upload-default" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div></td>' +
+                    // '<td><div><input type="file" name="image[]" id="harga" class="file-upload-default"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary"  type="button">Upload</button></span></div></div></td>' +
                     // '<td><div><input type="file" name="image" class="file-upload-default"><div class="input-group col-xs-12"><input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image"><span class="input-group-append"><button class="file-upload-browse btn btn-primary" type="button">Upload</button></span></div></div> "'+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    // '<td><div class="input-group"><span class="input-group-text" id="basic-addon1">IDR</span><input type="number" class="form-control" min="0" name="unit_price[]" id="unit_price'+rowCount+'" placeholder="Input unit price" aria-describedby="basic-addon1" onkeyup="calculatePrice('+rowCount+')"></div></td>' +
-                    // '<td><div class="input-group"><span class="input-group-text" id="basic-addon1">IDR</span><input type="number" class="form-control" min="0" name="total_price[]" id="total_price'+rowCount+'" placeholder="Total" readonly aria-describedby="basic-addon1"></div></td>' +
                     '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
                     '</tr>'
                 )

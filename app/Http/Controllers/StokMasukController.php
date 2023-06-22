@@ -6,6 +6,7 @@ use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\StokMasuk;
 use App\Models\Material;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +49,7 @@ class StokMasukController extends Controller
         }
    
         $data['stock_masuks'] = $stok;
+        $data['users'] = User::get();
 
         return view('inventory.stok-masuk.index', $data);
     }

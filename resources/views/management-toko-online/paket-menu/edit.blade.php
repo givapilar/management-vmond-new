@@ -213,6 +213,23 @@
                                 </div>
                             </div>
 
+                            <div class="col-6">
+                                <div class="form-group mb-3">
+                                    <label class="">Status Konfirmasi</label>
+                                    <select class="form-control @error('status_konfirmasi') is-invalid @enderror" name="status_konfirmasi">
+                                        <option disabled selected>Choose Status Konfirmasi</option>
+                                        <option value="Aktif" {{ $package->status_konfirmasi == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="Inactive" {{ $package->status_konfirmasi == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+
+                                    @error('status_konfirmasi')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="description">Description</label>

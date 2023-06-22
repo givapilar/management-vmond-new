@@ -37,6 +37,12 @@ class PermitController extends Controller
 
         return view('permit.index', $data);
     }
+    
+    public function permit()
+    {
+        $data['users'] = User::get();
+        return view('inventory.stok-masuk.permit', $data);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -63,6 +69,7 @@ class PermitController extends Controller
             'description' => 'nullable',
         ]);
 
+        // dd($request->all());
         try {
             $permit = new Permit();
             $permit->user_id =  auth()->user()->id;
@@ -75,8 +82,10 @@ class PermitController extends Controller
 
             $permit->save();
 
+            
             // Untuk Kirim EMail
-            Mail::to('sahriramadan000@gmail.com')->send(new PermitEmail($permit));
+            $mail = [$request->email];
+            Mail::to($mail)->send(new PermitEmail($permit));
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');

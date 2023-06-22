@@ -76,9 +76,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
-                                                <i class="fas fa-plus-square"></i>
-                                            </button>
                                             @foreach ($asset_managements->detailAsset as $item)
                                                 
                                             <tr>
