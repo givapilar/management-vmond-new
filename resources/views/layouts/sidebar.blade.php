@@ -49,7 +49,7 @@
         </a>
       </li>
 
-      @can('dashboard-control')
+      @can('dashboard-control-list')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('dashboard-control') }}">
           <span class="menu-icon">
