@@ -4,6 +4,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Pool } = require("pg");
 var bodyParser = require("body-parser");
+var ModbusWriteTCP = require("./readModbus.js");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -66,6 +67,22 @@ function orderNotif() {
     //     io.emit('message_client', "MASUK");
     // }, 1000);
 }
+
+app.post('/v1/api-control-lamp', (req, res) => {
+    try {
+        let data = req.body;
+        data = JSON.stringify(data);
+        data = JSON.parse(data);
+        console.log(data);
+        new ModbusWriteTCP(data.addr, data.val);
+
+        res.status(200).send('Data Received');
+    } catch (error) {
+        console.error('Error occurred:', error);
+        res.status(500).send('Error occurred');
+    }
+});
+
 server.listen(3000, () => {
     console.log('listening on *:3000');
 });

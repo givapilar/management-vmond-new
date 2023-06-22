@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-6 mt-1 px-4">
                             <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
-                                <i class="fa-sharp fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
+                                <i class="fa-solid fa-file-circle-check" style="font-size: 20px;"></i>
                                 <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
                             </span>
                         </div>
@@ -93,6 +93,21 @@
                                 {{-- <td class="table-head text-white">{{ $permit->description }}</td> --}}
                                 @if (auth()->user()->can('permit-edit'))
                                 <td>
+                                    @if ($permit->status == 'Disetujui' && $permit->linkPermit->status == false)
+                                    <div class="btn-group-sm">
+                                        @can('permit-edit')
+                                        <a href="#"
+                                            class="btn btn-warning p-2 text-white position-relative disabled">
+                                            <i class="far fa-edit"></i>
+                                            Edit
+
+                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+                                                <span class="visually-hidden">Alerts</span>
+                                            </span>
+                                        </a>
+                                        @endcan
+                                    </div>
+                                    @else
                                     <div class="btn-group-sm">
                                         @can('permit-edit')
                                         <a href="{{ route('permit.edit', $permit->id) }}"
@@ -102,6 +117,8 @@
                                         </a>
                                         @endcan
                                     </div>
+
+                                    @endif
                                 </td>
                                 @endif
                             </tr>

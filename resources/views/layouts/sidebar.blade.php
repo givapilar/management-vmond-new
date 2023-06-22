@@ -49,6 +49,17 @@
         </a>
       </li>
 
+      @can('dashboard-control')
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ route('dashboard-control') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">Dashboard Control</span>
+        </a>
+      </li>
+      @endcan
+
       @can('inventory')
       <li class="nav-item menu-items">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -105,9 +116,9 @@
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('permit.index') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-account-key"></i>
+            <i class="fa-solid fa-file-circle-check"></i>
           </span>
-          <span class="menu-title">Permit Admin</span>
+          <span class="menu-title">Permit</span>
         </a>
       </li>
       @endcan
