@@ -133,7 +133,7 @@ d<div class="modal modal-fullscreen" id="tambah-asset" tabindex="-1" role="dialo
 
                                             <td>
                                                 <div class="form-group mt-3">
-                                                    <input type="file" name="image" class="file-upload-default">
+                                                    <input type="file" name="image[]" class="file-upload-default">
                                                     <div class="input-group col-xs-12">
                                                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                                         <span class="input-group-append">

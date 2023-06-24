@@ -98,11 +98,13 @@ class MejaRestaurantsController extends Controller
 
         try {
 
+            $barcode = 'https://managementvmond.controlindo.com/login?jenis_meja=restaurant&no_meja='.$request->no_meja;
             $meja_restaurant = MejaRestaurants::findOrFail($id);
             
             $meja_restaurant->nama = $validateData['nama'];
             $meja_restaurant->status = $validateData['status'];
             $meja_restaurant->category = $validateData['category'];
+            $meja_restaurant->barcode = $barcode;
             $meja_restaurant->description = $validateData['description'];
             
             $meja_restaurant->save();
