@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AddOn;
 use App\Models\HistoryLog;
 use App\Models\Restaurant;
 use App\Models\RestaurantPivots;
@@ -31,6 +32,7 @@ class RestaurantController extends Controller
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
         $data['restaurant_pivots'] = RestaurantPivots::get();
         $data['tags'] = Tags::get();
+        $data['add_ons'] = AddOn::get();
 
         return view('management-toko-online.restaurant.index', $data);
     }
@@ -124,6 +126,7 @@ class RestaurantController extends Controller
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
+                        'add_on_id' => $request->add_on_id[$key],
                     ];
                 }
                 RestaurantPivots::insert($restaurantTags);
@@ -146,8 +149,13 @@ class RestaurantController extends Controller
         $data['page_title'] = 'Edit Menu';
         $data['restaurant'] = Restaurant::findorFail($id);
         $data['tags'] = Tags::get();
+        $data['add_ons'] = AddOn::get();
         $data['restaurant_tags'] = RestaurantPivots::where("restaurant_id",$id)
         ->pluck('tag_id')
+        ->all();
+
+        $data['restaurant_add_on'] = RestaurantPivots::where("restaurant_id",$id)
+        ->pluck('add_on_id')
         ->all();
 
         return view('management-toko-online.restaurant.edit',$data);
@@ -237,13 +245,14 @@ class RestaurantController extends Controller
 
             $restaurant->restaurantTag()->delete();
 
-            if ($request->tag_id) {
+            if ($request->tag_id && $request->add_on_id) {
                 $restaurantTags = [];
                 foreach ($request->tag_id as $key => $value) {
 
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
+                        'add_on_id' => $request->add_on_id[$key],
                     ];
                 }
                 RestaurantPivots::insert($restaurantTags);

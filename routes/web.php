@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddOnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserController;
@@ -106,6 +107,9 @@ Route::get('/testpage', function () {
 
             // Membership
             Route::resource('/membership', MembershipController::class);
+
+            // Add On
+            Route::resource('/add-on', AddOnController::class);
 
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');

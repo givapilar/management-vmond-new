@@ -93,17 +93,19 @@ class MejaRestaurantsController extends Controller
             'nama' => 'required',
             'category' => 'required',
             'status' => 'required',
+            'no_meja' => 'required',
             'description' => 'nullable',
         ]);
 
         try {
 
-            $barcode = 'https://managementvmond.controlindo.com/login?jenis_meja=restaurant&no_meja='.$request->no_meja;
+            $barcode = 'http://vmondcafe.test/login?jenis_meja=restaurant&no_meja='.$request->no_meja;
             $meja_restaurant = MejaRestaurants::findOrFail($id);
             
             $meja_restaurant->nama = $validateData['nama'];
             $meja_restaurant->status = $validateData['status'];
             $meja_restaurant->category = $validateData['category'];
+            $meja_restaurant->no_meja = $validateData['no_meja'];
             $meja_restaurant->barcode = $barcode;
             $meja_restaurant->description = $validateData['description'];
             

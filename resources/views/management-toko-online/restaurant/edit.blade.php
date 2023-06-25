@@ -186,6 +186,26 @@
                                 <div class="col-lg-3">
                                     <img src="{{ asset('assets/images/restaurant/'.($restaurant->image ?? 'user.png')) }}" width="110px"class="image img" />
                                 </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Add On</label>
+                                        <input type="checkbox" id="checkbox_add_on">
+                                        <select name="add_on_id[]" id="add_on" class="js-example-basic-multiple select2-department select2" multiple="multiple" style="width:100%">
+                                            @foreach ($add_ons as $add_on)
+                                                <option value="{{$add_on->id}}" 
+                                                    @foreach (old('add_on_id') ?? $restaurant_add_on as $id)
+                                                        @if ($id == $add_on->id)
+                                                            {{ 'selected' }}
+                                                        @endif
+                                                    @endforeach>
+                                                    {{$add_on->title}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
 
                                 
@@ -250,6 +270,17 @@
            $("#e1 > option").removeAttr("selected");
            $("#e1").val("");
            $("#e1").trigger("change");
+       }
+   });
+
+   $("#checkbox_add_on").click(function () {
+       if ($("#checkbox_add_on").is(':checked')) {
+           $("#add_on > option").prop("selected", "selected");
+           $("#add_on").trigger("change");
+       } else {
+           $("#add_on > option").removeAttr("selected");
+           $("#add_on").val("");
+           $("#add_on").trigger("change");
        }
    });
 </script>

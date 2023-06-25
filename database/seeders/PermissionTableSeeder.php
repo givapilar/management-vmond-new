@@ -89,6 +89,10 @@ class PermissionTableSeeder extends Seeder
             'dashboard-control-create',
             'dashboard-control-edit',
             'dashboard-control-delete',
+            'add-on-list',
+            'add-on-create',
+            'add-on-edit',
+            'add-on-delete',
         ];
 
         foreach ($permissions as $permission) {

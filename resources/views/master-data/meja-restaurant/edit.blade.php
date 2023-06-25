@@ -1,4 +1,4 @@
-<div class="modal modal-fullscreen" id="edit-suppluer{{ $meja_restaurant->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal modal-fullscreen" id="edit-meja-restaurant{{ $meja_restaurant->id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -61,6 +61,20 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="no_meja">Nomer Meja</label>
+                                <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" value="{{ old('no_meja') ?? $meja_restaurant->no_meja }}"  placeholder="Enter no_meja">
+                                
+                                @error('no_meja')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 
