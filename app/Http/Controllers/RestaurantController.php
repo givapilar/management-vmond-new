@@ -133,6 +133,18 @@ class RestaurantController extends Controller
                 RestaurantPivots::insert($restaurantTags);
             }
 
+            if ($request->add_on_id) {
+                $restaurantAddOn = [];
+                foreach ($request->add_on_id as $key => $value) {
+
+                    $restaurantAddOn[] = [
+                        'restaurant_id' => $restaurant->id,
+                        'add_on_id' => $request->add_on_id[$key],
+                    ];
+                }
+                RestaurantPivots::insert($restaurantAddOn);
+            }
+
             if ($restaurant->category == 'Makanan') {
                 $restaurant->code = $this->getNextId('MKN', $restaurant->id) ;
             }else{
