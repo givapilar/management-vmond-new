@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AddOn;
 use App\Models\HistoryLog;
 use App\Models\Restaurant;
+use App\Models\RestaurantAddOn;
 use App\Models\RestaurantPivots;
 use App\Models\Tags;
 use Illuminate\Http\Request;
@@ -179,6 +180,7 @@ class RestaurantController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
         ]);
+        // dd($request->all());
 
         try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
@@ -256,6 +258,18 @@ class RestaurantController extends Controller
                     ];
                 }
                 RestaurantPivots::insert($restaurantTags);
+            }
+
+            if ($request->add_on_id && $request->add_on_id) {
+                $restaurantAddOn = [];
+                foreach ($request->add_on_id as $key => $value) {
+
+                    $restaurantAddOn[] = [
+                        'restaurant_id' => $restaurant->id,
+                        'add_on_id' => $request->add_on_id[$key],
+                    ];
+                }
+                RestaurantAddOn::insert($restaurantAddOn);
             }
 
             if ($restaurant->category == 'Makanan') {
