@@ -134,6 +134,7 @@ class AddOnController extends Controller
             'minimum_choice' => 'nullable',
         ]);
 
+        // dd($request->all());
         try {
 
             $add_on = AddOn::findOrFail($id);

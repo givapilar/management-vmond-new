@@ -53,7 +53,7 @@
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                                 <td class="table-head text-white">{{ $add_on->title }}</td>
-                                <td class="table-head text-white">{{ $add_on->minimal_choice }}</td>
+                                <td class="table-head text-white">{{ $add_on->minimum_choice }}</td>
                                 {{-- <td class="table-head text-white">
                                     <a class="btn btn-primary p-2" href="{{ route('add-on.show', $add_on->id) }}">
                                         <i class="fa fa-edit"></i> 
