@@ -230,6 +230,19 @@
                                 </div>
                             </div>
 
+                            <div class="col-12 col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="jam">Masukan Jam </label>
+                                    <input type="number" class="form-control @error('jam') is-invalid @enderror" id="jam" name="jam" value="{{ old('jam') ?? $package->jam }}"  placeholder="jam">
+
+                                    @error('jam')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="description">Description</label>

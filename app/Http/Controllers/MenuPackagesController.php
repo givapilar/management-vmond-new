@@ -184,6 +184,7 @@ class MenuPackagesController extends Controller
             'status' => 'required',
             'minimal' => 'required',
             'status_konfirmasi' => 'required',
+            'jam' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
         ]);
@@ -202,6 +203,7 @@ class MenuPackagesController extends Controller
             $paket_menu->persentase = $validateData['persentase'];
             $paket_menu->status = $validateData['status'];
             $paket_menu->minimal = $validateData['minimal'];
+            $paket_menu->jam = $validateData['jam'];
             $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
             $paket_menu->description = $validateData['description'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;

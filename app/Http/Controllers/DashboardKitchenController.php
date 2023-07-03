@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderBilliard;
 use App\Models\OrderPivot;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardKitchenController extends Controller
 {
@@ -12,13 +14,10 @@ class DashboardKitchenController extends Controller
     {
         $data['page_title'] = 'Dashboard';  
         $data['orders'] = OrderPivot::get();
-        // $data['orders'] = OrderPivot::get();
-        $data['order_table'] = Order::get();
-            // $orderTable = OrderPivot::get();
-            // dd($orderPivot);
-            // View::share('order_table',$orderTable);
-
-        // dd($data['orders']->orderPivot);
+        // $data['order_table'] = Order::get();
+        $data['order_table'] = Order::whereDate('created_at', Carbon::today())->get();
+        // dd($data['order_table']);
+        $data['order_billiards'] = OrderBilliard::get();
 
         return view('process.kitchen.dashboard',$data);
     }
@@ -30,6 +29,7 @@ class DashboardKitchenController extends Controller
 
         return view('process.kitchen.index',$data);
     }
+    
 
     public function statusDashboard(Request $request)
     {

@@ -15,4 +15,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderPivot::class);
     }
+
+    public function orderBilliard()
+    {
+        return $this->hasMany(OrderBilliard::class);
+    }
 }
