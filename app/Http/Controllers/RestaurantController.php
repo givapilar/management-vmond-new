@@ -127,7 +127,7 @@ class RestaurantController extends Controller
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
-                        'add_on_id' => $request->add_on_id[$key],
+                        // 'add_on_id' => $request->add_on_id[$key],
                     ];
                 }
                 RestaurantPivots::insert($restaurantTags);
@@ -258,15 +258,15 @@ class RestaurantController extends Controller
             $newHistoryLog->save();
 
             $restaurant->restaurantTag()->delete();
+            $restaurant->restaurantAddOn()->delete();
 
-            if ($request->tag_id && $request->add_on_id) {
+            if ($request->tag_id) {
                 $restaurantTags = [];
                 foreach ($request->tag_id as $key => $value) {
 
                     $restaurantTags[] = [
                         'restaurant_id' => $restaurant->id,
                         'tag_id' => $request->tag_id[$key],
-                        'add_on_id' => $request->add_on_id[$key],
                     ];
                 }
                 RestaurantPivots::insert($restaurantTags);

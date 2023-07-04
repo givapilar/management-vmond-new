@@ -20,4 +20,19 @@ class Order extends Model
     {
         return $this->hasMany(OrderBilliard::class);
     }
+
+    public function orderMeeting()
+    {
+        return $this->hasMany(OrderMeeting::class);
+    }
+
+    public function orderMeetingMakananTime($time)
+    {
+        return OrderMeeting::where('order_id', $this->id)->where('category', 'Makanan')->where('time_from', '<', $time)->get();
+    }
+
+    public function orderBilliardMakananTime($time)
+    {
+        return OrderBilliard::where('order_id', $this->id)->where('category', 'Makanan')->where('time_from', '<', $time)->get();
+    }
 }

@@ -13,11 +13,17 @@ class DashboardKitchenController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Dashboard';  
-        $data['orders'] = OrderPivot::get();
+        // $data['orders'] = OrderPivot::get();
         // $data['order_table'] = Order::get();
-        $data['order_table'] = Order::whereDate('created_at', Carbon::today())->get();
-        // dd($data['order_table']);
-        $data['order_billiards'] = OrderBilliard::get();
+        
+        $current_time = Carbon::now()->format('H:i:s');
+        $data['order_table'] = Order::get();
+        $order = Order::where('status_pembayaran', 'Paid')->get();
+        $data['orders'] = $order->orderPivot;
+        $data['order_billiards'] = $order->orderBilliardMakananTime($current_time);
+        $data['order_meetings'] = $order->orderMeetingMakananTime($current_time);
+        // $data['order_billiards'] = OrderBilliard::get();
+        
 
         return view('process.kitchen.dashboard',$data);
     }

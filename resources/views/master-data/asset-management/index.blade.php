@@ -23,7 +23,7 @@
                   <a class="btn btn-sm btn-danger p-2" href="{{ route('master-data.index') }}">
                       Kembali
                   </a>
-                  @can('user-create')
+                  @can('asset-management-list')
                   <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-asset">
                       Tambah
                   </button>
