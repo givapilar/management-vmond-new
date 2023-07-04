@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\HistoryLog;
 use App\Models\MejaRestaurants;
+use BaconQrCode\Encoder\QrCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Milon\Barcode\Facades\DNS2DFacade as DNS2D;
 
 class MejaRestaurantsController extends Controller
 {
@@ -30,6 +34,37 @@ class MejaRestaurantsController extends Controller
 
         return view('master-data.meja-restaurant.index', $data);
     }
+
+    public function qrDownload()
+{
+    $meja_restaurants = MejaRestaurants::get();
+
+    foreach ($meja_restaurants as $meja_restaurant) {
+        $barcodeData = DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE');
+
+        // Create a new image resource from the barcode data
+        $barcodeImage = imagecreatefromstring($barcodeData);
+
+        // Create a new image with a white background
+        $imageWidth = imagesx($barcodeImage);
+        $imageHeight = imagesy($barcodeImage);
+        $imageWithBackground = imagecreatetruecolor($imageWidth, $imageHeight);
+        $whiteColor = imagecolorallocate($imageWithBackground, 255, 255, 255);
+        imagefill($imageWithBackground, 0, 0, $whiteColor);
+
+        // Copy the barcode image onto the image with the white background
+        imagecopy($imageWithBackground, $barcodeImage, 0, 0, 0, 0, $imageWidth, $imageHeight);
+
+        // Save the image with the white background to a file (e.g., barcode_with_background.jpg)
+        $imageName = 'barcode_with_background.jpg'; // Change the file extension to .jpg if needed
+        $filePath = public_path('storage/' . $imageName);
+        imagejpeg($imageWithBackground, $filePath);
+
+        // Send the file as a download response and delete it afterward
+        return response()->download($filePath)->deleteFileAfterSend(true);
+    }
+}
+    
 
     public function create()
     {

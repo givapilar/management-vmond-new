@@ -299,6 +299,35 @@
 
 @endif
 
+<script>
+    function downloadImage(id) {
+    // Get the barcode image element
+    const barcodeImage = document.getElementById('barcode-image');
+    
+    // Create a canvas element
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    
+    // Set the canvas dimensions to match the image
+    canvas.width = barcodeImage.width;
+    canvas.height = barcodeImage.height;
+    
+    // Draw the image onto the canvas
+    context.drawImage(barcodeImage, 0, 0);
+    
+    // Convert the canvas content to a data URL
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    
+    // Create a temporary anchor element for downloading
+    const downloadLink = document.createElement('a');
+    downloadLink.href = dataUrl;
+    downloadLink.download = 'barcode.jpg';
+    
+    // Trigger the download
+    downloadLink.click();
+}
+</script>
+
 @yield('javascript')
 @stack('script_bot')
 

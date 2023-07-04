@@ -63,7 +63,15 @@
                                     <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
                                 @endif
 
-                                <td class="table-head text-white">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</td>
+                                <td class="table-head text-white" style="background-color: white"><a href="#" onclick="downloadImage({{ $meja_restaurant->id }})">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</a></td>
+                                <td class="table-head text-white bg-white"> 
+                                    <a download="barcode.jpg" href="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}"  title="ImageName">
+                                        DOWNLOAD
+                                    {{-- <img style="width:200px; height:200px;" src="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!} " alt="barcode"   /> --}}
+                                    </a>
+                                    {{-- <img src="data:image/png,' . {!! DNS2D::getBarcodePng( "$meja_restaurant->barcode" , 'C39+')!!} . '" alt="barcode"   /> --}}
+                                </td>
+                                <td class="table-head text-white"><a href="{{ route('meja-restaurant.qr') }}">Button</a></td>
 
                                 @if(auth()->user()->can('meja-restaurant-delete') || auth()->user()->can('meja-restaurant-edit'))
                                 <td>
@@ -95,3 +103,4 @@
 </div>
 @include('master-data.meja-restaurant.create')
 @endsection
+
