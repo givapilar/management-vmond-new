@@ -1,0 +1,110 @@
+/* Forms */
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.input-group-append,
+.input-group-prepend {
+  color: #ffffff;
+  width: auto;
+  border: none;
+
+  .input-group-text {
+    border-color: $border-color;
+    padding: $input-padding-y .75rem;
+    color: #ffffff;
+    background: none;
+  }
+}
+.form-control {
+  border: 1px solid #2c2e33;
+  height: calc(2.25rem + 2px);
+  font-weight: normal;
+  font-size:  0.875rem;
+  padding: 0.625rem 0.6875rem;
+  background-color: #2A3038;
+  border-radius: 2px;
+  color: #ffffff;
+  &:focus {
+    border: 1px solid rgba(20, 20, 20, 0.5);
+    background-color: #2A3038;
+    color: #ffffff !important;
+  }
+  &.form-control-lg {
+    padding: 0.94rem .75rem;
+    height: calc(2.875rem + 2px);
+  }
+
+  &.form-control-sm {
+    padding: 0.5rem .75rem;
+    height: calc(1.8125rem + 2px);
+  }
+  &::placeholder {
+    color: #ffffff !important;
+    font-size: lighten(#2A3038, 15%);
+  }
+}
+.navbar {
+  .form-control {
+    width: 75%;
+    border-radius: 6px;
+    &:focus {
+      border: none;
+    }
+  }
+}
+
+select {
+  &.form-control {
+    padding: .4375rem .75rem;
+    border: 0;
+    color: #ffffff;
+    &:focus {
+      outline: 1px solid $border-color;
+    }
+    @each $color, $value in $theme-colors {
+      &.border-#{$color} {
+        outline: 1px solid $value;
+        &:focus {
+          outline: 1px solid $value;
+        }
+      }
+    }
+  }
+}
+.form-group {
+  label {
+    font-size: $default-font-size;
+    line-height: 1;
+    vertical-align: top;
+  }
+  &.has-danger {
+    .form-control {
+      border-color: theme-color(danger);
+    }
+  }
+  .file-upload-default {
+    visibility: hidden;
+    position: absolute;
+  }
+  .file-upload-info {
+    background: transparent;
+  }
+}
+
+.form-check {
+  min-height: 18px;
+  padding-left: 1.25rem;
+}
+
+div {
+  &.tagsinput {
+    background: transparent;
+  }
+}
+
+
+
+
+
+
