@@ -142,7 +142,7 @@ class RestaurantController extends Controller
                         'add_on_id' => $request->add_on_id[$key],
                     ];
                 }
-                RestaurantPivots::insert($restaurantAddOn);
+                RestaurantAddOn::insert($restaurantAddOn);
             }
 
             if ($restaurant->category == 'Makanan') {
@@ -167,7 +167,7 @@ class RestaurantController extends Controller
         ->pluck('tag_id')
         ->all();
 
-        $data['restaurant_add_on'] = RestaurantPivots::where("restaurant_id",$id)
+        $data['restaurant_add_on'] = RestaurantAddOn::where("restaurant_id",$id)
         ->pluck('add_on_id')
         ->all();
 
