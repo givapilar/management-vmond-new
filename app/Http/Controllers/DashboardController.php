@@ -201,9 +201,9 @@ class DashboardController extends Controller
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 
-            return redirect()->route('dashboard-control')->with(['success' => 'Controller added successfully!']);
+            return redirect()->route('control-lamp')->with(['success' => 'Controller added successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('dashboard-control')->with(['failed' => 'Failed'.$th->getMessage()]);
+            return redirect()->route('control-lamp')->with(['failed' => 'Failed'.$th->getMessage()]);
         }
     }
 
@@ -228,9 +228,9 @@ class DashboardController extends Controller
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 
-            return redirect()->route('dashboard-control')->with(['success' => 'Controller edited successfully!']);
+            return redirect()->route('control-lamp')->with(['success' => 'Controller edited successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('dashboard-control')->with(['failed' => 'Failed'.$th->getMessage()]);
+            return redirect()->route('control-lamp')->with(['failed' => 'Failed'.$th->getMessage()]);
         }
     }
 

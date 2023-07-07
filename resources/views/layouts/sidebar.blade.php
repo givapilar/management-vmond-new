@@ -51,9 +51,9 @@
 
       @can('dashboard-control-list')
       <li class="nav-item menu-items">
-        <a class="nav-link" href="{{ route('dashboard-control') }}">
+        <a class="nav-link" href="{{ route('control-lamp') }}">
           <span class="menu-icon">
-            <i class="mdi mdi-speedometer"></i>
+            <i class="fa-solid fa-lightbulb"></i>
           </span>
           <span class="menu-title">Dashboard Control</span>
         </a>

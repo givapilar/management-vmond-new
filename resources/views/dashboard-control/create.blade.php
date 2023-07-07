@@ -8,7 +8,7 @@
                 </button>
             </div>
 
-            <form class="forms-sample" action="{{ route('dashboard-control.store') }}" method="POST">
+            <form class="forms-sample" action="{{ route('control-lamp.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group mb-3">

@@ -50,7 +50,7 @@
                         </select>
                     </div>
 
-                    <button class="btn btn-md bg-primary p-2 w-100" onclick="postDataAPI('{{ $item->id }}','{{ $item->Billiard->nama }}', '{{ route('dashboard-control') }}', {{ $item->address }})">Submit</button>
+                    <button class="btn btn-md bg-primary p-2 w-100" onclick="postDataAPI('{{ $item->id }}','{{ $item->Billiard->nama }}', '{{ route('control-lamp') }}', {{ $item->address }})">Submit</button>
 
                 </div>
                 <div class="position-absolute" style="top:10px; right:10px;">
@@ -61,7 +61,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit-controller-{{ $item->id }}">Edit</a>
-                          <a class="dropdown-item" href="#"  onclick="modalDelete('Controller', '{{ $item->Billiard->nama }}', '/dashboard-control/' + {{ $item->id }}, '/dashboard-control/')">Delete</a>
+                          <a class="dropdown-item" href="#"  onclick="modalDelete('Controller', '{{ $item->Billiard->nama }}', '/control-lamp/' + {{ $item->id }}, '/control-lamp/')">Delete</a>
                         </div>
                     </div>
                     @include('dashboard-control.edit')
