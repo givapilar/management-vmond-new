@@ -8,7 +8,7 @@
                 </button>
             </div>
 
-            <form class="forms-sample" method="POST" action="{{ route('dashboard-control.update', $item->id) }}" novalidate>
+            <form class="forms-sample" method="POST" action="{{ route('control-lamp.update', $item->id) }}" novalidate>
                 @method('patch')
                 @csrf
 

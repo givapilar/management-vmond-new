@@ -61,10 +61,10 @@ Route::get('/testpage', function () {
     Route::middleware('auth:web')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/dashboard-control', [DashboardController::class, 'dashboardControl'])->name('dashboard-control');
-        Route::post('/dashboard-control/store/', [DashboardController::class, 'storeDashboardControl'])->name('dashboard-control.store');
-        Route::patch('/dashboard-control/update/{id}', [DashboardController::class, 'updateDashboardControl'])->name('dashboard-control.update');
-        Route::delete('/dashboard-control/{id}', [DashboardController::class, 'destroyDashboardControl'])->name('dashboard-control.destroy');
+        Route::get('/control-lamp', [DashboardController::class, 'dashboardControl'])->name('control-lamp');
+        Route::post('/control-lamp/store/', [DashboardController::class, 'storeDashboardControl'])->name('control-lamp.store');
+        Route::patch('/control-lamp/update/{id}', [DashboardController::class, 'updateDashboardControl'])->name('control-lamp.update');
+        Route::delete('/control-lamp/{id}', [DashboardController::class, 'destroyDashboardControl'])->name('control-lamp.destroy');
         // Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
