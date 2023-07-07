@@ -38,14 +38,14 @@ class MembershipController extends Controller
     {
         $validateData = $request->validate([
             'level' => 'required',
-            // 'minimum_transaksi' => 'nullable',
+            'minimum_transaksi' => 'required',
         ]);
 
         $replaceTitik = str_replace(',', '',$request->minimum_transaksi);
         try {
             $membership = new Membership();
             $membership->level = $validateData['level'];
-            // $membership->minimum_transaksi = $replaceTitik;
+            $membership->minimum_transaksi = $replaceTitik;
             
             $membership->save();
 
@@ -78,7 +78,7 @@ class MembershipController extends Controller
     {
         $validateData = $request->validate([
             'level' => 'required',
-            // 'minimum_transaksi' => 'nullable',
+            'minimum_transaksi' => 'required',
         ]);
 
         $replaceTitik = str_replace(',', '',$request->minimum_transaksi);
@@ -86,7 +86,7 @@ class MembershipController extends Controller
         try {
             $membership = Membership::findOrFail($id);
             $membership->level = $validateData['level'];
-            // $membership->minimum_transaksi = $replaceTitik;
+            $membership->minimum_transaksi = $replaceTitik;
             
 
             $membership->save();

@@ -11641,9 +11641,9 @@ input[type="button"].btn-block {
 .jsgrid .jsgrid-pager .active.jsgrid-pager-page a {
   z-index: 3;
   color: #fff;
-  margin-top:0px;
+  margin-top:5px;
   background-color: #007bff;
-  border-color: #fff; }
+  border-color: #007bff; }
 
 .page-item.disabled .page-link, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-nav-button .page-link, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-page .page-link, .page-item.disabled .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button .page-item.disabled a, .jsgrid .jsgrid-pager .disabled.jsgrid-pager-nav-button a,
 .page-item.disabled .jsgrid .jsgrid-pager .jsgrid-pager-page a, .jsgrid .jsgrid-pager .jsgrid-pager-page .page-item.disabled a,
@@ -11651,9 +11651,9 @@ input[type="button"].btn-block {
   color: #ffffff;
   pointer-events: none;
   cursor: auto;
-  margin-top:0px;
+  margin-top:5px;
   background-color: #181b23;
-  border-color: #fff; }
+  border-color: #2c313d; }
 
 .pagination-lg .page-link, .pagination-lg .jsgrid .jsgrid-pager .jsgrid-pager-nav-button a, .jsgrid .jsgrid-pager .jsgrid-pager-nav-button .pagination-lg a,
 .pagination-lg .jsgrid .jsgrid-pager .jsgrid-pager-page a, .jsgrid .jsgrid-pager .jsgrid-pager-page .pagination-lg a {

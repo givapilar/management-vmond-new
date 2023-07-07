@@ -35,4 +35,9 @@ class Order extends Model
     {
         return OrderBilliard::where('order_id', $this->id)->where('category', 'Makanan')->where('time_from', '<', $time)->get();
     }
+
+    public function orderPivotMakanan()
+    {
+        return OrderPivot::where('order_id', $this->id)->get();
+    }
 }

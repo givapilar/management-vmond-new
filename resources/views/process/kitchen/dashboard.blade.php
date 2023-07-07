@@ -19,11 +19,7 @@
 @section('content')
 <section class="p-3">
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach ($order_table as $item)
-            @php
-                $pivotCount = $item->orderPivot->count();
-                $pivotChecked = $item->orderPivot->where('status_pemesanan', 'Selesai')->count();
-            @endphp
+        @foreach ($orders as $item)
             <div class="col">
                 <div class="card h-100 border-r-20">
                     <div class="card-header border-rt-20">
@@ -34,16 +30,54 @@
                     <div class="card-body py-1">
                         <div class="scroll-style">
                             <ul class="list-group list-group-flush pe-3">
-                                <li class="list-group-item d-flex justify-content-start align-items-start">
-                                    <div class="flex-shrink-1">
-                                        <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmDataAll('{{ $item->id }}')" aria-label="..." id="" {{ ($pivotCount == $pivotChecked) ? 'checked disabled' : '' }}>
-                                    </div>
-                                    <div class="d-flex flex-column bd-highlight">
-                                        <h5 class="p-0 m-0 menu-1 {{ ($pivotCount == $pivotChecked) ? 'text-decoration-line-through' : '' }}">
-                                            {{ $item->name }}
-                                        </h5>
-                                    </div>
-                                </li>
+                                @foreach ($item->orderPivotMakanan() as $orderPivot)
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div class="flex-shrink-1">
+                                            @if ($orderPivot->status_pemesanan == 'Selesai')
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $orderPivot->id }}', 'pivot')"  id="" {{ $orderPivot->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @else
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $orderPivot->id }}', 'pivot')"  id="" {{ $orderPivot->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex flex-column bd-highlight">
+                                            <h5 class="p-0 m-0 menu-1 {{ $orderPivot->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                                {{ $orderPivot->restaurant->nama }}
+                                            </h5>
+                                        </div>
+                                    </li>
+                                @endforeach
+                                @foreach ($item->orderMeetingMakananTime($current_time) as $orderMeeting)
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div class="flex-shrink-1">
+                                            @if ($orderMeeting->status_pemesanan == 'Selesai')
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $orderMeeting->id }}', 'meeting')"  id="" {{ $orderMeeting->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @else
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $orderMeeting->id }}', 'meeting')"  id="" {{ $orderMeeting->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex flex-column bd-highlight">
+                                            <h5 class="p-0 m-0 menu-1 {{ $orderMeeting->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                                {{ $orderMeeting->restaurant->nama }}
+                                            </h5>
+                                        </div>
+                                    </li>
+                                @endforeach
+                                @foreach ($item->orderBilliardMakananTime($current_time) as $orderBilliard)
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div class="flex-shrink-1">
+                                            @if ($orderBilliard->status_pemesanan == 'Selesai')
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $orderBilliard->id }}', 'billiard')"  id="" {{ $orderBilliard->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @else
+                                                <input class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $orderBilliard->id }}', 'billiard')"  id="" {{ $orderBilliard->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex flex-column bd-highlight">
+                                            <h5 class="p-0 m-0 menu-1 {{ $orderBilliard->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                                {{ $orderBilliard->restaurant->nama }}
+                                            </h5>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -60,7 +94,7 @@
 
         {{-- Billiard --}}
         
-        @foreach ($order_table as $item)
+        {{-- @foreach ($order_table as $item)
             @if ($item->status_pembayaran == 'Paid')
                     @php
                         $pivotCount = $item->orderBilliard->count();
@@ -98,13 +132,13 @@
                         @include('process.kitchen.modal-billiard')
                     </div>
             @endif
-        @endforeach
+        @endforeach --}}
 
     </div>
 </section>
-@if ($order_table->isNotEmpty())
+{{-- @if ($order_table->isNotEmpty())
     @include('process.kitchen.modal')
-@endif
+@endif --}}
 @endsection
 
 @push('script-top')
@@ -140,7 +174,39 @@
     //     });
     // }
 
-    function confirmDataAll(id) {
+    // function confirmDataAll(id) {
+    //     $.confirm({
+    //         icon: 'glyphicon glyphicon-heart',
+    //         title: 'Warning!',
+    //         content: 'Apakah anda yakin?',
+    //         type: 'red',
+    //         typeAnimated: true,
+    //         buttons: {  
+    //             yes: {
+    //                 text: 'Yes',
+    //                 btnClass: 'btn-red',
+    //                 action: function(){
+    //                     axios.post('{{ route("kitchen.status-dashboard-all") }}', {
+    //                         id
+    //                     })
+    //                     .then(response => {
+    //                         alert('Berhasil Diupdate');
+    //                         location.reload();
+    //                     })
+    //                     .catch(error => {
+    //                         alert(error.response.data);
+    //                     });
+    //                 }
+    //             },
+    //             close: function () {
+    //                 $('#checkDetail'+id).prop("checked", false);
+    //                 event.preventDefault(); // prevent the checkbox from being checked
+    //             }
+    //         }
+    //     });
+    // }
+
+    function confirmData(id, type) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
             title: 'Warning!',
@@ -152,8 +218,9 @@
                     text: 'Yes',
                     btnClass: 'btn-red',
                     action: function(){
-                        axios.post('{{ route("kitchen.status-dashboard-all") }}', {
-                            id
+                        axios.post('{{ route("kitchen.status-dashboard") }}', {
+                            id,
+                            type
                         })
                         .then(response => {
                             alert('Berhasil Diupdate');
@@ -171,12 +238,12 @@
             }
         });
     }
-
-    function confirmData(id) {
+    
+    function removeData(id, type) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
             title: 'Warning!',
-            content: 'Apakah anda yakin?',
+            content: 'Apakah anda yakin ingin membatalkan?',
             type: 'red',
             typeAnimated: true,
             buttons: {  
@@ -184,8 +251,9 @@
                     text: 'Yes',
                     btnClass: 'btn-red',
                     action: function(){
-                        axios.post('{{ route("kitchen.status-dashboard") }}', {
-                            id
+                        axios.post('{{ route("kitchen.status-remove") }}', {
+                            id,
+                            type
                         })
                         .then(response => {
                             alert('Berhasil Diupdate');
@@ -197,7 +265,7 @@
                     }
                 },
                 close: function () {
-                    $('#checkDetail'+id).prop("checked", false);
+                    $('#checkDetail'+id).prop("checked", true);
                     event.preventDefault(); // prevent the checkbox from being checked
                 }
             }

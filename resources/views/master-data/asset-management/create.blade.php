@@ -57,7 +57,7 @@ d<div class="modal modal-fullscreen" id="tambah-asset" tabindex="-1" role="dialo
                     <div class="col-lg-4">
                         <div class="form-group mb-3">
                             <label for="harga">Harga</label>
-                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga[]" value="{{ old('harga') }}"  placeholder="harga">
+                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}"  placeholder="harga">
                             
                             @error('harga')
                             <span class="invalid-feedback" role="alert">

@@ -104,6 +104,7 @@ Route::get('/testpage', function () {
 
             // Meja Restaurant
             Route::resource('/meja-restaurant', MejaRestaurantsController::class);
+            Route::get('generate-barcode', [MejaRestaurantsController::class, 'qrDownload'])->name('meja-restaurant.qr');
 
             // Membership
             Route::resource('/membership', MembershipController::class);
@@ -173,6 +174,7 @@ Route::get('/testpage', function () {
 
         Route::get('/dashboard', [DashboardKitchenController::class, 'index'])->name('dashboard.kitchen');
         Route::post('/dashboard-status', [DashboardKitchenController::class, 'statusDashboard'])->name('status-dashboard');
+        Route::post('/dashboard-status-remove', [DashboardKitchenController::class, 'statusRemove'])->name('status-remove');
         Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
     });

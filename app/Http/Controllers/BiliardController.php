@@ -16,10 +16,10 @@ class BiliardController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:biliard-list', ['only' => 'index']);
-        $this->middleware('permission:biliard-create', ['only' => ['create','store']]);
-        $this->middleware('permission:biliard-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:biliard-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:departement-list', ['only' => 'index']);
+        $this->middleware('permission:departement-create', ['only' => ['create','store']]);
+        $this->middleware('permission:departement-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:departement-delete', ['only' => ['destroy']]);
     }
 
     public function index()

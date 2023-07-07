@@ -43,6 +43,12 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Add User';
+        // $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
+
         $user = new User();
         $user->name = $validateData['name'];
         // $user->username = $validateData['username'];
@@ -58,14 +64,6 @@ class UserController extends Controller
         }
 
         $user->save();
-
-        $newHistoryLog = new HistoryLog();
-        $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Add';
-        $newHistoryLog->menu = 'Add User: '.$request->name;
-        $newHistoryLog->user_id = auth()->user()->id;
-        $newHistoryLog->save();
-        
         $user->assignRole($validateData['role']);
 
         return redirect()->route('users.index')->with(['success' => 'User added successfully!']);
@@ -93,8 +91,7 @@ class UserController extends Controller
 
         $newHistoryLog = new HistoryLog();
         $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Edit';
-        $newHistoryLog->menu = 'Edit User: '.$request->name;
+        $newHistoryLog->type = 'Update User';
         $newHistoryLog->user_id = auth()->user()->id;
         $newHistoryLog->save();
 
@@ -133,8 +130,7 @@ class UserController extends Controller
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
-            $newHistoryLog->type = 'Delete';
-            $newHistoryLog->menu = 'Delete User: '.$user->name;
+            $newHistoryLog->type = 'Delete User';
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
 

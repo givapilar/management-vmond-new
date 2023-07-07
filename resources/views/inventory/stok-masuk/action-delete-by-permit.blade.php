@@ -19,8 +19,8 @@
                         @csrf
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label>Material <small class="text-danger">(readonly)</small></label>
-                                <select class="js-example-basic-single @error('material_id') is-invalid @enderror" readonly id="material_id" name="material_id" style="width:100%">
+                                <label>Material <small class="text-danger">(disabled)</small></label>
+                                <select class="js-example-basic-single @error('material_id') is-invalid @enderror" disabled id="material_id" name="material_id" style="width:100%">
                                     @foreach ($materials as $material)
                                     <option value="{{ $material->id }}" {{ $stok_masuk->material_id == $material->id ? 'selected' : '' }}>{{ $material->nama }} </option>
                                     @endforeach
@@ -33,8 +33,8 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="material_masuk">Stok Masuk <small class="text-danger">(readonly)</small></label>
-                                <input class="form-control @error('material_masuk') is-invalid @enderror" readonly id="name" type="text" name="material_masuk" placeholder="Stok MAsuk" required value="{{ old('material_masuk') ?? $stok_masuk->material_masuk }}">
+                                <label for="material_masuk">Stok Masuk <small class="text-danger">(disabled)</small></label>
+                                <input class="form-control @error('material_masuk') is-invalid @enderror" disabled id="name" type="text" name="material_masuk" placeholder="Stok MAsuk" required value="{{ old('material_masuk') ?? $stok_masuk->material_masuk }}">
 
                                 @error('material_masuk')
                                     <span class="invalid-feedback" role="alert">
@@ -44,8 +44,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="description">Description <small class="text-danger">(readonly)</small></label>
-                                <textarea name="description" class="form-control" readonly id="description" rows="4">{{ $stok_masuk->description }}</textarea>
+                                <label for="description">Description <small class="text-danger">(disabled)</small></label>
+                                <textarea name="description" class="form-control" disabled id="description" rows="4">{{ $stok_masuk->description }}</textarea>
 
                                 @error('content')
                                 <span class="invalid-feedback" role="alert">
