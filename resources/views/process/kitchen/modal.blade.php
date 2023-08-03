@@ -1,108 +1,65 @@
 {{-- Modal --}}
-<div class="modal fade" id="modal-{{ $item->code }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-{{ $item->code }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="flex-grow-1 text-center">
-                    <h2 class="modal-title" id="modalLabel">Detail Order <span class="text-danger">#{{ $item->code }}</span></h2>
+                    <h2 class="modal-title" id="exampleModalLabel">Detail Order <span class="text-danger">#Ord{{ $item->invoice_no }}</span></h2>
                 </div>
                 <div class="flex-shrink-1">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             </div>
             <div class="modal-body">
-                
                 <ul class="list-group list-group-flush pe-3">
-                    @foreach ($item->orderPivot as $order_pivot)
-                    {{-- {{ dd($resto->restaurant->nama) }} --}}
-                    {{-- {{ dd($order_pivot->paketMenu->MenuPackagePivots->restaurant_id) }} --}}
-                    {{-- @foreach ($order_pivot->paketMenu->MenuPackagePivots as $resto) --}}
-                    {{-- @if (($order_pivot->restaurant->category ?? ($resto->restaurant->category ?? '')) == 'Makanan') --}}
-                    @if (($order_pivot->restaurant->category ?? '') == 'Makanan')
-                    
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}')" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked disabled' : '' }}>
-                        </div>
-                        <div class="flex-shrink-1">
-                            <h3 class="me-2 mb-0">1.</h3>
-                        </div>
-                        <div class="d-flex flex-column bd-highlight">
-                            <h3 class="p-0 m-0 fw-semi-bold menu-1">
-                                {{ $order_pivot->restaurant->nama ?? '' }}
-                            </h3>
-                            <span class="text-wrap fs-5">
-                                Note: Pedas, No Acar.
-                            </span>
-                        </div>
-                    </li>
-                    @endif
-                    {{-- @endforeach --}}
+                    <ul class="list-group list-group-flush pe-3">
+                        @foreach ($item->orderPivot as $order_pivot)
+                        @if (($order_pivot->restaurant->category ?? '') == 'Makanan')
+                            <div class="mt-3"></div>
+                            <div class="accordion" id="accordion-{{ $order_pivot->restaurant->id }}" style="border-radius: 10px !important; ">
+                                <div class="accordion-item" style="border-radius: 10px !important; background-color: #5e5e5e54 !important;">
+                                  <h2 class="accordion-header" id="heading-{{ $order_pivot->restaurant->id }}" style="border-radius: 10px !important;">
+                                    <button class="accordion-button collapsed text-wrap fs-2 fw-bold" style="border-radius: 10px !important; background-color: #5e5e5e00 !important;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $order_pivot->restaurant->id }}" aria-expanded="false" aria-controls="collapse-{{ $order_pivot->restaurant->id }}">
+                                        {{ $order_pivot->restaurant->nama ?? '' }}
+                                    </button>
+                                  </h2>
+                                  <div id="collapse-{{ $order_pivot->restaurant->id }}" style="border-radius: 10px !important; background-color: #5e5e5e00 !important;" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion-{{ $order_pivot->restaurant->id }}">
+                                    <div class="accordion-body">
+                                    @if (count($order_pivot->orderAddOn) != 0)
+                                        @foreach ($order_pivot->orderAddOn as $oad)
+                                            <div class="flex-shrink-1 mt-3" style="border-top:1px solid #000;">
+                                                <h3 class="me-2 mt-3">{{ $loop->iteration }}.
+                                                    {{ $oad->addOn->title ?? '' }}
+                                                </h3>
+                                            </div>
+                                            <li class="list-group-item d-flex justify-content-start align-items-start bg-transparent border-0 mb-0 pt-0 pb-0">
+                                                <div class="d-flex flex-column bd-highlight">
+                                                    <span class="text-wrap fs-5">
+                                                        Note: {{ $oad->addOnDetail->nama ?? '' }}
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                    <div class="flex-shrink-1 mt-3" style="border-top:1px solid #000;">
+                                        <h3 class="me-2 mt-3">1.
+                                            Tidak Ada Note
+                                        </h3>
+                                    </div>
+                                    <li class="list-group-item d-flex justify-content-start align-items-start bg-transparent border-0 mb-0 pt-0 pb-0">
+                                        <div class="d-flex flex-column bd-highlight">
+                                            <span class="text-wrap fs-5">
+                                                Note: -
+                                            </span>
+                                        </div>
+                                    </li>
+                                    @endif
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        @endif
                     @endforeach
-                    {{-- <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 checkbox-2 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
-                        </div>
-                        <div class="flex-shrink-1">
-                            <h3 class="me-2 mb-0">2.</h3>
-                        </div>
-                        <div class="d-flex flex-column bd-highlight">
-                            <h3 class="p-0 m-0 fw-semi-bold menu-2">
-                                Mie Goreng Modern
-                            </h3>
-                            <span class="text-wrap fs-5">
-                                Note: Sedang
-                            </span>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 checkbox-3 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
-                        </div>
-                        <div class="flex-shrink-1">
-                            <h3 class="me-2 mb-0">3.</h3>
-                        </div>
-                        <div class="d-flex flex-column bd-highlight">
-                            <h3 class="p-0 m-0 fw-semi-bold menu-3">
-                                Ayam Teriyaki
-                            </h3>
-                            <span class="text-wrap fs-5">
-                                Note: -
-                            </span>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 checkbox-4 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
-                        </div>
-                        <div class="flex-shrink-1">
-                            <h3 class="me-2 mb-0">4.</h3>
-                        </div>
-                        <div class="d-flex flex-column bd-highlight">
-                            <h3 class="p-0 m-0 fw-semi-bold menu-4">
-                                French Fries
-                            </h3>
-                            <span class="text-wrap fs-5">
-                                Note: -
-                            </span>
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div class="flex-shrink-1">
-                            <input class="form-check-input me-2 checkbox-5 p-2 mt-1" type="checkbox" value="" aria-label="..." id="">
-                        </div>
-                       <div class="flex-shrink-1">
-                            <h3 class="me-2 mb-0">5.</h3>
-                        </div>
-                        <div class="d-flex flex-column bd-highlight">
-                            <h3 class="p-0 m-0 fw-semi-bold menu-5">
-                                Nasi Cup #1
-                            </h3>
-                            <span class="text-wrap fs-5">
-                                Note: Tidak pakai sambal Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id tenetur nam, modi totam natus ratione, vitae eaque praesentium reprehenderit, voluptatem quas. Eos minima, atque earum distinctio incidunt hic natus quos?
-                            </span>
-                        </div>
-                    </li> --}}
                 </ul>
             </div>
             <div class="modal-footer">

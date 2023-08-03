@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use Illuminate\Support\Facades\DB;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -25,6 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+      // Fungsi untuk mereset stok_perhari menjadi 0 pada jam 00:00 setiap harinya
+        $schedule->call(function () {
+            DB::table('nama_tabel')->update(['stok_perhari' => 0]);
+        })->dailyAt('00:00');
     }
 
     /**

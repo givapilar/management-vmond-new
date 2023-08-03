@@ -7,6 +7,7 @@ use App\Models\Biliard;
 use App\Models\MeetingRoom;
 use App\Models\MenuPackages;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
@@ -27,6 +28,17 @@ class ApiController extends Controller
         });
 
         return response()->json($meeting_room);
+    }
+
+    public function getRolesUser()
+    {
+        // $user = User::orderBy('id', 'ASC')->where()->get();
+
+        $user = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Barista')->orWhere('name', 'Server / Waiters');;
+        })->orderBy('id', 'ASC')->get();
+
+        return response()->json($user);
     }
 
     public function getApiMeetingRoom()

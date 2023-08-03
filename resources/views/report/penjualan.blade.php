@@ -48,19 +48,19 @@
 
                 <div class="col-lg-5">
                     <div class="form-group mb-3">
-                        <label>Order :</label>
-                        <select class="js-example-basic-single"
-                            id="order_id" name="order_id" style="width:100%">
-                            <option disabled selected>Choose Order</option>
-                            @foreach ($orders as $order)
-                            <option value="{{ $order->id }}"
-                                {{ old('order_id') == $order->id ? 'selected' : '' }}>
-                                {{ $order->name }} </option>
+                        <label>User :</label>
+                        <select class="js-example-basic-single @error('user_id') is-invalid @enderror"
+                            id="user" name="user_id" style="width:100%">
+                            <option disabled selected>Choose User</option>
+                            @foreach ($account_users as $account_user)
+                            <option value="{{ $account_user->id }}"
+                                {{ old('account_user_id') == $account_user->id ? 'selected' : '' }}>
+                                {{ $account_user->username }} </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="col-lg-1">
                     <div class="form-group mt-4 ">
                         <button type="submit" class="btn btn-primary btn-group-lg p-2 ">
@@ -69,9 +69,38 @@
                         </button>
                     </div>
                 </div>
+
+                
             </div>
         </div>
     </div>
+
+    <div class="col-4 col-md-4 grid-margin">
+        <div class="card-body bg-gray-800 rounded-20 p-3">
+            <div class="row">
+                <div class="card rounded-20 px-2 pb-2">
+                    <div class="card-header rounded-t-20 pt-2 pl-2 pb-0 pr-2">
+                        <h5 class="text-center text-uppercase">Total Penjualan</h5>
+                    </div>
+                    <div class="card-body bg-gray-800 rounded-20 p-3">
+                        <div class="row">
+                            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-left">
+                                <img src="{{ asset('assets/images/icon/stock.png') }}" alt="" class="">
+                                {{-- <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i> --}}
+                            </div>
+
+                            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
+                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
   </form>
 
   <div class="row mt-2 p-2">
@@ -82,7 +111,6 @@
                 <div class="col-6 mt-1 px-4">
                     <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
                         <i class="fa-sharp fa-solid fa-boxes-stacked" style="font-size: 20px;"></i>
-                        <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
                     </span>
                 </div>
             </div>

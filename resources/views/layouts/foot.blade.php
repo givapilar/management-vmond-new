@@ -88,7 +88,8 @@
         //     responsive: true
         // );
         var table = $('#mytable').DataTable( {
-        responsive: true
+            responsive: true,
+            "lengthMenu": [[100, 50, 25], [100, 50, 25]]
     } );
 
     });

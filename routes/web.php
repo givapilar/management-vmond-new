@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddOnBilliardController;
 use App\Http\Controllers\AddOnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -26,9 +27,8 @@ use App\Http\Controllers\ReportPenjualanController;
 use App\Http\Controllers\MembershipController;
 use App\Http\Controllers\DashboardBartenderController;
 use App\Http\Controllers\DashboardWaiterController;
-
-
-
+use App\Http\Controllers\DashboardServerController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OtherSettingsController;
 use App\Http\Controllers\SupplierController;
 
@@ -97,7 +97,7 @@ Route::get('/testpage', function () {
             Route::resource('/asset-management', AssetManagementsController::class);
 
             // Asset Management Details
-            Route::resource('/asset-management-details', AssetManagementDetailController::class);
+            // Route::resource('/asset-management-details', AssetManagementDetailController::class);
 
             // Tag
             Route::resource('/tag', TagsController::class);
@@ -111,6 +111,12 @@ Route::get('/testpage', function () {
 
             // Add On
             Route::resource('/add-on', AddOnController::class);
+
+            // Add On
+            Route::resource('/add-on-billiard', AddOnBilliardController::class);
+
+            // Feedback
+            Route::resource('/feedback', FeedbackController::class);
 
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');
@@ -177,6 +183,10 @@ Route::get('/testpage', function () {
         Route::post('/dashboard-status-remove', [DashboardKitchenController::class, 'statusRemove'])->name('status-remove');
         Route::post('/dashboard-status-all', [DashboardKitchenController::class, 'statusDashboardAll'])->name('status-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardKitchenController::class, 'detail'])->name('dashboard.detail');
+        // Cetak Pdf
+        // Route::get('/dashboard/{$id}', [DashboardKitchenController::class, 'cetak_pdf'])->name('cetak-pdf');
+        Route::resource('/dashboard-detail-kitchen', DashboardKitchenController::class);
+
     });
 
     // Route Dashboard bartender
@@ -185,12 +195,16 @@ Route::get('/testpage', function () {
             //     $data['page_title'] = 'dashboard';
             //     return view('process.bartender.dashboard', $data);
             // })->name('dashboard');
-            Route::get('/dashboard', [DashboardBartenderController::class, 'index'])->name('dashboard.bartender');
-            Route::post('/dashboard-status', [DashboardBartenderController::class, 'statusDashboard'])->name('status-dashboard');
-            Route::post('/dashboard-status-all', [DashboardBartenderController::class, 'statusDashboardAll'])->name('status-bartender-dashboard-all');
-            Route::get('/dashboard-detail/{id}', [DashboardBartenderController::class, 'detail'])->name('dashboard.detail');
+    Route::get('/dashboard', [DashboardBartenderController::class, 'index'])->name('dashboard.bartender');
+    Route::post('/dashboard-status', [DashboardBartenderController::class, 'statusDashboard'])->name('status-dashboard');
+    Route::post('/dashboard-status-remove', [DashboardBartenderController::class, 'statusRemove'])->name('status-remove');
+    Route::post('/dashboard-status-all', [DashboardBartenderController::class, 'statusDashboardAll'])->name('status-bartender-dashboard-all');
+    Route::get('/dashboard-detail/{id}', [DashboardBartenderController::class, 'detail'])->name('dashboard.detail');
+    Route::get('/dashboard-print/{id}', [DashboardBartenderController::class, 'autoPrintButton'])->name('autoPrintButton');
+    Route::resource('/dashboard-detail-bartender', DashboardBartenderController::class);
     });
 
+    // dashboard Waiters
     Route::prefix('waiters')->name('waiters.')->group(function () {
         // Route::get('/dashboard', function(){
         //     $data['page_title'] = 'dashboard';
@@ -200,6 +214,25 @@ Route::get('/testpage', function () {
         Route::post('/dashboard-status', [DashboardWaiterController::class, 'statusDashboard'])->name('status-dashboard');
         Route::post('/dashboard-status-all', [DashboardWaiterController::class, 'statusDashboardAll'])->name('status-waiters-dashboard-all');
         Route::get('/dashboard-detail/{id}', [DashboardWaiterController::class, 'detail'])->name('dashboard.detail');
-        Route::post('/status-update/{id}', [DashboardWaiterController::class, 'statusUpdate'])->name('status-update');
+        Route::post('/status-update', [DashboardWaiterController::class, 'statusUpdate'])->name('status-update');
         Route::post('/tes', [DashboardWaiterController::class, 'tes'])->name('tes');
     });
+
+    // dashboard Server
+    Route::prefix('kasir')->name('kasir.')->group(function () {
+        Route::get('/dashboard', [DashboardServerController::class, 'index'])->name('dashboard.server');
+        Route::post('/dashboard-status', [DashboardServerController::class, 'statusDashboard'])->name('status-dashboard');
+        Route::post('/dashboard-status-all', [DashboardServerController::class, 'statusDashboardAll'])->name('status-server-dashboard-all');
+        Route::get('/dashboard-detail/{id}', [DashboardServerController::class, 'detail'])->name('dashboard.detail');
+        Route::post('/status-update', [DashboardServerController::class, 'statusUpdate'])->name('status-update');
+        Route::resource('/dashboard-detail-kasir', DashboardServerController::class);
+    });
+
+
+    // Dashboard Server
+    Route::prefix('history')->name('history.')->group(function () {
+        Route::get('/kitchen', [DashboardKitchenController::class, 'history'])->name('history.kitchen');
+    });
+    // Pdf Kitchen
+    // Route::get('/pegawai/cetak_pdf', 'PegawaiController@cetak_pdf');
+

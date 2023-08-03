@@ -25,7 +25,7 @@ class TagsController extends Controller
     public function index()
     {
         $data['page_title'] = 'Tags';
-        $data['tags'] = Tags::orderby('id', 'asc')->get();
+        $data['tags'] = Tags::orderby('position', 'asc')->get();
         
         return view('master-data.tag.index', $data);
     }
@@ -33,7 +33,7 @@ class TagsController extends Controller
     public function create()
     {
         $data['page_title'] = 'Tambah Tags';
-        $data['tag'] = Tags::get();
+        $data['tag'] = Tags::orderBy('position', 'ASC')->get();
 
         return view('master-data.tag.create',$data);
     }
@@ -42,11 +42,15 @@ class TagsController extends Controller
     {
         $validateData = $request->validate([
             'tag_name' => 'required',
+            'status' => 'required',
+            'position' => 'required',
         ]);
 
         try {
             $tag = new Tags();
             $tag->tag_name = $validateData['tag_name'];
+            $tag->status = $validateData['status'];
+            $tag->position = $validateData['position'];
             
             $tag->save();
 
@@ -75,11 +79,15 @@ class TagsController extends Controller
     {
         $validateData = $request->validate([
             'tag_name' => 'required',
+            'status' => 'required',
+            'position' => 'required',
         ]);
 
         try {
             $tag = Tags::findOrFail($id);
             $tag->tag_name = $validateData['tag_name'];
+            $tag->position = $validateData['position'];
+            $tag->status = $validateData['status'];
 
             $tag->save();
 

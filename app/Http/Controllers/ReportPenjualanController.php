@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountUser;
 use App\Models\Order;
 use App\Models\OrderPivot;
 use Illuminate\Http\Request;
@@ -10,35 +11,78 @@ class ReportPenjualanController extends Controller
 {
     public function index(Request $request)
     {
-        $data['page_title'] = 'Stok Masuk';
+        $data['page_title'] = 'Report Penjualan';
         $data['orders'] = Order::orderby('id', 'asc')->get();
 
+        $data['account_users'] = AccountUser::get();
+        // $type = $request->has('type') ? $request->type : 'day';
+        // $user = $request->has('order_id') ? $request->order_id : 'All';
+        // if ($type == 'day') {
+        //     if ($user == 'All') {
+        //         $stok = Order::whereDate('created_at', date('Y-m-d'))->get();
+        //         // dd($stok);
+        //     }else{
+        //         $stok = Order::whereDate('created_at', $request->start_date)->when($request->order_id, function($q) use($request){{
+        //             return $q->get();
+        //          }})->get();
+        //     }
+        // } elseif ($type == 'monthly') {
+        //     $stok = Order::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->order_id, function($q) use($request){{
+        //         return $q->get();
+        //     }})->get();
+        //     // dd($stok);
+        // } elseif ($type == 'yearly'){
+        //     $stok = Order::whereYear('created_at', $request->year)->when($request->order_id, function($q) use($request){{
+        //         return $q->get();
+        //     }})->get();
+        // }
+   
+        // $data['orders'] = $stok;
+
         $type = $request->has('type') ? $request->type : 'day';
-        $material = $request->has('order_id') ? $request->order_id : 'All';
+        $user = $request->has('user_id') ? $request->user_id : 'All';
+
         if ($type == 'day') {
-            if ($material == 'All') {
-                $stok = Order::whereDate('created_at', date('Y-m-d'))->get();
-                // dd($stok);
-            }else{
-                $stok = Order::whereDate('created_at', $request->start_date)->when($request->order_id, function($q) use($request){{
-                    return $q->get();
-                 }})->get();
+            $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+            if ($user == 'All') {
+                $stok = Order::whereDate('created_at', $date)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
+            } else {
+                $stok = Order::whereDate('created_at', $date)
+                            ->where('user_id', $request->user_id)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
             }
         } elseif ($type == 'monthly') {
-            $stok = Order::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->order_id, function($q) use($request){{
-                return $q->get();
-            }})->get();
-            // dd($stok);
-        } elseif ($type == 'yearly'){
-            $stok = Order::whereYear('created_at', $request->year)->when($request->order_id, function($q) use($request){{
-                return $q->get();
-            }})->get();
+            $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
+            $stok = Order::whereMonth('created_at', $month)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        } elseif ($type == 'yearly') {
+            $year = $request->has('year') ? $request->year : date('Y');
+            $stok = Order::whereYear('created_at', $year)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
         }
-   
+
+        $totalPriceSum = $stok->sum('total_price');
+
+        $data['total_price'] = $totalPriceSum;
         $data['orders'] = $stok;
-
-
         return view('report.penjualan', $data);
+
+
     }
 
     public function show($id)

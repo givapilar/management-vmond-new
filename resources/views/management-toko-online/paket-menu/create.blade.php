@@ -31,11 +31,12 @@
                         <div class="col-12 col-lg-6">
                             <div class="form-group mb-3">
                                 <label class="">Category</label>
-                                <select class="form-control @error('category') is-invalid @enderror" name="category" id="category" onchange="categorySelection(this.value)">
+                                <select class="form-control @error('category') is-invalid @enderror" name="category" id="category" onchange="categorySelection(this.value);">
                                     <option value="billiard" selected>Billiard</option>
                                     <option value="meeting_room">Meeting Room</option>
+                                    <option value="event">Event</option>
                                 </select>
-
+                        
                                 @error('category')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -147,9 +148,12 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 col-lg-6">
                             <div class="form-group mb-3">
-                                <label for="minimal">Minimal</label>
+                                <label for="minimal">Minimal </label>
                                 <input type="number" class="form-control @error('minimal') is-invalid @enderror" id="minimal" name="minimal" value="{{ old('minimal') }}"  placeholder="minimal">
 
                                 @error('minimal')
@@ -160,9 +164,49 @@
                             </div>
                         </div>
 
-                    </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label class="">Status Konfirmasi</label>
+                                <select class="form-control @error('status_konfirmasi') is-invalid @enderror" name="status_konfirmasi">
+                                    <option disabled selected>Choose Status Konfirmasi</option>
+                                    <option value="Aktif" {{ old('status_konfirmasi') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option value="Inactive" {{ old('status_konfirmasi') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                </select>
 
-                    
+                                @error('status_konfirmasi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group mb-3">
+                                <label for="jam">Masukan Jam </label>
+                                <input type="number" class="form-control @error('jam') is-invalid @enderror" id="jam" name="jam" value="{{ old('jam')  }}"  placeholder="jam">
+
+                                @error('jam')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea name="description" class="form-control" id="description" rows="4">{{ old('description') }}</textarea>
+
+                                @error('description')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12">
@@ -247,12 +291,12 @@
         skin: "oxide-dark",
         content_css: "dark"
     });
-
+    
     function categorySelection(val) {
-        if (val == 'billiard') {
+        if (val === 'billiard') {
             $('#billiard').removeClass('d-none');
             $('#meeting_room').addClass('d-none');
-        }else if(val == 'meeting_room') {
+        }else if(val === 'meeting_room') {
             $('#meeting_room').removeClass('d-none')
             $('#billiard').addClass('d-none')
         }

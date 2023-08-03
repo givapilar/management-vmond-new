@@ -158,7 +158,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group mb-3">
                                         <label for="current_stok">Current Stok</label>
-                                        <input class="form-control current-stok @error('current_stok') is-invalid @enderror" id="name" type="number" name="current_stok" placeholder="current_stok" value="0">
+                                        <input readonly class="form-control current-stok @error('current_stok') is-invalid @enderror" id="name" type="number" name="current_stok" placeholder="current_stok" value="{{ old('current_stok') ?? $restaurant->current_stok }}">
                                         
                                         @error('current_stok')
                                         <span class="invalid-feedback" role="alert">

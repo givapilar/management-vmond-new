@@ -58,6 +58,32 @@
                         </div>
                     </div>
 
+                    {{-- <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="no_meja">Nomer Meja</label>
+                            <input type="number" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" value="{{ old('no_meja') }}"  placeholder="Enter no_meja">
+                            
+                            @error('no_meja')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div> --}}
+
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="kode_meja">Kode Meja</label>
+                            <input type="text" class="form-control @error('kode_meja') is-invalid @enderror" id="kode_meja" name="kode_meja" value="{{ old('kode_meja') }}"  placeholder="Enter kode_meja">
+                            
+                            @error('kode_meja')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
 

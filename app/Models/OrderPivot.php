@@ -26,4 +26,9 @@ class OrderPivot extends Model
     {
         return $this->belongsTo(MenuPackages::class);
     }
+
+    public function orderAddOn()
+    {
+        return $this->hasMany(OrderAddOn::class);
+    }
 }

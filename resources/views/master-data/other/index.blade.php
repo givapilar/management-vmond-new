@@ -29,6 +29,7 @@
                                 <div class="form-group mb-3">
                                     <label for="no_wa">Whatsapp admin <span class="text-danger">*</span></label>
                                     <input type="tel" class="form-control @error('no_wa') is-invalid @enderror" id="no_wa" name="no_wa" value="{{ $other_setting->no_wa ?? old('no_wa') }}"  placeholder="Enter whatsapp admin...">
+                                    <span class="text-danger" style="font-size: 12px;">Note: Tidak perlu memasukan angka depan 0</span>
 
                                     @error('no_wa')
                                     <span class="invalid-feedback" role="alert">
@@ -37,6 +38,89 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="pb01">Biaya PB01 (%) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('pb01') is-invalid @enderror" id="pb01" name="pb01" min="0" max="100" value="{{ $other_setting->pb01 ?? old('pb01') }}"  placeholder="Enter Biaya PB01...">
+
+                                    @error('pb01')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="layanan">Biaya Layanan <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('layanan') is-invalid @enderror" step="0.01" id="layanan" min="0" max="100000" name="layanan" value="{{ $other_setting->layanan ?? old('layanan') }}"  placeholder="Enter Biaya Layanan...">
+
+                                    @error('layanan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_start">Time Open <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_start') is-invalid @enderror" id="time_start" name="time_start" value="{{ $other_setting->time_start ?? old('time_start') }}"  placeholder="Enter time open...">
+
+                                    @error('time_start')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_close">Time Close <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_close') is-invalid @enderror" id="time_close" name="time_close" value="{{ $other_setting->time_close ?? old('time_close') }}"  placeholder="Enter time open...">
+
+                                    @error('time_close')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_start_weekend">Time Open Weekend<span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_start_weekend') is-invalid @enderror" id="time_start_weekend" name="time_start_weekend" value="{{ $other_setting->time_start_weekend ?? old('time_start_weekend') }}"  placeholder="Enter time open...">
+
+                                    @error('time_start_weekend')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_close_weekend">Time Close Weekend <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_close_weekend') is-invalid @enderror" id="time_close_weekend" name="time_close_weekend" value="{{ $other_setting->time_close_weekend ?? old('time_close_weekend') }}"  placeholder="Enter time open...">
+
+                                    @error('time_close_weekend')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Day</label>
+                                    <select class="form-control @error('status') is-invalid @enderror" name="time_billiard">
+                                        <option disabled selected>Choose Status</option>
+                                        <option value="Normal Day" {{ $other_setting->time_billiard == 'Normal Day' ? 'selected' : '' }}>Normal Day</option>
+                                        <option value="Weekdays" {{ $other_setting->time_billiard == 'Weekdays' ? 'selected' : '' }}>Weekdays</option>
+                                    </select>
+                                </div>
+                            </div> --}}
                         </div>
                         <div class="d-flex justify-content-end gap-2 pt-3 mt-3" style="border-top: 2px solid rgb(68,70,84);">
                             <a class="btn btn-md btn-danger p-2" href="{{ route('master-data.index') }}">Kembali</a>

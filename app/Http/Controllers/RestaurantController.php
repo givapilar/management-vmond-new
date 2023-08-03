@@ -75,7 +75,7 @@ class RestaurantController extends Controller
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];
             $restaurant->stok_perhari = $validateData['stok_perhari'];
-            $restaurant->current_stok = $validateData['current_stok'];
+            $restaurant->current_stok = $validateData['stok_perhari'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
@@ -211,7 +211,7 @@ class RestaurantController extends Controller
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];
             $restaurant->stok_perhari = $validateData['stok_perhari'];
-            $restaurant->current_stok = $validateData['current_stok'];
+            $restaurant->current_stok = $validateData['stok_perhari'];
             $restaurant->status = $validateData['status'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
@@ -224,28 +224,36 @@ class RestaurantController extends Controller
             //     $restaurant->image = $name;
             // }
 
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $filename = time().'.'.$image->getClientOriginalExtension();
+            //     $filePath = 'assets/images/restaurant/'.$filename;
+
+            //     // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+            //     if (Image::make($image)->width() > 00 && $image->getSize() < 2000000) {
+            //         // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+            //         return redirect()->route('restaurant.index')->with(['failed' => 'Image Size 200 x 200!']);
+            //         // return 'Image Harus format 200 x 200!';
+
+            //     } else {
+            //         // Resize the image
+            //         $img = Image::make($image)->resize(200, 200);
+
+            //         // Save the resized image
+            //         $img->save(public_path($filePath));
+
+            //         // Store the image filename in the restaurant model
+            //         $restaurant->image = basename($filePath);
+            //         // If the image dimensions or weight do not meet the requirements, store the original image path
+            //     }
+            // }
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = time().'.'.$image->getClientOriginalExtension();
-                $filePath = 'assets/images/restaurant/'.$filename;
-
-                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
-                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
-                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
-                    return redirect()->route('restaurant.index')->with(['failed' => 'Image Size 200 x 200!']);
-                    // return 'Image Harus format 200 x 200!';
-
-                } else {
-                    // Resize the image
-                    $img = Image::make($image)->resize(200, 200);
-
-                    // Save the resized image
-                    $img->save(public_path($filePath));
-
-                    // Store the image filename in the restaurant model
-                    $restaurant->image = basename($filePath);
-                    // If the image dimensions or weight do not meet the requirements, store the original image path
-                }
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/restaurant/');
+                $image->move($destinationPath, $name);
+                $restaurant->image = $name;
             }
 
             $restaurant->save();

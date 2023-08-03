@@ -27,6 +27,33 @@
                       @enderror
                     </div>
                   </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="form-group mb-3">
+                      <label for="position">Position</label>
+                      <input class="form-control @error('position') is-invalid @enderror" id="position" type="text" name="position" placeholder="Position" required value="{{ old('position') ?? $tag->position }}">
+                      
+                      @error('position')
+                      <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="form-group mb-3">
+                        <label for="status">Status</label>
+                        <select class="form-control @error('status') is-invalid @enderror" name="status">
+                            <option disabled selected>Choose Status</option>
+                            <option value="active" {{ ($tag->status == 'active') ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ ($tag->status == 'inactive') ? 'selected' : '' }}>Inactive</option>
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
                 </div>
               </div>
 

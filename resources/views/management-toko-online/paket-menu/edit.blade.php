@@ -39,6 +39,7 @@
                                     <select class="form-control @error('category') is-invalid @enderror" name="category" id="category" onchange="categorySelection(this.value)">
                                         <option value="billiard" {{ $package->category == 'billiard' ? 'selected' : '' }}>Billiard</option>
                                         <option value="meeting_room" {{ $package->category == 'meeting_room' ? 'selected' : '' }}>Meeting Room</option>
+                                        <option value="event" {{ $package->category == 'event' ? 'selected' : '' }}>Event</option>
                                     </select>
 
                                     @error('category')
@@ -199,7 +200,6 @@
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
                                     <label for="minimal">Minimal </label>
@@ -287,6 +287,24 @@
         skin: "oxide-dark",
         content_css: "dark"
     });
+    
+    var selectedValue = $('#category').val();
+    if (selectedValue === 'billiard') {
+        $('#billiard').removeClass('d-none');
+        $('#meeting_room').addClass('d-none');
+    }else if(selectedValue === 'meeting_room') {
+        $('#meeting_room').removeClass('d-none')
+        $('#billiard').addClass('d-none')
+    }
+    function categorySelection(val) {
+        if (val === 'billiard') {
+            $('#billiard').removeClass('d-none');
+            $('#meeting_room').addClass('d-none');
+        }else if(val === 'meeting_room') {
+            $('#meeting_room').removeClass('d-none')
+            $('#billiard').addClass('d-none')
+        }
+    }
 </script>
 
 <script>

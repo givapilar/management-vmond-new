@@ -43,12 +43,6 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
-        $newHistoryLog = new HistoryLog();
-        $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Add User';
-        // $newHistoryLog->user_id = auth()->user()->id;
-        $newHistoryLog->save();
-
         $user = new User();
         $user->name = $validateData['name'];
         // $user->username = $validateData['username'];
@@ -65,6 +59,13 @@ class UserController extends Controller
 
         $user->save();
         $user->assignRole($validateData['role']);
+
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Add';
+        $newHistoryLog->menu = 'Add User '.$user->name;
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
 
         return redirect()->route('users.index')->with(['success' => 'User added successfully!']);
     }
@@ -89,11 +90,7 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
-        $newHistoryLog = new HistoryLog();
-        $newHistoryLog->datetime = date('Y-m-d H:i:s');
-        $newHistoryLog->type = 'Update User';
-        $newHistoryLog->user_id = auth()->user()->id;
-        $newHistoryLog->save();
+       
 
         $user = User::findOrFail($id);
         $user->name = $validateData['name'];
@@ -114,6 +111,13 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($validateData['role']);
 
+        $newHistoryLog = new HistoryLog();
+        $newHistoryLog->datetime = date('Y-m-d H:i:s');
+        $newHistoryLog->type = 'Edit';
+        $newHistoryLog->menu = 'Edit User '.$user->name;
+        $newHistoryLog->user_id = auth()->user()->id;
+        $newHistoryLog->save();
+
         return redirect()->route('users.index')->with(['success' => 'User edited successfully!']);
     }
 
@@ -128,14 +132,17 @@ class UserController extends Controller
                 }
             }
 
+            
+            $user->delete();
+            
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
-            $newHistoryLog->type = 'Delete User';
+            $newHistoryLog->type = 'Delete';
+            $newHistoryLog->menu = 'Delete User '.$user->name;
             $newHistoryLog->user_id = auth()->user()->id;
             $newHistoryLog->save();
-
-            $user->delete();
         });
+        
         
         Session::flash('success', 'User deleted successfully!');
         return response()->json(['status' => '200']);

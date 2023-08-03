@@ -39,11 +39,12 @@
                         </div>
                     </div>
 
-                    <table id="mytable" class="table table-striped" style="width:100%">
+                    <table id="mytableMeja" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th class="th-sm text-white">No</th>
                                 <th class="th-sm text-white">Nama</th>
+                                <th class="th-sm text-white">Kode Meja</th>
                                 <th class="th-sm text-white">Category</th>
                                 <th class="th-sm text-white">Status</th>
                                 <th class="th-sm text-white">Barcode</th>
@@ -55,6 +56,7 @@
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                                 <td class="table-head text-white">{{ $meja_restaurant->nama }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->kode_meja }}</td>
                                 <td class="table-head text-white">{{ $meja_restaurant->category }}</td>
                                 {{-- <td class="table-head text-white">{{ $meja_restaurant->status }}</td> --}}
                                 @if ($meja_restaurant->status == 'Tersedia')
@@ -63,12 +65,35 @@
                                     <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
                                 @endif
 
-                                {{-- <td class="table-head text-white" style="background-color: white"><a href="#" onclick="downloadImage({{ $meja_restaurant->id }})">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</a></td> --}}
+                                {{-- <td class="table-head text-white" style="background-color: white">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</a></td> --}}
                                 <td class="table-head text-white"> 
-                                    <a download="barcode.jpg" class="btn btn-primary p-2 f-12" href="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}"  title="ImageName">
+                                    {{-- <a download="barcode-{{ strtolower(str_replace(' ', '',$meja_restaurant->nama)) }}.jpg" class="btn btn-primary p-2 f-12" href="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}"  title="ImageName">
                                         DOWNLOAD
-                                    {{-- <img style="width:200px; height:200px;" src="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!} " alt="barcode"   /> --}}
+                                    </a> --}}
+
+                                    <style>
+                                        .barcode-download {
+                                            display: inline-block;
+                                            width: 200px;
+                                            height: 200px;
+                                            background-image: url('data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}');
+                                            background-size: cover;
+                                            background-position: center;
+                                            text-align: center;
+                                            line-height: 200px;
+                                            font-size: 14px;
+                                            text-decoration: none;
+                                            color: #ffffff;
+                                            background-color: #007bff;
+                                            border: none;
+                                            border-radius: 4px;
+                                        }
+                                    </style>
+                                    <a download="barcode-{{ strtolower(str_replace(' ', '',$meja_restaurant->nama)) }}.jpg" class="btn btn-primary p-2 f-12" href="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}" title="ImageName">
+                                        DOWNLOAD
                                     </a>
+                                    
+                                    {{-- <img style="width:200px; height:200px;" src="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!} " alt="barcode"   /> --}}
                                     {{-- <img src="data:image/png,' . {!! DNS2D::getBarcodePng( "$meja_restaurant->barcode" , 'C39+')!!} . '" alt="barcode"   /> --}}
                                 </td>
                                 {{-- <td class="table-head text-white"><a href="{{ route('meja-restaurant.qr') }}">Button</a></td> --}}
@@ -103,3 +128,11 @@
 </div>
 @include('master-data.meja-restaurant.create')
 @endsection
+@push('script_bot')
+    <script>
+        var table = $('#mytableMeja').DataTable( {
+            responsive: true,
+            "lengthMenu": [[100, 50, 25], [100, 50, 25]]
+        } );
+    </script>
+@endpush

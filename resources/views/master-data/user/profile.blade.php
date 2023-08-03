@@ -76,11 +76,11 @@
                             <div class="user-profile">
                                 <div class="user-avatar">
                                     <img class="border-rounded"
-                                        src="{{ asset('assets/images/user/'.(Auth::user()->avatar ?? 'user.png')) }}"
+                                        src="{{ asset('assets/images/user/'.($user->avatar ?? 'user.png')) }}"
                                         alt="Maxwell Admin" style="width: 100px; height:100px;">
                                 </div>
-                                <h5 class="user-name">{{ Auth::user()->name }}</h5>
-                                <h6 class="user-email">{{ Auth::user()->email }}</h6>
+                                <h5 class="user-name">{{ $user->name }}</h5>
+                                <h6 class="user-email">{{ $user->email }}</h6>
                             </div>
                         </div>
                     </div>

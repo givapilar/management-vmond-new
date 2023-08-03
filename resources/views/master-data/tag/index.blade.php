@@ -42,7 +42,9 @@
               <tr>
                 <th class="th-sm text-white">No</th>
                 <th class="th-sm text-white">Tag Name</th>
-                <th class="th-sm text-white">Action</th>
+                <th class="th-sm text-white">position</th>
+                <th class="th-sm text-white">status</th>
+                <th class="th-sm text-white" width="13%">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -50,6 +52,8 @@
               <tr>
                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                 <td class="table-head text-white">{{ $tag->tag_name }}</td>
+                <td class="table-head text-white">{{ $tag->position ?? 'not found' }}</td>
+                <td class="table-head text-white">{{ $tag->status ?? 'not found' }}</td>
                 @if(auth()->user()->can('tag-delete') || auth()->user()->can('tag-edit'))
                 <td>
                   <div class="btn-group-sm">

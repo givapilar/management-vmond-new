@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AddOn;
 use App\Models\AddOnDetail;
 use App\Models\HistoryLog;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;

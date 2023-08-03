@@ -60,6 +60,7 @@ class MenuPackagesController extends Controller
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
             'minimal' => 'required',
+            'jam' => 'required',
             'status_konfirmasi' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
@@ -82,6 +83,7 @@ class MenuPackagesController extends Controller
             $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
             $paket_menu->description = $validateData['description'];
+            $paket_menu->jam = $validateData['jam'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;
 

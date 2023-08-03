@@ -75,12 +75,12 @@ class BannerController extends Controller
             //     }
             // }
 
-            if ($request->hasFile('avatar')) {
-                $image = $request->file('avatar');
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/banner/');
                 $image->move($destinationPath, $name);
-                $user->avatar = $name;
+                $banner->image = $name;
             }
 
             $banner->save();
@@ -140,12 +140,12 @@ class BannerController extends Controller
             //     }
             // }
 
-            if ($request->hasFile('avatar')) {
-                $image = $request->file('avatar');
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
                 $destinationPath = public_path('assets/images/banner/');
                 $image->move($destinationPath, $name);
-                $user->avatar = $name;
+                $banner->image = $name;
             }
 
             $banner->save();
