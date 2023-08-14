@@ -19,24 +19,35 @@ class ReportAnalyticController extends Controller
         // Initialize an empty array to store food sales data
         $foodSalesData = [];
 
-        // Loop through the order details and populate the food sales data array
+        $startDate = $request->input('start_date');
+
+        // Jika belum ada tanggal yang dipilih, atur tanggal hari ini
+        if (!$startDate) {
+            $startDate = now()->format('Y-m-d');
+        }
+
+        // Loop melalui detail pesanan dan mengisi array data penjualan makanan
         foreach ($orderDetails as $orderDetail) {
             $foodName = $orderDetail->restaurant->nama;
             $quantity = $orderDetail->qty;
+            $orderDate = $orderDetail->order->created_at;
 
-            if (array_key_exists($foodName, $foodSalesData)) {
-                // Increment the quantity for the existing food name
-                $foodSalesData[$foodName] += $quantity;
-            } else {
-                // Add a new entry for the food name with its quantity
-                $foodSalesData[$foodName] = $quantity;
+            // Filter berdasarkan periode yang dipilih
+            if ($request->has('type')) {
+                $type = $request->input('type');
+                if ($type === 'day' && ($orderDate->isToday() || $orderDate->format('Y-m-d') === $startDate)) {
+                    // Jika tipe adalah harian dan tanggal pesanan adalah hari ini atau tanggal yang dipilih
+                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+                } elseif ($type === 'monthly' && $orderDate->isCurrentMonth()) {
+                    // Jika tipe adalah bulanan dan tanggal pesanan adalah bulan ini
+                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+                } elseif ($type === 'yearly' && $orderDate->isCurrentYear()) {
+                    // Jika tipe adalah tahunan dan tanggal pesanan adalah tahun ini
+                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+                }
             }
         }
 
-        // Now, $foodSalesData contains the food sales data with food names as keys and quantities as values
-        // You can use this data to create a chart
-
-        // Example ECharts option for creating a bar chart
         $chartOption = [
             'title' => [
                 'text' => 'Food Sales'

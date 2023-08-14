@@ -236,152 +236,73 @@
     </div>
 
     {{-- Line cart --}}
-    <form action="" method="get" class="p-3">
-        <div class="card rounded-20 p-2">
-            <div class="card-header rounded-t-20 pt-1 pl-2 pb-0 pr-2">
-                <h4 class="text-center text-uppercase">Filter Stok</h4>
-            </div>
-            <div class="card-body bg-gray-800 rounded-20 p-3">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group ">
-                            <label> period :</label>
-                            <select class="form-control select2 text-light" data-placeholder="Choose one" id="daterange" name="type">
-                                {{-- <option value="day" {{ (Request::get('type') == 'day') ? 'selected' : ''}}>Daily</option> --}}
-                                <option value="monthly" {{ (Request::get('type') == 'monthly') ? 'selected' : '' }}>Monthly</option>
-                                <option value="yearly" {{ (Request::get('type') == 'yearly') ? 'selected' : '' }}>Yearly</option>
-                            </select>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card card rounded-20 p-2">
+                    <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                        <div class="row">
+                            <div class="col-6 mt-1 px-4">
+                                <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                    <i class="fa-solid fa-address-card"  style="font-size: 20px;"></i>
+                                    <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                                </span>
+                            </div>
+    
+                            <div class="col-6 text-right px-4">
+                                <a class="btn btn-sm btn-danger p-2" href="{{ route('master-data.index') }}">
+                                    Kembali
+                                </a>
+    
+                                @can('add-on-create')
+                                <button class="btn btn-sm btn-success btn-open-modal p-2" data-toggle="modal" data-target="#tambah-add-on">
+                                    Tambah
+                                </button>
+                                @endcan
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-3">
-                        <div class="form-group" id="datepicker-date-area">
-                            <label> Date :</label>
-                            <input type="text" name="start_date" id="date" value="{{Request::get('start_date') ?? date('Y-m-d')}}"
-                                autocomplete="off" class="datepicker form-control time" required>
+    
+                    <div class="card-body bg-gray-800 rounded-20 p-3">
+                        <div class="row">
+                            <div class="col-12">
+                                @include('components.flash-message')
+                            </div>
                         </div>
-                        <div class="form-group hilang" id="datepicker-month-area">
-                            <label> Month :</label>
-                            <input type="text" name="month" id="month" value="{{ Request::get('month') ?? date('Y-m') }}"
-                                autocomplete="off" class="datepicker-month form-control time" required>
-                        </div>
-                        <div class="form-group hilang" id="datepicker-year-area">
-                            <label> Year :</label>
-                            <input type="text" name="year" id="month" value="{{ Request::get('year') ?? date('Y') }}"
-                                autocomplete="off" class="datepicker-year form-control text-light" required>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group mb-3">
-                            <label>Restaurant :</label>
-                            <select class="js-example-basic-single @error('restaurant_id') is-invalid @enderror"
-                                id="restaurant_id" name="restaurant_id" style="width:100%">
-                                <option disabled selected>Choose Restaurant</option>
-                                @foreach ($restaurants as $restaurant)
-                                <option value="{{ $restaurant->id }}"
-                                    {{ old('restaurant_id') == $restaurant->id ? 'selected' : '' }}>
-                                    {{ $restaurant->nama }} </option>
+    
+                        <table id="mytable" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm text-white">No</th>
+                                    <th class="th-sm text-white">Nama</th>
+                                    <th class="th-sm text-white">Email</th>
+                                    <th class="th-sm text-white">Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($account_users as $item)
+                                <tr>
+                                    <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                    <td class="table-head text-white">{{ $item->username ?? ''}}</td>
+                                    <td class="table-head text-white">{{ $item->email ?? '' }}</td>
+                                    <td class="table-head text-white">{{ $item->telephone ?? '' }}</td>
+                                </tr>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2">
-                        <div class="form-group mt-4 ">
-                            <button type="submit" class="btn btn-primary btn-group-lg p-2 ">
-                                {{-- <i class="fas fa-cog fa-lg"></i> --}}
-                                Generate
-                            </button>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </form>
-
-    {{-- <div class="row p-3 mb-5">
-        <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card rounded-20 p-2">
-                <div class="card-header rounded-t-20 pt-1 pl-2 pb-0 pr-2">
-                    <h4 class="text-center text-uppercase">Dasboard Analytic</h4>
-                </div>
-                <div class="card-body bg-gray-800 rounded-20 p-3">
-                    <div>
-                        <canvas id="lineChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div> --}}
+    </div>
 </div>
+
+
 @endsection
 
 @section('javascript')
-<script>
-    // Food Sales Chart
-    var ctx = document.getElementById('lineChart').getContext('2d');
-
-    var chartData = @json($chartData); // Pass chart data from the controller
-    console.log(chartData);
-
-    var foodSalesChart = new Chart(ctx, {
-        type: 'bar',
-        data: chartData,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Quantity'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Food Items'
-                    }
-                }
-            }
-        }
-    });
-</script>
 
 <script>
-    let date = @json($stok_masuk);
-    console.log(date);
-
-    generateChartTransaksi('myChart', @json($date), @json($stok_masuk), @json($stok_keluar));
-
-    function generateChartTransaksi(id, date, stok_masuk, stok_keluar) {
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: date,
-                datasets: [{
-                    label: '# Stok Masuk',
-                    data: stok_masuk,
-                    borderWidth: 1
-                },{
-                    label: '# Stok Keluar',
-                    data: stok_keluar,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-
     $('.datepicker').datepicker({
         format: "yyyy-mm-dd",
         startView: 2,

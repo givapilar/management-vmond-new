@@ -30,9 +30,10 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $data['page_title'] = 'Dashboard';
+        $data['page_title'] = 'Customer';
         $data['materials'] = Material::orderby('id', 'asc')->get();
         $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
+        $data['account_users'] = AccountUser::orderby('id', 'asc')->get();
         $data['type'] = $request->type;
         $type = $request->type ?? 'monthly';
         if ($request->year) {
