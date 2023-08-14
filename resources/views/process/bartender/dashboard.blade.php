@@ -43,9 +43,12 @@
                             <h5 class="card-title text-center pt-1 fw-bolder"> 
                                 (Meja 
                                     @if($item->meja_restaurant_id || $item->category == 'Takeaway' )
-                                        {{ $item->tableRestaurant->nama ?? ''}}
                                         @if ($item->category == 'Takeaway')
-                                        {{ $item->category }}
+                                            {{ $item->category }}
+                                            {{ $item->tableRestaurant->nama ?? ''}}
+                                        
+                                        @else
+                                            {{ $item->tableRestaurant->nama ?? ''}}
                                         @endif
                                     @elseif($item->biliard_id)
                                         {{ $item->tableBilliard->nama }}    
@@ -85,6 +88,7 @@
                                                 @endif
                                             </h5>
                                         </span>
+                                        
                                     </div>
                                 </li>
                             @endforeach
@@ -123,6 +127,19 @@
                                                 {{ $orderBilliard->restaurant->nama }}
                                                 ({{ $orderBilliard->qty }}) 
                                             </h5>
+
+                                            <span class="text-wrap fs-5">
+                                                <h5 class="flex-shrink-1 mt-1" style="font-size: 14px">
+                                                    @if (count($orderBilliard->orderAddOn) != 0)
+                                                        @foreach ($orderBilliard->orderAddOn as $oad)
+                                                            <span class="fw-bold">{{ $oad->addOn->title ?? '' }}</span>:
+                                                            {{ $oad->addOnDetail->nama ?? '' }} | 
+                                                        @endforeach
+                                                    @else
+                                                        Note: -
+                                                    @endif
+                                                </h5>
+                                            </span>
                                         </div>
                                     </li>
                                 @endforeach

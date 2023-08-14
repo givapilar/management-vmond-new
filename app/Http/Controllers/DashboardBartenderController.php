@@ -22,18 +22,13 @@ class DashboardBartenderController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Dashboard';  
-        // $data['orders'] = OrderPivot::get();
-        // $data['order_table'] = Order::get();
             
         $data['current_time'] = Carbon::now()->format('Y-m-d H:i:s');
         // $data['orders'] = Order::get();
         $today = Carbon::today();
         $orders = Order::orderBy('id','desc')->where('status_pembayaran', 'Paid')->whereDate('created_at', $today)->where('status_pesanan', 'process')->get();
         $data['orders'] = $orders;
-        // dd($orders[0]->orderPivotMakanan());
-        // $data['order_billiards'] = $order->orderBilliardMakananTime($current_time);
-        // $data['order_meetings'] = $order->orderMeetingMakananTime($current_time);
-        // $data['order_billiards'] = OrderBilliard::get();
+
         foreach ($orders as $order) {
             $order->elapsed_time = $this->calculateElapsedTime($order->created_at);
         }
@@ -366,5 +361,55 @@ class DashboardBartenderController extends Controller
         $printer->cut();
         $printer->close();
         return 'Success';
+    }
+
+    public function reportBartender(Request $request){
+        $data['page_title'] = 'Dashboard Bartender';
+        $data['orders'] = Order::orderby('id', 'asc')->get();
+
+        $data['account_users'] = AccountUser::get();
+
+        $type = $request->has('type') ? $request->type : 'day';
+        $user = $request->has('user_id') ? $request->user_id : 'All';
+
+        if ($type == 'day') {
+            $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+            if ($user == 'All') {
+                $stok = Order::whereDate('created_at', $date)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
+            } else {
+                $stok = Order::whereDate('created_at', $date)
+                            ->where('user_id', $request->user_id)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
+            }
+        } elseif ($type == 'monthly') {
+            $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
+            $stok = Order::whereMonth('created_at', $month)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        } elseif ($type == 'yearly') {
+            $year = $request->has('year') ? $request->year : date('Y');
+            $stok = Order::whereYear('created_at', $year)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        }
+
+        $totalPriceSum = $stok->sum('total_price');
+
+        $data['total_price'] = $totalPriceSum;
+        $data['orders'] = $stok;
+        return view('report.dashboard-bartender.index', $data);
     }
 }

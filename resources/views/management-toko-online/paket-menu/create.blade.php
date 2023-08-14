@@ -194,7 +194,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea name="description" class="form-control" id="description" rows="4">{{ old('description') }}</textarea>
@@ -205,7 +205,7 @@
                                 </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="row">

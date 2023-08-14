@@ -130,11 +130,19 @@
 
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
+                Kasir:
+                <span style="float: right; margin-right: 15px;">{{ $orders->userManagement->name ?? '-' }} </span>
+            </div>
+        </div>
+
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
                 Table:
                 @if($orders->meja_restaurant_id || $orders->category == 'Takeaway')
-                    <span style="float: right; margin-right: 15px;">{{ $orders->tableRestaurant->nama ?? '' }}</span>
                     @if ($orders->category == 'Takeaway')
-                    <span style="float: right; margin-right: -12px;">{{ $orders->category }}</span>
+                        <span style="float: right; margin-right: 15px;"> {{ $orders->category }} {{ $orders->tableRestaurant->nama ?? '' }}</span>
+                    @else
+                        <span style="float: right; margin-right: 15px;">{{ $orders->tableRestaurant->nama ?? '' }}</span>
                     @endif
                 @elseif($orders->biliard_id)
                     <span style="float: right; margin-right: 15px;">{{ $orders->tableBilliard->nama }}</span>    
@@ -144,6 +152,8 @@
             </div>
         </div>
 
+        @if ($orders->biliard_id)
+            
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
                 Time Start:
@@ -169,6 +179,8 @@
                 @endif   
             </div>
         </div>
+        @endif
+
 
         <div style="margin-bottom: 5px"></div>
         <table>
@@ -252,20 +264,39 @@
                     
                 </tr>
                 
+                @if ($orders->category == 'Takeaway')
+                    
+                    <tr>
+                        <td class="quantity"></td>
+                        <td class="description">Packing</td>
+
+                        <td class="price" style="text-align: right">Rp.{{ number_format($other_setting->biaya_packing) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="quantity"></td>
+                        <td class="description">Order Total</td>
+                        <td class="price" style="text-align: right">Rp.{{ number_format($totalPrice + $orders->orderPivot->sum(function ($orderPivot) {
+                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon;
+                        }) * $other_setting->layanan/100 + $orders->orderPivot->sum(function ($orderPivot) use ($other_setting) { 
+                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon + $orderPivot->qty * $orderPivot->restaurant->harga_diskon * $other_setting->layanan/100;
+                        }) * $other_setting->pb01/100 + $other_setting->biaya_packing,
+                            0
+                        ) }}</td>
+                    </tr>
+
+                @else
                 <tr>
                     <td class="quantity"></td>
                     <td class="description">Order Total</td>
-                    <td class="price" style="text-align: right">Rp.{{ number_format(
-                        $totalPrice +
-                        $orders->orderPivot->sum(function ($orderPivot) {
-                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon;
-                        }) * $other_setting->layanan/100 +
-                        $orders->orderPivot->sum(function ($orderPivot) use ($other_setting) {
-                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon + $orderPivot->qty * $orderPivot->restaurant->harga_diskon * $other_setting->layanan/100;
-                        }) * $other_setting->pb01/100,
+                    <td class="price" style="text-align: right">Rp.{{ number_format($totalPrice + $orders->orderPivot->sum(function ($orderPivot) {
+                        return $orderPivot->qty * $orderPivot->restaurant->harga_diskon;
+                    }) * $other_setting->layanan/100 + $orders->orderPivot->sum(function ($orderPivot) use ($other_setting) { 
+                        return $orderPivot->qty * $orderPivot->restaurant->harga_diskon + $orderPivot->qty * $orderPivot->restaurant->harga_diskon * $other_setting->layanan/100;
+                    }) * $other_setting->pb01/100,
                         0
                     ) }}</td>
                 </tr>
+                @endif
 
                 @elseif($orders->biliard_id)
 

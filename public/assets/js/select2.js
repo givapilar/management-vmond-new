@@ -29,11 +29,32 @@
 
     // Return `null` if the term should not be displayed
     return null;
-}
+  }
 
+  function matchStart(params, data) {
+    if ($.trim(params.term) === '') {
+        return data;
+    }
+
+    var filteredData = [];
+    $.each(data, function (idx, option) {
+        if (option.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+            filteredData.push(option);
+        }
+    });
+
+    return filteredData;
+}
+  
   if ($(".js-example-basic-multiple").length) {
     $(".js-example-basic-multiple").select2({
         matcher: matchCustom
+    });
+  }
+  
+  if ($(".select2-search").length) {
+    $(".select2-search").select2({
+        matcher: matchStart
     });
   }
 })(jQuery);

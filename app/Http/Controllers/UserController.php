@@ -125,16 +125,9 @@ class UserController extends Controller
     {
         DB::transaction(function () use ($id) {
             $user = User::findOrFail($id);
-            if ($user->avatar) {
-                $image_path = public_path('assets/images/user/'.$user->avatar); // Value is not URL but directory file path
-                if (File::exists($image_path)) {
-                    File::delete($image_path);
-                }
-            }
-
-            
+            $user->historyLogs()->delete();
             $user->delete();
-            
+
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');
             $newHistoryLog->type = 'Delete';
@@ -146,6 +139,10 @@ class UserController extends Controller
         
         Session::flash('success', 'User deleted successfully!');
         return response()->json(['status' => '200']);
+    }
+
+    public function show(){
+        
     }
 
     public function profile($id)

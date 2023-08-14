@@ -97,7 +97,7 @@
         @endcan
 
         @can('asset-management-list')
-        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('asset-management.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('asset-management.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -113,7 +113,7 @@
         @endcan
 
         @can('tag-list')
-        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('tag.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('tag.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -129,7 +129,7 @@
         @endcan
 
         @can('meja-restaurant-list')
-        <div class="col-12 col-lg-4 col-md-6" onclick="location.href='{{ route('meja-restaurant.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('meja-restaurant.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -145,7 +145,7 @@
         @endcan
 
         @can('membership-list')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('membership.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('membership.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -161,7 +161,7 @@
         @endcan
 
         @can('supplier-list')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('supplier.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('supplier.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -177,7 +177,7 @@
         @endcan
 
         @can('other-settings')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('other.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('other.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -193,7 +193,7 @@
         @endcan
 
         @can('other-settings')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('add-on.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('add-on.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -209,7 +209,7 @@
         @endcan
 
         @can('other-settings')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('feedback.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('feedback.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -225,7 +225,23 @@
         @endcan
 
         @can('other-settings')
-        <div class="col-12 col-lg-4 col-md-6 mt-4" onclick="location.href='{{ route('add-on-billiard.index') }}'">
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('total-member.index') }}'">
+            <div class="card rounded-20 p-2 bg-gray-800">
+                <div class="d-flex justify-content-start align-items-center">
+                    <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
+                        <img src="{{ asset('assets/images/icon/add.png') }}" alt="">
+                    </div>
+                    <div class="flex-grow-1 ml-3">
+                        <h3 class="m-0 p-0">Total Member</h3>
+                        <p class="m-0 p-0 text-muted">Update data Total Member </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endcan
+
+        {{-- @can('other-settings')
+        <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('add-on-billiard.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
                     <div class="flex-shrink-1 p-3 radius-r-20 bg-gray-400">
@@ -238,7 +254,7 @@
                 </div>
             </div>
         </div>
-        @endcan
+        @endcan --}}
     </div>
 </div>
 @endsection

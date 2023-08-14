@@ -129,6 +129,7 @@
                 <th class="th-sm text-white">No</th>
                 <th class="th-sm text-white">No Invoice</th>
                 <th class="th-sm text-white">Nama</th>
+                <th class="th-sm text-white">Phone</th>
                 <th class="th-sm text-white">Qty</th>
                 <th class="th-sm text-white">Total Price</th>
               </tr>
@@ -149,6 +150,7 @@
                                 </button>
                             </td> --}}
                             <td class="table-head text-white">{{ $order->name }}</td>
+                            <td class="table-head text-white">{{ $order->phone }}</td>
                             <td class="table-head text-white">{{ $order->qty ?? 0}}</td>
                             <td class="table-head text-white">{{ $order->total_price}}</td>
                       </tr>

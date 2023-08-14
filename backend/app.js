@@ -24,11 +24,11 @@ app.use((req, res, next) => {
 });
 
 const pool = new Pool({
-  host: '89.116.179.183',
+  host: 'db-vmond-production.ctkm9cxdes8h.ap-southeast-3.rds.amazonaws.com',
   port: 5432,
   database: 'management-vmond',
   user: 'postgres',
-  password: 'PassGiva7&',
+  password: 'PassVmondSukses',
 });
 
 const promisifiedQuery = util.promisify(pool.query).bind(pool);
@@ -203,8 +203,8 @@ function updateCurrentStok() {
 
   const updateStokJob = schedule.scheduleJob('0 06 * * *', function() {
     // console.log('sukses');
-    console.log('Scheduled job started at ' + new Date());
-    // updateCurrentStok();
+    // console.log('Scheduled job started at ' + new Date());
+    updateCurrentStok();
 });
 
 

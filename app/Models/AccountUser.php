@@ -11,4 +11,9 @@ class AccountUser extends Model
 
     protected $table = 'account_users';
 
+    public function membership()
+    {
+        return $this->belongsTo(Membership::class);
+    }
+
 }

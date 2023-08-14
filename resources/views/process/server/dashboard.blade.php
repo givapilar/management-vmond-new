@@ -30,10 +30,13 @@
                         <h5 class="card-title text-center pt-1 fw-bolder">
                             (Meja 
                                 @if($item->meja_restaurant_id || $item->category == 'Takeaway' )
-                                    {{ $item->tableRestaurant->nama ?? ''}}
+
                                     @if ($item->category == 'Takeaway')
                                     {{ $item->category }}
-                                        
+                                    {{ $item->tableRestaurant->nama ?? ''}}
+                                    
+                                    @else
+                                        {{ $item->tableRestaurant->nama ?? ''}}
                                     @endif
                                 @elseif($item->biliard_id)
                                     {{ $item->tableBilliard->nama }}    
@@ -44,11 +47,11 @@
                         </h5>
                     {{-- </a> --}}
                 </div>
-                <div class="card-body py-0 px-0">
+                {{-- <div class="card-body py-1">
                     <div class="scroll-style">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush pe-3">
                             @foreach ($item->orderPivot as $order_pivot)
-                                <li class="list-group-item d-flex justify-content-start align-items-center p-2">
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div class="flex-shrink-1">
                                         <input disabled class="form-check-input me-2 p-2 mt-1" onchange="confirmData('{{ $order_pivot->id }}', this)" type="checkbox" value="" aria-label="..." id="checkDetail{{ $order_pivot->id }}" {{ ($order_pivot->status_pemesanan == 'Selesai') ? 'checked' : '' }}>
                                     </div>
@@ -60,10 +63,23 @@
                                             {{ $order_pivot->restaurant->nama }}
                                             ({{ $order_pivot->qty }}) 
                                         </h5>
+
+                                        <span class="text-wrap fs-5">
+                                            <h5 class="flex-shrink-1 mt-1" style="font-size: 14px">
+                                                @if (count($order_pivot->orderAddOn) != 0)
+                                                    @foreach ($order_pivot->orderAddOn as $oad)
+                                                        <span class="fw-bold">{{ $oad->addOn->title ?? '' }}</span>:
+                                                        {{ $oad->addOnDetail->nama ?? '' }} | 
+                                                    @endforeach
+                                                @else
+                                                    Note: -
+                                                @endif
+                                            </h5>
+                                        </span>
                                     </div>
                                 </li>
                             @endforeach
-                            {{-- Meeting --}}
+                            Meeting
                             @foreach ($item->orderMeeting as $order_meeting)
                                 <li class="list-group-item d-flex justify-content-start align-items-center p-2">
                                     <div class="flex-shrink-1">
@@ -79,7 +95,7 @@
                                     </div>
                                 </li>
                             @endforeach
-                            {{-- Restaurant --}}
+                            Restaurant
                             @foreach ($item->orderBilliard as $order_billiard)
                                 <li class="list-group-item d-flex justify-content-start align-items-center p-2">
                                     <div class="flex-shrink-1">
@@ -97,9 +113,95 @@
                             @endforeach
                         </ul>
                     </div>
-                    {{-- <div class="px-2 py-2">
-                        <button class="btn btn-success rounded-lg p-2 mt-1 w-100" onclick="confirmData('{{ $item->id }}')">Selesaikan Pemesanan</button>
-                    </div> --}}
+                </div> --}}
+
+                <div class="card-body py-1">
+                    <div class="scroll-style">
+                        <ul class="list-group list-group-flush pe-3">
+                            @foreach ($item->orderPivot as $order_pivot)
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div class="flex-shrink-1">
+                                    @if ($order_pivot->status_pemesanan == 'Selesai')
+                                        <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $order_pivot->id }}', 'pivot')"  id="" {{ $order_pivot->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                    @else
+                                        <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $order_pivot->id }}', 'pivot')"  id="" {{ $order_pivot->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                    @endif
+                                </div>
+                                <div class="d-flex flex-column bd-highlight">
+                                    <h5 class="p-0 m-0 menu-1 {{ $order_pivot->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                        {{ $order_pivot->restaurant->nama }}
+                                        ({{ $order_pivot->qty }}) 
+                                    </h5>
+
+                                    <span class="text-wrap fs-5">
+                                        <h5 class="flex-shrink-1 mt-1" style="font-size: 14px">
+                                            @if (count($order_pivot->orderAddOn) != 0)
+                                                @foreach ($order_pivot->orderAddOn as $oad)
+                                                    <span class="fw-bold">{{ $oad->addOn->title ?? '' }}</span>:
+                                                    {{ $oad->addOnDetail->nama ?? '' }} | 
+                                                @endforeach
+                                            @else
+                                                Note: -
+                                            @endif
+                                        </h5>
+                                    </span>
+                                    
+                                </div>
+                            </li>
+                        @endforeach
+                            
+                            @foreach ($item->orderMeeting as $order_meeting)
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div class="flex-shrink-1">
+                                        @if ($order_meeting->status_pemesanan == 'Selesai')
+                                            <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $order_meeting->id }}', 'meeting')"  id="" {{ $order_meeting->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                        @else
+                                            <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $order_meeting->id }}', 'meeting')"  id="" {{ $order_meeting->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                        @endif
+                                    </div>
+
+                                    <div class="d-flex flex-column bd-highlight">
+                                        <h5 class="p-0 m-0 menu-1 {{ $order_meeting->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                            {{ $order_meeting->restaurant->nama }}
+                                            ({{ $order_meeting->qty }}) 
+                                        </h5>
+                                    </div>
+                                </li>
+                            @endforeach
+
+                            @foreach ($item->orderBilliard as $order_billiard)
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div class="flex-shrink-1">
+                                        @if ($order_billiard->status_pemesanan == 'Selesai')
+                                            <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="removeData('{{ $order_billiard->id }}', 'billiard')"  id="" {{ $order_billiard->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                        @else
+                                            <input disabled class="form-check-input me-2 p-2 mt-1 checkbox-1" type="checkbox" value="" onchange="confirmData('{{ $order_billiard->id }}', 'billiard')"  id="" {{ $order_billiard->status_pemesanan == 'Selesai' ? 'checked' : '' }}>
+                                        @endif
+                                    </div>
+
+                                    <div class="d-flex flex-column bd-highlight">
+                                        <h5 class="p-0 m-0 menu-1 {{ $order_billiard->status_pemesanan == 'Selesai' ? 'text-decoration-line-through' : '' }}">
+                                            {{ $order_billiard->restaurant->nama }}
+                                            ({{ $order_billiard->qty }}) 
+                                        </h5>
+
+                                        <span class="text-wrap fs-5">
+                                            <h5 class="flex-shrink-1 mt-1" style="font-size: 14px">
+                                                @if (count($order_billiard->orderAddOn) != 0)
+                                                    @foreach ($order_billiard->orderAddOn as $oad)
+                                                        <span class="fw-bold">{{ $oad->addOn->title ?? '' }}</span>:
+                                                        {{ $oad->addOnDetail->nama ?? '' }} | 
+                                                    @endforeach
+                                                @else
+                                                    Note: -
+                                                @endif
+                                            </h5>
+                                        </span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="card-footer border-rb-20">

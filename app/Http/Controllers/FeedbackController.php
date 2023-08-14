@@ -9,7 +9,7 @@ class FeedbackController extends Controller
 {
     public function index(){
         $data['page_title'] = 'Feedback';
-        $data['orders'] = Order::orderby('id', 'asc')->get();
+        $data['orders'] = Order::orderby('id', 'desc')->get();
 
         return view('master-data.feedback.index', $data);
     }

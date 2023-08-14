@@ -48,21 +48,34 @@ class OtherSettingsController extends Controller
             'no_wa' => 'required|regex:/[0-9]/|min:11|max:13',
             'pb01' => 'required|regex:/[0-9]/',
             'layanan' => 'required|regex:/[0-9]/',
+            'biaya_packing' => 'required',
             // 'time_billiard' => 'nullable',
             'time_start' => 'required',
             'time_close' => 'required',
             'time_start_weekend' => 'required',
             'time_close_weekend' => 'required',
+
+            'time_start_weekdays_minuman' => 'nullable',
+            'time_close_weekdays_minuman' => 'nullable',
+            'time_start_weekend_minuman' => 'nullable',
+            'time_close_weekend_minuman' => 'nullable',
         ]);
 
         $other->no_wa = $validate['no_wa'];
         $other->pb01 = $validate['pb01'];
         $other->layanan = $validate['layanan'];
+        $other->biaya_packing = $validate['biaya_packing'];
         // $other->time_billiard = $validate['time_billiard'];
         $other->time_start = $validate['time_start'];
         $other->time_close = $validate['time_close'];
         $other->time_start_weekend = $validate['time_start_weekend'];
         $other->time_close_weekend = $validate['time_close_weekend'];
+
+        // Minuman
+        $other->time_start_weekdays_minuman = $validate['time_start_weekdays_minuman'];
+        $other->time_close_weekdays_minuman = $validate['time_close_weekdays_minuman'];
+        $other->time_start_weekend_minuman = $validate['time_start_weekend_minuman'];
+        $other->time_close_weekend_minuman = $validate['time_close_weekend_minuman'];
         $other->save();
 
         return redirect()->route('other.index')->with(['success' => 'Data inserted or updated successfully!']);

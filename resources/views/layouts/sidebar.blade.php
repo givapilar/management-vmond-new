@@ -79,6 +79,25 @@
       </li>
       @endcan
 
+      {{-- @can('dashboard-report')
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="collapse" href="#dashboard" aria-expanded="false" aria-controls="dashboard">
+          <span class="menu-icon">
+            <i class="mdi mdi-archive"></i>
+          </span>
+          <span class="menu-title">Dashboard Report</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="dashboard">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('report.bartender') }}">Dashboard Bartender</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('stok-masuk.index') }}">Dashboard </a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('stok-keluar.index') }}">Stok Keluar</a></li>
+          </ul>
+        </div>
+      </li>
+      @endcan --}}
+
       @can('master-data')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('master-data.index') }}">
@@ -97,6 +116,17 @@
             <i class="mdi mdi-basket"></i>
           </span>
           <span class="menu-title">Toko Online</span>
+        </a>
+      </li>
+      @endcan
+
+      @can('toko-online')
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ route('Report-analytic.index') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-basket"></i>
+          </span>
+          <span class="menu-title">Report Analytic</span>
         </a>
       </li>
       @endcan
@@ -122,6 +152,26 @@
         </a>
       </li>
       @endcan
+
+      {{-- @can('inventory')
+      <li class="nav-item menu-items">
+        <a class="nav-link" data-toggle="dashboard-report" href="#ui-basic-dashboard" aria-expanded="false" aria-controls="ui-basic-dashboard">
+          <span class="menu-icon">
+            <i class="mdi mdi-archive"></i>
+          </span>
+          <span class="menu-title">Dashboard Report</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="dashboard-report" id="ui-basic-dashboard">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{ route('inventory.daftar-stok.index') }}">Report Barista</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('inventory.daftar-stok.index') }}">Report Kitchen</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{ route('inventory.daftar-stok.index') }}">Report Billiard</a></li>
+          </ul>
+        </div>
+      </li>
+      @endcan --}}
+
 
       @can('report-penjualan')
       <li class="nav-item menu-items">

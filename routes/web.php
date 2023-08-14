@@ -30,7 +30,9 @@ use App\Http\Controllers\DashboardWaiterController;
 use App\Http\Controllers\DashboardServerController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OtherSettingsController;
+use App\Http\Controllers\ReportAnalyticController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TotalMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,10 @@ Route::get('/testpage', function () {
         Route::patch('/control-lamp/update/{id}', [DashboardController::class, 'updateDashboardControl'])->name('control-lamp.update');
         Route::delete('/control-lamp/{id}', [DashboardController::class, 'destroyDashboardControl'])->name('control-lamp.destroy');
         // Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+        // Dashboard Analytic
+        Route::get('/dashboard-analytic', [DashboardController::class, 'dashboardAnalytic'])->name('dashboard-analytic');
 
         // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // Route::get('/dahboardd', [DashboardController::class, 'index'])->name('dashboard');
@@ -168,7 +174,16 @@ Route::get('/testpage', function () {
 
             // Report Penjualan
             Route::resource('/report-penjualan', ReportPenjualanController::class);
-            // Route::get('/report-penjualan', [ReportPenjualanController::class, 'index'])->name('report-penjualan.index');
+
+            // Report Total Member
+            Route::resource('/total-member', TotalMemberController::class);
+
+            // Report Report Analitic
+            Route::resource('/Report-analytic', ReportAnalyticController::class);
+
+            // Dashboard Bartender
+            Route::get('/dashboard-bartender', [DashboardBartenderController::class, 'reportBartender'])->name('report.bartender');
+
     });
 
     // Route Dashboard Kitchen

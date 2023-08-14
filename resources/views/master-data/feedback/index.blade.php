@@ -36,6 +36,7 @@
                 <th class="th-sm text-white">No</th>
                 <th class="th-sm text-white">Nama</th>
                 <th class="th-sm text-white">Feedback</th>
+                <th class="th-sm text-white">Tanggal</th>
                 <th class="th-sm text-white">Description Feedback</th>
               </tr>
           </thead>
@@ -46,6 +47,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td class="table-head text-white">{{ $order->name ?? '-' }}</td>
                             <td class="table-head text-white">{{ $order->feedback ?? '-' }}</td>
+                            <td class="table-head text-white">{{ $order->created_at ?? '-' }}</td>
                             <td class="table-head text-white">{{ $order->description_feedback ?? '-'}}</td>
                         </tr>
                     {{-- @endif --}}

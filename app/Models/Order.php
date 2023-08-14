@@ -21,6 +21,11 @@ class Order extends Model
         return $this->belongsTo(AccountUser::class, 'user_id');
     }
 
+    public function userManagement()
+    {
+        return $this->belongsTo(User::class, 'kasir_id');
+    }
+
     public function paketMenu()
     {
         return $this->belongsTo(MenuPackages::class);

@@ -131,9 +131,10 @@
             <div style="margin-left: 2px;">
                 Table:
                 @if($orders->meja_restaurant_id || $orders->category == 'Takeaway')
-                    <span style="float: right; margin-right: 15px;">{{ $orders->tableRestaurant->nama ?? '' }}</span>
                     @if ($orders->category == 'Takeaway')
-                    <span style="float: right; margin-right: -12px;">{{ $orders->category }}</span>
+                        <span style="float: right; margin-right: 15px;"> {{ $orders->category }} {{ $orders->tableRestaurant->nama ?? '' }}</span>
+                    @else
+                        <span style="float: right; margin-right: 15px;">{{ $orders->tableRestaurant->nama ?? '' }}</span>
                     @endif
                 @elseif($orders->biliard_id)
                     <span style="float: right; margin-right: 15px;">{{ $orders->tableBilliard->nama }}</span>    

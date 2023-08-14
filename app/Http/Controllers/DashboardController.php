@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountUser;
 use App\Models\Biliard;
 use App\Models\HistoryLog;
 use Illuminate\Http\Request;
 use App\Models\Material;
 use App\Models\MejaControl;
+use App\Models\Order;
+use App\Models\OrderPivot;
+use App\Models\Restaurant;
 use App\Models\StokKeluar;
 use App\Models\StokMasuk;
 use DateTime;
@@ -28,6 +32,7 @@ class DashboardController extends Controller
     {
         $data['page_title'] = 'Dashboard';
         $data['materials'] = Material::orderby('id', 'asc')->get();
+        $data['restaurants'] = Restaurant::orderby('id', 'asc')->get();
         $data['type'] = $request->type;
         $type = $request->type ?? 'monthly';
         if ($request->year) {
@@ -48,16 +53,7 @@ class DashboardController extends Controller
             $data['stock_keluar'] = StokKeluar::whereDate('created_at', $request->start_date)->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
              }})->get()->sum('material_keluar');
-            // $start_date = new DateTime(date('Y-m-d 00:00:00',strtotime($request->start_date)) ?? date('Y-m-d 00:00:00'));
-            // $end_date = new DateTime(date('Y-m-d 23:59:59',strtotime($request->start_date)) ?? date('Y-m-d 23:59:59'));
-            // for($hour = clone $start_date; $hour <= $end_date; $hour->modify('+1 hour')){
-            //     array_push($data['date'], $hour->format('H'));
-            //     $stok_masuk = StokMasuk::whereBetween('created_at', [$day->format('Y-m-d 00:00:00'), $day->format('Y-m-d 23:59:59')])->get();
-            //     $stok_keluar = StokKeluar::whereBetween('created_at', [$day->format('Y-m-d 00:00:00'), $day->format('Y-m-d 23:59:59')])->get();
-            //     $masuk = $stok_masuk->sum('material_masuk');
-            //     $keluar = $stok_keluar->sum('masterial_keluar');
-            // }
-            // return false;
+
         } elseif($type == 'monthly') {
             $data['stock_masuk'] = StokMasuk::whereMonth('created_at', date('m', strtotime($request->month)))->when($request->material_id, function($q) use($request){{
                 return $q->where('material_id', $request->material_id);
@@ -168,9 +164,63 @@ class DashboardController extends Controller
         }
 
 
+        $data['membershipBronze'] = AccountUser::whereHas('membership', function ($query) {
+            $query->where('level', 'Bronze');
+        })->count();
+
+        $data['membershipSilver'] = AccountUser::whereHas('membership', function ($query) {
+            $query->where('level', 'Silver');
+        })->count();
+
+        $data['membershipGold'] = AccountUser::whereHas('membership', function ($query) {
+            $query->where('level', 'Gold');
+        })->count();
+
+        $data['membershipPlatinum'] = AccountUser::whereHas('membership', function ($query) {
+            $query->where('level', 'Platinum');
+        })->count();
+
+        $data['membershipSuperPlatinum'] = AccountUser::whereHas('membership', function ($query) {
+            $query->where('level', 'Super Platinum');
+        })->count();
+
+        $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
+        $data['order'] = Order::orderBy('id', 'asc')->get();
+        $orderDetail = OrderPivot::orderBy('id', 'asc')->get();
+
+        // Collect food sales data
+        // $foodSalesData = [];
+
+        // foreach ($orderDetail as $orderPivot) {
+        //     $foodName = $orderPivot->restaurant->nama;
+        //     $qty = $orderPivot->qty;
+
+        //     if (!isset($foodSalesData[$foodName])) {
+        //         $foodSalesData[$foodName] = 0;
+        //     }
+
+        //     $foodSalesData[$foodName] += $qty;
+        // }
+
+        // // Prepare data for the chart
+        // $chartData = [
+        //     'labels' => array_keys($foodSalesData),
+        //     'datasets' => [
+        //         [
+        //             'label' => 'Food Sales Quantity',
+        //             'data' => array_values($foodSalesData),
+        //             'backgroundColor' => 'rgba(75, 192, 192, 0.2)',
+        //             'borderColor' => 'rgba(75, 192, 192, 1)',
+        //             'borderWidth' => 2
+        //         ]
+        //     ]
+        // ];
+        // $data['chartData'] = $chartData;  
 
         return view('dashboard.index', $data);
+        
     }
+
 
     public function dashboardControl() {
         $data['page_title'] = 'Dashboard Control';

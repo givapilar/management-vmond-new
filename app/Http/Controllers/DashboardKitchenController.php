@@ -179,32 +179,41 @@ class DashboardKitchenController extends Controller
     	// return $pdf->download('order-'.$orders->id.'.pdf');
     }
 
-    public function history(Request $request){
+    public function history(Request $request) {
         $data['page_title'] = 'Dashboard Waiters';
         $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
-        // $today = Carbon::today();
+    
         $query = Order::query();
-
-        // Cek apakah ada input tanggal mulai (start_date) dari form
-        if ($request->has('start_date')) {
+    
+        if ($request->has('start_date') || $request->has('nama_customer')) {
             $startDate = $request->input('start_date');
-            $query->whereDate('created_at', '>=', $startDate);
+            // To filter data for the selected date range (including the selected date itself), you should use both ">= start_date" and "< start_date + 1 day"
+            $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<', Carbon::parse($startDate)->addDay());
         } else {
-            // Jika tidak ada input tanggal, filter default menjadi "hari ini"
             $query->whereDate('created_at', Carbon::today());
         }
 
-        // / Tambahkan kondisi untuk status pembayaran "Paid" dan status pesanan "process"
         $query->where('status_pembayaran', 'Paid')->where('status_pesanan', 'process');
-
         $query->orderByDesc('created_at');
-        $orders = $query->get();
+        $getNameCustomer = $query->get()->pluck('name')->unique();
         
-        // $time = Order::where('status_pembayaran', 'Paid')->orderBy('id', 'DESC')->where('status_pesanan', 'process')->get();
+        // Get By Nama Customer
+        if ($request->has('nama_customer')) {
+            $namaCustomer = $request->input('nama_customer');
+            if ($namaCustomer != 'All') {
+                $query->where('name', $namaCustomer);
+            }
+        }
+    
+        $orders = $query->get();
+    
         $data['orders'] = $orders;
+        $data['nama_customers'] = $getNameCustomer;
         foreach ($orders as $order) {
             $order->elapsed_time = $this->calculateElapsedTime($order->created_at);
         }
-        return view('process.history.kitchen-history',$data);
+    
+        return view('process.history.kitchen-history', $data);
     }
+    
 }

@@ -62,9 +62,24 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
-                                    <label for="time_start">Time Open <span class="text-danger">*</span></label>
+                                    <label for="biaya_packing">Biaya Packing <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control @error('biaya_packing') is-invalid @enderror" step="0.01" id="biaya_packing" min="0" max="100000" name="biaya_packing" value="{{ $other_setting->biaya_packing ?? old('biaya_packing') }}"  placeholder="Enter Biaya biaya_packing...">
+
+                                    @error('biaya_packing')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <h3>Makanan</h3>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_start">Time Open Weekdays <span class="text-danger">*</span></label>
                                     <input type="time" class="form-control @error('time_start') is-invalid @enderror" id="time_start" name="time_start" value="{{ $other_setting->time_start ?? old('time_start') }}"  placeholder="Enter time open...">
 
                                     @error('time_start')
@@ -76,7 +91,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
-                                    <label for="time_close">Time Close <span class="text-danger">*</span></label>
+                                    <label for="time_close">Time Close Weekdays <span class="text-danger">*</span></label>
                                     <input type="time" class="form-control @error('time_close') is-invalid @enderror" id="time_close" name="time_close" value="{{ $other_setting->time_close ?? old('time_close') }}"  placeholder="Enter time open...">
 
                                     @error('time_close')
@@ -111,16 +126,57 @@
                                     @enderror
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-12">
-                                <div class="form-group">
-                                    <label>Day</label>
-                                    <select class="form-control @error('status') is-invalid @enderror" name="time_billiard">
-                                        <option disabled selected>Choose Status</option>
-                                        <option value="Normal Day" {{ $other_setting->time_billiard == 'Normal Day' ? 'selected' : '' }}>Normal Day</option>
-                                        <option value="Weekdays" {{ $other_setting->time_billiard == 'Weekdays' ? 'selected' : '' }}>Weekdays</option>
-                                    </select>
+
+                            <h3>Minuman</h3>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_start_weekdays_minuman">Time Open Weekdays <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_start_weekdays_minuman') is-invalid @enderror" id="time_start_weekdays_minuman" name="time_start_weekdays_minuman" value="{{ $other_setting->time_start_weekdays_minuman ?? old('time_start_weekdays_minuman') }}"  placeholder="Enter time open...">
+
+                                    @error('time_start_weekdays_minuman')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
-                            </div> --}}
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_close_weekdays_minuman">Time Close Weekdays <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_close_weekdays_minuman') is-invalid @enderror" id="time_close_weekdays_minuman" name="time_close_weekdays_minuman" value="{{ $other_setting->time_close_weekdays_minuman ?? old('time_close_weekdays_minuman') }}"  placeholder="Enter time open...">
+
+                                    @error('time_close_weekdays_minuman')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_start_weekend_minuman">Time Open Weekend<span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_start_weekend_minuman') is-invalid @enderror" id="time_start_weekend_minuman" name="time_start_weekend_minuman" value="{{ $other_setting->time_start_weekend_minuman ?? old('time_start_weekend_minuman') }}"  placeholder="Enter time open...">
+
+                                    @error('time_start_weekend_minuman')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label for="time_close_weekend_minuman">Time Close Weekend <span class="text-danger">*</span></label>
+                                    <input type="time" class="form-control @error('time_close_weekend_minuman') is-invalid @enderror" id="time_close_weekend_minuman" name="time_close_weekend_minuman" value="{{ $other_setting->time_close_weekend_minuman ?? old('time_close_weekend_minuman') }}"  placeholder="Enter time open...">
+
+                                    @error('time_close_weekend_minuman')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-end gap-2 pt-3 mt-3" style="border-top: 2px solid rgb(68,70,84);">
                             <a class="btn btn-md btn-danger p-2" href="{{ route('master-data.index') }}">Kembali</a>

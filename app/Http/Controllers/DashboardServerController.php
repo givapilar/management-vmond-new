@@ -13,7 +13,7 @@ class DashboardServerController extends Controller
 {
     public function index(Request $request)
     {
-        $data['page_title'] = 'Dashboard Waiters';
+        $data['page_title'] = 'Dashboard Kasir';
         $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
         // $data['orders'] = OrderPivot::get();
         // $data['order_table'] = Order::orderBy('id', 'ASC')->get();
