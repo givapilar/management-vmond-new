@@ -120,7 +120,7 @@
       </li>
       @endcan
 
-      @can('toko-online')
+      @can('report-analytic')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('Report-analytic.index') }}">
           <span class="menu-icon">

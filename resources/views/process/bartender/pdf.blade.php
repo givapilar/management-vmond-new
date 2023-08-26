@@ -113,6 +113,25 @@
                 <span style="float: right; margin-right: 15px;">#{{ $orders->invoice_no }}</span>
             </div>
         </div>
+
+        @if ($orders->tipe_pemesanan == null)
+            
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
+                Metode Pembayaran:
+                <span style="float: right; margin-right: 15px;"> {{ $orders->metode_pembayaran }}</span>
+            </div>
+        </div>
+        @else
+        
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
+                Metode Pembayaran:
+                <span style="float: right; margin-right: 15px;"> {{ $orders->metode_edisi }}</span>
+            </div>
+        </div>
+        @endif
+        
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
                 Datetime:

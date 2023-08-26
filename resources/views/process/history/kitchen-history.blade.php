@@ -27,14 +27,41 @@
                     </div>
                     <div class="card-body p-3">
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mb-3">
                                 <div class="form-group text-start" id="datepicker-date-area">
                                     <label class="">Date :</label>
                                     <input type="date" name="start_date" id="date" value="{{Request::get('start_date') ?? date('Y-m-d')}}" class="form-control" required>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mb-3">
+                                <div class="form-group text-start" id="datepicker-date-area">
+                                    <label class="">Time From :</label>
+                                    <input type="time" name="time_from" id="date" value="{{Request::get('time_from') ?? date('Y-m-d')}}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 mb-3">
+                                <div class="form-group text-start" id="datepicker-date-area">
+                                    <label class="">Time To :</label>
+                                    <input type="time" name="time_to" id="date" value="{{Request::get('time_to') ?? date('Y-m-d')}}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 mb-3">
+                                <div class="form-group">
+                                    <label class="">No Invoice :</label>
+                                    <select class="js-example-basic-single" name="no_invoice"  style="width:100%">
+                                        <option disabled selected>Choose No Invoice</option>
+                                        <option value="All">All</option>
+                                        @foreach ($no_invoices as $item)
+                                        <option value="{{ $item }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 mb-3">
                                 <div class="form-group">
                                     <label class="">Nama Customer :</label>
                                     <select class="js-example-basic-single" name="nama_customer"  style="width:100%">
@@ -169,9 +196,9 @@
 @push('script-bot')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    // window.setTimeout( function() {
-    //     window.location.reload();
-    // }, 5000);
+    window.setTimeout( function() {
+        window.location.reload();
+    }, 5000);
     function confirmData(id) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',

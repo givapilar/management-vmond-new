@@ -303,6 +303,38 @@
 @section('javascript')
 
 <script>
+    let date = @json($stok_masuk);
+    console.log(date);
+
+    generateChartTransaksi('myChart', @json($date), @json($stok_masuk), @json($stok_keluar));
+
+    function generateChartTransaksi(id, date, stok_masuk, stok_keluar) {
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: date,
+                datasets: [{
+                    label: '# Stok Masuk',
+                    data: stok_masuk,
+                    borderWidth: 1
+                },{
+                    label: '# Stok Keluar',
+                    data: stok_keluar,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+    
     $('.datepicker').datepicker({
         format: "yyyy-mm-dd",
         startView: 2,

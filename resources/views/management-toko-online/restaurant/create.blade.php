@@ -121,7 +121,7 @@
                     <div class="col-lg-3">
                         <div class="form-group mb-3">
                             <label for="harga">Harga</label>
-                            <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
+                            <input type="int" class="form-control @error('harga') is-invalid @enderror" id="harga" name="harga" value="{{ old('harga') }}" id="harga"  placeholder="Harga">
                             
                             @error('harga')
                             <span class="invalid-feedback" role="alert">
@@ -134,7 +134,7 @@
                     <div class="col-lg-3">
                         <div class="form-group mb-3">
                             <label for="harga_diskon">Harga Diskon</label>
-                            <input type="text" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" name="harga_diskon" value="{{ old('harga_diskon') }}" id="harga_diskon"  placeholder="Harga_diskon">
+                            <input type="int" class="form-control @error('harga_diskon') is-invalid @enderror" id="harga_diskon" name="harga_diskon" value="{{ old('harga_diskon') }}" id="harga_diskon"  placeholder="Harga_diskon">
                             
                             @error('harga_diskon')
                             <span class="invalid-feedback" role="alert">
@@ -256,7 +256,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.6.0/autoNumeric.min.js" integrity="sha512-6j+LxzZ7EO1Kr7H5yfJ8VYCVZufCBMNFhSMMzb2JRhlwQ/Ri7Zv8VfJ7YI//cg9H5uXT2lQpb14YMvqUAdGlcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.tiny.cloud/1/6vch58fk4gud1ywlf06b61zgh32srvlfldxj53oxqnt7fpxt/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
                                                                                                                                                                                                                      
-  <script>
+  {{-- <script>
     new AutoNumeric('#harga', {
         currencySymbol : '',
         decimalPlaces : 0,
@@ -268,7 +268,7 @@
         // digitGroupSeparator : '.',
     });                   
    
-</script>
+</script> --}}
 
   <script>
 
@@ -334,6 +334,7 @@
 
         if (!isNaN(harga) && !isNaN(hargaDiskon) && harga > 0) {
             var persentase = ((harga - hargaDiskon) / harga) * 100;
+            persentase = Math.round(persentase); // Round to the nearest whole number
             persentaseInput.val(persentase);
         } else {
             persentaseInput.val('');

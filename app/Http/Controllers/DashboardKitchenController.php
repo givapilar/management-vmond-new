@@ -182,21 +182,38 @@ class DashboardKitchenController extends Controller
     public function history(Request $request) {
         $data['page_title'] = 'Dashboard Waiters';
         $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
-    
+
         $query = Order::query();
-    
-        if ($request->has('start_date') || $request->has('nama_customer')) {
+        $oneHourAgo = Carbon::now()->subHour();
+        $query->where('status_pembayaran', 'Paid')->where('status_pesanan', 'process');
+        $getNameCustomer = $query->whereDate('created_at', Carbon::today())->get()->pluck('name')->unique();
+        $getNoInvoice = $query->whereDate('created_at', Carbon::today())->orderByDesc('invoice_no')->get()->pluck('invoice_no')->unique();
+        if ($request->has('start_date')) {
             $startDate = $request->input('start_date');
-            // To filter data for the selected date range (including the selected date itself), you should use both ">= start_date" and "< start_date + 1 day"
-            $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<', Carbon::parse($startDate)->addDay());
+
+            if ($request->has('time_from')) {
+                $timeFrom = $request->input('time_from');
+                $startDateAndTimeFrom = Carbon::parse($startDate . ' ' . $timeFrom);
+                $query->where('created_at', '>=', $startDateAndTimeFrom);
+            } else {
+                $query->whereDate('created_at', '>=', $startDate);
+            }
+
+            if ($request->has('time_to')) {
+                $timeTo = $request->input('time_to');
+                $startDateAndTimeTo = Carbon::parse($startDate . ' ' . $timeTo);
+                $query->where('created_at', '<=', $startDateAndTimeTo);
+            } else {
+                $query->whereDate('created_at', '<', Carbon::parse($startDate)->addDay());
+            }
+            
         } else {
-            $query->whereDate('created_at', Carbon::today());
+            // $query->whereDate('created_at', Carbon::today());
+            $query->where('created_at', '>=', $oneHourAgo);
         }
 
-        $query->where('status_pembayaran', 'Paid')->where('status_pesanan', 'process');
         $query->orderByDesc('created_at');
-        $getNameCustomer = $query->get()->pluck('name')->unique();
-        
+
         // Get By Nama Customer
         if ($request->has('nama_customer')) {
             $namaCustomer = $request->input('nama_customer');
@@ -204,16 +221,24 @@ class DashboardKitchenController extends Controller
                 $query->where('name', $namaCustomer);
             }
         }
-    
+
+        // Get BY NO Invoice
+        if ($request->has('no_invoice')) {
+            $noInvoice = $request->input('no_invoice');
+            $query->where('invoice_no', $noInvoice);
+        }
+
         $orders = $query->get();
-    
+
         $data['orders'] = $orders;
         $data['nama_customers'] = $getNameCustomer;
+        $data['no_invoices'] = $getNoInvoice;
         foreach ($orders as $order) {
             $order->elapsed_time = $this->calculateElapsedTime($order->created_at);
         }
-    
+
         return view('process.history.kitchen-history', $data);
+
     }
     
 }

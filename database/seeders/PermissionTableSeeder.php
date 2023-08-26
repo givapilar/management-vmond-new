@@ -94,6 +94,8 @@ class PermissionTableSeeder extends Seeder
             'add-on-edit',
             'add-on-delete',
             'dashboard-report',
+            'report-analytic',
+            'feedback',
         ];
 
         foreach ($permissions as $permission) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderBilliard;
 use App\Models\OrderPivot;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
@@ -13,66 +14,541 @@ class ReportAnalyticController extends Controller
     public function index(Request $request)
     {
         $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
-        $data['order'] = Order::orderBy('id', 'asc')->get();
+        $order = Order::orderBy('id', 'asc')->where('status_pembayaran','Paid')->get();
         $orderDetails = OrderPivot::orderBy('id', 'asc')->get();
+        
+        $type = $request->has('type') ? $request->type : 'day';
+        $resto = $request->has('restaurant_id') ? $request->restaurant_id : 'All';
+        $category = $request->has('category') ? $request->category : null;
+        // dd($category);
+        // if ($type == 'day') {
+        //     $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+        //     if ($resto == 'All') {
+        //         $orderDetails = OrderPivot::whereDate('created_at', $date)
+        //                         ->whereHas('order', function ($query) {
+        //                             $query->where('status_pembayaran', 'Paid');
+        //                         })
+        //                         ->when($category, function ($query) use ($category) {
+        //                             return $query->where('category', $category);
+        //                         })
+        //                         ->orderBy('id', 'asc')
+        //                         ->get();
 
-        // Initialize an empty array to store food sales data
-        $foodSalesData = [];
+        //         $orderTotal = Order::whereDate('created_at', $date)
+        //                         ->where('status_pembayaran', 'Paid')
+        //                         ->orderBy('id', 'asc')
+        //                         ->get()->sum('total_price');
 
-        $startDate = $request->input('start_date');
+        //         $totalBartender = OrderPivot::whereDate('created_at', $date)
+        //                     ->where('category', 'Minuman')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
 
-        // Jika belum ada tanggal yang dipilih, atur tanggal hari ini
-        if (!$startDate) {
-            $startDate = now()->format('Y-m-d');
-        }
+        //         $totalKitchen = OrderPivot::whereDate('created_at', $date)
+        //                     ->where('category', 'Makanan')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
 
-        // Loop melalui detail pesanan dan mengisi array data penjualan makanan
-        foreach ($orderDetails as $orderDetail) {
-            $foodName = $orderDetail->restaurant->nama;
-            $quantity = $orderDetail->qty;
-            $orderDate = $orderDetail->order->created_at;
+        //         $totalFwb = Order::whereDate('created_at', $date)
+        //                     ->whereNotNull('biliard_id')
+        //                     ->sum('total_price');
 
-            // Filter berdasarkan periode yang dipilih
-            if ($request->has('type')) {
-                $type = $request->input('type');
-                if ($type === 'day' && ($orderDate->isToday() || $orderDate->format('Y-m-d') === $startDate)) {
-                    // Jika tipe adalah harian dan tanggal pesanan adalah hari ini atau tanggal yang dipilih
-                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
-                } elseif ($type === 'monthly' && $orderDate->isCurrentMonth()) {
-                    // Jika tipe adalah bulanan dan tanggal pesanan adalah bulan ini
-                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
-                } elseif ($type === 'yearly' && $orderDate->isCurrentYear()) {
-                    // Jika tipe adalah tahunan dan tanggal pesanan adalah tahun ini
-                    $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+        //         $groupedItems = $orderDetails->groupBy(function ($item) {
+        //             return $item->restaurant->nama . '|' . $item->category;
+        //         });
+
+        //         $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        //                     ->whereDate('created_at', $date)
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->groupBy('restaurant_id')
+        //                     ->orderByDesc('total_qty')
+        //                     ->limit(10)
+        //                     ->get();
+
+
+        //     } else {
+        //         $orderDetails = OrderPivot::whereDate('created_at', $date)
+        //                     ->where('restaurant_id', $request->restaurant_id)
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->orderBy('id', 'asc')
+        //                     ->get();
+
+        //         $totalBartender = OrderPivot::whereDate('created_at', $date)
+        //                     ->where('category', 'Minuman')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //         $totalKitchen = OrderPivot::whereDate('created_at', $date)
+        //                     ->where('category', 'Makanan')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //         $totalFwb = Order::whereDate('created_at', $date)
+        //                     ->whereNotNull('biliard_id')
+        //                     ->sum('total_price');
+
+        //         $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        //                     ->whereDate('created_at', $date)
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->groupBy('restaurant_id')
+        //                     ->orderByDesc('total_qty')
+        //                     ->limit(10)
+        //                     ->get();
+        //         }
+        // } elseif ($type == 'monthly') {
+        //     $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
+        //     $orderDetails = OrderPivot::whereMonth('created_at', $month)
+        //                 ->whereHas('order', function ($query) {
+        //                     $query->where('status_pembayaran', 'Paid');
+        //                 })
+        //                 ->orderBy('id', 'asc')
+        //                 ->get();
+                    
+        //     $orderTotal = Order::whereMonth('created_at', $month)
+        //                 ->where('status_pembayaran', 'Paid')
+        //                 ->orderBy('id', 'asc')
+        //                 ->get()->sum('total_price');
+
+        //     $totalBartender = OrderPivot::whereMonth('created_at', $month)
+        //                     ->where('category', 'Minuman')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //     $totalKitchen = OrderPivot::whereMonth('created_at', $month)
+        //                     ->where('category', 'Makanan')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //     $totalFwb = Order::whereMonth('created_at', $month)
+        //                     ->whereNotNull('biliard_id')
+        //                     ->sum('total_price');
+
+        //     $groupedItems = $orderDetails->groupBy(function ($item) {
+        //         return $item->restaurant->nama . '|' . $item->category;
+        //     });
+
+        //     // dd($groupedItems);
+
+        //     $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        //     ->whereHas('order', function ($query) use ($month) {
+        //         $query->where('status_pembayaran', 'Paid')
+        //               ->whereMonth('created_at', $month);
+        //     })
+        //     ->groupBy('restaurant_id')
+        //     ->orderByDesc('total_qty')
+        //     ->limit(10)
+        //     ->get();
+
+        //     // dd($topDishes);
+                            
+        // } elseif ($type == 'yearly') {
+        //     $year = $request->has('year') ? $request->year : date('Y');
+        //     $orderDetails = OrderPivot::whereYear('created_at', $year)
+        //                 ->whereHas('order', function ($query) {
+        //                     $query->where('status_pembayaran', 'Paid');
+        //                 })
+        //                 ->orderBy('id', 'asc')
+        //                 ->get();
+
+        //     $orderTotal = Order::whereDate('created_at', $year)
+        //                 ->where('status_pembayaran', 'Paid')
+        //                 ->orderBy('id', 'asc')
+        //                 ->get()->sum('total_price');
+
+        //     $totalBartender = OrderPivot::whereDate('created_at', $year)
+        //                     ->where('category', 'Minuman')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //     $totalKitchen = OrderPivot::whereDate('created_at', $year)
+        //                     ->where('category', 'Makanan')
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->sum('harga_diskon');
+
+        //     $totalFwb = Order::whereDate('created_at', $year)
+        //                     ->whereNotNull('biliard_id')
+        //                     ->sum('total_price');
+
+        //     $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        //                     ->whereDate('created_at', $year)
+        //                     ->whereHas('order', function ($query) {
+        //                         $query->where('status_pembayaran', 'Paid');
+        //                     })
+        //                     ->groupBy('restaurant_id')
+        //                     ->orderByDesc('total_qty')
+        //                     ->limit(10)
+        //                     ->get();
+        // }
+
+        if ($type == 'day') {
+            // $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+            // $statusPembayaran = 'Paid';
+        
+            // $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
+        
+            // if ($category) {
+            //     $baseOrderQuery->where('category', $category);
+            // }
+        
+            // $orderDetails = OrderPivot::with('order')
+            //     ->whereDate('created_at', $date)
+            //     ->whereHas('order', function ($query) use ($baseOrderQuery) {
+            //         $query->mergeConstraintsFrom($baseOrderQuery);
+            //     })
+            //     ->orderBy('id', 'asc')
+            //     ->get();
+        
+            // $orderTotal = $baseOrderQuery->whereDate('created_at', $date)->sum('total_price');
+            // $service = $baseOrderQuery->whereDate('created_at', $date)->sum('service');
+            // $pb01 = $baseOrderQuery->whereDate('created_at', $date)->sum('pb01');
+        
+            // $totalBartender = OrderPivot::whereDate('created_at', $date)
+            //     ->where('category', 'Minuman')
+            //     ->select('harga_diskon')
+            //     ->whereHas('order', function ($query) use ($baseOrderQuery) {
+            //         $query->mergeConstraintsFrom($baseOrderQuery);
+            //     })
+            //     ->sum('harga_diskon');
+        
+            // $totalKitchen = OrderPivot::whereDate('created_at', $date)
+            //     ->where('category', 'Makanan')
+            //     ->select('harga_diskon')
+            //     ->whereHas('order', function ($query) use ($baseOrderQuery) {
+            //         $query->mergeConstraintsFrom($baseOrderQuery);
+            //     })
+            //     ->sum('harga_diskon');
+                
+            //     $totalFwb = $baseOrderQuery->whereDate('created_at', $date)
+            //     ->select('total_price')
+            //     ->whereNotNull('biliard_id')
+            //     ->sum('total_price');
+        
+            // $groupedItems = $orderDetails->groupBy(function ($item) {
+            //     return $item->restaurant->nama . '|' . $item->category;
+            // });
+        
+            // $topDishes = OrderPivot::selectRaw('order_pivots.restaurant_id, SUM(order_pivots.qty) as total_qty')
+            //     ->join('orders', function ($join) use ($date) {
+            //         $join->on('order_pivots.order_id', '=', 'orders.id')
+            //             ->where('orders.status_pembayaran', 'Paid')
+            //             ->whereDate('orders.created_at', $date);
+            //     })
+            //     ->groupBy('order_pivots.restaurant_id')
+            //     ->orderByDesc('total_qty')
+            //     ->limit(10)
+            //     ->get();
+
+            $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+            if ($resto == 'All') {
+                $orderDetails = OrderPivot::whereDate('created_at', $date)
+                    ->whereHas('order', function ($query) {
+                        $query->where('status_pembayaran', 'Paid');
+                    })
+                    ->when($category, function ($query) use ($category) {
+                        return $query->where('category', $category);
+                    })
+                    ->orderBy('id', 'asc')
+                    ->get();
+
+                $orderTotal = Order::whereDate('created_at', $date)
+                    ->where('status_pembayaran', 'Paid')
+                    ->orderBy('id', 'asc')
+                    ->get()->sum('total_price');
+
+                // $orderTotal = OrderPivot::whereDate('created_at', $date)
+                //     ->whereHas('order', function ($query) {
+                //         $query->where('status_pembayaran', 'Paid');
+                //     })
+                //     ->sum(\DB::raw('harga_diskon * qty'));
+                
+                // dd($total);
+
+                $service = Order::whereDate('created_at', $date)
+                ->where('status_pembayaran', 'Paid')
+                ->sum('service');
+                
+                $pb01 = Order::whereDate('created_at', $date)
+                ->where('status_pembayaran', 'Paid')
+                ->sum('pb01');
+                
+                $totalBartender = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Minuman')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum(\DB::raw('harga_diskon * qty'));
+
+                $totalKitchen = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Makanan')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum(\DB::raw('harga_diskon * qty'));
+
+                // $totalFwb = Order::whereDate('created_at', $date)
+                //             ->where('status_pembayaran', 'Paid')
+                //             ->whereNotNull('biliard_id')
+                //             ->sum('total_price');
+
+                $totalFwb = Order::whereDate('created_at', $date)
+                            ->where('status_pembayaran', 'Paid')
+                            ->sum('harga_diskon_billiard');
+
+                // $orderTotal = $totalBartender + $totalKitchen + $totalFwb + $service + $pb01;
+                
+
+                $groupedItems = $orderDetails->groupBy(function ($item) {
+                    return $item->restaurant->nama . '|' . $item->category;
+                });
+
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
+
+
+            } else {
+                $orderDetails = OrderPivot::whereDate('created_at', $date)
+                            ->where('restaurant_id', $request->restaurant_id)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->orderBy('id', 'asc')
+                            ->get();
+
+                $totalBartender = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Minuman')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum('harga_diskon');
+
+                $totalKitchen = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Makanan')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum('harga_diskon');
+
+                $totalFwb = Order::whereDate('created_at', $date)
+                            ->whereNotNull('biliard_id')
+                            ->sum('total_price');
+
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
                 }
-            }
+        
+        } elseif ($type == 'monthly') {
+            $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
+            $statusPembayaran = 'Paid';
+
+            $orderDetails = OrderPivot::with('order')
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->whereMonth('order_pivots.created_at', $month)
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->orderBy('order_pivots.id', 'asc')
+                ->get();
+
+            $orderTotal = Order::whereMonth('created_at', $month)
+                ->where('status_pembayaran', $statusPembayaran)
+                ->sum('total_price');
+
+            $totalBartender = OrderPivot::whereMonth('order_pivots.created_at', $month)
+                ->where('order_pivots.category', 'Minuman') // Menggunakan "order_pivots.category"
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->sum('harga_diskon');
+
+            $totalKitchen = OrderPivot::whereMonth('order_pivots.created_at', $month)
+                ->where('order_pivots.category', 'Makanan') // Menggunakan "order_pivots.category"
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->sum('harga_diskon');
+
+            $totalFwb = Order::whereMonth('created_at', $month)
+                ->where('status_pembayaran', $statusPembayaran)
+                ->whereNotNull('biliard_id')
+                ->sum('total_price');
+
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
+            });
+
+            $topDishes = OrderPivot::selectRaw('order_pivots.restaurant_id, SUM(order_pivots.qty) as total_qty')
+            ->join('orders', function ($join) use ($month) {
+                $join->on('order_pivots.order_id', '=', 'orders.id')
+                    ->where('orders.status_pembayaran', 'Paid')
+                    ->whereMonth('orders.created_at', $month);
+            })
+            ->groupBy('order_pivots.restaurant_id')
+            ->orderByDesc('total_qty')
+            ->limit(10)
+            ->get();
+
+        } elseif ($type == 'yearly') {
+            $year = $request->has('year') ? $request->year : date('Y');
+            $statusPembayaran = 'Paid';
+        
+            $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
+        
+            $orderDetails = OrderPivot::with('order')
+                ->whereYear('created_at', $year)
+                ->whereHas('order', function ($query) use ($baseOrderQuery) {
+                    $query->mergeConstraintsFrom($baseOrderQuery);
+                })
+                ->orderBy('id', 'asc')
+                ->get();
+        
+                $orderTotal = $baseOrderQuery->select('total_price')->whereYear('created_at', $year)->sum('total_price');
+        
+            $totalBartender = OrderPivot::whereYear('created_at', $year)
+                ->select('harga_diskon')
+                ->where('category', 'Minuman')
+                ->whereHas('order', function ($query) use ($baseOrderQuery) {
+                    $query->mergeConstraintsFrom($baseOrderQuery);
+                })
+                ->sum('harga_diskon');
+        
+            $totalKitchen = OrderPivot::whereYear('created_at', $year)
+                ->select('harga_diskon')
+                ->where('category', 'Makanan')
+                ->whereHas('order', function ($query) use ($baseOrderQuery) {
+                    $query->mergeConstraintsFrom($baseOrderQuery);
+                })
+                ->sum('harga_diskon');
+        
+            $totalFwb = $baseOrderQuery->whereYear('created_at', $year)
+                ->select('total_price')
+                ->whereNotNull('biliard_id')
+                ->sum('total_price');
+        
+                $topDishes = OrderPivot::selectRaw('order_pivots.restaurant_id, SUM(order_pivots.qty) as total_qty')
+                ->join('orders', function ($join) use ($year) {
+                    $join->on('order_pivots.order_id', '=', 'orders.id')
+                        ->where('orders.status_pembayaran', 'Paid')
+                        ->whereYear('orders.created_at', $year);
+                })
+                ->groupBy('order_pivots.restaurant_id')
+                ->orderByDesc('total_qty')
+                ->limit(10)
+                ->get();
         }
 
-        $chartOption = [
-            'title' => [
-                'text' => 'Food Sales'
-            ],
-            'tooltip' => [
-                'trigger' => 'axis'
-            ],
-            'xAxis' => [
-                'type' => 'category',
-                'data' => array_keys($foodSalesData) // Use food names as categories
-            ],
-            'yAxis' => [
-                'type' => 'value'
-            ],
-            'series' => [
-                [
-                    'name' => 'Quantity',
-                    'type' => 'line',
-                    'data' => array_values($foodSalesData) // Use quantities as data
-                ]
-            ]
-        ];
+        $data['total_price'] = $orderTotal;
+        $data['service'] = $service;
+        $data['pb01'] = $pb01;
+        $data['total_qty'] = $orderDetails->sum('qty');
+        $data['order_details'] = $orderDetails;
+        $data['total_bartender'] = $totalBartender;
+        $data['total_kitchen'] = $totalKitchen;
+        $data['total_fwb'] = $totalFwb;
+        $data['groupedItems'] = $groupedItems;
 
-        $data['chartOption'] = $chartOption;
+        $dishNames = [];
+        $dishQuantities = [];
+
+        foreach ($topDishes as $dish) {
+            $dishNames[] = $dish->restaurant->nama; // Assuming you have a relationship to get product name
+            $dishQuantities[] = $dish->total_qty;
+
+        }
+
+        $data['dishNames'] = $dishNames;
+        $data['dishQuantities'] = $dishQuantities;
 
         return view('report-analytic.index', $data);
+
+
+        // // Initialize an empty array to store food sales data
+        // $foodSalesData = [];
+
+        // $startDate = $request->input('start_date');
+
+        // // Jika belum ada tanggal yang dipilih, atur tanggal hari ini
+        // if (!$startDate) {
+        //     $startDate = now()->format('Y-m-d');
+        // }
+
+        // // Loop melalui detail pesanan dan mengisi array data penjualan makanan
+        // foreach ($orderDetails as $orderDetail) {
+        //     $foodName = $orderDetail->restaurant->nama;
+        //     $quantity = $orderDetail->qty;
+        //     $orderDate = $orderDetail->order->created_at;
+
+        //     // Filter berdasarkan periode yang dipilih
+        //     if ($request->has('type')) {
+        //         $type = $request->input('type');
+        //         if ($type === 'day' && ($orderDate->isToday() || $orderDate->format('Y-m-d') === $startDate)) {
+        //             // Jika tipe adalah harian dan tanggal pesanan adalah hari ini atau tanggal yang dipilih
+        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+        //         } elseif ($type === 'monthly' && $orderDate->isCurrentMonth()) {
+        //             // Jika tipe adalah bulanan dan tanggal pesanan adalah bulan ini
+        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+        //         } elseif ($type === 'yearly' && $orderDate->isCurrentYear()) {
+        //             // Jika tipe adalah tahunan dan tanggal pesanan adalah tahun ini
+        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
+        //         }
+        //     }
+        // }
+
+        // $chartOption = [
+        //     'title' => [
+        //         'text' => 'Food Sales'
+        //     ],
+        //     'tooltip' => [
+        //         'trigger' => 'axis'
+        //     ],
+        //     'xAxis' => [
+        //         'type' => 'category',
+        //         'data' => array_keys($foodSalesData) // Use food names as categories
+        //     ],
+        //     'yAxis' => [
+        //         'type' => 'value'
+        //     ],
+        //     'series' => [
+        //         [
+        //             'name' => 'Quantity',
+        //             'type' => 'line',
+        //             'data' => array_values($foodSalesData) // Use quantities as data
+        //         ]
+        //     ]
+        // ];
+
+        // $data['chartOption'] = $chartOption;
+
     }
 }

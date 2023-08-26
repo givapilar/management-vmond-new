@@ -113,6 +113,25 @@
                 <span style="float: right; margin-right: 15px;">#{{ $orders->invoice_no }}</span>
             </div>
         </div>
+
+        @if ($orders->tipe_pemesanan == null)
+            
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
+                Metode Pembayaran:
+                <span style="float: right; margin-right: 15px;"> {{ $orders->metode_pembayaran }}</span>
+            </div>
+        </div>
+        @else
+        
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
+                Metode Pembayaran:
+                <span style="float: right; margin-right: 15px;"> {{ $orders->metode_edisi }}</span>
+            </div>
+        </div>
+        @endif
+        
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
                 Datetime:
@@ -190,11 +209,11 @@
                     <tr>
                         <td class="quantity">{{ $orderPivot->qty }}</td>
                         <td class="description">{{ $orderPivot->restaurant->nama }}</td>
-                        <td class="price" style="text-align: right">Rp.{{ number_format($orderPivot->restaurant->harga_diskon * $orderPivot->qty,0) }}</td>
+                        <td class="price" style="text-align: right">Rp.{{ number_format($orderPivot->harga_diskon * $orderPivot->qty,0) }}</td>
                     </tr>
                     @php
                     // Calculate the running total for each item
-                    $totalPrice += $orderPivot->restaurant->harga_diskon * $orderPivot->qty ;
+                    $totalPrice += $orderPivot->harga_diskon * $orderPivot->qty ;
                     @endphp
 
                 @endforeach
@@ -220,7 +239,7 @@
                     <td class="description">Layanan</td>
 
                     <td class="price" style="text-align: right">Rp.{{ number_format($orders->orderPivot->sum(function ($orderPivot) {
-                        return $orderPivot->qty * $orderPivot->restaurant->harga_diskon;
+                        return $orderPivot->qty * $orderPivot->harga_diskon;
                     }) * $other_setting->layanan/100,0 ) }}</td>
                 </tr>
 
@@ -228,7 +247,7 @@
                     <td class="quantity"></td>
                     <td class="description">PB01</td>
                     <td class="price" style="text-align: right">Rp.{{ number_format($orders->orderPivotMinuman()->sum(function ($orderPivot)use($other_setting) {
-                        return $orderPivot->qty * $orderPivot->restaurant->harga_diskon + $orderPivot->qty * $orderPivot->restaurant->harga_diskon * $other_setting->layanan/100;
+                        return $orderPivot->qty * $orderPivot->harga_diskon + $orderPivot->qty * $orderPivot->harga_diskon * $other_setting->layanan/100;
                     }) * $other_setting->pb01/100,0 ) }}</td>
 
                     {{-- Order Billiard --}}
@@ -244,10 +263,10 @@
                     <td class="price" style="text-align: right">Rp.{{ number_format(
                         $totalPrice +
                         $orders->orderPivot->sum(function ($orderPivot) {
-                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon;
+                            return $orderPivot->qty * $orderPivot->harga_diskon;
                         }) * $other_setting->layanan/100 +
                         $orders->orderPivotMinuman()->sum(function ($orderPivot) use ($other_setting) {
-                            return $orderPivot->qty * $orderPivot->restaurant->harga_diskon + $orderPivot->qty * $orderPivot->restaurant->harga_diskon * $other_setting->layanan/100;
+                            return $orderPivot->qty * $orderPivot->harga_diskon + $orderPivot->qty * $orderPivot->harga_diskon * $other_setting->layanan/100;
                         }) * $other_setting->pb01/100,
                         0
                     ) }}</td>

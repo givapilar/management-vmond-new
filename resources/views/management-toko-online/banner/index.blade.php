@@ -64,7 +64,7 @@
                                     </button>
                                     @endcan
                                     @can('media-advertising-delete')
-                                    <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('banner', '{{ $banner->nama }}', '/banner/' + {{ $banner->id }}, '/banner/')">
+                                    <a href="#" class="btn btn-danger f-12 p-2" onclick="modalDelete('banner', '{{ $banner->nama }}', '/media-advertising/' + {{ $banner->id }}, '/media-advertising/')">
                                         <i class="far fa-trash-alt"></i>
                                         Delete
                                     </a>

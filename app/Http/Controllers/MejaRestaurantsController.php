@@ -87,7 +87,7 @@ class MejaRestaurantsController extends Controller
 
         try {
 
-            $barcode = 'https://vmondcoffee.controlindo.com/login?jenis_meja=restaurant&kode_meja='.$request->kode_meja;
+            $barcode = 'https://vmondcoffee.controlindo.com/home?jenis_meja=restaurant&kode_meja='.$request->kode_meja;
             $meja_restaurant = new MejaRestaurants();
             $meja_restaurant->nama = $validateData['nama'];
             $meja_restaurant->category = $validateData['category'];
@@ -139,7 +139,7 @@ class MejaRestaurantsController extends Controller
 
         try {
 
-            $barcode = 'https://vmondcoffee.controlindo.com/login?jenis_meja=restaurant&kode_meja='.$request->kode_meja;
+            $barcode = 'https://vmondcoffee.controlindo.com/home?jenis_meja=restaurant&kode_meja='.$request->kode_meja;
             $meja_restaurant = MejaRestaurants::findOrFail($id);
             
             $meja_restaurant->nama = $validateData['nama'];

@@ -14,27 +14,37 @@ class DashboardServerController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Dashboard Kasir';
-        $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
-        // $data['orders'] = OrderPivot::get();
-        // $data['order_table'] = Order::orderBy('id', 'ASC')->get();
+        $data['order_pivots'] = OrderPivot::orderBy('updated_at', 'ASC')->get();
 
-        $today = Carbon::today();
-        // $orders = Order::where('status_pembayaran', 'Paid')->orderBy('id', 'DESC')->get();
-        $orders = Order::where('status_pembayaran', 'Paid')
-               ->whereDate('created_at', $today)
-               ->orderBy('id', 'DESC')
-               ->get();
+        $query = Order::query();
+
+        // Set start_date dan time_from ke 1 jam yang lalu
+        $oneHourAgo = Carbon::now()->subHour();
+        $query->where('created_at', '>=', $oneHourAgo);
+
+        $query->where('status_pembayaran', 'Paid')->where('status_pesanan', 'process');
+        $query->orderByDesc('invoice_no');
+        $getNameCustomer = $query->pluck('name')->unique();
+
+        // Get By Nama Customer
+        if ($request->has('nama_customer')) {
+            $namaCustomer = $request->input('nama_customer');
+            if ($namaCustomer != 'All') {
+                $query->where('name', $namaCustomer);
+            }
+        }
+
+        $orders = $query->get();
+
         $data['orders'] = $orders;
-            // $orderTable = OrderPivot::get();
-            // dd($orderPivot);
-            // View::share('order_table',$orderTable);
-
-        // dd($data['orders']->orderPivot);
+        $data['nama_customers'] = $getNameCustomer;
 
         foreach ($orders as $order) {
             $order->elapsed_time = $this->calculateElapsedTime($order->created_at);
         }
-        return view('process.server.dashboard',$data);
+
+        return view('process.server.dashboard', $data);
+
     }
 
     public function calculateElapsedTime($createdAt)

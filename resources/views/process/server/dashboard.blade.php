@@ -18,6 +18,64 @@
 
 @section('content')
 <section class="p-3">
+
+    <form action="">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-1 mb-3">
+            <div class="col-lg-6">
+                <div class="card h-100 border-r-20">
+                    <div class="card-header border-rt-20 py-1">
+                        <h5 class="card-title text-center pt-1 fw-bolder">FILTER DATA</h5>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group text-start" id="datepicker-date-area">
+                                    <label class="">Date :</label>
+                                    <input type="date" name="start_date" id="date" value="{{Request::get('start_date') ?? date('Y-m-d')}}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group text-start" id="datepicker-date-area">
+                                    <label class="">Time From :</label>
+                                    <input type="time" name="time_from" id="date" value="{{Request::get('time_from') ?? date('Y-m-d')}}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group text-start" id="datepicker-date-area">
+                                    <label class="">Time To :</label>
+                                    <input type="time" name="time_to" id="date" value="{{Request::get('time_to') ?? date('Y-m-d')}}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="">Nama Customer :</label>
+                                    <select class="js-example-basic-single" name="nama_customer"  style="width:100%">
+                                        <option disabled selected>Choose Nama</option>
+                                        <option value="All">All</option>
+                                        @foreach ($nama_customers as $item)
+                                        <option value="{{ $item }}">{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group mt-4 ">
+                                    <button type="submit" class="btn btn-primary btn-md">
+                                        Generate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach ($orders as $item)
         {{-- @if ($item->status_pesanan !== 'selesai') --}}
