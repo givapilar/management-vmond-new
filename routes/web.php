@@ -33,6 +33,7 @@ use App\Http\Controllers\OtherSettingsController;
 use App\Http\Controllers\ReportAnalyticController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TotalMemberController;
+use App\Http\Controllers\VoucherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,9 @@ Route::get('/testpage', function () {
 
             // Feedback
             Route::resource('/feedback', FeedbackController::class);
+
+            // Voucher
+            Route::resource('/voucher', VoucherController::class);
 
             // Material Import
             Route::post('/import-excel', [ImportExcelController::class, 'import'])->name('import-excel');

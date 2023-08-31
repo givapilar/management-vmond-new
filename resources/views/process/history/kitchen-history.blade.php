@@ -37,14 +37,14 @@
                             <div class="col-lg-4 mb-3">
                                 <div class="form-group text-start" id="datepicker-date-area">
                                     <label class="">Time From :</label>
-                                    <input type="time" name="time_from" id="date" value="{{Request::get('time_from') ?? date('Y-m-d')}}" class="form-control" required>
+                                    <input type="time" name="time_from" id="date" value="{{Request::get('time_from') ?? date('H:i')}}" class="form-control" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-4 mb-3">
                                 <div class="form-group text-start" id="datepicker-date-area">
                                     <label class="">Time To :</label>
-                                    <input type="time" name="time_to" id="date" value="{{Request::get('time_to') ?? date('Y-m-d')}}" class="form-control" required>
+                                    <input type="time" name="time_to" id="date" value="{{Request::get('time_to') ?? date('H:i')}}" class="form-control" required>
                                 </div>
                             </div>
 
@@ -198,7 +198,7 @@
 <script>
     window.setTimeout( function() {
         window.location.reload();
-    }, 5000);
+    }, 60000);
     function confirmData(id) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',
