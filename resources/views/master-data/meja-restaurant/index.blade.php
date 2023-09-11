@@ -48,6 +48,8 @@
                                 <th class="th-sm text-white">Category</th>
                                 <th class="th-sm text-white">Status</th>
                                 <th class="th-sm text-white">Barcode</th>
+                                <th class="th-sm text-white">Status Minimum Order</th>
+                                <th class="th-sm text-white">Minimum Order</th>
                                 <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
                         </thead>
@@ -60,17 +62,18 @@
                                 <td class="table-head text-white">{{ $meja_restaurant->category }}</td>
                                 {{-- <td class="table-head text-white">{{ $meja_restaurant->status }}</td> --}}
                                 @if ($meja_restaurant->status == 'Tersedia')
-                                    <td class="table-head text-white"><span class="badge bg-success">{{$meja_restaurant->status }}</span></td>
+                                <td class="table-head text-white"><span class="badge bg-success">{{$meja_restaurant->status }}</span></td>
                                 @else
-                                    <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
+                                <td class="table-head text-white"><span class="badge bg-danger">{{$meja_restaurant->status }}</span></td>
                                 @endif
-
+                                
                                 {{-- <td class="table-head text-white" style="background-color: white">{!! DNS2D::getBarcodeHTML( "$meja_restaurant->barcode" , 'QRCODE') !!}</a></td> --}}
                                 <td class="table-head text-white"> 
                                     {{-- <a download="barcode-{{ strtolower(str_replace(' ', '',$meja_restaurant->nama)) }}.jpg" class="btn btn-primary p-2 f-12" href="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!}"  title="ImageName">
                                         DOWNLOAD
                                     </a> --}}
-
+                                    
+                                    
                                     <style>
                                         .barcode-download {
                                             display: inline-block;
@@ -96,7 +99,9 @@
                                     {{-- <img style="width:200px; height:200px;" src="data:image/png;base64, {!! DNS2D::getBarcodePNG($meja_restaurant->barcode, 'QRCODE') !!} " alt="barcode"   /> --}}
                                     {{-- <img src="data:image/png,' . {!! DNS2D::getBarcodePng( "$meja_restaurant->barcode" , 'C39+')!!} . '" alt="barcode"   /> --}}
                                 </td>
-                                {{-- <td class="table-head text-white"><a href="{{ route('meja-restaurant.qr') }}">Button</a></td> --}}
+
+                                <td class="table-head text-white">{{ $meja_restaurant->status_minimal_order }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->minimal_order }}</td>
 
                                 @if(auth()->user()->can('meja-restaurant-delete') || auth()->user()->can('meja-restaurant-edit'))
                                 <td>

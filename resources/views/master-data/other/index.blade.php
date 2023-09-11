@@ -186,7 +186,7 @@
                 </div>
             </div>
 
-            {{-- Card --}}
+            {{-- Notifikasi Order --}}
 
             <div class="col-lg-6 col-12 grid-margin stretch-card h-auto d-inline-block">
                 <div class="card card rounded-20 p-2 h-auto d-inline-block" >
@@ -195,7 +195,7 @@
                             <div class="col-6 mt-1 px-4">
                                 <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
                                     <i class="fa-solid fa-tags" style="font-size: 20px;"></i>
-                                    <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                                    <h4 class="card-title mb-0 pb-0 ml-2">Notifikasi Order</h4>
                                 </span>
                             </div>
 

@@ -84,6 +84,36 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label class="">Status Minimal Order</label>
+                            <select class="form-control @error('status_minimal_order') is-invalid @enderror" name="status_minimal_order">
+                                <option disabled selected>Choose Status Minimal Order</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            </select>
+                            
+                            @error('status_minimal_order')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="minimal_order">Minimal Order</label>
+                            <input type="number" min="0" class="form-control @error('minimal_order') is-invalid @enderror" id="minimal_order" name="minimal_order" value="{{ old('minimal_order') }}"  placeholder="Enter Minimal Order">
+                            
+                            @error('minimal_order')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
 

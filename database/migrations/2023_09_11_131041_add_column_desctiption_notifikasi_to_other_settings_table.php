@@ -27,7 +27,8 @@ class AddColumnDesctiptionNotifikasiToOtherSettingsTable extends Migration
     public function down()
     {
         Schema::table('other_settings', function (Blueprint $table) {
-            //
+            $table->dropColumn('description_notifikasi');
+            $table->dropColumn('status_notifikasi');
         });
     }
 }

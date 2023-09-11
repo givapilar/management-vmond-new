@@ -88,6 +88,38 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label class="">Status Notifikasi</label>
+                                <select class="form-control @error('status_minimal_order') is-invalid @enderror" name="status_minimal_order">
+                                    <option disabled selected>Choose Status</option>
+                                    <option value="Active" {{ $meja_restaurant->status_minimal_order == 'Active' ? 'selected' : '' }}>Active</option>
+                                    <option value="Inactive" {{ $meja_restaurant->status_minimal_order == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                </select>
+                                
+                                {{-- <input type="text" class="form-control @error('minimal_order') is-invalid @enderror" id="minimal_order" name="status_minimal_order" value="{{ old('minimal_order') ?? $meja_restaurant->minimal_order }}"  placeholder="Enter minimal_order"> --}}
+
+                                @error('status_minimal_order')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group mb-3">
+                                <label for="minimal_order">Minimal Order</label>
+                                <input type="number" class="form-control @error('minimal_order') is-invalid @enderror" id="minimal_order" name="minimal_order" value="{{ old('minimal_order') ?? $meja_restaurant->minimal_order }}"  placeholder="Enter minimal_order">
+                                
+                                @error('minimal_order')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
 
