@@ -99,11 +99,14 @@
                              </h5>
                         <h5 class="card-title text-center pt-1 fw-bolder">
                             (Meja 
-                                @if($item->meja_restaurant_id || $item->category == 'Takeaway' )
-                                    {{ $item->tableRestaurant->nama ?? ''}}
+                                @if($item->kode_meja || $item->category == 'Takeaway' )
+
                                     @if ($item->category == 'Takeaway')
                                     {{ $item->category }}
-                                        
+                                    {{ $item->kode_meja ?? ''}}
+                                    
+                                    @else
+                                        {{ $item->kode_meja ?? ''}}
                                     @endif
                                 @elseif($item->biliard_id)
                                     {{ $item->tableBilliard->nama }}    

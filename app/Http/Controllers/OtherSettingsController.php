@@ -49,6 +49,8 @@ class OtherSettingsController extends Controller
             'pb01' => 'required|regex:/[0-9]/',
             'layanan' => 'required|regex:/[0-9]/',
             'biaya_packing' => 'required',
+            'description_notifikasi' => 'nullable',
+            'status_notifikasi' => 'nullable',
             // 'time_billiard' => 'nullable',
             'time_start' => 'required',
             'time_close' => 'required',
@@ -65,6 +67,8 @@ class OtherSettingsController extends Controller
         $other->pb01 = $validate['pb01'];
         $other->layanan = $validate['layanan'];
         $other->biaya_packing = $validate['biaya_packing'];
+        $other->description_notifikasi = $validate['description_notifikasi'];
+        $other->status_notifikasi = $validate['status_notifikasi'];
         // $other->time_billiard = $validate['time_billiard'];
         $other->time_start = $validate['time_start'];
         $other->time_close = $validate['time_close'];

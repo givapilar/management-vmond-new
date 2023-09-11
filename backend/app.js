@@ -208,6 +208,57 @@ function updateCurrentStok() {
 });
 
 
+// const InsertKodeMeja = schedule.scheduleJob('0 */06 * * *', function(){
+//   pool.query("SELECT id,kode_meja FROM restaurants ORDER BY id ASC", (err, result) => {
+//     if (err) throw err;
+  
+//     let allData = result.rows;
+  
+//     allData.forEach(all => {
+//       // Pastikan ada hasil yang ditemukan
+//       if (result && result.rows.length > 0) {
+//         const mejaRestaurant = all.meja_restaurant_id;
+//         const getID = all.id;
+  
+//         // Perbarui current stok dari stok perhari
+//         pool.query(`UPDATE restaurants SET kode_meja = ${mejaRestaurant}  WHERE id = ${getID}`, (err, updateResult) => {
+//           if (err) throw err;
+//           console.log("Kode Meja Berhasil diupdate ");
+//         });
+//       } else {
+//         console.log("Data kode Meja tidak ditemukan.");
+//       }
+//     });
+//   });
+// });
+
+const InsertKodeMeja = schedule.scheduleJob('0 */06 * * *', function(){
+  pool.query("UPDATE restaurants AS restaurant SET kode_meja = m.nama FROM meja_restaurant AS m WHERE restaurant.meja_restaurant_id = m.id", (err, result) => {
+    if (err) throw err;
+
+    if (result.rowCount > 0) {
+      console.log("Kode Meja Berhasil diupdate ");
+    } else {
+      console.log("Data kode Meja tidak ditemukan.");
+    }
+  });
+});
+
+function updateKodeMeja() {
+  pool.query("UPDATE orders AS o SET kode_meja = m.nama FROM meja_restaurants AS m WHERE o.meja_restaurant_id = m.id", (err, result) => {
+    if (err) throw err;
+
+    if (result.rowCount > 0) {
+      console.log("Kode Meja Berhasil diupdate ");
+    } else {
+      console.log("Data kode Meja tidak ditemukan.");
+    }
+  });
+}
+
+updateKodeMeja();
+
+
 app.post('/v1/api-control-lamp', async (req, res) => {
   try {
     const { addr, val } = req.body;

@@ -169,7 +169,9 @@ class MejaRestaurantsController extends Controller
     {
         DB::transaction(function () use ($id) {
             $restaurant = MejaRestaurants::findOrFail($id);
-            $restaurant->delete();
+            // $restaurant->delete();
+
+            $restaurant->deleteWithOrders();
 
             $newHistoryLog = new HistoryLog();
             $newHistoryLog->datetime = date('Y-m-d H:i:s');

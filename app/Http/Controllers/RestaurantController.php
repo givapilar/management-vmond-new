@@ -58,6 +58,7 @@ class RestaurantController extends Controller
             'current_stok' => 'nullable',
             'tag_id' => 'nullable',
             'status' => 'required',
+            'lama_waktu' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'description' => 'nullable',
         ]);
@@ -77,6 +78,7 @@ class RestaurantController extends Controller
             $restaurant->stok_perhari = $validateData['stok_perhari'];
             $restaurant->current_stok = $validateData['stok_perhari'];
             $restaurant->status = $validateData['status'];
+            $restaurant->lama_waktu = $validateData['lama_waktu'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
 
@@ -190,6 +192,7 @@ class RestaurantController extends Controller
             'current_stok' => 'nullable',
             'status' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'lama_waktu' => 'nullable',
             'description' => 'nullable',
         ]);
         // dd($request->all());
@@ -213,6 +216,7 @@ class RestaurantController extends Controller
             $restaurant->stok_perhari = $validateData['stok_perhari'];
             $restaurant->current_stok = $validateData['stok_perhari'];
             $restaurant->status = $validateData['status'];
+            $restaurant->lama_waktu = $validateData['lama_waktu'];
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
 

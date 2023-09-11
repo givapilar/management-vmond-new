@@ -50,6 +50,15 @@
 .paginate_button{
   margin-top: -5px !important;
 }
+
+.buttons-excel{
+    background-color: #51f55e !important;
+    color: white;
+  }
+  .buttons-pdf{
+    background-color: red !important;
+    color: white;
+  }
 #content {
   margin: 0 auto;
   padding-bottom: 50px;

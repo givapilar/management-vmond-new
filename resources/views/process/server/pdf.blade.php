@@ -157,11 +157,11 @@
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
                 Table:
-                @if($orders->meja_restaurant_id || $orders->category == 'Takeaway')
+                @if($orders->kode_meja || $orders->category == 'Takeaway')
                     @if ($orders->category == 'Takeaway')
-                        <span style="float: right; margin-right: 15px;"> {{ $orders->category }} {{ $orders->tableRestaurant->nama ?? '' }}</span>
+                        <span style="float: right; margin-right: 15px;"> {{ $orders->category }} {{ $orders->kode_meja ?? '' }}</span>
                     @else
-                        <span style="float: right; margin-right: 15px;">{{ $orders->tableRestaurant->nama ?? '' }}</span>
+                        <span style="float: right; margin-right: 15px;">{{ $orders->kode_meja ?? '' }}</span>
                     @endif
                 @elseif($orders->biliard_id)
                     <span style="float: right; margin-right: 15px;">{{ $orders->tableBilliard->nama }}</span>    
@@ -251,7 +251,7 @@
                     <td class="price" style="text-align: right">&nbsp;</td>
                 </tr>
 
-                @if($orders->meja_restaurant_id || $orders->category == 'Takeaway')
+                @if($orders->kode_meja || $orders->category == 'Takeaway')
 
                 <tr>
                     <td class="quantity">&nbsp;</td>

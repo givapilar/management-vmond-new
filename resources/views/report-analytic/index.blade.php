@@ -324,55 +324,137 @@
                     @include('components.flash-message')
                 </div>
               </div>
-    
-              <table id="mytable" class="table table-striped" style="width:100%">
-              <thead>
-                  <tr>
-                    <th class="th-sm text-white">No</th>
-                    <th class="th-sm text-white">Waktu Pemesanan</th>
-                    <th class="th-sm text-white">Nama Menu Restaurant</th>
-                    <th class="th-sm text-white">Category</th>
-                    <th class="th-sm text-white">Qty</th>
-                    <th class="th-sm text-white">Harga Diskon</th>
-                    <th class="th-sm text-white">Status Pemesanan</th>
-                    <th class="th-sm text-white">Metode Pembayaran</th>
-                    <th class="th-sm text-white">EDC</th>
-                  </tr>
-              </thead>
-                  <tbody>
-                    {{-- {{ dd($groupedItems) }} --}}
-                    {{-- @foreach ($groupedItems as $groupKey => $grouped)
-                        @php
-                            list($nama, $category) = explode('|', $groupKey);
-                            $totalQty = $grouped->sum('qty');
-                        @endphp
-                          <tr>
-                              <td class="table-head text-white">{{ $loop->iteration }}</td>
-                              <td class="table-head text-white">{{ $nama}}</td>
-                              <td class="table-head text-white">{{ $category}}</td>
-                              <td class="table-head text-white">{{ $totalQty}}</td>
-                              <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
-                              <td class="table-head text-white">{{ $grouped->first()->order->metode_pembayaran}}</td>
-                              <td class="table-head text-white">{{ $grouped->first()->order->metode_edisi}}</td>
-                          </tr>
-                      @endforeach --}}
-    
-                        @foreach ($order_details as $order_detail)
+
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-toggle="tab" data-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Pesanan Vs Waktu</button>
+                  <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pesanan Detail Group</button>
+                  <button class="nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Table Analisa</button>
+                </div>
+              </nav>
+
+              {{-- Pesanan Vs Waktu --}}
+              <div class="tab-content" style="border: none !important; " id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <table id="mytable" class="table table-striped" style="width:100%">
+                        <thead>
                             <tr>
-                                <td class="table-head text-white">{{ $loop->iteration }}</td>
-                                <td class="table-head text-white">{{ $order_detail->created_at}}</td>
-                                <td class="table-head text-white">{{ $order_detail->restaurant->nama}}</td>
-                                <td class="table-head text-white">{{ $order_detail->category}}</td>
-                                <td class="table-head text-white">{{ $order_detail->qty}}</td>
-                                <td class="table-head text-white">{{ $order_detail->harga_diskon}}</td>
-                                <td class="table-head text-white">{{ $order_detail->order->status_pembayaran}}</td>
-                                <td class="table-head text-white">{{ $order_detail->order->metode_pembayaran}}</td>
-                                <td class="table-head text-white">{{ $order_detail->order->metode_edisi}}</td>
+                              <th class="th-sm text-white">No</th>
+                              <th class="th-sm text-white">Waktu Pemesanan</th>
+                              <th class="th-sm text-white">Nama Menu Restaurant</th>
+                              <th class="th-sm text-white">Category</th>
+                              <th class="th-sm text-white">Qty</th>
+                              <th class="th-sm text-white">Harga Diskon</th>
+                              <th class="th-sm text-white">Status Pemesanan</th>
+                              <th class="th-sm text-white">Metode Pembayaran</th>
+                              <th class="th-sm text-white">EDC</th>
                             </tr>
-                        @endforeach
-                  </tbody>
+                        </thead>
+                        <tbody>
+                            {{-- {{ dd($groupedItems) }} --}}
+                            {{-- @foreach ($groupedItems as $groupKey => $grouped)
+                                @php
+                                    list($nama, $category) = explode('|', $groupKey);
+                                    $totalQty = $grouped->sum('qty');
+                                @endphp
+                                <tr>
+                                    <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                    <td class="table-head text-white">{{ $nama}}</td>
+                                    <td class="table-head text-white">{{ $category}}</td>
+                                    <td class="table-head text-white">{{ $totalQty}}</td>
+                                    <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
+                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_pembayaran}}</td>
+                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_edisi}}</td>
+                                </tr>
+                            @endforeach --}}
+            
+                                @foreach ($order_details as $order_detail)
+                                    <tr>
+                                        <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                        <td class="table-head text-white">{{ $order_detail->created_at}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->restaurant->nama}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->category}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->qty}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->harga_diskon}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->order->status_pembayaran}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->order->metode_pembayaran}}</td>
+                                        <td class="table-head text-white">{{ $order_detail->order->metode_edisi}}</td>
+                                    </tr>
+                                @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Pesanan detail Gruop --}}
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <table id="tableDetail" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th class="th-sm text-white">No</th>
+                              <th class="th-sm text-white">Nama Menu Restaurant</th>
+                              <th class="th-sm text-white">Category</th>
+                              <th class="th-sm text-white">Qty</th>
+                              <th class="th-sm text-white">Harga Diskon</th>
+                              <th class="th-sm text-white">Status Pemesanan</th>
+                              {{-- <th class="th-sm text-white">Metode Pembayaran</th>
+                              <th class="th-sm text-white">EDC</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- {{ dd($groupedItems) }} --}}
+                            @foreach ($groupedItems as $groupKey => $grouped)
+                                @php
+                                    list($nama, $category) = explode('|', $groupKey);
+                                    $totalQty = $grouped->sum('qty');
+                                    $totalHarga = $grouped->sum('harga_diskon');
+                                @endphp
+                                <tr>
+                                    <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                    <td class="table-head text-white">{{ $nama}}</td>
+                                    <td class="table-head text-white">{{ $category}}</td>
+                                    <td class="table-head text-white">{{ $totalQty}}</td>
+                                    <td class="table-head text-white">{{ $totalHarga}}</td>
+                                    <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
+                                    {{-- <td class="table-head text-white">{{ $grouped->first()->order->metode_pembayaran}}</td>
+                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_edisi}}</td> --}}
+                                </tr>
+                            @endforeach
+            
+                        </tbody>
+                    </table>
+                </div>
+
+                {{-- Table Analisa --}}
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <table id="tableMeja" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                              <th class="th-sm text-white">No</th>
+                              <th class="th-sm text-white">Kode Meja</th>
+                              <th class="th-sm text-white">Jumlah Customer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($groupedKode as $groupKey => $grouped)
+                                @php
+                                    list($kode_meja, $jumlah_customer) = explode('|', $groupKey);
+                                    $totalQty = $grouped->sum('meja_restaurant_id');
+                                    $totalHarga = $grouped->sum('harga_diskon');
+                                @endphp
+                                <tr>
+                                    <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                    {{-- <td class="table-head text-white">{{ $grouped->first()->order->tableRestaurant->nama}}</td> --}}
+                                    <td class="table-head text-white">{{ $kode_meja}}</td>
+                                    <td class="table-head text-white">{{ $jumlah_customer}}</td>
+                                </tr>
+                            @endforeach
+            
+                        </tbody>
+                    </table>
+                </div>
+              </div>
     
-              </table>
+              
             </div>
           </div>
         </div>

@@ -6,23 +6,23 @@
 
 @section('content')
 <div class="content-wrapper">
-    <div class="row">
-        <div class="col-lg-6 col-12 grid-margin stretch-card">
-            <div class="card card rounded-20 p-2">
-                <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
-                    <div class="row">
-                        <div class="col-6 mt-1 px-4">
-                            <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
-                                <i class="fa-solid fa-tags" style="font-size: 20px;"></i>
-                                <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
-                            </span>
+    <form class="forms-sample" action="{{ route('other.update', ['id' => Crypt::encryptString($other_setting->id ?? 0)]) }}" enctype="multipart/form-data" method="POST">
+        @csrf
+        <div class="row">
+            <div class="col-lg-6 col-12 grid-margin stretch-card">
+                <div class="card card rounded-20 p-2">
+                    <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                        <div class="row">
+                            <div class="col-6 mt-1 px-4">
+                                <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                    <i class="fa-solid fa-tags" style="font-size: 20px;"></i>
+                                    <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                                </span>
+                            </div>
+
+
                         </div>
-
-
                     </div>
-                </div>
-                <form class="forms-sample" action="{{ route('other.update', ['id' => Crypt::encryptString($other_setting->id ?? 0)]) }}" enctype="multipart/form-data" method="POST">
-                    @csrf
                     <div class="card-body bg-gray-800 rounded-20 p-4">
                         <div class="row">
                             <div class="col-lg-12">
@@ -183,10 +183,64 @@
                             <button type="submit" class="btn btn- btn-primary mr-2 p-2">Submit</button>
                         </div>
                     </div>
-                </form>
+                </div>
+            </div>
+
+            {{-- Card --}}
+
+            <div class="col-lg-6 col-12 grid-margin stretch-card h-auto d-inline-block">
+                <div class="card card rounded-20 p-2 h-auto d-inline-block" >
+                    <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
+                        <div class="row">
+                            <div class="col-6 mt-1 px-4">
+                                <span class="d-flex justify-content-start align-items-center tx-bold text-lg text-white" style="font-size:16px;">
+                                    <i class="fa-solid fa-tags" style="font-size: 20px;"></i>
+                                    <h4 class="card-title mb-0 pb-0 ml-2">{{ strtoupper($page_title) }}</h4>
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="card-body bg-gray-800 rounded-20 p-4">
+                        <div class="row">
+                            
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea name="description_notifikasi" class="form-control" id="description" rows="4" placeholder="Description Notifikasi">{{ $other_setting->description_notifikasi ?? old('description_notifikasi') }}</textarea>
+                                    {{-- <textarea name="description" id="mytextarea"></textarea> --}}
+                                    @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                    <label class="">Status Notifikasi</label>
+                                    <select class="form-control @error('status_notifikasi') is-invalid @enderror" name="status_notifikasi">
+                                        <option disabled selected>Choose Status</option>
+                                        <option value="Active" {{ $other_setting->status_notifikasi == 'Active' ? 'selected' : '' }}>Active</option>
+                                        <option value="Inactive" {{ $other_setting->status_notifikasi == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                    
+                                    @error('status_notifikasi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 @include('master-data.tag.create')
 @endsection

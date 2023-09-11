@@ -50,6 +50,7 @@
                         <th class="th-sm text-white">Harga Diskon</th>
                         <th class="th-sm text-white">Current Stok</th>
                         <th class="th-sm text-white">Status</th>
+                        <th class="th-sm text-white">Lama Waktu</th>
                         <th class="th-sm text-white">Image</th>
                         <th class="th-sm text-white" width="15%">Action</th>
                         </tr>
@@ -64,6 +65,11 @@
                                 <td class="table-head text-white">{{ $restaurant->harga_diskon }}</td>
                                 <td class="table-head text-white">{{ $restaurant->current_stok }}</td>
                                 <td class="table-head text-white">{{ $restaurant->status }}</td>
+                                @if ($restaurant->lama_waktu == !null)
+                                <td class="table-head text-white">{{ $restaurant->lama_waktu }} Menit</td>
+                                @else
+                                <td class="table-head text-white">-</td>
+                                @endif
                                 <td class="table-head text-white">
                                     <img src="{{ asset('assets/images/restaurant/'.($restaurant->image ?? 'user.png')) }}" width="110px" class="image img" />
                                 </td>

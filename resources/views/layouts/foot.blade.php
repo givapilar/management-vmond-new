@@ -63,6 +63,16 @@
 
 {{-- Cdn EChart --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js" integrity="sha512-EmNxF3E6bM0Xg1zvmkeYD3HDBeGxtsG92IxFt1myNZhXdCav9MzvuH/zNMBU1DmIPN6njrhX1VTbqdJxQ2wHDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- DataTables Export Plugin -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
 <script>
 
     $(document).ready(function() {
@@ -87,9 +97,42 @@
         // );
         var table = $('#mytable').DataTable( {
             responsive: true,
-            "lengthMenu": [[100, 50, 25], [100, 50, 25]]
+            "lengthMenu": [[100, 50, 25], [100, 50, 25]],
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5',
+            'pdfHtml5',
+            // 'print'
+        ]
+    });
+    
+
     });
 
+    $(document).ready(function () {
+        var table = $('#tableDetail').DataTable( {
+            responsive: true,
+            "lengthMenu": [[100, 50, 25], [100, 50, 25]],
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'pdfHtml5',
+                // 'print'
+            ]
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#tableMeja').DataTable( {
+            responsive: true,
+            "lengthMenu": [[100, 50, 25], [100, 50, 25]],
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5',
+                'pdfHtml5',
+                // 'print'
+            ]
+        });
     });
 
     function detailModal(title, url, width) {

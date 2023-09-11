@@ -206,6 +206,19 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-3">
+                                    <div class="form-group mb-3">
+                                        <label for="lama_waktu">Lama Waktu <small>(Menit)</small> </label>
+                                        <input class="form-control @error('lama_waktu') is-invalid @enderror" min="0" id="name" type="number" name="lama_waktu" placeholder="Lama Waktu" required value="{{ old('lama_waktu') ?? $restaurant->lama_waktu }}">
+                                        
+                                        @error('lama_waktu')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                             </div>
 
                                 

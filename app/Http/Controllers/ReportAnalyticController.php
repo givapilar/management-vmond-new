@@ -277,14 +277,6 @@ class ReportAnalyticController extends Controller
                     ->orderBy('id', 'asc')
                     ->get()->sum('total_price');
 
-                // $orderTotal = OrderPivot::whereDate('created_at', $date)
-                //     ->whereHas('order', function ($query) {
-                //         $query->where('status_pembayaran', 'Paid');
-                //     })
-                //     ->sum(\DB::raw('harga_diskon * qty'));
-                
-                // dd($total);
-
                 $service = Order::whereDate('created_at', $date)
                 ->where('status_pembayaran', 'Paid')
                 ->sum('service');
@@ -321,6 +313,10 @@ class ReportAnalyticController extends Controller
 
                 $groupedItems = $orderDetails->groupBy(function ($item) {
                     return $item->restaurant->nama . '|' . $item->category;
+                });
+
+                $groupedKode = $orderDetails->groupBy(function ($item) {
+                    return $item->order->tableRestaurant->nama . '|' . $item->order->jumlah_customer;
                 });
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
@@ -408,6 +404,10 @@ class ReportAnalyticController extends Controller
                 return $item->restaurant->nama . '|' . $item->category;
             });
 
+            $groupedKode = $orderDetails->groupBy(function ($item) {
+                return $item->kasir_id->nama . '|' . $item->jumlah_customer;
+            });
+
             $topDishes = OrderPivot::selectRaw('order_pivots.restaurant_id, SUM(order_pivots.qty) as total_qty')
             ->join('orders', function ($join) use ($month) {
                 $join->on('order_pivots.order_id', '=', 'orders.id')
@@ -424,6 +424,14 @@ class ReportAnalyticController extends Controller
             $statusPembayaran = 'Paid';
         
             $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
+
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
+            });
+
+            $groupedKode = $orderDetails->groupBy(function ($item) {
+                return $item->kasir_id->nama . '|' . $item->jumlah_customer;
+            });
         
             $orderDetails = OrderPivot::with('order')
                 ->whereYear('created_at', $year)
@@ -477,6 +485,7 @@ class ReportAnalyticController extends Controller
         $data['total_kitchen'] = $totalKitchen;
         $data['total_fwb'] = $totalFwb;
         $data['groupedItems'] = $groupedItems;
+        $data['groupedKode'] = $groupedKode;
 
         $dishNames = [];
         $dishQuantities = [];
