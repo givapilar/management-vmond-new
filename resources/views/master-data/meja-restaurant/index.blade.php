@@ -50,6 +50,7 @@
                                 <th class="th-sm text-white">Barcode</th>
                                 <th class="th-sm text-white">Status Minimum Order</th>
                                 <th class="th-sm text-white">Minimum Order</th>
+                                <th class="th-sm text-white">Position</th>
                                 <th class="th-sm text-white" width="15%">Action</th>
                             </tr>
                         </thead>
@@ -102,6 +103,7 @@
 
                                 <td class="table-head text-white">{{ $meja_restaurant->status_minimal_order }}</td>
                                 <td class="table-head text-white">{{ $meja_restaurant->minimal_order }}</td>
+                                <td class="table-head text-white">{{ $meja_restaurant->position }}</td>
 
                                 @if(auth()->user()->can('meja-restaurant-delete') || auth()->user()->can('meja-restaurant-edit'))
                                 <td>

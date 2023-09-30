@@ -65,6 +65,23 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group mb-3">
+                                        <label class="">Sub Category</label>
+                                        <select class="form-control @error('sub_category') is-invalid @enderror" name="sub_category">
+                                            <option value="">Select Sub Category</option>
+                                            <option value="Hot" {{ $restaurant->sub_category == 'Hot' ? 'selected' : '' }}>Hot</option>
+                                            <option value="Cold" {{ $restaurant->sub_category == 'Cold' ? 'selected' : '' }}>Cold</option>
+                                        </select>
+                                        
+                                        @error('category')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 
                                 <div class="col-lg-3">
                                     <div class="form-group mb-3">

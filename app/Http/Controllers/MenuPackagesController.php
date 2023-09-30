@@ -49,6 +49,9 @@ class MenuPackagesController extends Controller
      */
     public function store(Request $request)
     {
+        // try {
+        
+            // dd($request->all());
         $validateData = $request->validate( [
             'nama_paket' => 'required',
             'category' => 'required',
@@ -59,15 +62,14 @@ class MenuPackagesController extends Controller
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
-            'minimal' => 'required',
-            'jam' => 'required',
+            'minimal' => 'nullable',
+            'jam' => 'nullable',
             'status_konfirmasi' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'description' => 'nullable',
         ]);
 
 
-        try {
             $slug = str_replace(' ','&',strtolower($validateData['nama_paket']));
             $harga = str_replace(',', '',$validateData['harga']);
             $harga_diskon = str_replace(',', '',$validateData['harga_diskon']);
@@ -81,7 +83,7 @@ class MenuPackagesController extends Controller
             $paket_menu->persentase = $validateData['persentase'];
             $paket_menu->status = $validateData['status'];
             $paket_menu->minimal = $validateData['minimal'];
-            $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
+            // $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
             $paket_menu->description = $validateData['description'];
             $paket_menu->jam = $validateData['jam'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
@@ -129,9 +131,9 @@ class MenuPackagesController extends Controller
             $newHistoryLog->save();
 
             return redirect()->route('paket-menu.index')->with(['success' => 'Paket Menu added successfully!']);
-        } catch (\Throwable $th) {
-            return redirect()->route('paket-menu.index')->with(['failed' => 'Paket Menu added failed! '.$th->getMessage()]);
-        }
+        // } catch (\Throwable $th) {
+        //     return redirect()->route('paket-menu.index')->with(['failed' => 'Paket Menu added failed! '.$th->getMessage()]);
+        // }
     }
 
     /**
@@ -187,7 +189,7 @@ class MenuPackagesController extends Controller
             'minimal' => 'required',
             'status_konfirmasi' => 'required',
             'jam' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'description' => 'nullable',
         ]);
 

@@ -48,9 +48,12 @@ class RestaurantController extends Controller
 
     public function store(Request $request)
     {
+        try {
+
         $validateData = $request->validate([
             'nama' => 'required',
             'category' => 'required',
+            'sub_category' => 'nullable',
             'harga' => 'required',
             'harga_diskon' => 'nullable',
             'persentase' => 'nullable',
@@ -63,7 +66,6 @@ class RestaurantController extends Controller
             'description' => 'nullable',
         ]);
 
-        try {
             $slug = str_replace(' ','&',strtolower($validateData['nama']));
             $replaceTitik = str_replace(',', '',$request->harga);
             $replaceTitikHarga = str_replace(',', '',$request->harga_diskon);
@@ -72,6 +74,7 @@ class RestaurantController extends Controller
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
+            $restaurant->sub_category = $validateData['sub_category'];
             $restaurant->harga = $replaceTitik;
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];
@@ -155,7 +158,7 @@ class RestaurantController extends Controller
 
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant added successfully!']);
         } catch (\Throwable $th) {
-            return redirect()->route('restaurant.index')->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
+            return redirect()->back()->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
         }
     }
 
@@ -185,13 +188,14 @@ class RestaurantController extends Controller
         $validateData = $request->validate([
             'nama' => 'required',
             'category' => 'required',
+            'sub_category' => 'nullable',
             'harga' => 'required',
             'harga_diskon' => 'nullable',
             'persentase' => 'nullable',
             'stok_perhari' => 'nullable',
             'current_stok' => 'nullable',
             'status' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'lama_waktu' => 'nullable',
             'description' => 'nullable',
         ]);
@@ -210,6 +214,7 @@ class RestaurantController extends Controller
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
+            $restaurant->sub_category = $validateData['sub_category'];
             $restaurant->harga = $replaceTitik;
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];

@@ -35,6 +35,7 @@
                                     <option value="billiard" selected>Billiard</option>
                                     <option value="meeting_room">Meeting Room</option>
                                     <option value="event">Event</option>
+                                    <option value="paket_menu">Paket Menu</option>
                                 </select>
                         
                                 @error('category')
@@ -152,7 +153,7 @@
 
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3" id="minimal">
                                 <label for="minimal">Minimal </label>
                                 <input type="number" class="form-control @error('minimal') is-invalid @enderror" id="minimal" name="minimal" value="{{ old('minimal') }}"  placeholder="minimal">
 
@@ -165,7 +166,7 @@
                         </div>
 
                         <div class="col-6">
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3" id="status_konfirmasi">
                                 <label class="">Status Konfirmasi</label>
                                 <select class="form-control @error('status_konfirmasi') is-invalid @enderror" name="status_konfirmasi">
                                     <option disabled selected>Choose Status Konfirmasi</option>
@@ -182,7 +183,7 @@
                         </div>
 
                         <div class="col-12 col-lg-6">
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3" id="jam">
                                 <label for="jam">Masukan Jam </label>
                                 <input type="number" class="form-control @error('jam') is-invalid @enderror" id="jam" name="jam" value="{{ old('jam')  }}"  placeholder="jam">
 
@@ -292,13 +293,25 @@
         content_css: "dark"
     });
     
+    
     function categorySelection(val) {
+        const minimalField = document.getElementById('minimal');
+        const statusKonfirmasiField = document.getElementById('status_konfirmasi');
+        const jamField = document.getElementById('jam');
+        const billiard = document.getElementById('billiard');
+        const meetingRoom = document.getElementById('meeting_room');
         if (val === 'billiard') {
             $('#billiard').removeClass('d-none');
             $('#meeting_room').addClass('d-none');
         }else if(val === 'meeting_room') {
             $('#meeting_room').removeClass('d-none')
             $('#billiard').addClass('d-none')
+        }else if(val === 'paket_menu') {
+            minimalField.style.display = 'none';
+            statusKonfirmasiField.style.display = 'none';
+            jamField.style.display = 'none';
+            billiard.style.display = 'none';
+            meetingRoom.style.display = 'none';
         }
     }
 </script>

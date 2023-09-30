@@ -199,9 +199,9 @@
 @push('script-bot')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    window.setTimeout( function() {
-        window.location.reload();
-    }, 60000);
+    // window.setTimeout( function() {
+    //     window.location.reload();
+    // }, 60000);
     function confirmData(id) {
         $.confirm({
             icon: 'glyphicon glyphicon-heart',

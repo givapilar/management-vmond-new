@@ -16,23 +16,14 @@ class DashboardKitchenController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($order_time);
 
         $data['page_title'] = 'Dashboard';  
-        // $data['orders'] = OrderPivot::get();
-        // $data['order_table'] = Order::get();
-        
         $data['current_time'] = Carbon::now()->format('Y-m-d H:i:s');
-        // $data['orders'] = Order::get();
         $today = Carbon::today();
-        $orders = Order::where('status_pembayaran', 'Paid')->whereDate('created_at', $today)->orderBy('id', 'DESC')->where('status_pesanan', 'process')->get();
+        $fourHoursAgo = Carbon::now()->subHours(4);
+        $orders = Order::where('status_pembayaran', 'Paid')->whereDate('created_at', $fourHoursAgo)->orderBy('id', 'DESC')->where('status_pesanan', 'process')->get();
         $data['orders'] = $orders;
 
-        // dd($orders[0]->orderPivotMakanan());
-        // $data['order_billiards'] = $order->orderBilliardMakananTime($current_time);
-        // $data['order_meetings'] = $order->orderMeetingMakananTime($current_time);
-        // $data['order_billiards'] = OrderBilliard::get();
-          
         // Calculate elapsed time for each order
         foreach ($orders as $order) {
             $order->elapsed_time = $this->calculateElapsedTime($order->created_at);
@@ -181,7 +172,21 @@ class DashboardKitchenController extends Controller
 
     public function history(Request $request) {
         $data['page_title'] = 'Dashboard History';
-        $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
+        // $data['order_pivots'] = OrderPivot::orderBy('id', 'ASC')->get();
+        // $pv = OrderPivot::get();
+
+        // $pv = OrderPivot::query()
+        //     ->join('restaurants', 'restaurants.id', '=', 'order_pivots.restaurant_id')
+        //     ->join('restaurant_pivots', 'restaurant_pivots.restaurant_id', '=', 'restaurants.id')
+        //     ->join('tags', 'tags.id', '=', 'restaurant_pivots.tag_id')
+        //     ->orderBy('tags.position', 'desc')
+        //     ->get();
+        
+        // $data['order_pivots'] = $pv;
+    
+
+
+
 
         $query = Order::query();
         $oneHourAgo = Carbon::now()->subHour();
@@ -249,6 +254,8 @@ class DashboardKitchenController extends Controller
                 ->where('status_pesanan', 'process')
                 ->orderByDesc('invoice_no')
                 ->get();
+
+                
         }
 
         

@@ -85,6 +85,7 @@ class MejaRestaurantsController extends Controller
             'description' => 'nullable',
             'status_minimal_order' => 'nullable',
             'minimal_order' => 'nullable',
+            'position' => 'nullable',
         ]);
 
         try {
@@ -99,6 +100,7 @@ class MejaRestaurantsController extends Controller
             $meja_restaurant->description = $validateData['description'];
             $meja_restaurant->status_minimal_order = $validateData['status_minimal_order'];
             $meja_restaurant->minimal_order = $validateData['minimal_order'];
+            $meja_restaurant->position = $validateData['position'];
             $meja_restaurant->barcode = $barcode;
 
             
@@ -142,6 +144,7 @@ class MejaRestaurantsController extends Controller
             'description' => 'nullable',
             'status_minimal_order' => 'nullable',
             'minimal_order' => 'nullable',
+            'position' => 'nullable',
         ]);
 
         try {
@@ -156,6 +159,7 @@ class MejaRestaurantsController extends Controller
             $meja_restaurant->kode_meja = $validateData['kode_meja'];
             $meja_restaurant->status_minimal_order = $request->status_minimal_order;
             $meja_restaurant->minimal_order = $validateData['minimal_order'];
+            $meja_restaurant->position = $validateData['position'];
             $meja_restaurant->barcode = $barcode;
             $meja_restaurant->description = $validateData['description'];
             

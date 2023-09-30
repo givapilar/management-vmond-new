@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantPivots extends Model
 {
     use HasFactory;
+
+    public function tag()
+    {
+        return $this->belongsTo(Tags::class);
+    }
 }

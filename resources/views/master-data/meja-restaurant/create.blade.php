@@ -114,6 +114,19 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-4">
+                        <div class="form-group mb-3">
+                            <label for="position">Position</label>
+                            <input type="number" min="0" class="form-control @error('position') is-invalid @enderror" id="position" name="position" value="{{ old('position') }}"  placeholder="Enter Minimal Order">
+                            
+                            @error('position')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
 

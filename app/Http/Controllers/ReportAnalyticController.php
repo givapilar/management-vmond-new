@@ -316,7 +316,7 @@ class ReportAnalyticController extends Controller
                 });
 
                 $groupedKode = $orderDetails->groupBy(function ($item) {
-                    return $item->order->tableRestaurant->nama . '|' . $item->order->jumlah_customer;
+                    return $item->order->kode_meja . '|' . $item->order->jumlah_customer;
                 });
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')

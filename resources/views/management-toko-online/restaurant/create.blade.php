@@ -52,6 +52,23 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-3">
+                        <div class="form-group mb-3">
+                            <label class="">Sub Category</label>
+                            <select class="form-control @error('sub_category') is-invalid @enderror" name="sub_category">
+                                <option disabled selected>Choose Sub Category</option>
+                                <option value="Hot">Hot</option>
+                                <option value="Cold">Cold</option>
+                            </select>
+    
+                            @error('sub_category')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
                     {{-- <div class="col-lg-3">
                         <div class="form-group mb-3">
                             <label for="harga">Harga <small>%</small></label>
