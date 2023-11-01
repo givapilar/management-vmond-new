@@ -270,7 +270,7 @@
                             </div>
                         </div>
     
-                        <table id="mytable" class="table table-striped" style="width:100%">
+                        {{-- <table id="mytable" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="th-sm text-white">No</th>
@@ -289,7 +289,7 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table> --}}
                     </div>
                 </div>
             </div>

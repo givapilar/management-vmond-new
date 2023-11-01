@@ -89,24 +89,31 @@ class MenuPackagesController extends Controller
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;
 
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $filename = time().'.'.$image->getClientOriginalExtension();
+            //     $filePath = 'assets/images/paket-menu/'.$filename;
+
+            //     // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+            //     if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+            //         return redirect()->route('paket-menu.index')->with(['failed' => 'Image Size 200 x 200!']);
+            //     } else {
+            //         // Resize the image
+            //         $img = Image::make($image)->resize(200, 200);
+
+            //         // Save the resized image
+            //         $img->save(public_path($filePath));
+
+            //         // Store the image filename in the paket-menu model
+            //         $paket_menu->image = basename($filePath);
+            //     }
+            // }
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = time().'.'.$image->getClientOriginalExtension();
-                $filePath = 'assets/images/paket-menu/'.$filename;
-
-                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
-                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
-                    return redirect()->route('paket-menu.index')->with(['failed' => 'Image Size 200 x 200!']);
-                } else {
-                    // Resize the image
-                    $img = Image::make($image)->resize(200, 200);
-
-                    // Save the resized image
-                    $img->save(public_path($filePath));
-
-                    // Store the image filename in the paket-menu model
-                    $paket_menu->image = basename($filePath);
-                }
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/paket-menu/');
+                $image->move($destinationPath, $name);
+                $paket_menu->image = $name;
             }
 
             $paket_menu->save();
@@ -186,9 +193,9 @@ class MenuPackagesController extends Controller
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
-            'minimal' => 'required',
-            'status_konfirmasi' => 'required',
-            'jam' => 'required',
+            'minimal' => 'nullable',
+            'status_konfirmasi' => 'nullable',
+            'jam' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             'description' => 'nullable',
         ]);
@@ -208,29 +215,37 @@ class MenuPackagesController extends Controller
             $paket_menu->status = $validateData['status'];
             $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->jam = $validateData['jam'];
-            $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
+            $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'] ?? null;
             $paket_menu->description = $validateData['description'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;
 
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $filename = time().'.'.$image->getClientOriginalExtension();
+            //     $filePath = 'assets/images/paket-menu/'.$filename;
+
+            //     // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+            //     if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+            //         return redirect()->route('paket-menu.index')->with(['failed' => 'Image Size 200 x 200!']);
+            //     } else {
+            //         // Resize the image
+            //         $img = Image::make($image)->resize(200, 200);
+
+            //         // Save the resized image
+            //         $img->save(public_path($filePath));
+
+            //         // Store the image filename in the paket-menu model
+            //         $paket_menu->image = basename($filePath);
+            //     }
+            // }
+
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = time().'.'.$image->getClientOriginalExtension();
-                $filePath = 'assets/images/paket-menu/'.$filename;
-
-                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
-                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
-                    return redirect()->route('paket-menu.index')->with(['failed' => 'Image Size 200 x 200!']);
-                } else {
-                    // Resize the image
-                    $img = Image::make($image)->resize(200, 200);
-
-                    // Save the resized image
-                    $img->save(public_path($filePath));
-
-                    // Store the image filename in the paket-menu model
-                    $paket_menu->image = basename($filePath);
-                }
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/paket-menu/');
+                $image->move($destinationPath, $name);
+                $paket_menu->image = $name;
             }
 
             $paket_menu->save();

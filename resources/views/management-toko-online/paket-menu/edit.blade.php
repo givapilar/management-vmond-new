@@ -40,7 +40,7 @@
                                         <option value="billiard" {{ $package->category == 'billiard' ? 'selected' : '' }}>Billiard</option>
                                         <option value="meeting_room" {{ $package->category == 'meeting_room' ? 'selected' : '' }}>Meeting Room</option>
                                         <option value="event" {{ $package->category == 'event' ? 'selected' : '' }}>Event</option>
-                                        <option value="paket_menu" {{ $package->category == 'peket_menu' ? 'selected' : '' }}>Paket Menu</option>
+                                        <option value="paket_menu" {{ $package->category == 'paket_menu' ? 'selected' : '' }}>Paket Menu</option>
                                     </select>
 
                                     @error('category')
@@ -289,42 +289,77 @@
         content_css: "dark"
     });
     
-    var selectedValue = $('#category').val();
-    const minimalField = document.getElementById('minimal');
-    const statusKonfirmasiField = document.getElementById('status_konfirmasi');
-    const jamField = document.getElementById('jam');
-    const billiard = document.getElementById('billiard');
-    const meetingRoom = document.getElementById('meeting_room');
+    // var selectedValue = $('#category').val();
+    // const minimalField = document.getElementById('minimal');
+    // const statusKonfirmasiField = document.getElementById('status_konfirmasi');
+    // const jamField = document.getElementById('jam');
+    // const billiard = document.getElementById('billiard');
+    // const meetingRoom = document.getElementById('meeting_room');
 
-    if (selectedValue === 'billiard') {
-        $('#billiard').removeClass('d-none');
-        $('#meeting_room').addClass('d-none');
-    }else if(selectedValue === 'meeting_room') {
-        $('#meeting_room').removeClass('d-none')
-        $('#billiard').addClass('d-none')
-    }else if (selectedValue === 'paket_menu'){
-        minimalField.style.display = 'none';
-        statusKonfirmasiField.style.display = 'none';
-        jamField.style.display = 'none';
-    }
+    // if (selectedValue === 'billiard') {
+    //     $('#billiard').removeClass('d-none');
+    //     $('#meeting_room').addClass('d-none');
+    // }else if(selectedValue === 'meeting_room') {
+    //     $('#meeting_room').removeClass('d-none')
+    //     $('#billiard').addClass('d-none')
+    // }else if (selectedValue === 'paket_menu'){
+    //     minimalField.style.display = 'none';
+    //     statusKonfirmasiField.style.display = 'none';
+    //     jamField.style.display = 'none';
+    // }
 
-    function categorySelection(val) {
-        if (val === 'billiard') {
-            $('#billiard').removeClass('d-none');
-            $('#meeting_room').addClass('d-none');
-        }else if(val === 'meeting_room') {
-            $('#meeting_room').removeClass('d-none')
-            $('#billiard').addClass('d-none')
-        }else if(val === 'paket_menu') {
-            minimalField.style.display = 'none';
-            statusKonfirmasiField.style.display = 'none';
-            jamField.style.display = 'none';
-            billiard.style.display = 'none';
-            meetingRoom.style.display = 'none';
-        }
-    }
+    // function categorySelection(val) {
+    //     if (val === 'billiard') {
+    //         $('#billiard').removeClass('d-none');
+    //         $('#meeting_room').addClass('d-none');
+    //     }else if(val === 'meeting_room') {
+    //         $('#meeting_room').removeClass('d-none')
+    //         $('#billiard').addClass('d-none')
+    //     }else if(val === 'paket_menu') {
+    //         minimalField.style.display = 'none';
+    //         statusKonfirmasiField.style.display = 'none';
+    //         jamField.style.display = 'none';
+    //         billiard.style.display = 'none';
+    //         meetingRoom.style.display = 'none';
+    //     }
+    // }
 </script>
 
+<script>
+   function categorySelection(selectedCategory) {
+        var billiardField = document.getElementById('billiard');
+        var jamField = document.getElementById('jam');
+        var minimalField = document.getElementById('minimal');
+        var statusKonfirmasiField = document.getElementById('status_konfirmasi');
+
+        // Hide Billiard field by default
+        billiardField.style.display = 'none';
+
+        // Always show Jam, Minimal, and Status Konfirmasi fields
+        jamField.style.display = 'block';
+        minimalField.style.display = 'block';
+        statusKonfirmasiField.style.display = 'block';
+
+        if (selectedCategory === 'billiard') {
+            billiardField.style.display = 'block';
+        } else if (selectedCategory === 'meeting_room') {
+            // Use jQuery to show the Meeting Room field
+            $('#meeting_room').removeClass('d-none');
+        } else if (selectedCategory === 'paket_menu') {
+            // Hide all fields for "paket_menu"
+            billiardField.style.display = 'none';
+            $('#meeting_room').addClass('d-none');
+            jamField.style.display = 'none';
+            minimalField.style.display = 'none';
+            statusKonfirmasiField.style.display = 'none';
+        }
+    }
+
+    // Call categorySelection on page load to set the initial visibility based on the selected category
+    categorySelection(document.getElementById('category').value);
+
+</script>
+    
 <script>
 
     $("#checkbox").click(function () {

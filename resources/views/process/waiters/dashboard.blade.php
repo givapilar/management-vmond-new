@@ -25,19 +25,25 @@
             <div class="card h-100 border-r-20">
                 <div class="card-header border-rt-20">
                     {{-- <a data-bs-toggle="modal" data-bs-target="#waiters-{{ $item->code }}" href="{{ route('waiters.dashboard.detail',$item->id) }}" class="text-decoration-none text-dark"> --}}
-                        <h5 class="card-title text-center pt-1 fw-bolder">#{{ $item->invoice_no }} 
+                        <h5 class="card-title text-center pt-1 fw-bolder">#{{ $item->invoice_no }} </h5>
+                        <h5 class="card-title text-center pt-1 fw-bolder">
                             (Meja 
-                            @if($item->meja_restaurant_id || $item->category == 'Takeaway' )
-                                {{ $item->tableRestaurant->nama ?? ''}}
-                                @if ($item->category == 'Takeaway')
-                                {{ $item->category }}
-                                @endif
+                                @if($item->kode_meja || $item->category == 'Takeaway' )
+
+                                    @if ($item->category == 'Takeaway')
+                                    {{ $item->category }}
+                                    {{ $item->kode_meja ?? ''}}
+                                    
+                                    @else
+                                        {{ $item->kode_meja ?? ''}}
+                                    @endif
                                 @elseif($item->biliard_id)
                                     {{ $item->tableBilliard->nama }}    
                                 @elseif($item->meeting_room_id)
                                     {{ $item->tableMeetingRoom->nama }} 
                                 @endif
-                            ) </h5>
+                            )
+                        </h5>
                     {{-- </a> --}}
                 </div>
                 <div class="card-body py-0 px-0">
@@ -108,7 +114,9 @@
                         @endforeach --}}
                         {{-- <a href="{{ route('waiters.tes',$item->id) }}" class="btn btn-success" style="font-size: .75em; border-radius: .25rem;">Success</a> --}}
                     {{-- <span class="badge bg-success">Success</span> --}}
-                    <small class="text-muted">Last updated <span class="text-danger">{{ $item->elapsed_time }}</span></small>
+                    <small class="text-muted">Customer :<span class="text-success"> <b> {{ strtoupper($item->name) }} </b></span></small><br>
+                    <small class="text-muted">Last updated <span class="text-danger">{{ $item->elapsed_time }}</span></small><br>
+                    <small class="text-muted">Datetime Order <span class="text-danger">{{ $item->created_at->format('H:i') }}</span></small>
                 </div>
             </div>
             {{-- @include('process.waiters.modal') --}}

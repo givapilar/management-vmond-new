@@ -74,7 +74,7 @@ class RestaurantController extends Controller
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->sub_category = $validateData['sub_category'];
+            $restaurant->sub_category = $request->sub_category;
             $restaurant->harga = $replaceTitik;
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];
@@ -85,35 +85,35 @@ class RestaurantController extends Controller
             $restaurant->description = $validateData['description'];
             $restaurant->code = 0;
 
-            // if ($request->hasFile('image')) {
-            //     $image = $request->file('image');
-            //     $name = time() . '.' . $image->getClientOriginalExtension();
-            //     $destinationPath = public_path('assets/images/restaurant/');
-            //     $image->move($destinationPath, $name);
-            //     $restaurant->image = $name;
-            // }
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = time().'.'.$image->getClientOriginalExtension();
-                $filePath = 'assets/images/restaurant/'.$filename;
-
-                // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
-                if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
-                    // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
-                    return redirect()->route('restaurant.index')->with(['failed' => 'Image Size 200 x 200!']);
-
-                } else {
-                    // Resize the image
-                    $img = Image::make($image)->resize(200, 200);
-
-                    // Save the resized image
-                    $img->save(public_path($filePath));
-
-                    // Store the image filename in the restaurant model
-                    $restaurant->image = basename($filePath);
-                    // If the image dimensions or weight do not meet the requirements, store the original image path
-                }
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('assets/images/restaurant/');
+                $image->move($destinationPath, $name);
+                $restaurant->image = $name;
             }
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $filename = time().'.'.$image->getClientOriginalExtension();
+            //     $filePath = 'assets/images/restaurant/'.$filename;
+
+            //     // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
+            //     if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
+            //         // $restaurant->image = $image->storeAs('assets/images/restaurant', $filename);
+            //         return redirect()->route('restaurant.index')->with(['failed' => 'Image Size 200 x 200!']);
+
+            //     } else {
+            //         // Resize the image
+            //         $img = Image::make($image)->resize(200, 200);
+
+            //         // Save the resized image
+            //         $img->save(public_path($filePath));
+
+            //         // Store the image filename in the restaurant model
+            //         $restaurant->image = basename($filePath);
+            //         // If the image dimensions or weight do not meet the requirements, store the original image path
+            //     }
+            // }
 
             $restaurant->save();
 
@@ -214,7 +214,7 @@ class RestaurantController extends Controller
             $restaurant->nama = $validateData['nama'];
             $restaurant->slug = $slug;
             $restaurant->category = $validateData['category'];
-            $restaurant->sub_category = $validateData['sub_category'];
+            $restaurant->sub_category = $request->sub_category;
             $restaurant->harga = $replaceTitik;
             $restaurant->harga_diskon = $replaceTitikHarga;
             $restaurant->persentase = $validateData['persentase'];

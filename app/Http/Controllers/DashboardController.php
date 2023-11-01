@@ -222,88 +222,87 @@ class DashboardController extends Controller
         
     // }
 
-    public function index(Request $request)
-{
-    $data['page_title'] = 'Customer';
-    $data['materials'] = Material::orderBy('id', 'asc')->get();
-    $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
-    $data['account_users'] = AccountUser::orderBy('id', 'asc')->get();
-    $data['type'] = $request->type ?? 'monthly';
+    public function index(Request $request){
+        $data['page_title'] = 'Customer';
+        $data['materials'] = Material::orderBy('id', 'asc')->get();
+        // $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
+        $data['account_users'] = AccountUser::orderBy('id', 'asc')->get();
+        $data['type'] = $request->type ?? 'monthly';
 
-    // Handle date-related logic more efficiently
-    $startDate = $request->start_date ?: date('Y/m/01 00:00:00');
-    $endDate = $request->start_date ? date('Y/m/t 23:59:59', strtotime($request->month)) : date('Y/m/t 23:59:59');
+        // Handle date-related logic more efficiently
+        $startDate = $request->start_date ?: date('Y/m/01 00:00:00');
+        $endDate = $request->start_date ? date('Y/m/t 23:59:59', strtotime($request->month)) : date('Y/m/t 23:59:59');
 
-    // Fetch stock data for the selected type
-    $data['stock_masuk'] = $this->getStockData('App\Models\StokMasuk', $request, $startDate, $endDate);
-    $data['stock_keluar'] = $this->getStockData('App\Models\StokKeluar', $request, $startDate, $endDate);
+        // Fetch stock data for the selected type
+        $data['stock_masuk'] = $this->getStockData('App\Models\StokMasuk', $request, $startDate, $endDate);
+        $data['stock_keluar'] = $this->getStockData('App\Models\StokKeluar', $request, $startDate, $endDate);
 
-    $data['date'] = $this->getDateRange($startDate, $endDate);
+        $data['date'] = $this->getDateRange($startDate, $endDate);
 
-    // Fetch membership counts
-    $data['membershipBronze'] = $this->getMembershipCount('Bronze');
-    $data['membershipSilver'] = $this->getMembershipCount('Silver');
-    $data['membershipGold'] = $this->getMembershipCount('Gold');
-    $data['membershipPlatinum'] = $this->getMembershipCount('Platinum');
-    $data['membershipSuperPlatinum'] = $this->getMembershipCount('SuperPlatinum');
-    // ...
+        // Fetch membership counts
+        $data['membershipBronze'] = $this->getMembershipCount('Bronze');
+        $data['membershipSilver'] = $this->getMembershipCount('Silver');
+        $data['membershipGold'] = $this->getMembershipCount('Gold');
+        $data['membershipPlatinum'] = $this->getMembershipCount('Platinum');
+        $data['membershipSuperPlatinum'] = $this->getMembershipCount('SuperPlatinum');
+        // ...
 
-    // Fetch other data
-    $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
-    $data['order'] = Order::orderBy('id', 'asc')->get();
+        // Fetch other data
+        $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
+        $data['order'] = Order::orderBy('id', 'asc')->get();
 
-    
-    $monthList = [
-        '01' => 'Jan',
-        '02' => 'Feb',
-        '03' => 'Mar',
-        '04' => 'Apr',
-        '05' => 'May',
-        '06' => 'Jun',
-        '07' => 'Jul',
-        '08' => 'Aug',
-        '09' => 'Sep',
-        '10' => 'Okt',
-        '11' => 'Nov',
-        '12' => 'Dec',
-    ];
-    // dd($stock)
-    $dataCharts = [];
-    foreach ($monthList as $key => $value) {
-        if (($stok_masuk_data[$key] ?? false) && ($stok_keluar_data[$key] ?? false)) {
-            $dataChart = [
-                'month' => $value,
-                'val_masuk' => array_sum($stok_masuk_data[$key]),
-                'val_keluar' => array_sum($stok_keluar_data[$key]),
-            ];
-        } elseif($stok_masuk_data[$key] ?? false) {
-            $dataChart = [
-                'month' => $value,
-                'val_masuk' => array_sum($stok_masuk_data[$key]),
-                'val_keluar' => 0,
-            ];
-        } elseif($stok_keluar_data[$key] ?? false) {
-            $dataChart = [
-                'month' => $value,
-                'val_masuk' => 0,
-                'val_keluar' => array_sum($stok_keluar_data[$key]),
-            ];
-        } else {
-            $dataChart = [
-                'month' => $value,
-                'val_masuk' => 0,
-                'val_keluar' => 0,
-            ];
+        
+        $monthList = [
+            '01' => 'Jan',
+            '02' => 'Feb',
+            '03' => 'Mar',
+            '04' => 'Apr',
+            '05' => 'May',
+            '06' => 'Jun',
+            '07' => 'Jul',
+            '08' => 'Aug',
+            '09' => 'Sep',
+            '10' => 'Okt',
+            '11' => 'Nov',
+            '12' => 'Dec',
+        ];
+        // dd($stock)
+        $dataCharts = [];
+        foreach ($monthList as $key => $value) {
+            if (($stok_masuk_data[$key] ?? false) && ($stok_keluar_data[$key] ?? false)) {
+                $dataChart = [
+                    'month' => $value,
+                    'val_masuk' => array_sum($stok_masuk_data[$key]),
+                    'val_keluar' => array_sum($stok_keluar_data[$key]),
+                ];
+            } elseif($stok_masuk_data[$key] ?? false) {
+                $dataChart = [
+                    'month' => $value,
+                    'val_masuk' => array_sum($stok_masuk_data[$key]),
+                    'val_keluar' => 0,
+                ];
+            } elseif($stok_keluar_data[$key] ?? false) {
+                $dataChart = [
+                    'month' => $value,
+                    'val_masuk' => 0,
+                    'val_keluar' => array_sum($stok_keluar_data[$key]),
+                ];
+            } else {
+                $dataChart = [
+                    'month' => $value,
+                    'val_masuk' => 0,
+                    'val_keluar' => 0,
+                ];
+            }
+            $dataCharts[] = $dataChart;
         }
-        $dataCharts[] = $dataChart;
+
+        // dd($dataCharts);
+        $data['stok_masuk'] = array_column($dataCharts, 'val_masuk');
+        $data['stok_keluar'] = array_column($dataCharts, 'val_keluar');
+
+        return view('dashboard.index', $data);
     }
-
-    // dd($dataCharts);
-    $data['stok_masuk'] = array_column($dataCharts, 'val_masuk');
-    $data['stok_keluar'] = array_column($dataCharts, 'val_keluar');
-
-    return view('dashboard.index', $data);
-}
 
     private function getStockData($model, $request, $startDate, $endDate)
     {

@@ -122,6 +122,12 @@
                 <span style="float: right; margin-right: 15px;"> {{ $orders->metode_pembayaran }}</span>
             </div>
         </div>
+
+        @elseif($orders->tipe_pemesanan == "QR-BJB")
+            <div style="margin-left: 2px;">
+                Metode Pembayaran:
+                <span style="float: right; margin-right: 10px;"> {{ $orders->metode_pembayaran }}</span>
+            </div>
         @else
         
         <div class="invoiceNumber">
