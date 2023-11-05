@@ -158,6 +158,7 @@ class RestaurantController extends Controller
 
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant added successfully!']);
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with(['failed' => 'Restaurant added failed! '.$th->getMessage()]);
         }
     }
@@ -310,6 +311,8 @@ class RestaurantController extends Controller
 
             return redirect()->route('restaurant.index')->with(['success' => 'Restaurant edited successfully!']);
         } catch (\Throwable $th) {
+            dd($th);
+
             return redirect()->route('restaurant.index')->with(['failed' => 'Restaurant edited Failed! '. $th->getMessage()]);
         }
     }

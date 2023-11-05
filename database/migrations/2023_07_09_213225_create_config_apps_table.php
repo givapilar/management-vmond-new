@@ -13,12 +13,12 @@ class CreateConfigAppsTable extends Migration
      */
     public function up()
     {
-        Schema::create('config_apps', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('order_count')->nullable();
-            $table->timestamps();
-        });
-        DB::insert('insert into config_apps (id, order_count) values (?, ?)', [1, 0]);
+        // Schema::create('config_apps', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->bigInteger('order_count')->nullable();
+        //     $table->timestamps();
+        // });
+        // DB::insert('insert into config_apps (id, order_count) values (?, ?)', [1, 0]);
     }
 
     /**

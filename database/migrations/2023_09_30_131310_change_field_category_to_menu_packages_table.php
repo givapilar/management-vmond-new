@@ -14,7 +14,7 @@ class ChangeFieldCategoryToMenuPackagesTable extends Migration
     public function up()
     {
         Schema::table('menu_packages', function (Blueprint $table) {
-            $table->string('category')->nullable();
+            $table->string('sub_category')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class ChangeFieldCategoryToMenuPackagesTable extends Migration
     public function down()
     {
         Schema::table('menu_packages', function (Blueprint $table) {
-            $table->dropColumn('category');
+            $table->dropColumn('sub_category');
         });
     }
 }
