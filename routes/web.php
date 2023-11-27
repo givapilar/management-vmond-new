@@ -17,6 +17,7 @@ use App\Http\Controllers\ImportExcelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\AssetManagementsController;
+use App\Http\Controllers\BannerDineInController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\MejaRestaurantsController;
 use App\Http\Controllers\HistoryLogsController;
@@ -184,6 +185,9 @@ Route::get('/testpage', function () {
 
             // Report Report Analitic
             Route::resource('/Report-analytic', ReportAnalyticController::class);
+
+            // Banner Image
+            Route::resource('/banner-dine-in', BannerDineInController::class);
 
             // Dashboard Bartender
             Route::get('/dashboard-bartender', [DashboardBartenderController::class, 'reportBartender'])->name('report.bartender');
