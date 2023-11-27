@@ -30,5 +30,6 @@ Route::prefix('v1/vmond/')->group(function () {
     Route::get('user/get-role', [ApiController::class, 'getRolesUser']);
     // Route::get('tokoonline/banner/{path}', [ApiController::class, 'getApiBanner'])->where('path', '.*');
     Route::get('tokoonline/banner', [ApiController::class, 'getApiBanner']);
+    Route::get('tokoonline/banner-dine-in', [ApiController::class, 'getApiBannerDineIn']);
     Route::get('tokoonline/paket-menu', [ApiController::class, 'getApiPaketMenu']);
 });

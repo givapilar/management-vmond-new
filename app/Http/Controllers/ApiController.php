@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Banner;
+use App\Models\BannerDineIn;
 use App\Models\Biliard;
 use App\Models\MeetingRoom;
 use App\Models\MenuPackages;
@@ -121,6 +122,19 @@ class ApiController extends Controller
         $banner = Banner::orderBy('id', 'ASC')->get()->map(function($item){
             $data['id'] = $item->id;
             $data['image'] = asset('assets/images/banner/' . ($item->image ?? 'no-pictures.png'));
+            return $data;
+        });
+
+        return response()->json($banner);
+
+    }
+
+    public function getApiBannerDineIn()
+    {
+        // $image = Storage::get($path);
+        $banner = BannerDineIn::orderBy('id', 'ASC')->get()->map(function($item){
+            $data['id'] = $item->id;
+            $data['image'] = asset('assets/images/banner-dine-in/' . ($item->image ?? 'no-pictures.png'));
             return $data;
         });
 
