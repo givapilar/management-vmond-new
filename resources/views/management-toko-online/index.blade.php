@@ -103,7 +103,7 @@
         </div>
         @endcan
 
-        @can('paket-menu-list')
+        {{-- @can('paket-menu-list') --}}
         <div class="col-12 col-lg-4 col-md-6 mb-4" onclick="location.href='{{ route('banner-dine-in.index') }}'">
             <div class="card rounded-20 p-2 bg-gray-800">
                 <div class="d-flex justify-content-start align-items-center">
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        @endcan
+        {{-- @endcan --}}
     </div>
 </div>
 @endsection
