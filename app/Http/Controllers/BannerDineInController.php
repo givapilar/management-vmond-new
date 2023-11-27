@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Session;
 
 class BannerDineInController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:banner-dine-in-list', ['only' => 'index']);
-    //     $this->middleware('permission:banner-dine-in-create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:banner-dine-in-edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:banner-dine-in-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:banner-dine-in-list', ['only' => 'index']);
+        $this->middleware('permission:banner-dine-in-create', ['only' => ['create','store']]);
+        $this->middleware('permission:banner-dine-in-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:banner-dine-in-delete', ['only' => ['destroy']]);
+    }
 
     public function index()
     {
