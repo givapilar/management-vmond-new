@@ -30,6 +30,7 @@ use App\Http\Controllers\DashboardBartenderController;
 use App\Http\Controllers\DashboardWaiterController;
 use App\Http\Controllers\DashboardServerController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\KuponController;
 use App\Http\Controllers\OtherSettingsController;
 use App\Http\Controllers\ReportAnalyticController;
 use App\Http\Controllers\SupplierController;
@@ -188,6 +189,9 @@ Route::get('/testpage', function () {
 
             // Banner Image
             Route::resource('/banner-dine-in', BannerDineInController::class);
+
+            // Kupon
+            Route::get('/kupon', [KuponController::class, 'index'])->name('kupon.index');
 
             // Dashboard Bartender
             Route::get('/dashboard-bartender', [DashboardBartenderController::class, 'reportBartender'])->name('report.bartender');
