@@ -249,7 +249,7 @@
                     </div>
                     <div class="flex-grow-1 ml-3">
                         <h3 class="m-0 p-0">Kupon</h3>
-                        <p class="m-0 p-0 text-muted">Create, Update, and Delete Kupon </p>
+                        <p class="m-0 p-0 text-muted">Create, Update, and Delete Kupon</p>
                     </div>
                 </div>
             </div>
