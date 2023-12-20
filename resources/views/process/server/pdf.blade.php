@@ -140,6 +140,13 @@
         
         <div class="invoiceNumber">
             <div style="margin-left: 2px;">
+                No QR:
+                <span style="float: right; margin-right: 15px;">{{ $orders->no_qr ?? "-" }}</span>
+            </div>
+        </div>
+
+        <div class="invoiceNumber">
+            <div style="margin-left: 2px;">
                 Datetime:
                 <span style="float: right; margin-right: 15px;">{{ $orders->created_at }}</span>
             </div>

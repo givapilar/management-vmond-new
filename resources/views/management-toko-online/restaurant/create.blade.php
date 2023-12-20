@@ -300,7 +300,7 @@
    
 </script> --}}
 
-  <script>
+<script>
 
     $("#checkbox").click(function () {
        if ($("#checkbox").is(':checked')) {
