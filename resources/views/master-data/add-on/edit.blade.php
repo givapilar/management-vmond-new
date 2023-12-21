@@ -61,6 +61,9 @@
                         <div class="card-body">
                             <h4>Add On Detail <small class="text-danger">*</small></h4>
                             <hr>
+                            <button type="button" class="btn btn-outline-success" id="btn-add-document" onclick="addField()">
+                                <i class="fas fa-plus-square"></i>
+                            </button>
                             <div class="row mt-2">
                                 <div class="col-lg-12">
                                     <table class="table table-striped" id="contactTable">
