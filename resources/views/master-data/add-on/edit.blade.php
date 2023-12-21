@@ -145,8 +145,8 @@
         $("#contactTable").find('tbody')
             .append(
                 $('<tr>' +
-                    '<td><input class="form-control" placeholder="Input Location" type="text" name="nama[]" id="location" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
-                    '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" id="harga" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Name" type="text" name="nama[]" id="location" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
+                    '<td><input class="form-control" placeholder="Input Harga" type="text" name="harga[]" value= "0" id="harga" '+rowCount+'" onkeyup="calculatePrice('+rowCount+')"></td>' +
                     '<td style="max-width: 6% !important"><button type="button" class="btn btn-outline-danger btn-remove" onclick="$(this).parent().parent().remove();changeOptionValue();"><i class="fa fa-minus"></i></button></td>' +
                     '</tr>'
                 )
