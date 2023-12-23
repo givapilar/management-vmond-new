@@ -305,7 +305,7 @@
         </div>
     </div> --}}
 
-    <div class="row mt-2 p-2">
+    {{-- <div class="row mt-2 p-2">
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card rounded-20 p-2">
             <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
@@ -331,10 +331,10 @@
                   <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pesanan Detail Group</button>
                   <button class="nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Table Analisa</button>
                 </div>
-              </nav>
+              </nav> --}}
 
               {{-- Pesanan Vs Waktu --}}
-              <div class="tab-content" style="border: none !important; " id="nav-tabContent">
+              {{-- <div class="tab-content" style="border: none !important; " id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <table id="mytable" class="table table-striped" style="width:100%">
                         <thead>
@@ -351,23 +351,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- {{ dd($groupedItems) }} --}}
-                            {{-- @foreach ($groupedItems as $groupKey => $grouped)
-                                @php
-                                    list($nama, $category) = explode('|', $groupKey);
-                                    $totalQty = $grouped->sum('qty');
-                                @endphp
-                                <tr>
-                                    <td class="table-head text-white">{{ $loop->iteration }}</td>
-                                    <td class="table-head text-white">{{ $nama}}</td>
-                                    <td class="table-head text-white">{{ $category}}</td>
-                                    <td class="table-head text-white">{{ $totalQty}}</td>
-                                    <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
-                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_pembayaran}}</td>
-                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_edisi}}</td>
-                                </tr>
-                            @endforeach --}}
-            
                                 @foreach ($order_details as $order_detail)
                                     <tr>
                                         <td class="table-head text-white">{{ $loop->iteration }}</td>
@@ -383,10 +366,10 @@
                                 @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 {{-- Pesanan detail Gruop --}}
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                {{-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <table id="tableDetail" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
@@ -396,12 +379,9 @@
                               <th class="th-sm text-white">Qty</th>
                               <th class="th-sm text-white">Harga Diskon</th>
                               <th class="th-sm text-white">Status Pemesanan</th>
-                              {{-- <th class="th-sm text-white">Metode Pembayaran</th>
-                              <th class="th-sm text-white">EDC</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- {{ dd($groupedItems) }} --}}
                             @foreach ($groupedItems as $groupKey => $grouped)
                                 @php
                                     list($nama, $category) = explode('|', $groupKey);
@@ -415,17 +395,14 @@
                                     <td class="table-head text-white">{{ $totalQty}}</td>
                                     <td class="table-head text-white">{{ $totalHarga}}</td>
                                     <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
-                                    {{-- <td class="table-head text-white">{{ $grouped->first()->order->metode_pembayaran}}</td>
-                                    <td class="table-head text-white">{{ $grouped->first()->order->metode_edisi}}</td> --}}
                                 </tr>
                             @endforeach
             
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
-                {{-- Table Analisa --}}
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                {{-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <table id="tableMeja" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
@@ -443,7 +420,6 @@
                                 @endphp
                                 <tr>
                                     <td class="table-head text-white">{{ $loop->iteration }}</td>
-                                    {{-- <td class="table-head text-white">{{ $grouped->first()->order->tableRestaurant->nama}}</td> --}}
                                     <td class="table-head text-white">{{ $kode_meja}}</td>
                                     <td class="table-head text-white">{{ $jumlah_customer}}</td>
                                 </tr>
@@ -451,15 +427,15 @@
             
                         </tbody>
                     </table>
-                </div>
-              </div>
+                </div> --}}
+              {{-- </div>
     
               
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 </div>
 @endsection
