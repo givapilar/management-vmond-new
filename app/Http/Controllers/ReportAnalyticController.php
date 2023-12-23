@@ -299,17 +299,9 @@ class ReportAnalyticController extends Controller
                             })
                             ->sum(\DB::raw('harga_diskon * qty'));
 
-                // $totalFwb = Order::whereDate('created_at', $date)
-                //             ->where('status_pembayaran', 'Paid')
-                //             ->whereNotNull('biliard_id')
-                //             ->sum('total_price');
-
                 $totalFwb = Order::whereDate('created_at', $date)
                             ->where('status_pembayaran', 'Paid')
                             ->sum('harga_diskon_billiard');
-
-                // $orderTotal = $totalBartender + $totalKitchen + $totalFwb + $service + $pb01;
-                
 
                 // $groupedItems = $orderDetails->groupBy(function ($item) {
                 //     return $item->restaurant->nama . '|' . $item->category;
@@ -404,9 +396,9 @@ class ReportAnalyticController extends Controller
             //     return $item->restaurant->nama . '|' . $item->category;
             // });
 
-            $groupedKode = $orderDetails->groupBy(function ($item) {
-                return $item->kasir_id->nama . '|' . $item->jumlah_customer;
-            });
+            // $groupedKode = $orderDetails->groupBy(function ($item) {
+            //     return $item->kasir_id->nama . '|' . $item->jumlah_customer;
+            // });
 
             $topDishes = OrderPivot::selectRaw('order_pivots.restaurant_id, SUM(order_pivots.qty) as total_qty')
             ->join('orders', function ($join) use ($month) {
