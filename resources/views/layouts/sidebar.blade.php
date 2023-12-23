@@ -131,6 +131,17 @@
       </li>
       @endcan
 
+      @can('report-analytic')
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="{{ route('Report-analytic.create') }}">
+          <span class="menu-icon">
+            <i class="mdi mdi-basket"></i>
+          </span>
+          <span class="menu-title">Trending Analytic</span>
+        </a>
+      </li>
+      @endcan
+
       @can('history-log-list')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('history-log.index') }}">

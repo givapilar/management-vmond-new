@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-{{-- 
+
         <div class="col-lg-12 grid-margin stretch-card mt-4">
             <div class="card rounded-20 p-2">
                 <div class="card-header rounded-t-20 pt-1 pl-2 pb-0 pr-2">
@@ -110,7 +110,7 @@
                     <div id="dashboard-grafik"></div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
 
         <div class="row ">
@@ -462,7 +462,7 @@
     //         myChart.resize();
     //     });
 ?>
-{{-- <script>
+<script>
     var dom = document.getElementById('dashboard-grafik');
     var myChart = echarts.init(dom, null, {
     renderer: 'canvas',
@@ -520,7 +520,7 @@
 
     window.addEventListener('resize', myChart.resize);
 
-</script> --}}
+</script>
 <script>
     
 
