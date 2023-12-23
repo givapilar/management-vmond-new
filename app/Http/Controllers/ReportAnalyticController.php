@@ -311,13 +311,13 @@ class ReportAnalyticController extends Controller
                 // $orderTotal = $totalBartender + $totalKitchen + $totalFwb + $service + $pb01;
                 
 
-                $groupedItems = $orderDetails->groupBy(function ($item) {
-                    return $item->restaurant->nama . '|' . $item->category;
-                });
+                // $groupedItems = $orderDetails->groupBy(function ($item) {
+                //     return $item->restaurant->nama . '|' . $item->category;
+                // });
 
-                $groupedKode = $orderDetails->groupBy(function ($item) {
-                    return $item->order->kode_meja . '|' . $item->order->jumlah_customer;
-                });
+                // $groupedKode = $orderDetails->groupBy(function ($item) {
+                //     return $item->order->kode_meja . '|' . $item->order->jumlah_customer;
+                // });
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
                             ->whereDate('created_at', $date)
@@ -400,9 +400,9 @@ class ReportAnalyticController extends Controller
                 ->whereNotNull('biliard_id')
                 ->sum('total_price');
 
-            $groupedItems = $orderDetails->groupBy(function ($item) {
-                return $item->restaurant->nama . '|' . $item->category;
-            });
+            // $groupedItems = $orderDetails->groupBy(function ($item) {
+            //     return $item->restaurant->nama . '|' . $item->category;
+            // });
 
             $groupedKode = $orderDetails->groupBy(function ($item) {
                 return $item->kasir_id->nama . '|' . $item->jumlah_customer;
@@ -425,13 +425,13 @@ class ReportAnalyticController extends Controller
         
             $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
 
-            $groupedItems = $orderDetails->groupBy(function ($item) {
-                return $item->restaurant->nama . '|' . $item->category;
-            });
+            // $groupedItems = $orderDetails->groupBy(function ($item) {
+            //     return $item->restaurant->nama . '|' . $item->category;
+            // });
 
-            $groupedKode = $orderDetails->groupBy(function ($item) {
-                return $item->kasir_id->nama . '|' . $item->jumlah_customer;
-            });
+            // $groupedKode = $orderDetails->groupBy(function ($item) {
+            //     return $item->kasir_id->nama . '|' . $item->jumlah_customer;
+            // });
         
             $orderDetails = OrderPivot::with('order')
                 ->whereYear('created_at', $year)
@@ -484,8 +484,8 @@ class ReportAnalyticController extends Controller
         $data['total_bartender'] = $totalBartender;
         $data['total_kitchen'] = $totalKitchen;
         $data['total_fwb'] = $totalFwb;
-        $data['groupedItems'] = $groupedItems;
-        $data['groupedKode'] = $groupedKode;
+        // $data['groupedItems'] = $groupedItems;
+        // $data['groupedKode'] = $groupedKode;
 
         $dishNames = [];
         $dishQuantities = [];
@@ -500,64 +500,6 @@ class ReportAnalyticController extends Controller
         $data['dishQuantities'] = $dishQuantities;
 
         return view('report-analytic.index', $data);
-
-
-        // // Initialize an empty array to store food sales data
-        // $foodSalesData = [];
-
-        // $startDate = $request->input('start_date');
-
-        // // Jika belum ada tanggal yang dipilih, atur tanggal hari ini
-        // if (!$startDate) {
-        //     $startDate = now()->format('Y-m-d');
-        // }
-
-        // // Loop melalui detail pesanan dan mengisi array data penjualan makanan
-        // foreach ($orderDetails as $orderDetail) {
-        //     $foodName = $orderDetail->restaurant->nama;
-        //     $quantity = $orderDetail->qty;
-        //     $orderDate = $orderDetail->order->created_at;
-
-        //     // Filter berdasarkan periode yang dipilih
-        //     if ($request->has('type')) {
-        //         $type = $request->input('type');
-        //         if ($type === 'day' && ($orderDate->isToday() || $orderDate->format('Y-m-d') === $startDate)) {
-        //             // Jika tipe adalah harian dan tanggal pesanan adalah hari ini atau tanggal yang dipilih
-        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
-        //         } elseif ($type === 'monthly' && $orderDate->isCurrentMonth()) {
-        //             // Jika tipe adalah bulanan dan tanggal pesanan adalah bulan ini
-        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
-        //         } elseif ($type === 'yearly' && $orderDate->isCurrentYear()) {
-        //             // Jika tipe adalah tahunan dan tanggal pesanan adalah tahun ini
-        //             $this->addToFoodSalesData($foodSalesData, $foodName, $quantity);
-        //         }
-        //     }
-        // }
-
-        // $chartOption = [
-        //     'title' => [
-        //         'text' => 'Food Sales'
-        //     ],
-        //     'tooltip' => [
-        //         'trigger' => 'axis'
-        //     ],
-        //     'xAxis' => [
-        //         'type' => 'category',
-        //         'data' => array_keys($foodSalesData) // Use food names as categories
-        //     ],
-        //     'yAxis' => [
-        //         'type' => 'value'
-        //     ],
-        //     'series' => [
-        //         [
-        //             'name' => 'Quantity',
-        //             'type' => 'line',
-        //             'data' => array_values($foodSalesData) // Use quantities as data
-        //         ]
-        //     ]
-        // ];
-
-        // $data['chartOption'] = $chartOption;
 
     }
 }

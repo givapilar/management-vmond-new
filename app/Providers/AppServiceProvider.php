@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id');
         date_default_timezone_set('Asia/Jakarta');
 
-        $this->app['request']->server->set('HTTPS', true);
-        URL::forceScheme('https');
+        // $this->app['request']->server->set('HTTPS', true);
+        // URL::forceScheme('https');
         
         view()->composer('*', function (){
             // $orderTable = Order::where('user_id', Auth::user()->id)->where('status', 'Paid')->get();
