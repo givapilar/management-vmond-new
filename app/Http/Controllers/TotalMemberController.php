@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\AccountUser;
 use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TotalMemberController extends Controller
 {
@@ -52,7 +54,12 @@ class TotalMemberController extends Controller
     public function customerData(){
         $data['page_title'] = 'Customer Data';
 
-        $data['account_user'] = AccountUser::get();
+        $data['account_user'] = Cache::remember('account_users', Carbon::now()->addMinutes(60), function () {
+            return AccountUser::with('membership')->get();
+        });
+        // dd($data['account_user']);
+
+        // $data['account_user'] = AccountUser::get();
         return view('master-data.customer.index',$data);
 
     }
