@@ -507,79 +507,6 @@ class ReportAnalyticController extends Controller
             });
 
         if ($type === 'day') {
-            // $date = $request->input('start_date', date('Y-m-d'));
-            $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
-
-
-            // if ($resto !== 'All') {
-            //     $query->where('restaurant_id', $resto);
-            //     $orderDetails = OrderPivot::whereDate('created_at', $date)
-            //     ->whereHas('order', function ($query) {
-            //         $query->where('status_pembayaran', 'Paid');
-            //     })
-            //     ->when($category, function ($query) use ($category) {
-            //         return $query->where('category', $category);
-            //     })
-            //     ->orderBy('id', 'asc')
-            //     ->get();
-            // }else{
-            //     $orderDetails = OrderPivot::whereDate('created_at', $date)
-            //     ->where('restaurant_id', $request->restaurant_id)
-            //     ->whereHas('order', function ($query) {
-            //         $query->where('status_pembayaran', 'Paid');
-            //     })
-            //     ->orderBy('id', 'asc')
-            //     ->get();
-            //     dd($orderDetails);
-            // }
-
-            $topDishes = $query->whereDate('created_at', $date)
-                ->groupBy('restaurant_id')
-                ->orderByDesc('total_qty')
-                ->limit(10)
-                ->get();
-        } elseif ($type === 'monthly') {
-            $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
-            $statusPembayaran = 'Paid';
-
-            // $month = $request->input('month', date('m'));
-            $topDishes = $query->whereMonth('orders.created_at', $month)
-                ->groupBy('order_pivots.restaurant_id')
-                ->orderByDesc('total_qty')
-                ->limit(10)
-                ->get();
-            $orderDetails = OrderPivot::with('order')
-            ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
-            ->whereMonth('order_pivots.created_at', $month)
-            ->where('orders.status_pembayaran', $statusPembayaran)
-            ->orderBy('order_pivots.id', 'asc')
-            ->get();
-        } elseif ($type === 'yearly') {
-            $year = $request->has('year') ? $request->year : date('Y');
-            $statusPembayaran = 'Paid';
-        
-            $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
-            // $year = $request->input('year', date('Y'));
-            $topDishes = $query->whereYear('orders.created_at', $year)
-                ->groupBy('order_pivots.restaurant_id')
-                ->orderByDesc('total_qty')
-                ->limit(10)
-                ->get();
-            
-            $orderDetails = OrderPivot::with('order')
-            ->whereYear('created_at', $year)
-            ->whereHas('order', function ($query) use ($baseOrderQuery) {
-                $query->mergeConstraintsFrom($baseOrderQuery);
-            })
-            ->orderBy('id', 'asc')
-            ->get();
-    
-            $orderTotal = $baseOrderQuery->select('total_price')->whereYear('created_at', $year)->sum('total_price');
-        }
-
-
-        if ($type == 'day') {
-
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
             if ($resto == 'All') {
                 $orderDetails = OrderPivot::whereDate('created_at', $date)
@@ -592,6 +519,23 @@ class ReportAnalyticController extends Controller
                     ->orderBy('id', 'asc')
                     ->get();
 
+               
+
+                $groupedItems = $orderDetails->groupBy(function ($item) {
+                    return $item->restaurant->nama . '|' . $item->category;
+                });
+
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
+
+
             } else {
                 $orderDetails = OrderPivot::whereDate('created_at', $date)
                             ->where('restaurant_id', $request->restaurant_id)
@@ -600,11 +544,46 @@ class ReportAnalyticController extends Controller
                             })
                             ->orderBy('id', 'asc')
                             ->get();
+
+                $totalBartender = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Minuman')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum('harga_diskon');
+
+                $totalKitchen = OrderPivot::whereDate('created_at', $date)
+                            ->where('category', 'Makanan')
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->sum('harga_diskon');
+
+                $totalFwb = Order::whereDate('created_at', $date)
+                            ->whereNotNull('biliard_id')
+                            ->sum('total_price');
+
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
                 }
-        
-        } elseif ($type == 'monthly') {
+            
+        } elseif ($type === 'monthly') {
             $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
             $statusPembayaran = 'Paid';
+
+            // $month = $request->input('month', date('m'));
+            $topDishes = $query->whereMonth('orders.created_at', $month)
+                ->groupBy('order_pivots.restaurant_id')
+                ->orderByDesc('total_qty')
+                ->limit(10)
+                ->get();
 
             $orderDetails = OrderPivot::with('order')
                 ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
@@ -613,12 +592,21 @@ class ReportAnalyticController extends Controller
                 ->orderBy('order_pivots.id', 'asc')
                 ->get();
 
-        } elseif ($type == 'yearly') {
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
+            });
+
+        } elseif ($type === 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
             $statusPembayaran = 'Paid';
         
             $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
-
+            // $year = $request->input('year', date('Y'));
+            $topDishes = $query->whereYear('orders.created_at', $year)
+                ->groupBy('order_pivots.restaurant_id')
+                ->orderByDesc('total_qty')
+                ->limit(10)
+                ->get();
             $orderDetails = OrderPivot::with('order')
                 ->whereYear('created_at', $year)
                 ->whereHas('order', function ($query) use ($baseOrderQuery) {
@@ -626,7 +614,12 @@ class ReportAnalyticController extends Controller
                 })
                 ->orderBy('id', 'asc')
                 ->get();
+
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
+            });
         }
+
         // Eager load the restaurant relation
         $topDishes->load('restaurant');
 
@@ -637,6 +630,8 @@ class ReportAnalyticController extends Controller
         $data['dishNames'] = $dishNames;
         $data['dishQuantities'] = $dishQuantities;
         $data['order_details'] = $orderDetails;
+        $data['groupedItems'] = $groupedItems;
+
 
         return view('report-analytic.trend', $data);
 
