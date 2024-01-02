@@ -113,6 +113,42 @@
         </div>
     </form>
 
+     {{-- Pesanan Vs Waktu --}}
+    <div class="tab-content" style="border: none !important; " id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table id="mytable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th class="th-sm text-white">No</th>
+                        <th class="th-sm text-white">Waktu Pemesanan</th>
+                        <th class="th-sm text-white">Nama Menu Restaurant</th>
+                        <th class="th-sm text-white">Category</th>
+                        <th class="th-sm text-white">Qty</th>
+                        <th class="th-sm text-white">Harga Diskon</th>
+                        <th class="th-sm text-white">Status Pemesanan</th>
+                        <th class="th-sm text-white">Metode Pembayaran</th>
+                        <th class="th-sm text-white">EDC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach ($order_details as $order_detail)
+                            <tr>
+                                <td class="table-head text-white">{{ $loop->iteration }}</td>
+                                <td class="table-head text-white">{{ $order_detail->created_at}}</td>
+                                <td class="table-head text-white">{{ $order_detail->restaurant->nama}}</td>
+                                <td class="table-head text-white">{{ $order_detail->category}}</td>
+                                <td class="table-head text-white">{{ $order_detail->qty}}</td>
+                                <td class="table-head text-white">{{ $order_detail->harga_diskon}}</td>
+                                <td class="table-head text-white">{{ $order_detail->order->status_pembayaran}}</td>
+                                <td class="table-head text-white">{{ $order_detail->order->metode_pembayaran}}</td>
+                                <td class="table-head text-white">{{ $order_detail->order->metode_edisi}}</td>
+                            </tr>
+                        @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 @endsection
 

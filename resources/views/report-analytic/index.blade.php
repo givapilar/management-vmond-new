@@ -305,7 +305,7 @@
         </div>
     </div> --}}
 
-    {{-- <div class="row mt-2 p-2">
+    <div class="row mt-2 p-2">
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card rounded-20 p-2">
             <div class="card-header rounded-t-20 pt-1 pl-2 pb-2 pr-2">
@@ -331,10 +331,10 @@
                   <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Pesanan Detail Group</button>
                   <button class="nav-link" id="nav-contact-tab" data-toggle="tab" data-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Table Analisa</button>
                 </div>
-              </nav> --}}
+              </nav> 
 
               {{-- Pesanan Vs Waktu --}}
-              {{-- <div class="tab-content" style="border: none !important; " id="nav-tabContent">
+              <div class="tab-content" style="border: none !important; " id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <table id="mytable" class="table table-striped" style="width:100%">
                         <thead>
@@ -366,10 +366,10 @@
                                 @endforeach
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
 
                 {{-- Pesanan detail Gruop --}}
-                {{-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <table id="tableDetail" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
@@ -400,9 +400,9 @@
             
                         </tbody>
                     </table>
-                </div> --}}
+                </div>
 
-                {{-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <table id="tableMeja" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
@@ -427,15 +427,15 @@
             
                         </tbody>
                     </table>
-                </div> --}}
-              {{-- </div>
+                </div>
+              </div> 
     
               
             </div>
           </div>
         </div>
       </div>
-    </div> --}}
+    </div>
 
 </div>
 @endsection
