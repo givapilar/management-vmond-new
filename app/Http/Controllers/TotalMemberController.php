@@ -48,4 +48,12 @@ class TotalMemberController extends Controller
         $data['order_pivots'] = OrderPivot::get();
         return view('report.show',$data);
     }
+
+    public function customerData(){
+        $data['page_title'] = 'Customer Data';
+
+        $data['account_user'] = AccountUser::get();
+        return view('master-data.customer.index',$data);
+
+    }
 }

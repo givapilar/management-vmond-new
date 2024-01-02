@@ -187,6 +187,9 @@ Route::get('/testpage', function () {
             // Report Report Analitic
             Route::resource('/Report-analytic', ReportAnalyticController::class);
 
+            // Account User
+            Route::get('account-user', [TotalMemberController::class, 'customerData'])->name('customer.index');
+
             // Banner Image
             Route::resource('/banner-dine-in', BannerDineInController::class);
 
