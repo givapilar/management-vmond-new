@@ -136,6 +136,7 @@
                 <th class="th-sm text-white">Total Price</th>
                 <th class="th-sm text-white">Metode Pembayaran</th>
                 <th class="th-sm text-white">EDC</th>
+                <th class="th-sm text-white">No QR BRI</th>
               </tr>
           </thead>
               <tbody>
@@ -149,6 +150,7 @@
                             <td class="table-head text-white">{{ $order->total_price}}</td>
                             <td class="table-head text-white">{{ $order->metode_pembayaran}}</td>
                             <td class="table-head text-white">{{ $order->metode_edisi}}</td>
+                            <td class="table-head text-white">{{ $order->no_qr ?? "-"}}</td>
                       </tr>
                   @endforeach
 
