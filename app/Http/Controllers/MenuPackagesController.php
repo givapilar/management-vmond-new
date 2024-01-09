@@ -274,6 +274,7 @@ class MenuPackagesController extends Controller
 
             return redirect()->route('paket-menu.index')->with(['success' => 'Paket Menu edited successfully!']);
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->route('paket-menu.index')->with(['failed' => 'Paket Menu edited failed! '.$th->getMessage()]);
         }
     }
