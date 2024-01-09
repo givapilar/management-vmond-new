@@ -49,7 +49,7 @@ class MenuPackagesController extends Controller
      */
     public function store(Request $request)
     {
-        // try {
+        try {
         
             // dd($request->all());
         $validateData = $request->validate( [
@@ -138,9 +138,10 @@ class MenuPackagesController extends Controller
             $newHistoryLog->save();
 
             return redirect()->route('paket-menu.index')->with(['success' => 'Paket Menu added successfully!']);
-        // } catch (\Throwable $th) {
-        //     return redirect()->route('paket-menu.index')->with(['failed' => 'Paket Menu added failed! '.$th->getMessage()]);
-        // }
+        } catch (\Throwable $th) {
+            dd($th);
+            return redirect()->route('paket-menu.index')->with(['failed' => 'Paket Menu added failed! '.$th->getMessage()]);
+        }
     }
 
     /**
