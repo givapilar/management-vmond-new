@@ -65,7 +65,7 @@ class MenuPackagesController extends Controller
             'minimal' => 'nullable',
             'jam' => 'nullable',
             'status_konfirmasi' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'description' => 'nullable',
         ]);
 
@@ -197,7 +197,7 @@ class MenuPackagesController extends Controller
             'minimal' => 'nullable',
             'status_konfirmasi' => 'nullable',
             'jam' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'description' => 'nullable',
         ]);
 
