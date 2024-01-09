@@ -63,7 +63,7 @@
                             <tr>
                                 <td class="table-head text-white">{{ $loop->iteration }}</td>
                                 <td class="table-head text-white">
-                                    <img src="{{ asset('assets/images/paket-menu/'.($package->image ?? '')) }}" width="110px" class="image img" />
+                                    <img src="{{ asset('assets/images/restaurant/'.($package->image ?? '')) }}" width="110px" class="image img" />
                                 </td>
                                 <td class="table-head text-white">{{ $package->nama_paket }}</td>
                                 <td class="table-head text-white">{{ str_replace('_', ' ',$package->category) }}</td>

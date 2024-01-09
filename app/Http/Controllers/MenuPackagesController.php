@@ -243,7 +243,7 @@ class MenuPackagesController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('assets/images/paket-menu/');
+                $destinationPath = public_path('assets/images/restaurant/');
                 $image->move($destinationPath, $name);
                 $paket_menu->image = $name;
             }
