@@ -225,8 +225,7 @@ class DashboardController extends Controller
     public function index(Request $request){
         $data['page_title'] = 'Customer';
         $data['materials'] = Material::orderBy('id', 'asc')->get();
-        // $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
-        $data['account_users'] = AccountUser::orderBy('id', 'asc')->get();
+        // $data['account_users'] = AccountUser::orderBy('id', 'asc')->get();
         $data['type'] = $request->type ?? 'monthly';
 
         // Handle date-related logic more efficiently
@@ -246,10 +245,6 @@ class DashboardController extends Controller
         $data['membershipPlatinum'] = $this->getMembershipCount('Platinum');
         $data['membershipSuperPlatinum'] = $this->getMembershipCount('SuperPlatinum');
         // ...
-
-        // Fetch other data
-        $data['restaurants'] = Restaurant::orderBy('id', 'asc')->get();
-        $data['order'] = Order::orderBy('id', 'asc')->get();
 
         
         $monthList = [

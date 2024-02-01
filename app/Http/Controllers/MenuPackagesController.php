@@ -221,26 +221,6 @@ class MenuPackagesController extends Controller
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
             $paket_menu->room_meeting_id = $validateData['meeting_room_id'] ?? null;
 
-            // if ($request->hasFile('image')) {
-            //     $image = $request->file('image');
-            //     $filename = time().'.'.$image->getClientOriginalExtension();
-            //     $filePath = 'assets/images/paket-menu/'.$filename;
-
-            //     // Check if the image width is greater than 200 and the weight is less than 2MB (adjust the limit as per your requirement)
-            //     if (Image::make($image)->width() > 200 && $image->getSize() < 2000000) {
-            //         return redirect()->route('paket-menu.index')->with(['failed' => 'Image Size 200 x 200!']);
-            //     } else {
-            //         // Resize the image
-            //         $img = Image::make($image)->resize(200, 200);
-
-            //         // Save the resized image
-            //         $img->save(public_path($filePath));
-
-            //         // Store the image filename in the paket-menu model
-            //         $paket_menu->image = basename($filePath);
-            //     }
-            // }
-
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $name = time() . '.' . $image->getClientOriginalExtension();

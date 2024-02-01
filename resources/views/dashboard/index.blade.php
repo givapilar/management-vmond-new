@@ -236,7 +236,7 @@
     </div>
 
     {{-- Line cart --}}
-    <div class="content-wrapper">
+    {{-- <div class="content-wrapper">
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card card rounded-20 p-2">
@@ -270,7 +270,7 @@
                             </div>
                         </div>
     
-                        {{-- <table id="mytable" class="table table-striped" style="width:100%">
+                        <table id="mytable" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="th-sm text-white">No</th>
@@ -289,12 +289,12 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table> --}}
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 
