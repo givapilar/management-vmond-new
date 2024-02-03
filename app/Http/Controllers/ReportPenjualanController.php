@@ -12,7 +12,6 @@ class ReportPenjualanController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Report Penjualan';
-        dd('tes');
         $data['orders'] = Order::orderby('id', 'asc')->get();
 
         $data['account_users'] = AccountUser::get();
