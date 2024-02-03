@@ -43,6 +43,7 @@ class ReportPenjualanController extends Controller
         $user = $request->has('user_id') ? $request->user_id : 'All';
 
         if ($type == 'day') {
+            dd('masuk1');
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
             if ($user == 'All') {
                 $stok = Order::whereDate('created_at', $date)
@@ -50,6 +51,7 @@ class ReportPenjualanController extends Controller
                             ->orderBy('id', 'asc')
                             ->get();
             } else {
+                dd('masuk2');
                 $stok = Order::whereDate('created_at', $date)
                             ->where('user_id', $request->user_id)
                             ->where('status_pembayaran', 'Paid')
