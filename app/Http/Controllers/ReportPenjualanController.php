@@ -12,7 +12,7 @@ class ReportPenjualanController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Report Penjualan';
-        $data['orders'] = Order::orderby('id', 'asc')->get();
+        // $data['orders'] = Order::orderby('id', 'asc')->get();
 
         $data['account_users'] = AccountUser::get();
         // $type = $request->has('type') ? $request->type : 'day';
@@ -41,7 +41,6 @@ class ReportPenjualanController extends Controller
 
         $type = $request->has('type') ? $request->type : 'day';
         $user = $request->has('user_id') ? $request->user_id : 'All';
-        dd('masuk');
         if ($type == 'day') {
             dd('masuk1');
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
