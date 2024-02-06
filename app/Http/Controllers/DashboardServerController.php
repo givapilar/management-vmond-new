@@ -14,7 +14,7 @@ class DashboardServerController extends Controller
     public function index(Request $request)
     {
         $data['page_title'] = 'Dashboard Kasir';
-        $data['order_pivots'] = OrderPivot::orderBy('updated_at', 'ASC')->get();
+        // $data['order_pivots'] = OrderPivot::orderBy('updated_at', 'ASC')->get();
 
         $query = Order::query();
 
