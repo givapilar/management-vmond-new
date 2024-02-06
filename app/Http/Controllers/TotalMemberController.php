@@ -61,8 +61,7 @@ class TotalMemberController extends Controller
             // dd('masuk1');
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
             if ($user == 'All') {
-                $yesterday = Carbon::yesterday();
-                $stok = Order::whereDate('created_at', $yesterday)
+                $stok = Order::whereDate('created_at', $date)
                             ->where('status_pembayaran', 'Paid')
                             ->orderBy('id', 'asc')
                             ->get();
