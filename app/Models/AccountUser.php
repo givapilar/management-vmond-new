@@ -16,4 +16,9 @@ class AccountUser extends Model
         return $this->belongsTo(Membership::class);
     }
 
+    public function order()
+    {
+        return $this->belongsTo (Order::class);
+    }
+
 }

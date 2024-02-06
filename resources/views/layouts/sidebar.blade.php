@@ -120,7 +120,7 @@
       </li>
       @endcan
 
-      @can('report-analytic')
+      {{-- @can('report-analytic')
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('Report-analytic.index') }}">
           <span class="menu-icon">
@@ -129,7 +129,7 @@
           <span class="menu-title">Report Analytic</span>
         </a>
       </li>
-      @endcan
+      @endcan --}}
 
       @can('report-analytic')
       <li class="nav-item menu-items">

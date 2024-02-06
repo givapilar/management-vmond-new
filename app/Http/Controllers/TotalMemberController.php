@@ -51,16 +51,76 @@ class TotalMemberController extends Controller
         return view('report.show',$data);
     }
 
-    public function customerData(){
+    public function customerData(Request $request){
         $data['page_title'] = 'Customer Data';
+        $data['account_users'] = AccountUser::get();
+    
+        $type = $request->has('type') ? $request->type : 'day';
+        $user = $request->has('user_id') ? $request->user_id : 'All';
+        if ($type == 'day') {
+            // dd('masuk1');
+            $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
+            if ($user == 'All') {
+                $yesterday = Carbon::yesterday();
+                $stok = Order::whereDate('created_at', $yesterday)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
+            } else {
+                // dd('masuk2');
+                $stok = Order::whereDate('created_at', $date)
+                            ->where('user_id', $request->user_id)
+                            ->where('status_pembayaran', 'Paid')
+                            ->orderBy('id', 'asc')
+                            ->get();
+            }
+        } elseif ($type == 'monthly') {
+            $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
+            $stok = Order::whereMonth('created_at', $month)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        } elseif ($type == 'yearly') {
+            $year = $request->has('year') ? $request->year : date('Y');
+            $stok = Order::whereYear('created_at', $year)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        }
 
-        $data['account_user'] = Cache::remember('account_users', Carbon::now()->addMinutes(60), function () {
-            return AccountUser::with('membership')->get();
-        });
-        // dd($data['account_user']);
+        $groupedOrders = $stok->groupBy('user.username');
 
-        // $data['account_user'] = AccountUser::get();
+        $data['total_price'] = 0; // Initialize total_price
+        $data['orders'] = [];
+        
+        // Loop through grouped orders and calculate total price for each user
+        foreach ($groupedOrders as $username => $userOrders) {
+            $totalPrice = $userOrders->sum('total_price');
+
+            $email = $userOrders->first()->user->email;
+            $telephone = $userOrders->first()->user->telephone;
+            $membership = $userOrders->first()->user->membership->level;
+            
+            // Add the user data to the $data['orders'] array
+            $data['orders'][] = [
+                'username' => $username,
+                'email' => $email,
+                'telephone' => $telephone,
+                'membership' => $membership,
+                'total_price' => $totalPrice,
+            ];
+        
+            // Update the total_price
+            $data['total_price'] += $totalPrice;
+        }
+
+        
         return view('master-data.customer.index',$data);
-
     }
 }
