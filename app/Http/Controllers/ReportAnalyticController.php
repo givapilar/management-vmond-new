@@ -579,7 +579,7 @@ class ReportAnalyticController extends Controller
             $statusPembayaran = 'Paid';
 
             // $month = $request->input('month', date('m'));
-            $topDishes = $query->whereMonth('orders.created_at', $month)
+            $topDishes = $query->whereMonth('created_at', $month)
                 ->groupBy('order_pivots.restaurant_id')
                 ->orderByDesc('total_qty')
                 ->limit(10)
@@ -602,7 +602,7 @@ class ReportAnalyticController extends Controller
         
             $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
             // $year = $request->input('year', date('Y'));
-            $topDishes = $query->whereYear('orders.created_at', $year)
+            $topDishes = $query->whereYear('created_at', $year)
                 ->groupBy('order_pivots.restaurant_id')
                 ->orderByDesc('total_qty')
                 ->limit(10)
