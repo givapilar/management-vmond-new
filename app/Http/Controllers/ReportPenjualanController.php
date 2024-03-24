@@ -97,14 +97,14 @@ class ReportPenjualanController extends Controller
             $qty = $value->qty; 
             $hasil += $harga_diskon * $qty;
         }
-        dd(number_format($hasil,0));
+        // dd(number_format($hasil,0));
 
 
         $data['total_price'] = $totalPriceSum;
         $data['pb01'] = $pb01;
         $data['service'] = $service;
         $data['packing'] = $packing;
-        $data['total_diskon'] = $orderDetail;
+        $data['total_diskon'] = $hasil;
         $data['orders'] = $stok;
         return view('report.penjualan', $data);
 
