@@ -105,9 +105,9 @@ class ReportPenjualanController extends Controller
         $qty = 0;
         $hasil = 0;
         foreach ($orderDetail as $key => $value) {
-            $harga_diskon += $value->harga_diskon;
-            $qty += $value->qty; 
-            $hasil += $value->harga_diskon * $value->qty;
+            $harga_diskon = $value->harga_diskon;
+            $qty = $value->qty; 
+            $hasil += $harga_diskon * $qty;
         }
         // dd(number_format($hasil,0));
 
