@@ -134,7 +134,7 @@
                 
                         // Loop untuk menghitung total kuantitas dan total harga diskon
                         foreach ($order_details as $item) {
-                            $totalQty = $item->qty;
+                            $totalQty += $item->qty;
                             $totalHarga = $item->harga_diskon;
                         }
                     @endphp
@@ -143,7 +143,7 @@
                         <td class="table-head text-white">{{ $nama }}</td>
                         <td class="table-head text-white">{{ $category }}</td>
                         <td class="table-head text-white">{{ $totalQty }}</td>
-                        <td class="table-head text-white">{{ $totalHarga }}</td>
+                        <td class="table-head text-white">{{ $totalHarga * $totalQty }}</td>
                         <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran }}</td>
                     </tr>
                 @endforeach
