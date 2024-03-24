@@ -523,6 +523,19 @@ class ReportAnalyticController extends Controller
                     return $item->restaurant->nama . '|' . $item->category;
                 });
 
+                $orderDetail = OrderPivot::whereDate('created_at', $date)
+                    ->whereHas('order', function ($query) {
+                        $query->where('status_pembayaran', 'Paid');
+                    })->get();
+
+                $harga_diskon = 0;
+                $qty = 0;
+                $hasil = 0;
+                foreach ($orderDetail as $key => $value) {
+                    $harga_diskon += $value->harga_diskon;
+                    $qty += $value->qty; 
+                }
+
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
                             ->whereDate('created_at', $date)
                             ->whereHas('order', function ($query) {
@@ -629,7 +642,8 @@ class ReportAnalyticController extends Controller
         $data['dishQuantities'] = $dishQuantities;
         $data['order_details'] = $orderDetails;
         $data['groupedItems'] = $groupedItems;
-
+        $data['harga_diskon'] = $harga_diskon;
+        $data['qty'] = $qty;
 
         return view('report-analytic.trend', $data);
 

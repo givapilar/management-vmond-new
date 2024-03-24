@@ -137,7 +137,7 @@
                         <td class="table-head text-white">{{ $nama}}</td>
                         <td class="table-head text-white">{{ $category}}</td>
                         <td class="table-head text-white">{{ $totalQty}}</td>
-                        <td class="table-head text-white">{{ $totalHarga}}</td>
+                        <td class="table-head text-white">{{ $harga_diskon}}</td>
                         <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
                     </tr>
                 @endforeach
