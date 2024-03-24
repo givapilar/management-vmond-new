@@ -131,11 +131,16 @@
                         list($nama, $category) = explode('|', $groupKey);
                         $totalQty = 0; // Inisialisasi total kuantitas
                         $totalHarga = 0; // Inisialisasi total harga diskon
+                        $harga = 0; // Inisialisasi total harga diskon
                 
                         // Loop untuk menghitung total kuantitas dan total harga diskon
-                        foreach ($order_details as $item) {
+                        foreach ($grouped as $item) {
                             $totalQty += $item->qty;
-                            $totalHarga = $item->harga_diskon;
+                            $totalHarga += $item->harga_diskon;
+                        }
+                        foreach ($order_details as $val) {
+                            $totalQty = $val->qty;
+                            $harga += $val->harga_diskon;
                         }
                     @endphp
                     <tr>
@@ -143,7 +148,7 @@
                         <td class="table-head text-white">{{ $nama }}</td>
                         <td class="table-head text-white">{{ $category }}</td>
                         <td class="table-head text-white">{{ $totalQty }}</td>
-                        <td class="table-head text-white">{{ $totalHarga * $totalQty }}</td>
+                        <td class="table-head text-white">{{ $harga * $totalQty }}</td>
                         <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran }}</td>
                     </tr>
                 @endforeach
