@@ -83,7 +83,7 @@ class ReportPenjualanController extends Controller
 
         $data['total_price'] = $totalPriceSum;
         $data['pb01'] = $pb01;
-        $data['total_price'] = $service;
+        $data['service'] = $service;
         $data['orders'] = $stok;
         return view('report.penjualan', $data);
 
