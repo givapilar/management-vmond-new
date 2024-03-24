@@ -133,11 +133,16 @@
                         $totalHarga = 0; // Inisialisasi total harga diskon
                 
                         // Loop untuk menghitung total kuantitas dan total harga diskon
+                        $harga_diskon = 0;
+                        $qty = 0;
+                        $hasil = 0;
                         foreach ($grouped as $item) {
-                            $totalQty += $item->qty;
-                            $totalHarga += $item->harga_diskon;
+                            $qty = $item->qty;
+                            $harga_diskon = $item->harga_diskon;
+                            $hasil += $totalHarga * $totalQty;
                         }
                     @endphp
+                    {{ dd($hasil) }}
                     <tr>
                         <td class="table-head text-white">{{ $loop->iteration }}</td>
                         <td class="table-head text-white">{{ $nama }}</td>
