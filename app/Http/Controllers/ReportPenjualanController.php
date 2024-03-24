@@ -57,10 +57,12 @@ class ReportPenjualanController extends Controller
                             ->orderBy('id', 'asc')
                             ->get();
                 $orderDetail = OrderPivot::where('order_id', $stok->id)->get();
-                foreach ($orderDetail as $key => $value) {
-                    $totalDiskon = 0;
-                    $totalDiskon += $value->harga_diskon;
-                }   
+                    foreach ($orderDetail as $key => $value) {
+                        $totalDiskon = 0;
+                        $totalDiskon += $value->harga_diskon;
+                        $qty += $value->qty;
+                    }   
+                $hasil = $totalDiskon * $qty;
             }
         } elseif ($type == 'monthly') {
             $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
@@ -91,7 +93,7 @@ class ReportPenjualanController extends Controller
         $data['pb01'] = $pb01;
         $data['service'] = $service;
         $data['packing'] = $packing;
-        $data['total_diskon'] = $totalDiskon;
+        $data['total_diskon'] = $hasil;
         $data['orders'] = $stok;
         return view('report.penjualan', $data);
 
