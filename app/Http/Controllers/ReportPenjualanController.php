@@ -90,7 +90,7 @@ class ReportPenjualanController extends Controller
         })->get();
 
 
-        dd($oderDetail);
+        dd($orderDetail);
 
 
 
