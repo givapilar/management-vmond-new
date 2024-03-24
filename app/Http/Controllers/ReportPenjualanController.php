@@ -84,16 +84,15 @@ class ReportPenjualanController extends Controller
         $packing = $stok->sum('packing');
 
 
-        $hasil = 0; // Initialize $hasil outside the loop to accumulate totalDiskon * qty
+        $oderDetail = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        ->whereDate('created_at', $date)
+        ->whereHas('order', function ($query) {
+            $query->where('status_pembayaran', 'Paid');
+        })->get();
 
-        foreach ($stok->orderPivot as $order) {
-            // $orderDetail = OrderPivot::where('order_id', $order->id)->get();
-            
-            $harga_diskon = $order->sum('harga_diskon');
-            $qty = $order->sum('qty');
+        dd($oderDetail);
 
-            $hasil += $harga_diskon * $qty;
-        } 
+
 
         $data['total_price'] = $totalPriceSum;
         $data['pb01'] = $pb01;
