@@ -96,6 +96,7 @@
                                     <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
                                     <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($pb01,0) }}</h2>
                                     <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($service,0) }}</h2>
+                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($packing,0) }}</h2>
                                 </div>
                             </div>
                         </div>
