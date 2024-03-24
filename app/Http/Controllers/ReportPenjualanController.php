@@ -84,11 +84,12 @@ class ReportPenjualanController extends Controller
         $packing = $stok->sum('packing');
 
 
-        $oderDetail = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+        $oderDetail = OrderPivot::selectRaw(' SUM(qty * harga_diskon_baru) as total_diskon')
         ->whereDate('created_at', $date)
         ->whereHas('order', function ($query) {
             $query->where('status_pembayaran', 'Paid');
         })->get();
+
 
         dd($oderDetail);
 
