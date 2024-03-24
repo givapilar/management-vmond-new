@@ -90,14 +90,12 @@ class ReportPenjualanController extends Controller
             $orderDetail = OrderPivot::where('order_id', $order->id)->get();
 
             $totalDiskon = 0;
-            $qty = 0;
 
             foreach ($orderDetail as $detail) {
-                $totalDiskon += $detail->harga_diskon;
-                $qty += $detail->qty;
+                $totalDiskon += $detail->qty * $detail->harga_diskon;
             }
 
-            $hasil += $totalDiskon * $qty; // Accumulate totalDiskon * qty for each order
+            $hasil = $totalDiskon ; // Accumulate totalDiskon * qty for each order
         } 
         $hasil = $totalDiskon * $qty;
 
