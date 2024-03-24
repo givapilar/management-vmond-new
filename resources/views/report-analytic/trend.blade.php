@@ -133,7 +133,7 @@
                         $totalHarga = 0; // Inisialisasi total harga diskon
                 
                         // Loop untuk menghitung total kuantitas dan total harga diskon
-                        foreach ($grouped as $item) {
+                        foreach ($order_details as $item) {
                             $totalQty += $item->qty;
                             $totalHarga += $item->harga_diskon;
                         }
