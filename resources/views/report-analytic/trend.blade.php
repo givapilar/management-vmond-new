@@ -130,7 +130,9 @@
                     @php
                         list($nama, $category) = explode('|', $groupKey);
                         $totalQty = $grouped->sum('qty');
-                        $totalHarga = $grouped->sum('harga_diskon');
+                        $totalHarga = $grouped->sum(function ($item) {
+                            return $item->harga_diskon * ($item->order->status_pembayaran === 'Paid' ? 1 : 0);
+                        });
                     @endphp
                     <tr>
                         <td class="table-head text-white">{{ $loop->iteration }}</td>

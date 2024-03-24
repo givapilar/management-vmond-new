@@ -519,8 +519,16 @@ class ReportAnalyticController extends Controller
                     ->orderBy('id', 'asc')
                     ->get();
 
+                // $groupedItems = $orderDetails->groupBy(function ($item) {
+                //     return $item->restaurant->nama . '|' . $item->category;
+                // });
+
                 $groupedItems = $orderDetails->groupBy(function ($item) {
                     return $item->restaurant->nama . '|' . $item->category;
+                })->map(function ($grouped) {
+                    return $grouped->filter(function ($item) {
+                        return $item->order->status_pembayaran === 'Paid';
+                    });
                 });
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
