@@ -140,7 +140,7 @@
                         }
                         foreach ($order_details as $val) {
                             $totalQty = $val->qty;
-                            $harga += $val->harga_diskon;
+                            $harga = $val->harga_diskon;
                         }
                     @endphp
                     <tr>
