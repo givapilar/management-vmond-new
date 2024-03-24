@@ -49,6 +49,10 @@ class ReportPenjualanController extends Controller
                             ->where('status_pembayaran', 'Paid')
                             ->orderBy('id', 'asc')
                             ->get();
+                $orderDetail = OrderPivot::whereDate('created_at', $date)
+                ->whereHas('order', function ($query) {
+                    $query->where('status_pembayaran', 'Paid');
+                })->get();
             } else {
                 // dd('masuk2');
                 $stok = Order::whereDate('created_at', $date)
