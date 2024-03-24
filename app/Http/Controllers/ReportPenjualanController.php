@@ -84,14 +84,14 @@ class ReportPenjualanController extends Controller
         $packing = $stok->sum('packing');
 
 
-        $oderDetail = OrderPivot::selectRaw(' SUM(qty * harga_diskon) as total_diskon')
+        $orderDetail = OrderPivot::selectRaw(' SUM(qty * harga_diskon) as total_diskon')
         ->whereDate('created_at', $date)
         ->whereHas('order', function ($query) {
             $query->where('status_pembayaran', 'Paid');
         })->get();
 
 
-        dd($oderDetail);
+        // dd($oderDetail);
 
 
 
@@ -99,7 +99,7 @@ class ReportPenjualanController extends Controller
         $data['pb01'] = $pb01;
         $data['service'] = $service;
         $data['packing'] = $packing;
-        $data['total_diskon'] = $hasil;
+        $data['total_diskon'] = $orderDetail;
         $data['orders'] = $stok;
         return view('report.penjualan', $data);
 
