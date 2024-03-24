@@ -95,8 +95,8 @@ class ReportPenjualanController extends Controller
                 $totalDiskon += $detail->qty * $detail->harga_diskon;
             }
 
+            $hasil = $totalDiskon ; // Accumulate totalDiskon * qty for each order
         } 
-        $hasil = $totalDiskon ; // Accumulate totalDiskon * qty for each order
 
         $data['total_price'] = $totalPriceSum;
         $data['pb01'] = $pb01;
