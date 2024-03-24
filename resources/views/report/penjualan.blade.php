@@ -77,59 +77,62 @@
         </div>
     </div>
 
-    <div class="col-lg-4 ">
-        <div class="card-body bg-gray-800 rounded-20 p-3">
-            <div class="row">
-                <div class="card rounded-20 px-2 pb-2">
-                    <div class="card-header rounded-t-20 pt-2 pl-2 pb-0 pr-2">
-                        <h5 class="text-center text-uppercase">Total Penjualan(pajak)</h5>
-                    </div>
-                    <div class="card-body bg-gray-800 rounded-20 p-3">
-                        <div class="row">
-                            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-left">
-                                <img src="{{ asset('assets/images/icon/stock.png') }}" alt="" class="">
-                                {{-- <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i> --}}
-                            </div>
+    <div class="row">
+        <div class="col-lg-4 ">
+            <div class="card-body bg-gray-800 rounded-20 p-3">
+                <div class="row">
+                    <div class="card rounded-20 px-2 pb-2">
+                        <div class="card-header rounded-t-20 pt-2 pl-2 pb-0 pr-2">
+                            <h5 class="text-center text-uppercase">Total Penjualan(pajak)</h5>
+                        </div>
+                        <div class="card-body bg-gray-800 rounded-20 p-3">
+                            <div class="row">
+                                <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-left">
+                                    <img src="{{ asset('assets/images/icon/stock.png') }}" alt="" class="">
+                                    {{-- <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i> --}}
+                                </div>
 
-                            <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                                <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
-                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
+                                <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                    <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
+                                        <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg-4 ">
-        <div class="card-body bg-gray-800 rounded-20 p-3">
-            <div class="row">
-                <div class="card rounded-20 px-2 pb-2">
-                    <div class="card-header rounded-t-20 pt-2 pl-2 pb-0 pr-2">
-                        <h5 class="text-center text-uppercase">Total Penjualan</h5>
-                    </div>
-                    <div class="card-body bg-gray-800 rounded-20 p-3">
-                        <div class="row">
-                            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-left">
-                                <img src="{{ asset('assets/images/icon/stock.png') }}" alt="" class="">
-                                {{-- <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i> --}}
-                            </div>
+        <div class="col-lg-4 ">
+            <div class="card-body bg-gray-800 rounded-20 p-3">
+                <div class="row">
+                    <div class="card rounded-20 px-2 pb-2">
+                        <div class="card-header rounded-t-20 pt-2 pl-2 pb-0 pr-2">
+                            <h5 class="text-center text-uppercase">Total Penjualan</h5>
+                        </div>
+                        <div class="card-body bg-gray-800 rounded-20 p-3">
+                            <div class="row">
+                                <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-left">
+                                    <img src="{{ asset('assets/images/icon/stock.png') }}" alt="" class="">
+                                    {{-- <i class="icon-lg mdi mdi-monitor text-success ml-auto"></i> --}}
+                                </div>
 
-                            <div class="col-8 col-sm-12 col-xl-8 my-auto">
-                                <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
-                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_diskon,0) }}</h2>
+                                <div class="col-8 col-sm-12 col-xl-8 my-auto">
+                                    <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
+                                        <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_diskon,0) }}</h2>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
+
 
   </form>
 
