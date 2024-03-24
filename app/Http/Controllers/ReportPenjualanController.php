@@ -92,7 +92,7 @@ class ReportPenjualanController extends Controller
             $totalDiskon = 0;
 
             foreach ($orderDetail as $detail) {
-                $totalDiskon = $detail->diskon;
+                $totalDiskon = $detail->harga_diskon;
                 dd($totalDiskon);
             }
         } 
