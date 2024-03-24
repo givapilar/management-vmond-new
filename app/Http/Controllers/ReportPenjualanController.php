@@ -92,7 +92,7 @@ class ReportPenjualanController extends Controller
             $totalDiskon = 0;
 
             foreach ($orderDetail as $detail) {
-                $totalDiskon += $detail->qty * $detail->harga_diskon;
+                $totalDiskon += $detail->harga_diskon;
             }
 
             $hasil = $totalDiskon ; // Accumulate totalDiskon * qty for each order
