@@ -93,8 +93,8 @@
 
                             <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                 <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
-                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
-                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">total{{ $total_diskon }}</h2>
+                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_diskon,0) }}</h2>
+                                    {{-- <h2 class="mb-0 text-success ml-2 font-weight-medium">total{{ $total_diskon }}</h2> --}}
                                 </div>
                             </div>
                         </div>

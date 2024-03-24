@@ -56,6 +56,10 @@ class ReportPenjualanController extends Controller
                             ->where('status_pembayaran', 'Paid')
                             ->orderBy('id', 'asc')
                             ->get();
+                $orderDetail = OrderPivot::whereDate('created_at', $date)
+                ->whereHas('order', function ($query) {
+                    $query->where('status_pembayaran', 'Paid');
+                })->get();
                 
             }
         } elseif ($type == 'monthly') {
@@ -67,6 +71,11 @@ class ReportPenjualanController extends Controller
                         ->where('status_pembayaran', 'Paid')
                         ->orderBy('id', 'asc')
                         ->get();
+
+            $orderDetail = OrderPivot::whereDate('created_at', $month)
+            ->whereHas('order', function ($query) {
+                $query->where('status_pembayaran', 'Paid');
+            })->get();
         } elseif ($type == 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
             $stok = Order::whereYear('created_at', $year)
@@ -76,6 +85,10 @@ class ReportPenjualanController extends Controller
                         ->where('status_pembayaran', 'Paid')
                         ->orderBy('id', 'asc')
                         ->get();
+            $orderDetail = OrderPivot::whereDate('created_at', $year)
+            ->whereHas('order', function ($query) {
+                $query->where('status_pembayaran', 'Paid');
+            })->get();
         }
 
         $totalPriceSum = $stok->sum('total_price');
@@ -83,11 +96,6 @@ class ReportPenjualanController extends Controller
         $service = $stok->sum('service');
         $packing = $stok->sum('packing');
 
-
-        $orderDetail = OrderPivot::whereDate('created_at', $date)
-        ->whereHas('order', function ($query) {
-            $query->where('status_pembayaran', 'Paid');
-        })->get();
 
         $harga_diskon = 0;
         $qty = 0;

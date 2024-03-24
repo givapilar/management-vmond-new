@@ -528,14 +528,6 @@ class ReportAnalyticController extends Controller
                         $query->where('status_pembayaran', 'Paid');
                     })->get();
 
-                $harga_diskon = 0;
-                $qty = 0;
-                $hasil = 0;
-                foreach ($orderDetail as $key => $value) {
-                    $harga_diskon = $value->harga_diskon;
-                    $qty = $value->qty; 
-                }
-
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
                             ->whereDate('created_at', $date)
                             ->whereHas('order', function ($query) {
@@ -555,6 +547,15 @@ class ReportAnalyticController extends Controller
                             })
                             ->orderBy('id', 'asc')
                             ->get();
+
+                $groupedItems = $orderDetails->groupBy(function ($item) {
+                    return $item->restaurant->nama . '|' . $item->category;
+                });
+
+                $orderDetail = OrderPivot::whereDate('created_at', $date)
+                    ->whereHas('order', function ($query) {
+                        $query->where('status_pembayaran', 'Paid');
+                    })->get();
 
                 $totalBartender = OrderPivot::whereDate('created_at', $date)
                             ->where('category', 'Minuman')
@@ -607,6 +608,11 @@ class ReportAnalyticController extends Controller
                 return $item->restaurant->nama . '|' . $item->category;
             });
 
+            $orderDetail = OrderPivot::whereDate('created_at', $month)
+                ->whereHas('order', function ($query) {
+                    $query->where('status_pembayaran', 'Paid');
+                })->get();
+
         } elseif ($type === 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
             $statusPembayaran = 'Paid';
@@ -629,8 +635,19 @@ class ReportAnalyticController extends Controller
             $groupedItems = $orderDetails->groupBy(function ($item) {
                 return $item->restaurant->nama . '|' . $item->category;
             });
+
+            $orderDetail = OrderPivot::whereDate('created_at', $year)
+                ->whereHas('order', function ($query) {
+                    $query->where('status_pembayaran', 'Paid');
+                })->get();
         }
 
+        $harga_diskon = 0;
+        $qty = 0;
+        foreach ($orderDetail as $key => $value) {
+            $harga_diskon = $value->harga_diskon;
+            $qty = $value->qty; 
+        }
         // Eager load the restaurant relation
         $topDishes->load('restaurant');
 
