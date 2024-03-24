@@ -94,6 +94,8 @@
                             <div class="col-8 col-sm-12 col-xl-8 my-auto">
                                 <div class="d-flex d-sm-block d-md-flex align-items-center justify-content-end">
                                     <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($total_price,0) }}</h2>
+                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($pb01,0) }}</h2>
+                                    <h2 class="mb-0 text-success ml-2 font-weight-medium">{{ number_format($service,0) }}</h2>
                                 </div>
                             </div>
                         </div>

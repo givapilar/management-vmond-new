@@ -519,8 +519,6 @@ class ReportAnalyticController extends Controller
                     ->orderBy('id', 'asc')
                     ->get();
 
-               
-
                 $groupedItems = $orderDetails->groupBy(function ($item) {
                     return $item->restaurant->nama . '|' . $item->category;
                 });
