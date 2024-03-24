@@ -134,8 +134,8 @@
                 
                         // Loop untuk menghitung total kuantitas dan total harga diskon
                         foreach ($order_details as $item) {
-                            $totalQty += $item->qty;
-                            $totalHarga += $item->harga_diskon;
+                            $totalQty = $item->qty;
+                            $totalHarga = $item->harga_diskon;
                         }
                     @endphp
                     <tr>
