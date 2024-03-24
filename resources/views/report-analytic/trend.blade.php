@@ -129,15 +129,15 @@
                 @foreach ($groupedItems as $groupKey => $grouped)
                     @php
                         list($nama, $category) = explode('|', $groupKey);
-                        $totalQty = $grouped->sum('qty');
-                        $totalHarga = $grouped->sum('harga_diskon');
+                        $totalQty = $grouped->$qty;
+                        $totalHarga = $grouped->$harga_diskon;
                     @endphp
                     <tr>
                         <td class="table-head text-white">{{ $loop->iteration }}</td>
                         <td class="table-head text-white">{{ $nama}}</td>
                         <td class="table-head text-white">{{ $category}}</td>
                         <td class="table-head text-white">{{ $totalQty}}</td>
-                        <td class="table-head text-white">{{ $harga_diskon}}</td>
+                        <td class="table-head text-white">{{ $totalHarga}}</td>
                         <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran}}</td>
                     </tr>
                 @endforeach

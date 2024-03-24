@@ -532,8 +532,8 @@ class ReportAnalyticController extends Controller
                 $qty = 0;
                 $hasil = 0;
                 foreach ($orderDetail as $key => $value) {
-                    $harga_diskon += $value->harga_diskon;
-                    $qty += $value->qty; 
+                    $harga_diskon = $value->harga_diskon;
+                    $qty = $value->qty; 
                 }
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
