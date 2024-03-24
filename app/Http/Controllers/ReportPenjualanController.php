@@ -86,11 +86,11 @@ class ReportPenjualanController extends Controller
 
         $hasil = 0; // Initialize $hasil outside the loop to accumulate totalDiskon * qty
 
-        foreach ($stok as $order) {
-            $orderDetail = OrderPivot::where('order_id', $order->id)->get();
+        foreach ($stok->orderPivot as $order) {
+            // $orderDetail = OrderPivot::where('order_id', $order->id)->get();
             
-            $harga_diskon = $orderDetail->sum('harga_diskon');
-            $qty = $orderDetail->sum('qty');
+            $harga_diskon = $order->sum('harga_diskon');
+            $qty = $order->sum('qty');
 
             $hasil += $harga_diskon * $qty;
         } 
