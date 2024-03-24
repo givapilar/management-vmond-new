@@ -89,9 +89,15 @@ class ReportPenjualanController extends Controller
             $query->where('status_pembayaran', 'Paid');
         })->get();
 
-
-        dd($orderDetail);
-
+        $harga_diskon = 0;
+        $qty = 0;
+        $hasil = 0;
+        foreach ($orderDetail as $key => $value) {
+            $harga_diskon = $value->harga_diskon;
+            $qty = $value->qty; 
+            $hasil += $harga_diskon * $qty;
+        }
+        dd(number_format($hasil,0));
 
 
         $data['total_price'] = $totalPriceSum;
