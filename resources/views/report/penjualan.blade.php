@@ -178,7 +178,7 @@
                             <td class="table-head text-white">{{ $order->name }}</td>
                             <td class="table-head text-white">{{ $order->phone }}</td>
                             <td class="table-head text-white">{{ $order->qty ?? 0}}</td>
-                            <td class="table-head text-white">{{ $harga_diskon}}</td>
+                            <td class="table-head text-white">{{ $order->total_price}}</td>
                             <td class="table-head text-white">{{ $order->metode_pembayaran}}</td>
                             <td class="table-head text-white">{{ $order->metode_edisi}}</td>
                             <td class="table-head text-white">{{ $order->no_qr ?? "-"}}</td>
