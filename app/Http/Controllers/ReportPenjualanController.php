@@ -105,18 +105,17 @@ class ReportPenjualanController extends Controller
         $qty = 0;
         $hasil = 0;
         foreach ($orderDetail as $key => $value) {
-            $harga_diskon = $value->harga_diskon;
-            $qty = $value->qty; 
-            $hasil += $harga_diskon * $qty;
+            $harga_diskon += $value->harga_diskon;
+            $qty += $value->qty; 
+            $hasil += $value->harga_diskon * $value->qty;
         }
         // dd(number_format($hasil,0));
 
 
         $data['total_price'] = $totalPriceSum;
-        $data['pb01'] = $pb01;
-        $data['service'] = $service;
-        $data['packing'] = $packing;
         $data['total_diskon'] = $hasil;
+        $data['total_qty'] = $qty;
+        $data['harga_diskon'] = $harga_diskon;
         $data['orders'] = $stok;
         return view('report.penjualan', $data);
 
