@@ -76,8 +76,7 @@ class ReportPenjualanController extends Controller
                         ->orderBy('id', 'asc')
                         ->get();
 
-            $orderDetail = OrderPivot::whereDate('created_at', $month)
-            ->whereHas('order', function ($query) {
+            $orderDetail = OrderPivot::whereHas('order', function ($query) {
                 $query->where('status_pembayaran', 'Paid');
             })->get();
         } elseif ($type == 'yearly') {
