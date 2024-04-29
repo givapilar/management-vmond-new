@@ -609,12 +609,6 @@ class ReportAnalyticController extends Controller
                 return $item->restaurant->nama . '|' . $item->category;
             });
 
-            // $orderDetail = OrderPivot::whereDate('created_at', $month)
-            //     ->whereHas('order', function ($query) {
-            //         $query->where('status_pembayaran', 'Paid');
-            //     })->get();
-
-            
 
         } elseif ($type === 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
@@ -627,22 +621,24 @@ class ReportAnalyticController extends Controller
                 ->orderByDesc('total_qty')
                 ->limit(10)
                 ->get();
+            // $orderDetails = OrderPivot::with('order')
+            //     ->whereYear('created_at', $year)
+            //     ->whereHas('order', function ($query) use ($baseOrderQuery) {
+            //         $query->mergeConstraintsFrom($baseOrderQuery);
+            //     })
+            //     ->orderBy('id', 'asc')
+            //     ->get();
             $orderDetails = OrderPivot::with('order')
-                ->whereYear('created_at', $year)
-                ->whereHas('order', function ($query) use ($baseOrderQuery) {
-                    $query->mergeConstraintsFrom($baseOrderQuery);
-                })
-                ->orderBy('id', 'asc')
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->whereYear('order_pivots.created_at', $year)
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->orderBy('order_pivots.id', 'asc')
                 ->get();
 
             $groupedItems = $orderDetails->groupBy(function ($item) {
                 return $item->restaurant->nama . '|' . $item->category;
             });
 
-            // $orderDetail = OrderPivot::whereDate('created_at', $year)
-            //     ->whereHas('order', function ($query) {
-            //         $query->where('status_pembayaran', 'Paid');
-            //     })->get();
         }
 
         $harga_diskon = 0;
