@@ -557,23 +557,23 @@ class ReportAnalyticController extends Controller
                         $query->where('status_pembayaran', 'Paid');
                     })->get();
 
-                $totalBartender = OrderPivot::whereDate('created_at', $date)
-                            ->where('category', 'Minuman')
-                            ->whereHas('order', function ($query) {
-                                $query->where('status_pembayaran', 'Paid');
-                            })
-                            ->sum('harga_diskon');
+                // $totalBartender = OrderPivot::whereDate('created_at', $date)
+                //             ->where('category', 'Minuman')
+                //             ->whereHas('order', function ($query) {
+                //                 $query->where('status_pembayaran', 'Paid');
+                //             })
+                //             ->sum('harga_diskon');
 
-                $totalKitchen = OrderPivot::whereDate('created_at', $date)
-                            ->where('category', 'Makanan')
-                            ->whereHas('order', function ($query) {
-                                $query->where('status_pembayaran', 'Paid');
-                            })
-                            ->sum('harga_diskon');
+                // $totalKitchen = OrderPivot::whereDate('created_at', $date)
+                //             ->where('category', 'Makanan')
+                //             ->whereHas('order', function ($query) {
+                //                 $query->where('status_pembayaran', 'Paid');
+                //             })
+                //             ->sum('harga_diskon');
 
-                $totalFwb = Order::whereDate('created_at', $date)
-                            ->whereNotNull('biliard_id')
-                            ->sum('total_price');
+                // $totalFwb = Order::whereDate('created_at', $date)
+                //             ->whereNotNull('biliard_id')
+                //             ->sum('total_price');
 
                 $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
                             ->whereDate('created_at', $date)
@@ -587,6 +587,7 @@ class ReportAnalyticController extends Controller
                 }
             
         } elseif ($type === 'monthly') {
+            // dd('masuk');
             $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
             $statusPembayaran = 'Paid';
 
@@ -612,6 +613,8 @@ class ReportAnalyticController extends Controller
                 ->whereHas('order', function ($query) {
                     $query->where('status_pembayaran', 'Paid');
                 })->get();
+
+            
 
         } elseif ($type === 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
@@ -644,7 +647,7 @@ class ReportAnalyticController extends Controller
 
         $harga_diskon = 0;
         $qty = 0;
-        foreach ($orderDetail as $key => $value) {
+        foreach ($orderDetails as $key => $value) {
             $harga_diskon = $value->harga_diskon;
             $qty = $value->qty; 
         }
