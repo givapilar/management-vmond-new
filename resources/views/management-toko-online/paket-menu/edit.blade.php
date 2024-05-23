@@ -144,6 +144,23 @@
                                     </div>
 
                                     <div class="col-12">
+                                        <div class="form-group mb-3">
+                                            <label class="">Status Menu</label>
+                                            <select class="form-control @error('status_menu') is-invalid @enderror" name="status_menu">
+                                                <option disabled selected>Choose Status Menu</option>
+                                                <option value="Active" {{ $package->status_menu == 'Active' ? 'selected' : '' }}>Active</option>
+                                                <option value="Non Active" {{ $package->status_menu == 'Non Active' ? 'selected' : '' }}>Non Active</option>
+                                            </select>
+
+                                            @error('status')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <div class="d-flex justify-content-between mb-2">
                                                 <label>Menu Restaurant</label>
