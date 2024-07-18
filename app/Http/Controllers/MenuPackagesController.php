@@ -36,7 +36,7 @@ class MenuPackagesController extends Controller
         $data['menu_packages'] = MenuPackages::orderBy('id', 'ASC')->get();
         $data['menu_package_pivots'] = MenuPackagePivots::get();
         $data['restaurants'] = Restaurant::get();
-        $data['billiards'] = Biliard::get();
+        $data['billiards'] = Biliard::orderBy('nama','asc')->get();
         $data['meeting_rooms'] = MeetingRoom::get();
         return view('management-toko-online.paket-menu.index', $data);
     }
@@ -61,7 +61,7 @@ class MenuPackagesController extends Controller
             'restaurant_id' => 'nullable',
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
-            'status' => 'required',
+            'status' => 'nullable',
             'minimal' => 'nullable',
             'jam' => 'nullable',
             'status_konfirmasi' => 'nullable',
@@ -80,8 +80,8 @@ class MenuPackagesController extends Controller
             $paket_menu->category = $validateData['category'];
             $paket_menu->harga = $harga;
             $paket_menu->harga_diskon = $harga_diskon;
-            $paket_menu->persentase = $validateData['persentase'];
-            $paket_menu->status = $validateData['status'];
+            $paket_menu->persentase = $request->persentase;
+            $paket_menu->status = $request->status;
             $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
             $paket_menu->description = $validateData['description'];
@@ -193,7 +193,7 @@ class MenuPackagesController extends Controller
             'restaurant_id' => 'nullable',
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
-            'status' => 'required',
+            'status' => 'nullable',
             'minimal' => 'nullable',
             'status_konfirmasi' => 'nullable',
             'jam' => 'nullable',
@@ -212,7 +212,7 @@ class MenuPackagesController extends Controller
             $paket_menu->category = $validateData['category'];
             $paket_menu->harga = $harga;
             $paket_menu->harga_diskon = $harga_diskon;
-            $paket_menu->persentase = $validateData['persentase'];
+            $paket_menu->persentase = $request->persentase;
             $paket_menu->status = $validateData['status'];
             $paket_menu->minimal = $validateData['minimal'];
             $paket_menu->jam = $validateData['jam'];

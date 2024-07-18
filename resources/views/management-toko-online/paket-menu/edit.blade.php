@@ -77,7 +77,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-lg-6">
+                            {{-- <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3">
                                     <label for="persentase">Persentase <small>%</small></label>
                                     <input type="number" class="form-control @error('persentase') is-invalid @enderror" id="persentase" name="persentase" value="{{ old('persentase') ?? $package->persentase }}"  placeholder="Persentase">
@@ -88,7 +88,7 @@
                                     </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-12 col-lg-6">
                                 <div class="form-group mb-3" id="billiard">
