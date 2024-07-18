@@ -148,8 +148,8 @@
                                             <label class="">Status Menu</label>
                                             <select class="form-control @error('status_menu') is-invalid @enderror" name="status_menu">
                                                 <option disabled selected>Choose Status Menu</option>
-                                                <option value="Active" {{ $package->status_menu == 'Active' ? 'selected' : '' }}>Active</option>
-                                                <option value="Non Active" {{ $package->status_menu == 'Non Active' ? 'selected' : '' }}>Non Active</option>
+                                                <option value="Active" {{ $package->status == 'Active' ? 'selected' : '' }}>Active</option>
+                                                <option value="Non Active" {{ $package->status == 'Non Active' ? 'selected' : '' }}>Non Active</option>
                                             </select>
 
                                             @error('status')

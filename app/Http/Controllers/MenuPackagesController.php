@@ -58,7 +58,7 @@ class MenuPackagesController extends Controller
             'harga' => 'required',
             'harga_diskon' => 'nullable',
             'persentase' => 'nullable',
-            'restaurant_id' => 'required',
+            'restaurant_id' => 'nullable',
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
@@ -83,7 +83,7 @@ class MenuPackagesController extends Controller
             $paket_menu->persentase = $validateData['persentase'];
             $paket_menu->status = $validateData['status'];
             $paket_menu->minimal = $validateData['minimal'];
-            // $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
+            $paket_menu->status_konfirmasi = $validateData['status_konfirmasi'];
             $paket_menu->description = $validateData['description'];
             $paket_menu->jam = $validateData['jam'];
             $paket_menu->billiard_id = $validateData['billiard_id'] ?? null;
@@ -190,7 +190,7 @@ class MenuPackagesController extends Controller
             'harga' => 'required',
             'harga_diskon' => 'nullable',
             'persentase' => 'nullable',
-            'restaurant_id' => 'required',
+            'restaurant_id' => 'nullable',
             'billiard_id' => 'nullable|required_if:category,billiard',
             'meeting_room_id' => 'nullable|required_if:category,meeting_room',
             'status' => 'required',
