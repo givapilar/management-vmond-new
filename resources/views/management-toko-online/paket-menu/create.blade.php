@@ -122,8 +122,7 @@
                             <div class="form-group mb-3">
                                 <label class="">Status</label>
                                 <select class="form-control @error('status') is-invalid @enderror" name="status">
-                                    <option disabled selected>Choose Status</option>
-                                    <option value="Tersedia">Tersedia</option>
+                                    <option selected value="Tersedia">Tersedia</option>
                                     <option value="Tidak Tersedia">Tidak Tersedia</option>
                                 </select>
 
@@ -169,8 +168,7 @@
                             <div class="form-group mb-3" id="status_konfirmasi">
                                 <label class="">Status Konfirmasi</label>
                                 <select class="form-control @error('status_konfirmasi') is-invalid @enderror" name="status_konfirmasi">
-                                    <option disabled selected>Choose Status Konfirmasi</option>
-                                    <option value="Aktif" {{ old('status_konfirmasi') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option selected value="Aktif" {{ old('status_konfirmasi') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                                     <option value="Inactive" {{ old('status_konfirmasi') == 'Inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
 
