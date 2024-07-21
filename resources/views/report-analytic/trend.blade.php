@@ -114,6 +114,42 @@
     </form>
 
     <div class="card-body bg-gray-800 rounded-20 p-3">
+        <table id="tableDetail" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="th-sm text-white">No</th>
+                    <th class="th-sm text-white">Nama Menu Restaurant</th>
+                    <th class="th-sm text-white">Category</th>
+                    <th class="th-sm text-white">Qty</th>
+                    <th class="th-sm text-white">Harga Diskon</th>
+                    <th class="th-sm text-white">Status Pemesanan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($groupedItems as $groupKey => $grouped)
+                    @php
+                        list($nama, $category) = explode('|', $groupKey);
+                        $totalQty = 0;
+                        $totalHarga = 0;
+        
+                        foreach ($grouped as $item) {
+                            $totalQty += $item->qty;
+                            $totalHarga += $item->harga_diskon;
+                        }
+                    @endphp
+                    <tr>
+                        <td class="table-head text-white">{{ $loop->iteration }}</td>
+                        <td class="table-head text-white">{{ $nama }}</td>
+                        <td class="table-head text-white">{{ $category }}</td>
+                        <td class="table-head text-white">{{ $totalQty }}</td>
+                        <td class="table-head text-white">{{ $totalHarga }}</td>
+                        <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
+        <h3>Report Analytic</h3>
         <table id="analyticTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
