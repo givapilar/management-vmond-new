@@ -362,6 +362,12 @@ class ReportAnalyticController extends Controller
     
         }
     
+        // Menghitung total harga diskon untuk setiap group
+        $totalHargaDiskon = $groupedItems->mapWithKeys(function ($items, $key) {
+            $totalHarga = $items->sum('harga_diskon');
+            return [$key => $totalHarga];
+        });
+    
         $harga_diskon = 0;
         $qty = 0;
         foreach ($orderDetails as $key => $value) {
@@ -380,6 +386,7 @@ class ReportAnalyticController extends Controller
         $data['groupedItems'] = $groupedItems;
         $data['harga_diskon'] = $harga_diskon;
         $data['qty'] = $qty;
+        $data['totalHargaDiskon'] = $totalHargaDiskon;
     
         return view('report-analytic.trend', $data);
     }

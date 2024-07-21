@@ -129,7 +129,7 @@
                         <td class="table-head text-white">{{ $index + 1 }}</td>
                         <td class="table-head text-white">{{ $dishName }}</td>
                         <td class="table-head text-white">{{ $dishQuantities[$index] }}</td>
-                        <td class="table-head text-white">{{ $totalHarga }}</td>
+                        <td class="table-head text-white">{{ $totalHargaDiskon[$dishName . '|' . $category] }}</td>
                     </tr>
                 @endforeach
             </tbody>
