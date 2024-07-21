@@ -155,26 +155,38 @@
             </div>
           </div>
 
-            <table id="analyticTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th class="th-sm text-white">No</th>
-                        <th class="th-sm text-white">Restaurant Name</th>
-                        <th class="th-sm text-white">Total Quantity</th>
-                        <th class="th-sm text-white">Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($order_details as $detail)
-                        <tr>
-                            <td class="table-head text-white">{{ $loop->iteration }}</td>
-                            <td class="table-head text-white">{{ $detail->restaurant_name }}</td>
-                            <td class="table-head text-white">{{ $detail->total_qty }}</td>
-                            <td class="table-head text-white">{{ $detail->total_price }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+          <table id="mytable" class="table table-striped" style="width:100%">
+          <thead>
+              <tr>
+                <th class="th-sm text-white">No</th>
+                <th class="th-sm text-white">No Invoice</th>
+                <th class="th-sm text-white">Nama</th>
+                <th class="th-sm text-white">Phone</th>
+                <th class="th-sm text-white">Qty</th>
+                <th class="th-sm text-white">Total Price</th>
+                <th class="th-sm text-white">Metode Pembayaran</th>
+                <th class="th-sm text-white">EDC</th>
+                <th class="th-sm text-white">No QR BRI</th>
+              </tr>
+          </thead>
+              <tbody>
+                  @foreach ($orders as $order)
+                      <tr>
+                          <td class="table-head text-white">{{ $loop->iteration }}</td>
+                          <td class="table-head text-white">{{ $order->invoice_no}}</td>
+                            <td class="table-head text-white">{{ $order->name }}</td>
+                            <td class="table-head text-white">{{ $order->phone }}</td>
+                            <td class="table-head text-white">{{ $order->qty ?? 0}}</td>
+                            <td class="table-head text-white">{{ $order->total_price}}</td>
+                            <td class="table-head text-white">{{ $order->metode_pembayaran}}</td>
+                            <td class="table-head text-white">{{ $order->metode_edisi}}</td>
+                            <td class="table-head text-white">{{ $order->no_qr ?? "-"}}</td>
+                      </tr>
+                  @endforeach
+
+              </tbody>
+
+          </table>
         </div>
       </div>
     </div>

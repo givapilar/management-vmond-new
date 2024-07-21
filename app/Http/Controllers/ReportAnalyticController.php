@@ -431,6 +431,7 @@ class ReportAnalyticController extends Controller
     public function create(Request $request)
     {
         $data['page_title'] = 'Report Penjualan';
+        $data['account_users']
 
         $type = $request->has('type') ? $request->type : 'day';
         $user = $request->has('user_id') ? $request->user_id : 'All';
@@ -492,7 +493,7 @@ class ReportAnalyticController extends Controller
         $data['orders'] = $order;
         $data['order_details'] = $orderDetails; // Passing aggregated data to the view
 
-        return view('report.penjualan', $data);
+        return view('report-analytic.index', $data);
     }
 
 
