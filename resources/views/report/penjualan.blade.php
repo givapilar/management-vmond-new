@@ -159,7 +159,7 @@
                 <thead>
                     <tr>
                         <th class="th-sm text-white">No</th>
-                        <th class="th-sm text-white">Food Item</th>
+                        <th class="th-sm text-white">Restaurant Name</th>
                         <th class="th-sm text-white">Total Quantity</th>
                         <th class="th-sm text-white">Total Price</th>
                     </tr>
@@ -168,7 +168,7 @@
                     @foreach ($order_details as $detail)
                         <tr>
                             <td class="table-head text-white">{{ $loop->iteration }}</td>
-                            <td class="table-head text-white">{{ $detail->food_item }}</td>
+                            <td class="table-head text-white">{{ $detail->restaurant_name }}</td>
                             <td class="table-head text-white">{{ $detail->total_qty }}</td>
                             <td class="table-head text-white">{{ $detail->total_price }}</td>
                         </tr>
