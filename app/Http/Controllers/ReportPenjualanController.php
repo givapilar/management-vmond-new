@@ -110,6 +110,9 @@ class ReportPenjualanController extends Controller
 
 
         $data['total_price'] = $totalPriceSum;
+        $data['pb01'] = $pb01;
+        $data['service'] = $service;
+        $data['packing'] = $packing;
         // $data['total_diskon'] = $hasil;
         $data['total_qty'] = $qty;
         $data['harga_diskon'] = $harga_diskon;
