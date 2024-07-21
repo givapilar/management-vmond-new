@@ -482,7 +482,7 @@ class ReportAnalyticController extends Controller
         $orderIds = $order->pluck('id');
         $orderDetails = OrderPivot::whereIn('order_id', $orderIds)
                                     ->join('restaurants', 'order_pivots.restaurant_id', '=', 'restaurants.id')
-                                    ->select('restaurants.nama as restaurant_name', DB::raw('SUM(order_pivots.qty) as total_qty'), DB::raw('SUM(order_pivots.price) as total_price'))
+                                    ->select('restaurants.nama as restaurant_name', DB::raw('SUM(order_pivots.qty) as total_qty'), DB::raw('SUM(order_pivots.harga_diskon) as total_price'))
                                     ->groupBy('restaurants.nama')
                                     ->get();
 
