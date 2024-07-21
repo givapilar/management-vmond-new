@@ -349,6 +349,4 @@ class ReportAnalyticController extends Controller
         
         return view('report-analytic.trend', $data);
     }
-    
-    
 }
