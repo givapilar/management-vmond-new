@@ -493,7 +493,7 @@ class ReportAnalyticController extends Controller
         $data['orders'] = $order;
         $data['order_details'] = $orderDetails; // Passing aggregated data to the view
 
-        return view('report-analytic.index', $data);
+        return view('report-analytic.trend', $data);
     }
 
 

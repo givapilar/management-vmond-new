@@ -114,40 +114,24 @@
     </form>
 
     <div class="card-body bg-gray-800 rounded-20 p-3">
-        <table id="tableDetail" class="table table-striped" style="width:100%">
+        <table id="analyticTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                  <th class="th-sm text-white">No</th>
-                  <th class="th-sm text-white">Nama Menu Restaurant</th>
-                  <th class="th-sm text-white">Category</th>
-                  <th class="th-sm text-white">Qty</th>
-                  <th class="th-sm text-white">Harga Diskon</th>
-                  <th class="th-sm text-white">Status Pemesanan</th>
+                    <th class="th-sm text-white">No</th>
+                    <th class="th-sm text-white">Restaurant Name</th>
+                    <th class="th-sm text-white">Total Quantity</th>
+                    <th class="th-sm text-white">Total Price</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($groupedItems as $groupKey => $grouped)
-                    @php
-                        list($nama, $category) = explode('|', $groupKey);
-                        $totalQty = 0; // Inisialisasi total kuantitas
-                        $totalHarga = 0; // Inisialisasi total harga diskon
-                
-                        // Loop untuk menghitung total kuantitas dan total harga diskon
-                        foreach ($grouped as $item) {
-                            $totalQty += $item->qty;
-                            $totalHarga += $item->harga_diskon;
-                        }
-                    @endphp
+                @foreach ($order_details as $detail)
                     <tr>
                         <td class="table-head text-white">{{ $loop->iteration }}</td>
-                        <td class="table-head text-white">{{ $nama }}</td>
-                        <td class="table-head text-white">{{ $category }}</td>
-                        <td class="table-head text-white">{{ $totalQty }}</td>
-                        <td class="table-head text-white">{{ $totalHarga }}</td>
-                        <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran }}</td>
+                        <td class="table-head text-white">{{ $detail->restaurant_name }}</td>
+                        <td class="table-head text-white">{{ $detail->total_qty }}</td>
+                        <td class="table-head text-white">{{ $detail->total_price }}</td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
     </div>
