@@ -124,12 +124,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($order_details as $detail)
+                @foreach ($dishNames as $index => $dishName)
                     <tr>
-                        <td class="table-head text-white">{{ $loop->iteration }}</td>
-                        <td class="table-head text-white">{{ $detail->restaurant_name }}</td>
-                        <td class="table-head text-white">{{ $detail->total_qty }}</td>
-                        <td class="table-head text-white">{{ $detail->total_price }}</td>
+                        <td class="table-head text-white">{{ $index + 1 }}</td>
+                        <td class="table-head text-white">{{ $dishName }}</td>
+                        <td class="table-head text-white">{{ $dishQuantities[$index] }}</td>
+                        <td class="table-head text-white">{{ $totalHarga }}</td>
                     </tr>
                 @endforeach
             </tbody>
