@@ -332,7 +332,10 @@ class ReportAnalyticController extends Controller
         $dishQuantities = $topDishes->pluck('total_qty')->toArray();
         
         // Calculate totals
-        $harga_diskon = $orderDetails->sum('harga_diskon');
+        $harga_diskon_total = $orderDetails->reduce(function ($carry, $item) {
+            return $carry + ($item->harga_diskon * $item->qty);
+        }, 0);
+    
         $qty = $orderDetails->sum('qty');
         
         $data = [
@@ -340,7 +343,7 @@ class ReportAnalyticController extends Controller
             'dishQuantities' => $dishQuantities,
             'order_details' => $orderDetails,
             'groupedItems' => $groupedItems,
-            'harga_diskon' => $harga_diskon,
+            'harga_diskon' => $harga_diskon_total,
             'qty' => $qty
         ];
         
