@@ -431,7 +431,7 @@ class ReportAnalyticController extends Controller
     public function create(Request $request)
     {
         $data['page_title'] = 'Report Penjualan';
-        $data['account_users']
+        // $data['account_users']
 
         $type = $request->has('type') ? $request->type : 'day';
         $user = $request->has('user_id') ? $request->user_id : 'All';
