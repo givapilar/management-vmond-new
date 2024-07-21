@@ -161,15 +161,21 @@
             </thead>
             <tbody>
                 @foreach ($dishNames as $index => $dishName)
+                    @php
+                        // Menggabungkan nama restoran dan kategori
+                        $groupKey = $dishName . '|Makanan'; // Atau sesuaikan dengan kategori yang sesuai
+                        $totalHarga = isset($totalHargaDiskon[$groupKey]) ? $totalHargaDiskon[$groupKey] : 0;
+                    @endphp
                     <tr>
                         <td class="table-head text-white">{{ $index + 1 }}</td>
                         <td class="table-head text-white">{{ $dishName }}</td>
                         <td class="table-head text-white">{{ $dishQuantities[$index] }}</td>
-                        <td class="table-head text-white">{{ $totalHargaDiskon[$dishName . '|' . $category] }}</td>
+                        <td class="table-head text-white">{{ $totalHarga }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        
     </div>
 
 </div>
