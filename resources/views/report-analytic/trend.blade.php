@@ -117,25 +117,24 @@
         <table id="tableDetail" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                  <th class="th-sm text-white">No</th>
-                  <th class="th-sm text-white">Nama Menu Restaurant</th>
-                  <th class="th-sm text-white">Category</th>
-                  <th class="th-sm text-white">Qty</th>
-                  <th class="th-sm text-white">Harga Diskon</th>
-                  <th class="th-sm text-white">Status Pemesanan</th>
+                    <th class="th-sm text-white">No</th>
+                    <th class="th-sm text-white">Nama Menu Restaurant</th>
+                    <th class="th-sm text-white">Category</th>
+                    <th class="th-sm text-white">Qty</th>
+                    <th class="th-sm text-white">Harga Diskon</th>
+                    <th class="th-sm text-white">Status Pemesanan</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($groupedItems as $groupKey => $grouped)
                     @php
                         list($nama, $category) = explode('|', $groupKey);
-                        $totalQty = 0; // Inisialisasi total kuantitas
-                        $totalHarga = 0; // Inisialisasi total harga diskon
-                
-                        // Loop untuk menghitung total kuantitas dan total harga diskon
+                        $totalQty = 0;
+                        $totalHarga = 0;
+    
                         foreach ($grouped as $item) {
                             $totalQty += $item->qty;
-                            $totalHarga += $item->harga_diskon;
+                            $totalHarga += $item->harga_diskon * $item->qty; // Correct calculation
                         }
                     @endphp
                     <tr>
@@ -147,11 +146,9 @@
                         <td class="table-head text-white">{{ $grouped->first()->order->status_pembayaran }}</td>
                     </tr>
                 @endforeach
-
             </tbody>
         </table>
     </div>
-
 </div>
 @endsection
 

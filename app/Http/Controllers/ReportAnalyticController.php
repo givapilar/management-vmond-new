@@ -257,96 +257,130 @@ class ReportAnalyticController extends Controller
 
     }
 
-    public function create(Request $request) {
+    public function create(Request $request){
         $type = $request->input('type', 'day');
         $resto = $request->input('restaurant_id', 'All');
         $category = $request->has('category') ? $request->category : null;
-        $statusPembayaran = 'Paid';
     
-        // Base query
-        $orderDetailsQuery = OrderPivot::with('order')
-            ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
-            ->where('orders.status_pembayaran', $statusPembayaran);
-        
-        // Apply date filters
+        $query = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+            ->whereHas('order', function ($query) {
+                $query->where('status_pembayaran', 'Paid');
+            });
+    
         if ($type === 'day') {
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
-            $orderDetailsQuery->whereDate('order_pivots.created_at', $date);
+            if ($resto == 'All') {
+                $orderDetails = OrderPivot::whereDate('created_at', $date)
+                    ->whereHas('order', function ($query) {
+                        $query->where('status_pembayaran', 'Paid');
+                    })
+                    ->when($category, function ($query) use ($category) {
+                        return $query->where('category', $category);
+                    })
+                    ->orderBy('id', 'asc')
+                    ->get();
+    
+                $groupedItems = $orderDetails->groupBy(function ($item) {
+                    return $item->restaurant->nama . '|' . $item->category;
+                });
+    
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
+    
+            } else {
+                $orderDetails = OrderPivot::whereDate('created_at', $date)
+                            ->where('restaurant_id', $request->restaurant_id)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->orderBy('id', 'asc')
+                            ->get();
+    
+                $groupedItems = $orderDetails->groupBy(function ($item) {
+                    return $item->restaurant->nama . '|' . $item->category;
+                });
+    
+                $topDishes = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
+                            ->whereDate('created_at', $date)
+                            ->whereHas('order', function ($query) {
+                                $query->where('status_pembayaran', 'Paid');
+                            })
+                            ->groupBy('restaurant_id')
+                            ->orderByDesc('total_qty')
+                            ->limit(10)
+                            ->get();
+                }
+            
         } elseif ($type === 'monthly') {
             $month = $request->has('month') ? date('m', strtotime($request->month)) : date('m');
-            $orderDetailsQuery->whereMonth('order_pivots.created_at', $month);
+            $statusPembayaran = 'Paid';
+    
+            $topDishes = $query->whereMonth('created_at', $month)
+                ->groupBy('order_pivots.restaurant_id')
+                ->orderByDesc('total_qty')
+                ->limit(10)
+                ->get();
+    
+            $orderDetails = OrderPivot::with('order')
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->whereMonth('order_pivots.created_at', $month)
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->orderBy('order_pivots.id', 'asc')
+                ->get();
+    
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
+            });
+    
         } elseif ($type === 'yearly') {
             $year = $request->has('year') ? $request->year : date('Y');
-            $orderDetailsQuery->whereYear('order_pivots.created_at', $year);
-        }
+            $statusPembayaran = 'Paid';
         
-        // Apply additional filters
-        if ($resto !== 'All') {
-            $orderDetailsQuery->where('order_pivots.restaurant_id', $resto);
-        }
-        
-        if ($category) {
-            $orderDetailsQuery->where('order_pivots.category', $category);
-        }
-        
-        // Get order details
-        $orderDetails = $orderDetailsQuery->orderBy('order_pivots.id', 'asc')->get();
-        
-        // Group and sum
-        $groupedItems = $orderDetails->groupBy(function ($item) {
-            return $item->restaurant->nama . '|' . $item->category;
-        });
+            $baseOrderQuery = Order::where('status_pembayaran', $statusPembayaran);
+            $topDishes = $query->whereYear('created_at', $year)
+                ->groupBy('order_pivots.restaurant_id')
+                ->orderByDesc('total_qty')
+                ->limit(10)
+                ->get();
     
-        // Top dishes query
-        $topDishesQuery = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
-            ->whereHas('order', function ($query) use ($statusPembayaran) {
-                $query->where('status_pembayaran', $statusPembayaran);
+            $orderDetails = OrderPivot::with('order')
+                ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
+                ->whereYear('order_pivots.created_at', $year)
+                ->where('orders.status_pembayaran', $statusPembayaran)
+                ->orderBy('order_pivots.id', 'asc')
+                ->get();
+    
+            $groupedItems = $orderDetails->groupBy(function ($item) {
+                return $item->restaurant->nama . '|' . $item->category;
             });
-        
-        if ($type === 'day') {
-            $topDishesQuery->whereDate('created_at', $date);
-        } elseif ($type === 'monthly') {
-            $topDishesQuery->whereMonth('created_at', $month);
-        } elseif ($type === 'yearly') {
-            $topDishesQuery->whereYear('created_at', $year);
+    
         }
-        
-        if ($resto !== 'All') {
-            $topDishesQuery->where('restaurant_id', $resto);
+    
+        $harga_diskon = 0;
+        $qty = 0;
+        foreach ($orderDetails as $key => $value) {
+            $harga_diskon = $value->harga_diskon;
+            $qty = $value->qty; 
         }
-        
-        if ($category) {
-            $topDishesQuery->where('category', $category);
-        }
-        
-        $topDishes = $topDishesQuery->groupBy('restaurant_id')
-            ->orderByDesc('total_qty')
-            ->limit(10)
-            ->get();
-        
-        // Eager load the restaurant relation for top dishes
         $topDishes->load('restaurant');
-        
-        // Collect dish names and quantities
+    
         $dishNames = $topDishes->pluck('restaurant.nama')->toArray();
         $dishQuantities = $topDishes->pluck('total_qty')->toArray();
-        
-        // Calculate totals
-        $harga_diskon_total = $orderDetails->reduce(function ($carry, $item) {
-            return $carry + ($item->harga_diskon * $item->qty);
-        }, 0);
     
-        $qty = $orderDetails->sum('qty');
-        
-        $data = [
-            'dishNames' => $dishNames,
-            'dishQuantities' => $dishQuantities,
-            'order_details' => $orderDetails,
-            'groupedItems' => $groupedItems,
-            'harga_diskon' => $harga_diskon_total,
-            'qty' => $qty
-        ];
-        
+        $data['dishNames'] = $dishNames;
+        $data['dishQuantities'] = $dishQuantities;
+        $data['order_details'] = $orderDetails;
+        $data['groupedItems'] = $groupedItems;
+        $data['harga_diskon'] = $harga_diskon;
+        $data['qty'] = $qty;
+    
         return view('report-analytic.trend', $data);
     }
 }
