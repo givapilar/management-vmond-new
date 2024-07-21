@@ -262,7 +262,7 @@ class ReportAnalyticController extends Controller
         $resto = $request->input('restaurant_id', 'All');
         $category = $request->has('category') ? $request->category : null;
         $statusPembayaran = 'Paid';
-        
+    
         // Base query
         $orderDetailsQuery = OrderPivot::with('order')
             ->join('orders', 'order_pivots.order_id', '=', 'orders.id')
@@ -292,14 +292,11 @@ class ReportAnalyticController extends Controller
         // Get order details
         $orderDetails = $orderDetailsQuery->orderBy('order_pivots.id', 'asc')->get();
         
-        // Debugging: Check the result
-        // dd($orderDetails->toArray());
-        
         // Group and sum
         $groupedItems = $orderDetails->groupBy(function ($item) {
             return $item->restaurant->nama . '|' . $item->category;
         });
-        
+    
         // Top dishes query
         $topDishesQuery = OrderPivot::selectRaw('restaurant_id, SUM(qty) as total_qty')
             ->whereHas('order', function ($query) use ($statusPembayaran) {
@@ -349,5 +346,6 @@ class ReportAnalyticController extends Controller
         
         return view('report-analytic.trend', $data);
     }
+    
     
 }
