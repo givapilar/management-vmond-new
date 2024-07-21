@@ -434,7 +434,7 @@ class ReportAnalyticController extends Controller
 
         $type = $request->has('type') ? $request->type : 'day';
         $user = $request->has('user_id') ? $request->user_id : 'All';
-        
+
         if ($type == 'day') {
             $date = $request->has('start_date') ? $request->start_date : date('Y-m-d');
             if ($user == 'All') {
@@ -444,6 +444,7 @@ class ReportAnalyticController extends Controller
                             ->get();
             } else {
                 $order = Order::whereDate('created_at', $date)
+                            ->where('user_id', $request->user_id)
                             ->where('status_pembayaran', 'Paid')
                             ->orderBy('id', 'asc')
                             ->get();
@@ -455,42 +456,44 @@ class ReportAnalyticController extends Controller
                             return $q->where('user_id', $request->user_id);
                         })
                         ->where('status_pembayaran', 'Paid')
-                    ->orderBy('id', 'asc')
-                    ->get();
-    } elseif ($type == 'yearly') {
-        $year = $request->has('year') ? $request->year : date('Y');
-        $order = Order::whereYear('created_at', $year)
-                    ->when($request->user_id, function ($q) use ($request) {
-                        return $q->where('user_id', $request->user_id);
-                    })
-                    ->where('status_pembayaran', 'Paid')
-                    ->orderBy('id', 'asc')
-                    ->get();
+                        ->orderBy('id', 'asc')
+                        ->get();
+        } elseif ($type == 'yearly') {
+            $year = $request->has('year') ? $request->year : date('Y');
+            $order = Order::whereYear('created_at', $year)
+                        ->when($request->user_id, function ($q) use ($request) {
+                            return $q->where('user_id', $request->user_id);
+                        })
+                        ->where('status_pembayaran', 'Paid')
+                        ->orderBy('id', 'asc')
+                        ->get();
+        }
+
+        $totalPriceSum = $order->sum('total_price');
+        $pb01 = $order->sum('pb01');
+        $service = $order->sum('service');
+        $packing = $order->sum('packing');
+
+        $harga_diskon = 0;
+        $qty = 0;
+        $hasil = 0;
+
+        // Aggregating data from OrderPivot table and joining with Restaurant table
+        $orderIds = $order->pluck('id');
+        $orderDetails = OrderPivot::whereIn('order_id', $orderIds)
+                                    ->join('restaurants', 'order_pivots.restaurant_id', '=', 'restaurants.id')
+                                    ->select('restaurants.name as restaurant_name', DB::raw('SUM(order_pivots.qty) as total_qty'), DB::raw('SUM(order_pivots.price) as total_price'))
+                                    ->groupBy('restaurants.name')
+                                    ->get();
+
+        $data['total_price'] = $totalPriceSum;
+        $data['total_qty'] = $qty;
+        $data['harga_diskon'] = $harga_diskon;
+        $data['orders'] = $order;
+        $data['order_details'] = $orderDetails; // Passing aggregated data to the view
+
+        return view('report.penjualan', $data);
     }
 
-    $totalPriceSum = $order->sum('total_price');
-    $pb01 = $order->sum('pb01');
-    $service = $order->sum('service');
-    $packing = $order->sum('packing');
-
-    $harga_diskon = 0;
-    $qty = 0;
-    $hasil = 0;
-
-    // Aggregating data from OrderPivot table
-    $orderIds = $order->pluck('id');
-    $orderDetails = OrderPivot::whereIn('order_id', $orderIds)
-                                ->select('food_item', DB::raw('SUM(qty) as total_qty'), DB::raw('SUM(price) as total_price'))
-                                ->groupBy('food_item')
-                                ->get();
-
-    $data['total_price'] = $totalPriceSum;
-    $data['total_qty'] = $qty;
-    $data['harga_diskon'] = $harga_diskon;
-    $data['orders'] = $order;
-    $data['order_details'] = $orderDetails; // Passing aggregated data to the view
-
-    return view('report.penjualan', $data);
-}
 
 }
