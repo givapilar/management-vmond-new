@@ -239,7 +239,7 @@
                 @if ($orders->code == 'Close')
                 <tr>
                     <td class="quantity">{{ $orders->qty ?? 0 }}</td>
-                    <td class="description">{{ $orders->category ?? '' }}</td>
+                    <td class="description">{{ $orders->category ?? '' }} Billiard</td>
                     <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price ?? 0,0) }}</td>
                 </tr>
                 @else
