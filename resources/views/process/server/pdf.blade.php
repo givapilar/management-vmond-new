@@ -236,13 +236,18 @@
             @endphp
 
             @if ($orders->biliard_id)
-                {{-- @foreach ($orders->orderBilliard as $order_billiard) --}}
+                @if ($orders->code == 'Close')
+                <tr>
+                    <td class="quantity">{{ $orders->qty ?? 0 }}</td>
+                    <td class="description">{{ $orders->category ?? '' }}</td>
+                    <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price ?? 0,0) }}</td>
+                </tr>
+                @endif
                 <tr>
                     <td class="quantity">{{ $firstOrderBilliard->qty ?? 0 }}</td>
                     <td class="description">{{ $firstOrderBilliard->paketMenu->nama_paket ?? '' }}</td>
                     <td class="price" style="text-align: right">Rp.{{ number_format($firstOrderBilliard->paketMenu->harga ?? 0,0) }}</td>
                 </tr>
-                {{-- @endforeach    --}}
             @else
                 @foreach ($orders->orderPivot as $orderPivot)
                     <tr>
