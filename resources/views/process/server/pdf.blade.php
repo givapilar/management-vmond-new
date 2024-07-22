@@ -242,12 +242,13 @@
                     <td class="description">{{ $orders->category ?? '' }}</td>
                     <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price ?? 0,0) }}</td>
                 </tr>
-                @endif
+                @else
                 <tr>
                     <td class="quantity">{{ $firstOrderBilliard->qty ?? 0 }}</td>
                     <td class="description">{{ $firstOrderBilliard->paketMenu->nama_paket ?? '' }}</td>
                     <td class="price" style="text-align: right">Rp.{{ number_format($firstOrderBilliard->paketMenu->harga ?? 0,0) }}</td>
                 </tr>
+                @endif
             @else
                 @foreach ($orders->orderPivot as $orderPivot)
                     <tr>
@@ -338,23 +339,13 @@
                 @elseif($orders->biliard_id)
 
                 {{-- order Billiard --}}
-                <tr>
-                    <td class="quantity">&nbsp;</td>
-                    <td class="description">Total</td>
-                    <td class="price" style="text-align: right">Rp.{{ number_format($firstOrderBilliard->paketMenu->harga ?? 0,0) }}</td>
-                </tr>
-
+                @if ($orders->code == 'Close')
                 <tr>
                     <td class="quantity"></td>
                     <td class="description">Layanan</td>
 
                     <td class="price" style="text-align: right">
-                        @if ($firstOrderBilliard)
-                            @php
-                                $totalPrice = $firstOrderBilliard->paketMenu->harga * ($other_setting->layanan / 100);
-                            @endphp
-                            Rp.{{ number_format($totalPrice, 0) }}
-                        @endif
+                        Rp.{{ number_format($orders->service, 0) }}
                     </td>
                 </tr>
 
@@ -362,12 +353,7 @@
                     <td class="quantity"></td>
                     <td class="description">PB01</td>
                     <td class="price" style="text-align: right">
-                        @if ($firstOrderBilliard)
-                            @php
-                                $totalPrice = ($firstOrderBilliard->paketMenu->harga + ($firstOrderBilliard->paketMenu->harga * $other_setting->layanan / 100)) * $other_setting->pb01 / 100;
-                            @endphp
-                            Rp.{{ number_format($totalPrice, 0) }}
-                        @endif
+                        Rp.{{ number_format($orders->pb01, 0) }}
                     </td>
                 </tr>
                 <tr>
@@ -376,6 +362,47 @@
                     {{-- Order Billiard --}}
                     <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price,0) }}</td>
                 </tr>
+                @else
+                    <tr>
+                        <td class="quantity">&nbsp;</td>
+                        <td class="description">Total</td>
+                        <td class="price" style="text-align: right">Rp.{{ number_format($firstOrderBilliard->paketMenu->harga ?? 0,0) }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="quantity"></td>
+                        <td class="description">Layanan</td>
+
+                        <td class="price" style="text-align: right">
+                            @if ($firstOrderBilliard)
+                                @php
+                                    $totalPrice = $firstOrderBilliard->paketMenu->harga * ($other_setting->layanan / 100);
+                                @endphp
+                                Rp.{{ number_format($totalPrice, 0) }}
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr style="margin-top: 20px !important;">
+                        <td class="quantity"></td>
+                        <td class="description">PB01</td>
+                        <td class="price" style="text-align: right">
+                            @if ($firstOrderBilliard)
+                                @php
+                                    $totalPrice = ($firstOrderBilliard->paketMenu->harga + ($firstOrderBilliard->paketMenu->harga * $other_setting->layanan / 100)) * $other_setting->pb01 / 100;
+                                @endphp
+                                Rp.{{ number_format($totalPrice, 0) }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="quantity"></td>
+                        <td class="description">Order Total</td>
+                        {{-- Order Billiard --}}
+                        <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price,0) }}</td>
+                    </tr>
+                @endif
+
                 @endif
             </tbody>
         </table>
