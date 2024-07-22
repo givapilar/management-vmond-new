@@ -240,7 +240,7 @@
                 <tr>
                     <td class="quantity">{{ $orders->qty ?? 0 }}</td>
                     <td class="description">{{ $orders->category ?? '' }} Billiard</td>
-                    <td class="price" style="text-align: right">Rp.{{ number_format(($orders->layanan + $orders->pb01)?? 0,0) }}</td>
+                    <td class="price" style="text-align: right">Rp.{{ number_format($orders->total_price - ($orders->service + $orders->pb01)?? 0,0) }}</td>
                 </tr>
                 @else
                 <tr>
